@@ -1,0 +1,120 @@
+﻿<!--_meta 作为公共模版分离出去-->
+<!DOCTYPE HTML>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="renderer" content="webkit|ie-comp|ie-stand">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no" />
+    <meta http-equiv="Cache-Control" content="no-siteapp" />
+
+    <title>用户管理 -机构管理-新增机构</title>
+    <link rel="stylesheet" type="text/css" href="/css/common.css" />
+    <link rel="stylesheet" type="text/css" href="/css/admin.css" />
+    <link rel="stylesheet" type="text/css" href="/css/iconfont/iconfont.css" />
+  
+</head>
+<body>
+    <article class="page-container">
+        <form class="form form-horizontal" id="form-article-add">
+            <div class="row cl">
+                <label class="form-label col-xs-4 col-sm-2"><span class="c-red">*</span>机构名称：</label>
+                <div class="formControls col-xs-8 col-sm-9">
+                    <input type="text" class="input-text" value="" placeholder="" id="articletitle" name="articletitle">
+                </div>
+            </div>
+            
+            <div class="row cl">
+                <label class="form-label col-xs-4 col-sm-2">父机构：</label>
+                <div class="formControls col-xs-8 col-sm-9">
+                    <span class="select-box">
+                        <select name="articlecolumn" class="select">
+                            <option value="0">请选择父机构</option>
+                            <option value="1">父机构</option>
+                            <option value="11">├父机构1</option>
+                            <option value="12">├父机构2</option>
+                            <option value="13">├父机构3</option>
+                        </select>
+                    </span>
+                </div>
+            </div>
+           
+            <div class="row cl">
+                <label class="form-label col-xs-4 col-sm-2">机构地址：</label>
+                <div class="formControls col-xs-8 col-sm-9">
+                    <input type="text" class="input-text" value="" placeholder="" id="articletitle1" name="articletitle1">
+                </div>
+            </div>
+            <div class="row cl">
+                <label class="form-label col-xs-4 col-sm-2">备注：</label>
+                <div class="formControls col-xs-8 col-sm-9">
+                    <textarea name="abstract" cols="" rows="" class="textarea" placeholder="说点什么...最少输入10个字符" datatype="*10-100" dragonfly="true" nullmsg="备注不能为空！" ></textarea>
+                    <p class="textarea-numberbar"><em class="textarea-length">0</em>/200</p>
+                </div>
+            </div>
+            
+            <div class="row cl">
+                <label class="form-label col-xs-4 col-sm-2">是否是最高级别：</label>
+                <div class="formControls col-xs-8 col-sm-9 skin-minimal">
+                    <div class="check-box">
+                        <input type="checkbox" id="allowcomments" name="allowcomments" value="">
+                        <label for="checkbox-pinglun">&nbsp;是</label>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="row cl">
+                <div class="col-xs-8 col-sm-9 col-xs-offset-4 col-sm-offset-2">
+                    <button class="btn btn-primary radius" type="submit"><i class="Hui-iconfont">&#xe632;</i> 提&nbsp;&nbsp;交</button>
+                    <button onClick="removeIframe();" class="btn btn-default radius ml-30" type="button">&nbsp;&nbsp;取&nbsp;&nbsp;消&nbsp;&nbsp;</button>
+                </div>
+            </div>
+        </form>
+    </article>
+
+    <!--_footer 作为公共模版分离出去-->
+    <script type="text/javascript" src="/js/jquery.min.js"></script>
+    <script type="text/javascript" src="/lib/layer/2.4/layer.js"></script>
+    <script type="text/javascript" src="/js/common.js"></script>
+    <script type="text/javascript" src="/js/admin.js"></script>
+    <!--请在下方写此页面业务相关的脚本-->
+    
+    <script type="text/javascript" src="/lib/jquery.validation/1.14.0/jquery.validate.js"></script>
+    <script type="text/javascript" src="/lib/jquery.validation/1.14.0/validate-methods.js"></script>
+    <script type="text/javascript" src="/lib/jquery.validation/1.14.0/messages_zh.js"></script>
+    <script type="text/javascript">
+        $(function () {
+           
+            //表单验证
+            $("#form-article-add").validate({
+                rules: {
+                    articletitle: {
+                        required: true,
+                    },
+
+                    articlecolumn: {
+                        required: true,
+                    },
+                    articletitle1: {
+                        required: true,
+                    },
+                    abstract: {
+                        required: true,
+                    },
+                },
+                onkeyup: false,
+                focusCleanup: true,
+                success: "valid",
+                submitHandler: function (form) {
+                    //$(form).ajaxSubmit();
+                    var index = parent.layer.getFrameIndex(window.name);
+                    //parent.$('.btn-refresh').click();
+                    parent.layer.close(index);
+                }
+            });
+        });
+
+    </script>
+    <!--/请在上方写此页面业务相关的脚本-->
+</body>
+</html>

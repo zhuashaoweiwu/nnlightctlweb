@@ -977,9 +977,9 @@ table th{text-align:left; font-weight:400}
 /*datatable*/
 table.dataTable {border-collapse: separate;border-spacing: 0;clear: both}
 table.dataTable thead .sorting_asc, table.dataTable thead .sorting_desc, table.dataTable thead .sorting {cursor: pointer; background-repeat:no-repeat;background-position:right center}
-table.dataTable thead .sorting{background-image:url(../images/dataTable/sort_both.png)}
-table.dataTable thead .sorting_asc {background-image:url(../images/dataTable/sort_asc.png)}
-table.dataTable thead .sorting_desc {background-image:url(../images/dataTable/sort_desc.png)}
+table.dataTable thead .sorting{background-image:url(../bg/sort_both.png)}
+table.dataTable thead .sorting_asc {background-image:url(../bg/sort_asc.png)}
+table.dataTable thead .sorting_desc {background-image:url(../bg/sort_desc.png)}
 .dataTable td.sorting_1 {background-color: #f5fafe}
 .dataTables_wrapper .dataTables_length {float: left;padding-bottom:20px}
 .dataTables_wrapper .dataTables_length .select{ width:50px}
@@ -1179,7 +1179,7 @@ input[type="radio"],input[type="checkbox"] {line-height: normal; margin-top:-4px
 	background-size: 200px 20px}
 }
 /* blue */
-.icheckbox-blue,.iradio-blue{display: block;margin: 0;padding: 0;width: 18px;height: 18px;background: url(../images/iCheck/blue.png) no-repeat;border: none;cursor: pointer}
+.icheckbox-blue,.iradio-blue{display: block;margin: 0;padding: 0;width: 18px;height: 18px;background: url(../bg/blue.png) no-repeat;border: none;cursor: pointer}
 .icheckbox-blue,.icheckbox-blue.static:hover{background-position: 0 0}
 .icheckbox-blue.hover,.icheckbox-blue:hover{background-position: -20px 0}
 .icheckbox-blue.checked{background-position: -40px 0}
@@ -1192,12 +1192,12 @@ input[type="radio"],input[type="checkbox"] {line-height: normal; margin-top:-4px
 .iradio-blue.checked.disabled{background-position: -180px 0}
 
 /* Retina support */
-@media only screen and (-webkit-min-device-pixel-ratio: 1.5),  only screen and (-moz-min-device-pixel-ratio: 1.5),  only screen and (-o-min-device-pixel-ratio: 1.5),  only screen and (min-device-pixel-ratio: 1.5){.icheckbox-blue,.iradio-blue{background-image: url(../images/iCheck/blue@2x.png);
+@media only screen and (-webkit-min-device-pixel-ratio: 1.5),  only screen and (-moz-min-device-pixel-ratio: 1.5),  only screen and (-o-min-device-pixel-ratio: 1.5),  only screen and (min-device-pixel-ratio: 1.5){.icheckbox-blue,.iradio-blue{background-image: url(../bg/blue@2x.png);
 	-webkit-background-size: 200px 20px;
 	background-size: 200px 20px}
 }
 /* aero */
-.icheckbox-aero,.iradio-aero{display: block;margin: 0;padding: 0;width: 18px;height: 18px;background: url(../images/iCheck/aero.png) no-repeat;border: none;cursor: pointer}
+.icheckbox-aero,.iradio-aero{display: block;margin: 0;padding: 0;width: 18px;height: 18px;background: url(../bg/blue.png) no-repeat;border: none;cursor: pointer}
 .icheckbox-aero,.icheckbox-aero.static:hover{background-position: 0 0}
 .icheckbox-aero.hover,.icheckbox-aero:hover{background-position: -20px 0}
 .icheckbox-aero.checked{background-position: -40px 0}

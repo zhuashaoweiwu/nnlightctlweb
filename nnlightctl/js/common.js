@@ -26,10 +26,6 @@ function stopDefault(e) {
 
 /* =======================================================================
  * jQuery.cookie.js v1.4.1
- * https://github.com/carhartl/jQuery-cookie
- *
- * Copyright 2006, 2014 Klaus Hartl
- * Released under the MIT license
  * ======================================================================== */
 !(function(factory) {
 	if (typeof define === 'function' && define.amd) {
@@ -125,11 +121,6 @@ function stopDefault(e) {
 /* =======================================================================
  * jQuery.form.js Plugin v3.51.0 2014.06.20
  * Requires jQuery v1.5 or later
- * Copyright (c) 2014 M. Alsup
- * Examples and documentation at: http://malsup.com/jquery/form/
- * Project repository: https://github.com/malsup/form
- * Dual licensed under the MIT and GPL licenses.
- * https://github.com/malsup/form#copyright-and-license
  * ======================================================================== */
 // AMD support
 (function(factory) {
@@ -1431,9 +1422,6 @@ function stopDefault(e) {
 /* =======================================================================
  * jQuery.lazyload v1.9.3
  * Lazy Load - jQuery plugin for lazy loading images
- * Copyright (c) 2007-2013 Mika Tuupola
- * Licensed under the MIT license: http://www.opensource.org/licenses/mit-license.php
- * Project home: http://www.appelsiini.net/projects/lazyload
  * ======================================================================== */
 ! (function($, window, document, undefined) {
 	var $window = $(window);
@@ -2710,13 +2698,6 @@ function stopDefault(e) {
 
 /* =======================================================================
  * jQuery.Huispinner.js v2.1.2 微调器
- * http://www.h-ui.net/
- * Created & Modified by guojunhui
- * Date modified 2017.06.26
- *
- * Copyright 2017 北京颖杰联创科技有限公司 All rights reserved.
- * Licensed under MIT license.
- * http://opensource.org/licenses/MIT
  * ========================================================================*/
 !function($) {	
 	$.fn.Huispinner = function(options, callback) {
@@ -4270,13 +4251,6 @@ function displaynavbar(obj){
 
 /* =======================================================================
  * jQuery.Huihover.js v2.0 Huihover
- * http://www.h-ui.net/
- * Created & Modified by guojunhui
- * Date modified 2017.05.05
- *
- * Copyright 2017 北京颖杰联创科技有限公司 All rights reserved.
- * Licensed under MIT license.
- * http://opensource.org/licenses/MIT
  * ========================================================================*/
 !function($) {
 	$.fn.Huihover = function(options){
@@ -4298,13 +4272,6 @@ function displaynavbar(obj){
 
 /* =======================================================================
  * jQuery.Huifocusblur.js v2.0 得到失去焦点
- * http://www.h-ui.net/
- * Created & Modified by guojunhui
- * Date modified 2017.05.09
- *
- * Copyright 2017 北京颖杰联创科技有限公司 All rights reserved.
- * Licensed under MIT license.
- * http://opensource.org/licenses/MIT
  * ========================================================================*/
 !function($) {
 	$.fn.Huifocusblur = function(options){
@@ -4349,13 +4316,6 @@ function displaynavbar(obj){
 
 /* =======================================================================
  * jQuery.Huitab.js v2.0 选项卡
- * http://www.h-ui.net/
- * Created & Modified by guojunhui
- * Date modified 2017.05.05
- *
- * Copyright 2017 北京颖杰联创科技有限公司 All rights reserved.
- * Licensed under MIT license.
- * http://opensource.org/licenses/MIT
  * ========================================================================*/
 !function($) {
 	$.fn.Huitab = function(options){
@@ -4387,13 +4347,6 @@ function displaynavbar(obj){
 
 /* =======================================================================
  * jQuery.Huifold.js v2.0 折叠
- * http://www.h-ui.net/
- * Created & Modified by guojunhui
- * Date modified 2017.05.05
- *
- * Copyright 2017 北京颖杰联创科技有限公司 All rights reserved.
- * Licensed under MIT license.
- * http://opensource.org/licenses/MIT
  * ========================================================================*/
 !function($) {
 	$.fn.Huifold = function(options){
@@ -4444,13 +4397,7 @@ function displaynavbar(obj){
 
 /* =======================================================================
  * jQuery.Huitags.js v2.0 标签
- * http://www.h-ui.net/
- * Created & Modified by guojunhui
- * Date modified 2017.05.10
- *
- * Copyright 2017 北京颖杰联创科技有限公司 All rights reserved.
- * Licensed under MIT license.
- * http://opensource.org/licenses/MIT
+
  * ========================================================================*/
 !function($) {
 	$.fn.Huitags = function(options) {
@@ -4613,13 +4560,6 @@ function displaynavbar(obj){
 
 /* =======================================================================
  * jQuery.Huitextarealength.js v2.0 字数限制
- * http://www.h-ui.net/
- * Created & Modified by guojunhui
- * Date modified 2017.05.12
- *
- * Copyright 2017 北京颖杰联创科技有限公司 All rights reserved.
- * Licensed under MIT license.
- * http://opensource.org/licenses/MIT
  * ========================================================================*/
 !function($) {
 	$.fn.Huitextarealength = function(options){
@@ -4663,13 +4603,6 @@ function displaynavbar(obj){
 
 /* =======================================================================
  * jQuery.Huipreview.js v2.0 图片预览
- * http://www.h-ui.net/
- * Created & Modified by guojunhui
- * Date modified 2017.05.05
- *
- * Copyright 2017 北京颖杰联创科技有限公司 All rights reserved.
- * Licensed under MIT license.
- * http://opensource.org/licenses/MIT
  * ========================================================================*/
 !function($) {
 	$.fn.Huipreview = function(options){
@@ -4777,13 +4710,6 @@ function displaynavbar(obj){
 
 /* =======================================================================
  * jQuery.Huitotop.js v2.0 返回顶部
- * http://www.h-ui.net/
- * Created & Modified by guojunhui
- * Date modified 2017.05.05
- *
- * Copyright 2017 北京颖杰联创科技有限公司 All rights reserved.
- * Licensed under MIT license.
- * http://opensource.org/licenses/MIT
  * ========================================================================*/
 !function($) {
 	//bottom 距离底部高度
