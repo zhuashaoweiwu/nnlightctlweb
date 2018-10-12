@@ -170,6 +170,7 @@
     <Content Include="lib\webuploader\0.1.5\webuploader.withoutimage.min.js" />
     <Content Include="Login.html" />
     <Content Include="Project\Index.html" />
+    <Content Include="Project\Project-add.html" />
     <Content Include="User\Belong.html" />
     <Content Include="User\Department-add.html" />
     <Content Include="User\Department.html" />
