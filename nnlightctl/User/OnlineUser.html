@@ -7,7 +7,7 @@
     <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no" />
     <meta http-equiv="Cache-Control" content="no-siteapp" />
 
-    <title>操作日志</title>
+    <title>用户管理-在线用户</title>
 
     <link rel="stylesheet" type="text/css" href="/css/common.css" />
     <link rel="stylesheet" type="text/css" href="/css/admin.css" />
@@ -15,15 +15,11 @@
 
 </head>
 <body>
-    <nav class="breadcrumb"><i class="Hui-iconfont">&#xe67f;</i> 首页 <span class="c-gray en">&gt;</span> 用户管理 <span class="c-gray en">&gt;</span> 操作日志 <a class="btn btn-success radius r" style="line-height:1.6em;margin-top:3px" href="javascript:location.replace(location.href);" title="刷新"><i class="Hui-iconfont">&#xe68f;</i></a></nav>
+    <nav class="breadcrumb"><i class="Hui-iconfont">&#xe67f;</i> 首页 <span class="c-gray en">&gt;</span> 用户管理 <span class="c-gray en">&gt;</span>在线用户<a class="btn btn-success radius r" style="line-height:1.6em;margin-top:3px" href="javascript:location.replace(location.href);" title="刷新"><i class="Hui-iconfont">&#xe68f;</i></a></nav>
     <div class="pd-20">
         <div class="text-c">
-
-            日期范围：
-            <input type="text" onfocus="WdatePicker({maxDate:'#F{$dp.$D(\'datemax\')||\'%y-%M-%d\'}'})" id="datemin" class="input-text Wdate" style="width:120px;">
-            -
-            <input type="text" onfocus="WdatePicker({minDate:'#F{$dp.$D(\'datemin\')}',maxDate:'%y-%M-%d'})" id="datemax" class="input-text Wdate" style="width:120px;">
-            <input type="text" class="input-text" style="width:250px" placeholder="输入操作日志" id="" name=""><button type="submit" class="btn btn-success" id="" name=""><i class="icon-search"></i> 搜日志</button>
+            
+            <input type="text" class="input-text" style="width:250px" placeholder="输入会员名称" id="" name=""><button type="submit" class="btn btn-success" id="" name=""><i class="icon-search"></i> 搜用户</button>
         </div>
         
         <div class="mt-20">
@@ -31,26 +27,36 @@
                 <thead>
                     <tr class="text-c">
                         <th width="25"><input type="checkbox" name="" value=""></th>
-                        <th width="100">账户</th>
-                        <th width="100">用户</th>
-                        <th>执行操作</th>
-                        <th width="110">操作时间</th>
+                        <th width="80">ID</th>
+                        <th width="100">登录名</th>
+                        <th width="40">性别</th>
+                        <th width="70">职位</th>
+                        <th width="100">机构</th>
+                        <th width="100">部门</th>
+                        <th>用户类型</th>
                     </tr>
                 </thead>
                 <tbody>
                     <tr class="text-c">
                         <td><input type="checkbox" value="1" name=""></td>
+                        <td>1</td>
                         <td>张三</td>
-                        <td>张大帅</td>
-                        <td class="text-l">这是一件很严重的事情，请务必准确回答！</td>
-                        <td>2018-10-15 11:11</td>
+                        <td>男</td>
+                        <td>研发部主管</td>
+                        <td>北京市研发部</td>
+                        <td>研发部</td>
+                        <td>高级用户</td>
+                       
                     </tr>
                     <tr class="text-c">
-                        <td><input type="checkbox" value="2" name=""></td>
-                        <td>张三</td>
-                        <td>张大帅</td>
-                        <td class="text-l">这是一件很严重的事情，请务必准确回答！</td>
-                        <td>2018-10-15 11:11</td>
+                        <td><input type="checkbox" value="1" name=""></td>
+                        <td>2</td>
+                        <td>李四</td>
+                        <td>男</td>
+                        <td>研发部主管</td>
+                        <td>北京市研发部</td>
+                        <td>研发部</td>
+                        <td>高级用户</td>
                     </tr>
                 </tbody>
             </table>
