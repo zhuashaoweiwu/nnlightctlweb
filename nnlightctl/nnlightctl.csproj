@@ -178,6 +178,7 @@
     <Content Include="User\Institution-add.html" />
     <Content Include="User\Institution.html" />
     <Content Include="User\OnlineUser.html" />
+    <Content Include="User\User-add-role.html" />
     <Content Include="User\User-add.html" />
     <Content Include="User\User-password-edit.html" />
     <Content Include="User\UserList.html" />
