@@ -20,46 +20,31 @@
             <div class="row cl">
                 <label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>机构名称：</label>
                 <div class="formControls col-xs-8 col-sm-9">
-                    <input type="text" class="input-text" value="" placeholder="" id="institution" name="institution">
+                    <input type="text" class="input-text" value="" placeholder="" id="institutionName" name="institutionName">
                 </div>
             </div>
             <div class="row cl">
                 <label class="form-label col-xs-4 col-sm-3">所属机构：</label>
                 <div class="formControls col-xs-8 col-sm-9">
                     <span class="select-box" style="width:150px;">
-                        <select class="select" name="PInstitution" size="1">
+                        <select class="select" name="nnlightctlInstitutionIdParent" id="nnlightctlInstitutionIdParent" size="1">
                             <option value="0">请选择机构</option>
-                            <option value="1">机构1</option>
-                            <option value="2">机构2</option>
-                            <option value="3">机构3</option>
                         </select>
                     </span>
                 </div>
             </div>
             
-            <div class="row cl">
-                <label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>是否是最高级别：</label>
-                <div class="formControls col-xs-8 col-sm-9 skin-minimal">
-                    <div class="radio-box">
-                        <input type="radio" id="role-1" name="role" checked>
-                        <label for="sex-1">是</label>
-                    </div>
-                    <div class="radio-box">
-                        <input type="radio" id="role-1" name="role">
-                        <label for="sex-2">否</label>
-                    </div>
-                </div>
-            </div>
+
             <div class="row cl">
                 <label class="form-label col-xs-4 col-sm-3">机构地址：</label>
                 <div class="formControls col-xs-8 col-sm-9">
-                    <input type="text" class="input-text" value="" placeholder="机构" id="adr" name="adr">
+                    <input type="text" class="input-text" value="" placeholder="机构地址" id="addr" name="addr">
                 </div>
             </div>
             <div class="row cl">
                 <label class="form-label col-xs-4 col-sm-3">备注：</label>
                 <div class="formControls col-xs-8 col-sm-9">
-                    <textarea name="" cols="" rows="" class="textarea" placeholder="说点什么...100个字符以内" dragonfly="true"></textarea>
+                    <textarea id="mem" name="mem" cols="" rows="" class="textarea" placeholder="说点什么...100个字符以内" dragonfly="true"></textarea>
                     <p class="textarea-numberbar"><em class="textarea-length">0</em>/100</p>
                 </div>
             </div>
@@ -68,6 +53,12 @@
                     <input class="btn btn-primary radius" type="submit" value="&nbsp;&nbsp;提交&nbsp;&nbsp;">
                 </div>
             </div>
+
+            <!--<div class="row cl">
+                <div class="col-xs-8 col-sm-9 col-xs-offset-4 col-sm-offset-3">
+                    <input class="btn btn-primary radius" id="testButton" type="button" value="&nbsp;&nbsp;测试按扭&nbsp;&nbsp;">
+                </div>
+            </div>-->
         </form>
     </article>
 
@@ -75,7 +66,11 @@
     <script type="text/javascript" src="../js/jquery.min.js"></script>
     <script type="text/javascript" src="../lib/layer/2.4/layer.js"></script>
     <script type="text/javascript" src="../js/common.js"></script>
-    <script type="text/javascript" src="../js/admin.js"></script> <!--/_footer 作为公共模版分离出去-->
+    <script type="text/javascript" src="../js/admin.js"></script>
+
+    <script type="text/javascript" src="../js/api/requestRoot.js"></script>
+    <script type="text/javascript" src="../js/api/ajaxScript.js"></script>
+    <!--/_footer 作为公共模版分离出去-->
     <!--请在下方写此页面业务相关的脚本-->
     <script type="text/javascript" src="../lib/jquery.validation/1.14.0/jquery.validate.js"></script>
     <script type="text/javascript" src="../lib/jquery.validation/1.14.0/validate-methods.js"></script>
@@ -87,42 +82,81 @@
 		    radioClass: 'iradio-blue',
 		    increaseArea: '20%'
 	    });
+
     //数据验证
 	$("#form-admin-add").validate({
 		rules:{
 		    institution: {
 				required:true,
-				minlength:4,
-				maxlength:16
-			},
-		    Pinstitution: {
-				required:true,
-			},
-		    
-		    adr: {
-				required:true,
-				isPhone:true,
+				minlength:1,
+				maxlength:64
 			}
 		},
 		onkeyup:false,
 		focusCleanup:true,
 		success:"valid",
 		submitHandler:function(form){
-			$(form).ajaxSubmit({
-				type: 'post',
-				url: "xxxxxxx" ,
-				success: function(data){
-					layer.msg('添加成功!',{icon:1,time:1000});
-				},
-                error: function(XmlHttpRequest, textStatus, errorThrown){
-					layer.msg('error!',{icon:1,time:1000});
-				}
-			});
+			//ajax上传表单
+            //构造上传数据
+            var param = {};
+            var paramArray = $(form).serializeArray();
+            for (var i = 0; i < paramArray.length; ++i) {
+                var o = paramArray[i];
+                param[o["name"]] = o["value"];
+            }
+
+            ajaxRequest("post", "/api/institution/addOrUpdateInstitution", param, function (data) {
+                if (data) {
+                    console.log(JSON.stringify(data));
+
+                }
+
+                layer.msg('添加机构成功!',{icon:1,time:1000});
+            });
 			var index = parent.layer.getFrameIndex(window.name);
 			parent.$('.btn-refresh').click();
 			parent.layer.close(index);
 		}
 	});
+	
+	//刷新父机构列表
+        function flushInstitution() {
+            ajaxRequest("post", "/api/institution/listInsitution", {}, function (data) {
+                if (data) {
+                    if (data.header.code == 1000) {
+                        var institutionArray = data.body.data;
+                        var $institutionSelect = $("#nnlightctlInstitutionIdParent");
+                        for (var i = 0; i < institutionArray.length; ++i) {
+                            var institution = institutionArray[i];
+                            $('<option value="' + institution.id + '">' + institution.institutionName + '</option>').appendTo($institutionSelect);
+                        }
+                    }
+                }
+            });
+        }
+
+        flushInstitution();
+
+	//测试按扭
+        $("#testButton").click(function (event) {
+            event.preventDefault();
+
+            //ajax上传表单
+            //构造上传数据
+            var param = {"institutionName" : "三亚路灯所"};
+
+
+            ajaxRequest("post", "/api/institution/addOrUpdateInstitution", param, function (data) {
+                if (data) {
+                    console.log(JSON.stringify(data));
+                }
+
+                layer.msg('添加机构成功!',{icon:1,time:1000});
+            });
+            var index = parent.layer.getFrameIndex(window.name);
+            parent.$('.btn-refresh').click();
+            parent.layer.close(index);
+        });
 });
     </script>
     <!--/请在上方写此页面业务相关的脚本-->
