@@ -21,11 +21,10 @@
     <i class="Hui-iconfont">&#xe68f;</i></a>
     </nav>
 <div class="page-container">
-	<div class="text-c">
+	<div class="text-l">
 		机构名称：
         <input type="text" name="searchInstitutionName" id="searchInstitutionName" placeholder="机构名称" style="width:250px" class="input-text">
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-        机构地址：
+        <span class="pl-10">机构地址：</span>
 		<input type="text" name="searchInstitutionAddr" id="searchInstitutionAddr" placeholder="机构地址" style="width:250px" class="input-text">
         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 		<button name="" id="Button1" class="btn btn-success" type="button"><i class="Hui-iconfont">&#xe665;</i> 搜机构</button>
@@ -39,9 +38,9 @@
 			<thead>
 				<tr class="text-c">
 					<th width="25"><input type="checkbox" name="" value=""></th>
-					<th width="100">机构名称</th>
+					<th width="150">机构名称</th>
 					<th width="100">父机构</th>
-					<th width="120">创建时间</th>
+					<th width="130">创建时间</th>
 					<th>备注</th>
 					<th width="120">操作</th>
 				</tr>
@@ -52,7 +51,7 @@
 					<td class="text-l">上海市01</td>
 					<td class="text-l">资讯标题</td>
 					<td>2018-10-11 04:11</td>
-					<td>两个灯泡串联起来，根据串联分压原理，每个灯泡110V电压，每个灯泡虽然暗一些开关控制连接。</td>
+					<td class="text-l">两个灯泡串联起来，根据串联分压原理，每个灯泡110V电压，每个灯泡虽然暗一些开关控制连接。</td>
 					<td class="f-14 td-manage"><a style="text-decoration:none" class="ml-5" onclick="Institution_edit('机构编辑', 'Institution-add.html', '1', '800', '500')" href="javascript:void(0);" title="机构编辑"><i class="Hui-iconfont">&#xe6df;</i></a> <a style="text-decoration:none" class="ml-5" onClick="Institution_del(this, '10001')" href="javascript:;" title="删除"><i class="Hui-iconfont">&#xe6e2;</i></a></td>
 				</tr>
 
@@ -158,10 +157,10 @@
                         var institution = institutionArray[i];
                         $('<tr class="text-c">\n' +
                             '<td><input type="checkbox" value="'+institution.id+'" name=""></td>\n' +
-                            '<td class="text-l">' + institution.institutionName + '</td>\n' +
-                            '<td class="text-l">' + institution.nnlightctlInstitutionIdParent + '</td>\n' +
+                            '<td class="text-c">' + institution.institutionName + '</td>\n' +
+                            '<td class="text-c">' + institution.nnlightctlInstitutionIdParent + '</td>\n' +
                             '<td>' + formatDateTime(institution.createTime) + '</td>\n' +
-                            '<td>' + institution.mem + '</td>\n' +
+                            '<td class="text-l">' + institution.mem + '</td>\n' +
                             '<td class="f-14 td-manage"><a style="text-decoration:none" class="ml-5" onclick="Institution_edit(\'机构编辑\', \'Institution-add.html\', \''+institution.id+'\', \'800\', \'500\')" href="javascript:void(0);" title="机构编辑"><i class="Hui-iconfont">&#xe6df;</i></a> <a style="text-decoration:none" class="ml-5" onClick="Institution_del(this, \'10001\')" href="javascript:;" title="删除"><i class="Hui-iconfont">&#xe6e2;</i></a></td>\n' +
                             '</tr>').appendTo($tableBody);
                     }
