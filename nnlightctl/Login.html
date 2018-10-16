@@ -11,6 +11,8 @@
     <link href="css/common.css" rel="stylesheet" type="text/css" />
     <link href="css/login.css" rel="stylesheet" type="text/css" />
     <link href="css/iconfont/iconfont.css" rel="stylesheet" type="text/css" />
+    <script src="js/jquery.min.js"></script>
+    <script src="js/login.js"></script>
 </head>
 <body>
 
@@ -22,30 +24,31 @@
       <div class="row cl">
         <label class="form-label col-xs-3"><i class="Hui-iconfont">&#xe60d;</i></label>
         <div class="formControls col-xs-8">
-          <input id="" name="" type="text" placeholder="账户" class="input-text size-L">
+          <input id="loginName" name="loginName" type="text" placeholder="账户" class="input-text size-L">
         </div>
       </div>
       <div class="row cl">
         <label class="form-label col-xs-3"><i class="Hui-iconfont">&#xe60e;</i></label>
         <div class="formControls col-xs-8">
-          <input id="Password1" name="" type="password" placeholder="密码" class="input-text size-L">
+          <input id="pwd" name="pwd" onkeydown="keydown(event)" type="password" placeholder="密码" class="input-text size-L">
         </div>
       </div>
-     <div class="row cl">
-         <div class="formControls col-xs-8 col-xs-offset-3">
-          <label for="online" id="errormsg">账号或密码错误！</label>
-         </div>
-     </div>
+     <!--<div class="row cl">-->
+         <!--<div class="formControls col-xs-8 col-xs-offset-3">-->
+          <!--<label for="online" id="errormsg">账号或密码错误！</label>-->
+         <!--</div>-->
+     <!--</div>-->
       <div class="row cl">
         <div class="formControls col-xs-8 col-xs-offset-3">
-          <label for="online">
-            <input type="checkbox" name="online" id="online" value="">
-            使我保持登录状态</label>
+          <label for="remmberpwd">
+            <input type="checkbox" name="online" id="remmberpwd" value="" onkeydown="keydown(event)">
+            是否记住密码</label>
         </div>
       </div>
       <div class="row cl">
         <div class="formControls col-xs-8 col-xs-offset-3">
-          <input type="submit" class="btn btn-success radius size-L" value="&nbsp;登&nbsp;&nbsp;&nbsp;&nbsp;录&nbsp;">
+          <!--<input type="submit" id="login" class="btn btn-success radius size-L" value="&nbsp;登&nbsp;&nbsp;&nbsp;&nbsp;录&nbsp;">-->
+            <input type="button" id="login"  class="btn btn-success radius size-L" value="&nbsp;登&nbsp;&nbsp;&nbsp;&nbsp;录&nbsp;">
           <input type="reset" class="btn btn-default radius size-L" value="&nbsp;取&nbsp;&nbsp;&nbsp;&nbsp;消&nbsp;" style="margin-left:50px;">
         </div>
       </div>
