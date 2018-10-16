@@ -176,6 +176,13 @@
     <Content Include="Project\Index.html" />
     <Content Include="Project\OverView.html" />
     <Content Include="Project\Project-add.html" />
+    <Content Include="Roadlighting\addArea.html" />
+    <Content Include="Roadlighting\addEleBox.html" />
+    <Content Include="Roadlighting\addLightType.html" />
+    <Content Include="Roadlighting\AreaAdmin.html" />
+    <Content Include="Roadlighting\EquipmentType.html" />
+    <Content Include="Roadlighting\Index.html" />
+    <Content Include="Roadlighting\LightType.html" />
     <Content Include="User\Belong.html" />
     <Content Include="User\Department-add.html" />
     <Content Include="User\Department.html" />
