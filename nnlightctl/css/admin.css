@@ -110,6 +110,22 @@
 .admintop .adminnav .user{width:180px;height:50px;position:absolute;right:0px;top:0px;background:url(../bg/u_admin.png) no-repeat center left;line-height:50px;}
 .admintop .adminnav .user span{color:#c5c9cf;font-size:16px;padding-left:40px;}
 
+/*权限*/
+.permission-list{ border:solid 1px #eee;}
+.permission-list dt{ background-color:#efefef;padding:5px 10px}
+.permission-list dd{ padding:10px; padding-left:30px}
+.permission-list dd dl{ border-bottom:solid 1px #eee; padding:5px 0}
+.permission-list dd dl dt{ display:inline-block;float:left;white-space:nowrap;width:100px}
+.permission-list dd dl dd{ margin-left:100px;}
+.permission-list dd label{ padding-right:10px}
 
 
-
+/*项目总览*/
+.page-container .tit{font-weight:bold;}
+.projectview{max-width:1200px;position:relative;}
+.projectview .pr1{position:absolute;left:0px;top:20px;}
+.projectview .pr2{position:absolute;left:320px;top:20px;}
+.projectview .pr3{position:absolute;left:640px;top:20px;}
+.projectview div{width:300px;height:200px;background:#efefef;line-height:200px;text-align:center;font-size:14px;overflow:hidden;}
+.projectview div p.pronum{position:absolute;top:0px;right:10px;padding-top:70px;}
+.projectview div span.bigfont{font-size:40px;}

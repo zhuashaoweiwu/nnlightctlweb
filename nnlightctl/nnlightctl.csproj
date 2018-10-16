@@ -169,7 +169,12 @@
     <Content Include="lib\webuploader\0.1.5\webuploader.withoutimage.js" />
     <Content Include="lib\webuploader\0.1.5\webuploader.withoutimage.min.js" />
     <Content Include="Login.html" />
+    <Content Include="Project\Add-City.html" />
+    <Content Include="Project\Add-Country.html" />
+    <Content Include="Project\Add-Province.html" />
+    <Content Include="Project\GlobalRegion.html" />
     <Content Include="Project\Index.html" />
+    <Content Include="Project\OverView.html" />
     <Content Include="Project\Project-add.html" />
     <Content Include="User\Belong.html" />
     <Content Include="User\Department-add.html" />
@@ -178,6 +183,7 @@
     <Content Include="User\Institution-add.html" />
     <Content Include="User\Institution.html" />
     <Content Include="User\OnlineUser.html" />
+    <Content Include="User\User-add-role.html" />
     <Content Include="User\User-add.html" />
     <Content Include="User\User-password-edit.html" />
     <Content Include="User\UserList.html" />
