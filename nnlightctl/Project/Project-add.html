@@ -18,48 +18,82 @@
     <article class="page-container">
         <form class="form form-horizontal" id="form-admin-add">
             <div class="row cl">
-                <label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>机构项目：</label>
+                <label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>国家：</label>
                 <div class="formControls col-xs-8 col-sm-9">
-                    <input type="text" class="input-text" value="" placeholder="" id="institution" name="institution">
+                    <span class="select-box" style="width:200px;">
+                        <select class="select" name="contryName" size="1">
+                            <option value="0">请选择国家</option>
+                            <option value="1">国家1</option>
+                            <option value="2">国家2</option>
+                            <option value="3">国家3</option>
+                        </select>
+                    </span>
+                    <a class="btn btn-primary radius f-r mr-10" data-title="添加国家" onclick="country_add('添加国家', 'Add-Country.html', '300', '350')" href="javascript:void(0);">
+                <i class="Hui-iconfont">&#xe600;</i> 添加</a>
                 </div>
             </div>
             <div class="row cl">
-                <label class="form-label col-xs-4 col-sm-3">所属项目：</label>
+                <label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>省份：</label>
+                <div class="formControls col-xs-8 col-sm-9">
+                    <span class="select-box" style="width:200px;">
+                        <select class="select" name="provinceName" size="1">
+                            <option value="0">请选择省份</option>
+                            <option value="1">省份1</option>
+                            <option value="2">省份2</option>
+                            <option value="3">省份3</option>
+                        </select>
+                    </span>
+                    <a class="btn btn-primary radius f-r mr-10" data-title="添加省份" onclick="province_add('添加省份', 'Add-Province.html', '300', '350')" href="javascript:void(0);">
+                        <i class="Hui-iconfont">&#xe600;</i> 添加
+                    </a>
+                </div>
+            </div>
+            <div class="row cl">
+                <label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>城市：</label>
+                <div class="formControls col-xs-8 col-sm-9">
+                    <span class="select-box" style="width:200px;">
+                        <select class="select" name="cityName" size="1">
+                            <option value="0">请选择城市</option>
+                            <option value="1">城市1</option>
+                            <option value="2">城市2</option>
+                            <option value="3">城市3</option>
+                        </select>
+                    </span>
+                    <a class="btn btn-primary radius f-r mr-10" data-title="添加城市" onclick="city_add('添加城市', 'Add-City.html', '300', '400')" href="javascript:void(0);">
+                        <i class="Hui-iconfont">&#xe600;</i> 添加
+                    </a>
+                </div>
+            </div>
+            <div class="row cl">
+                <label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>类型：</label>
                 <div class="formControls col-xs-8 col-sm-9">
                     <span class="select-box" style="width:150px;">
-                        <select class="select" name="PInstitution" size="1">
-                            <option value="0">请选择项目</option>
-                            <option value="1">机构1</option>
-                            <option value="2">机构2</option>
-                            <option value="3">机构3</option>
+                        <select class="select" name="type" id="type" size="1">
+                            <option value="0">请选择类型</option>
+                            <option value="1">道路照明系统1</option>
+                            <option value="2">道路照明系统2</option>
+                            <option value="3">道路照明系统3</option>
                         </select>
                     </span>
                 </div>
             </div>
-
             <div class="row cl">
-                <label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>是否是最高级别：</label>
-                <div class="formControls col-xs-8 col-sm-9 skin-minimal">
-                    <div class="radio-box">
-                        <input type="radio" id="role-1" name="role" checked>
-                        <label for="sex-1">是</label>
-                    </div>
-                    <div class="radio-box">
-                        <input type="radio" id="role-1" name="role">
-                        <label for="sex-2">否</label>
-                    </div>
-                </div>
-            </div>
-            <div class="row cl">
-                <label class="form-label col-xs-4 col-sm-3">机构地址：</label>
+                <label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>编码：</label>
                 <div class="formControls col-xs-8 col-sm-9">
-                    <input type="text" class="input-text" value="" placeholder="机构" id="adr" name="adr">
+                    <input type="text" class="input-text" value="" placeholder="" id="codeNumber" name="codeNumber">
                 </div>
             </div>
+            <div class="row cl">
+                <label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>名称：</label>
+                <div class="formControls col-xs-8 col-sm-9">
+                    <input type="text" class="input-text" value="" placeholder="" id="projectName" name="projectName">
+                </div>
+            </div>
+            
             <div class="row cl">
                 <label class="form-label col-xs-4 col-sm-3">备注：</label>
                 <div class="formControls col-xs-8 col-sm-9">
-                    <textarea name="" cols="" rows="" class="textarea" placeholder="说点什么...100个字符以内" dragonfly="true"></textarea>
+                    <textarea name="mem" id="mem" cols="" rows="" class="textarea" placeholder="说点什么...100个字符以内" dragonfly="true"></textarea>
                     <p class="textarea-numberbar"><em class="textarea-length">0</em>/100</p>
                 </div>
             </div>
@@ -81,45 +115,60 @@
     <script type="text/javascript" src="../lib/jquery.validation/1.14.0/validate-methods.js"></script>
     <script type="text/javascript" src="../lib/jquery.validation/1.14.0/messages_zh.js"></script>
     <script type="text/javascript">
-    $(function(){
-	   
-    //数据验证
-	$("#form-admin-add").validate({
-		rules:{
-		    institution: {
-				required:true,
-				minlength:4,
-				maxlength:16
-			},
-		    Pinstitution: {
-				required:true,
-			},
-
-		    adr: {
-				required:true,
-				isPhone:true,
-			}
-		},
-		onkeyup:false,
-		focusCleanup:true,
-		success:"valid",
-		submitHandler:function(form){
-			$(form).ajaxSubmit({
-				type: 'post',
-				url: "xxxxxxx" ,
-				success: function(data){
-					layer.msg('添加成功!',{icon:1,time:1000});
-				},
-                error: function(XmlHttpRequest, textStatus, errorThrown){
-					layer.msg('error!',{icon:1,time:1000});
-				}
-			});
-			var index = parent.layer.getFrameIndex(window.name);
-			parent.$('.btn-refresh').click();
-			parent.layer.close(index);
-		}
-	});
-});
+        /*国家增加*/
+        function country_add(title, url, w, h) {
+            layer_show(title, url, w, h);
+        }
+        /*省份增加*/
+        function province_add(title, url, w, h) {
+            layer_show(title, url, w, h);
+        }
+        /*城市增加*/
+        function city_add(title, url, w, h) {
+            layer_show(title, url, w, h);
+        }
+        $(function(){
+        //数据验证
+	    $("#form-admin-add").validate({
+		    rules:{
+		        codeNumber: {
+				    required:true,
+				    minlength:4,
+				    maxlength:16
+			    },
+		        projectName: {
+				    required:true,
+			    },
+		        cityName: {
+				    required:true,
+		        },
+		        provinceName: {
+		            required: true,
+		        },
+		        contryName: {
+		            required: true,
+		        }
+		    },
+		    onkeyup:false,
+		    focusCleanup:true,
+		    success:"valid",
+		    submitHandler:function(form){
+			    $(form).ajaxSubmit({
+				    type: 'post',
+				    url: "xxxxxxx" ,
+				    success: function(data){
+					    layer.msg('添加成功!',{icon:1,time:1000});
+				    },
+                    error: function(XmlHttpRequest, textStatus, errorThrown){
+					    layer.msg('error!',{icon:1,time:1000});
+				    }
+			    });
+			    var index = parent.layer.getFrameIndex(window.name);
+			    parent.$('.btn-refresh').click();
+			    parent.layer.close(index);
+		    }
+	    });
+    });
     </script>
     <!--/请在上方写此页面业务相关的脚本-->
 </body>
