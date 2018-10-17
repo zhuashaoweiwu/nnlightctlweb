@@ -97,6 +97,8 @@
     <Content Include="Index.html" />
     <Content Include="js\admin.js" />
     <Content Include="js\common.js" />
+    <Content Include="js\exporting.js" />
+    <Content Include="js\highcharts.js" />
     <Content Include="js\jquery.min.js" />
     <Content Include="lib\datatables\1.10.0\dataTables.fixedColumns.min.js" />
     <Content Include="lib\datatables\1.10.0\jquery.dataTables.min.js" />

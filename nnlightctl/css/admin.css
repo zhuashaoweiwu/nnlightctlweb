@@ -133,3 +133,23 @@
 .projectview div{width:300px;height:200px;background:#efefef;line-height:200px;text-align:center;font-size:14px;overflow:hidden;}
 .projectview div p.pronum{position:absolute;top:0px;right:10px;padding-top:70px;}
 .projectview div span.bigfont{font-size:40px;}
+
+/*地图操作按钮*/
+.leftmaptab{position:absolute;left:20px;top:80px;z-index:999;}
+.leftmaptab li{width:60px;height:60px;text-align:center;display:block;margin-top:10px;overflow:hidden;border-radius:5px;}
+.leftmaptab li a{width:60px;height:60px;display:block;font-size:16px;}
+.leftmaptab li a span{width:32px;display:inline-block;}
+.leftmaptab li.tab1{border:2px solid #39dcba;background:rgba(57,220,186,.6);}
+.leftmaptab li.tab1 span{padding-top:5px;}
+.leftmaptab li.tab2{border:2px solid #ff5372;background:rgba(255,83,114,.6);}
+.leftmaptab li.tab2 span{padding-top:5px;}
+.leftmaptab li.tab3{border:2px solid #00ceff;background:rgba(0,206,255,.6);}
+.leftmaptab li.tab3 span{padding-top:15px;}
+.leftmaptab li.tab4{border:2px solid #b19eff;background:rgba(177,158,255,.6);}
+.leftmaptab li.tab4 span{padding-top:15px;}
+.leftmaptab li.tab5{border:2px solid #ffcf7c;background:rgba(255,207,124,.6);}
+.leftmaptab li.tab5 span{padding-top:15px;}
+
+
+.topmaptab{position:absolute;right:20px;top:80px;z-index:999;}
+.searchmaptab{position:absolute;left:20px;top:100px;z-index:999;}

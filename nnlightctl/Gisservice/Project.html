@@ -23,7 +23,43 @@
         </a>
     </nav>
     <div class="page-container">
-
+        <div id="map" style="position:relative;"></div>
+        
+        <div class="searchmaptab ml-30">
+            <div class="text-l">
+                <input type="text" name="projectName" id="projectName" placeholder="请输入内容" style="width:250px" class="input-text">
+                <button name="" id="Button1" class="btn btn-success" type="submit"><i class="Hui-iconfont">&#xe665;</i>搜索</button>
+            </div>
+        </div>
     </div>
+    <script type="text/javascript" src="../js/jquery.min.js"></script>
+    <script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=ow29ANFSyXM6nf6cYl14GdDI"></script>
+    <script language="javascript" type="text/javascript">
+        //获取当前屏幕宽度和高度
+        var Vw = document.body.clientWidth-40;
+        var Vh = document.body.scrollHeight-80;
+        $("#map").height(Vh); $("#map").width(Vw);
+            // 百度地图API功能
+            var map = new BMap.Map("map");
+            var point = new BMap.Point(121.058537, 31.082668);
+            var marker = new BMap.Marker(point);  // 创建标注
+            map.addOverlay(marker);              // 将标注添加到地图中
+            //marker.setAnimation(BMAP_ANIMATION_BOUNCE); //跳动的动画
+            map.centerAndZoom(point, 15);
+            map.enableScrollWheelZoom(true);
+            var opts = {
+                width: 250,     // 信息窗口宽度
+                height: 80,     // 信息窗口高度
+                title: "<span style='font-size:16px;color:#0a79d8;font-weight: bold'>香凝红木-生产基地</span>", // 信息窗口标题
+                enableMessage: true,//设置允许信息窗发送短息
+                message: "上海市青浦区朱枫公路1355号<br />（近沈砖路） +鉴赏热线：13311601955"
+            }
+            var infoWindow = new BMap.InfoWindow("<p style='font-size:14px;line-height:140%'>上海市青浦区朱枫公路1355号<br />（近沈砖路） <br />++鉴赏热线：13311601955</p>", opts);  // 创建信息窗口对象
+            //map.openInfoWindow(infoWindow, point); //开启信息窗口
+            marker.addEventListener("click", function () {
+                map.openInfoWindow(infoWindow, point); //开启信息窗口
+            });
+    </script>
+
 </body>
 </html>
