@@ -4,194 +4,283 @@
     <meta charset="utf-8">
     <meta name="renderer" content="webkit|ie-comp|ie-stand">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no" />
-    <meta http-equiv="Cache-Control" content="no-siteapp" />
+    <meta name="viewport"
+          content="width=device-width,initial-scale=1,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no"/>
+    <meta http-equiv="Cache-Control" content="no-siteapp"/>
 
     <title>用户列表 - 添加用户</title>
 
-    <link rel="stylesheet" type="text/css" href="../css/common.css" />
-    <link rel="stylesheet" type="text/css" href="../css/admin.css" />
-    <link rel="stylesheet" type="text/css" href="../css/iconfont/iconfont.css" />
+    <link rel="stylesheet" type="text/css" href="../css/common.css"/>
+    <link rel="stylesheet" type="text/css" href="../css/admin.css"/>
+    <link rel="stylesheet" type="text/css" href="../css/iconfont/iconfont.css"/>
 
 </head>
 <body>
-    <article class="page-container">
-        <form class="form form-horizontal" id="form-admin-add">
-            <div class="row cl">
-                <label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>登录名：</label>
-                <div class="formControls col-xs-8 col-sm-9">
-                    <input type="text" class="input-text" value="" placeholder="" id="loginName" name="loginName">
+<article class="page-container">
+    <form class="form form-horizontal" id="form-admin-add">
+        <div class="row cl">
+            <label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>登录名：</label>
+            <div class="formControls col-xs-8 col-sm-9">
+                <input type="text" class="input-text" value="" placeholder="" id="loginName" name="loginName">
+            </div>
+        </div>
+        <div class="row cl password">
+            <label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>初始密码：</label>
+            <div class="formControls col-xs-8 col-sm-9">
+                <input type="password" class="input-text" autocomplete="off" value="" placeholder="密码" id="password"
+                       name="password">
+            </div>
+        </div>
+        <div class="row cl password2">
+            <label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>确认密码：</label>
+            <div class="formControls col-xs-8 col-sm-9">
+                <input type="password" class="input-text" autocomplete="off" placeholder="确认新密码" id="password2"
+                       name="password2">
+            </div>
+        </div>
+        <div class="row cl">
+            <label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>用户名：</label>
+            <div class="formControls col-xs-8 col-sm-9">
+                <input type="text" class="input-text" value="" placeholder="" id="userName" name="userName">
+            </div>
+        </div>
+        <div class="row cl">
+            <label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>用户编码：</label>
+            <div class="formControls col-xs-8 col-sm-9">
+                <input type="text" class="input-text" value="" placeholder="" id="codeNumber" name="codeNumber">
+            </div>
+        </div>
+        <!--<div class="row cl">
+            <label class="form-label col-xs-4 col-sm-3">性别：</label>
+            <div class="formControls col-xs-8 col-sm-9 skin-minimal">
+                <div id="radio-box-1" class="radio-box">
+                    <input name="sex" type="radio" id="sex-1" value="1" checked>
+                    <label for="sex-1">男</label>
+                </div>
+                <div id="radio-box-0" class="radio-box">
+                    <input type="radio" id="sex-0" name="sex" value="0" >
+                    <label for="sex-0">女</label>
                 </div>
             </div>
-            <div class="row cl">
-                <label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>初始密码：</label>
-                <div class="formControls col-xs-8 col-sm-9">
-                    <input type="password" class="input-text" autocomplete="off" value="" placeholder="密码" id="password" name="password">
-                </div>
-            </div>
-            <div class="row cl">
-                <label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>确认密码：</label>
-                <div class="formControls col-xs-8 col-sm-9">
-                    <input type="password" class="input-text" autocomplete="off" placeholder="确认新密码" id="password2" name="password2">
-                </div>
-            </div>
-            <div class="row cl">
-                <label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>用户名：</label>
-                <div class="formControls col-xs-8 col-sm-9">
-                    <input type="text" class="input-text" value="" placeholder="" id="userName" name="userName">
-                </div>
-            </div>
-            <div class="row cl">
-                <label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>性别：</label>
-                <div class="formControls col-xs-8 col-sm-9 skin-minimal">
-                    <div class="radio-box">
-                        <input name="sex" type="radio" id="sex-1" checked>
-                        <label for="sex-1">男</label>
-                    </div>
-                    <div class="radio-box">
-                        <input type="radio" id="sex-2" name="sex">
-                        <label for="sex-2">女</label>
-                    </div>
-                </div>
-            </div>
-            <div class="row cl">
-                <label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>手机：</label>
-                <div class="formControls col-xs-8 col-sm-9">
-                    <input type="text" class="input-text" value="" placeholder="" id="phone" name="phone">
-                </div>
-            </div>
-            <div class="row cl">
-                <label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>邮箱：</label>
-                <div class="formControls col-xs-8 col-sm-9">
-                    <input type="text" class="input-text" placeholder="@" name="email" id="email">
-                </div>
-            </div>
-            <div class="row cl">
-                <label class="form-label col-xs-4 col-sm-3">年龄：</label>
-                <div class="formControls col-xs-8 col-sm-9">
-                    <input type="text" class="input-text" value="" placeholder="" id="age" name="age">
-                </div>
-            </div>
-            <div class="row cl">
-                <label class="form-label col-xs-4 col-sm-3">职位：</label>
-                <div class="formControls col-xs-8 col-sm-9">
-                    <span class="select-box" style="width:150px;">
-                        <select class="select" name="place" size="1">
-                            <option value="0">超级管理员</option>
-                            <option value="1">总编</option>
-                            <option value="2">栏目主辑</option>
-                            <option value="3">栏目编辑</option>
-                        </select>
-                    </span>
-                </div>
-            </div>
-            <div class="row cl">
-                <label class="form-label col-xs-4 col-sm-3">部门所属机构：</label>
-                <div class="formControls col-xs-8 col-sm-9">
-                    <span class="select-box" style="width:150px;">
-                        <select class="select" name="Institution" size="1">
-                            <option value="0">请选择机构</option>
-                            <option value="1">机构1</option>
-                            <option value="2">机构2</option>
-                            <option value="3">机构3</option>
-                        </select>
-                    </span>
-                </div>
-            </div>
-            <div class="row cl">
-                <label class="form-label col-xs-4 col-sm-3">所属部门：</label>
-                <div class="formControls col-xs-8 col-sm-9">
-                    <span class="select-box" style="width:150px;">
-                        <select class="select" name="Pdepartment" size="1">
-                            <option value="0">请选择部门</option>
-                            <option value="1">部门1</option>
-                            <option value="2">部门2</option>
-                            <option value="3">部门3</option>
-                        </select>
-                    </span>
-                </div>
-            </div>
-            <div class="row cl">
-                <div class="col-xs-8 col-sm-9 col-xs-offset-4 col-sm-offset-3">
-                    <input class="btn btn-primary radius" type="submit" value="&nbsp;&nbsp;提交&nbsp;&nbsp;">
-                </div>
-            </div>
-        </form>
-    </article>
+        </div>-->
 
-    <!--_footer 作为公共模版分离出去-->
-    <script type="text/javascript" src="../js/jquery.min.js"></script>
-    <script type="text/javascript" src="../lib/layer/2.4/layer.js"></script>
-    <script type="text/javascript" src="../js/common.js"></script>
-    <script type="text/javascript" src="../js/admin.js"></script> <!--/_footer 作为公共模版分离出去-->
-    <!--请在下方写此页面业务相关的脚本-->
-    <script type="text/javascript" src="../lib/jquery.validation/1.14.0/jquery.validate.js"></script>
-    <script type="text/javascript" src="../lib/jquery.validation/1.14.0/validate-methods.js"></script>
-    <script type="text/javascript" src="../lib/jquery.validation/1.14.0/messages_zh.js"></script>
-    <script type="text/javascript">
-    $(function(){
-	    $('.skin-minimal input').iCheck({
-		    checkboxClass: 'icheckbox-blue',
-		    radioClass: 'iradio-blue',
-		    increaseArea: '20%'
-	    });
-    //数据验证
-	$("#form-admin-add").validate({
-	    rules: {
-	        loginName: {
-	            required: true,
-	        },
-	        userName: {
-	            required: true,
-	        },
-	        password: {
-	            required: true,
-	        },
-	        password2: {
-	            required: true,
-	            equalTo: "#password"
-	        },
-	        sex: {
-	            required: true,
-	        },
-	        phone: {
-	            required: true,
-	            isPhone: true,
-	        },
-	        email: {
-	            required: true,
-	            email: true,
-	        },
-		    department: {
-				required:true,
-				minlength:4,
-				maxlength:16
-			},
-		    Institution: {
-				required:true,
-			}
-		},
-		onkeyup:false,
-		focusCleanup:true,
-		success:"valid",
-		submitHandler:function(form){
-			$(form).ajaxSubmit({
-				type: 'post',
-				url: "xxxxxxx" ,
-				success: function(data){
-					layer.msg('添加成功!',{icon:1,time:1000});
-				},
-                error: function(XmlHttpRequest, textStatus, errorThrown){
-					layer.msg('error!',{icon:1,time:1000});
-				}
-			});
-			var index = parent.layer.getFrameIndex(window.name);
-			parent.$('.btn-refresh').click();
-			parent.layer.close(index);
-		}
-	});
-});
-    </script>
-    <!--/请在上方写此页面业务相关的脚本-->
+        <div class="row cl">
+            <label class="form-label col-xs-4 col-sm-3">性别：</label>
+            <div class="formControls col-xs-8 col-sm-9">
+                    <span class="select-box" style="width:150px;">
+                        <select class="select" name="sex" id="sex" size="1">
+                            <option value="0">女</option>
+                            <option value="1">男</option>
+                        </select>
+                    </span>
+            </div>
+        </div>
+
+        <div class="row cl">
+            <label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>手机：</label>
+            <div class="formControls col-xs-8 col-sm-9">
+                <input type="text" class="input-text" value="" placeholder="" id="phone" name="phone">
+            </div>
+        </div>
+        <div class="row cl">
+            <label class="form-label col-xs-4 col-sm-3">邮箱：</label>
+            <div class="formControls col-xs-8 col-sm-9">
+                <input type="text" class="input-text" placeholder="@" name="email" id="email">
+            </div>
+        </div>
+        <div class="row cl">
+            <label class="form-label col-xs-4 col-sm-3">年龄：</label>
+            <div class="formControls col-xs-8 col-sm-9">
+                <input type="text" class="input-text" value="" placeholder="" id="age" name="age">
+            </div>
+        </div>
+
+        <div class="row cl">
+            <label class="form-label col-xs-4 col-sm-3">职位：</label>
+            <div class="formControls col-xs-8 col-sm-9">
+                <input type="text" class="input-text" value="" placeholder="" id="place" name="place">
+            </div>
+        </div>
+
+        <!--<div class="row cl">
+            <label class="form-label col-xs-4 col-sm-3">部门所属机构：</label>
+            <div class="formControls col-xs-8 col-sm-9">
+                <span class="select-box" style="width:150px;">
+                    <select class="select" name="Institution" size="1">
+                        <option value="0">请选择机构</option>
+                    </select>
+                </span>
+            </div>
+        </div>-->
+
+        <div class="row cl">
+            <label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>所属部门：</label>
+            <div class="formControls col-xs-8 col-sm-9">
+                    <span class="select-box" style="width:150px;">
+                        <select class="select" name="nnlightctlDepartmentId" id="nnlightctlDepartmentId" size="1">
+                            <option value="0">请选择部门</option>
+                        </select>
+                    </span>
+            </div>
+        </div>
+
+        <div class="row cl">
+            <label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>用户类型：</label>
+            <div class="formControls col-xs-8 col-sm-9">
+                    <span class="select-box" style="width:150px;">
+                        <select class="select" name="userType" id="userType" size="1">
+                            <option value="0">超级管理员用户</option>
+                            <option value="1">机构管理员用户</option>
+                            <option value="2">部门用户</option>
+                        </select>
+                    </span>
+            </div>
+        </div>
+
+        <div class="row cl">
+            <div class="col-xs-8 col-sm-9 col-xs-offset-4 col-sm-offset-3">
+                <input class="btn btn-primary radius" type="submit" value="&nbsp;&nbsp;提交&nbsp;&nbsp;">
+            </div>
+        </div>
+    </form>
+</article>
+
+<!--_footer 作为公共模版分离出去-->
+<script type="text/javascript" src="../js/jquery.min.js"></script>
+<script type="text/javascript" src="../lib/layer/2.4/layer.js"></script>
+<script type="text/javascript" src="../js/common.js"></script>
+<script type="text/javascript" src="../js/admin.js"></script>
+
+<script type="text/javascript" src="../js/api/requestRoot.js"></script>
+<script type="text/javascript" src="../js/api/ajaxScript.js"></script>
+<!--/_footer 作为公共模版分离出去-->
+<!--请在下方写此页面业务相关的脚本-->
+<script type="text/javascript" src="../lib/jquery.validation/1.14.0/jquery.validate.js"></script>
+<script type="text/javascript" src="../lib/jquery.validation/1.14.0/validate-methods.js"></script>
+<script type="text/javascript" src="../lib/jquery.validation/1.14.0/messages_zh.js"></script>
+<script type="text/javascript">
+    $(function () {
+        $('.skin-minimal input').iCheck({
+            checkboxClass: 'icheckbox-blue',
+            radioClass: 'iradio-blue',
+            increaseArea: '20%'
+        });
+        //数据验证
+        $("#form-admin-add").validate({
+            rules: {
+                loginName: {
+                    required: true
+                },
+                userName: {
+                    required: true
+                },
+                codeNumber: {
+                    required: true
+                },
+                password: {
+                    required: true
+                },
+                password2: {
+                    required: true,
+                    equalTo: "#password"
+                },
+                phone: {
+                    required: true,
+                    isPhone: true
+                },
+                nnlightctlDepartmentId: {
+                    required: true
+                },
+                userType: {
+                    required: true
+                }
+            },
+            onkeyup: false,
+            focusCleanup: true,
+            success: "valid",
+            submitHandler: function (form) {
+                //ajax上传表单
+                //构造上传数据
+                var param = {};
+                var paramArray = $(form).serializeArray();
+                for (var i = 0; i < paramArray.length; ++i) {
+                    var o = paramArray[i];
+                    param[o["name"]] = o["value"];
+                }
+                param["loginPwd"] = $("#password").val().trim();
+                param["id"] = editModel(window.location.href);
+                debugger;
+                ajaxRequest("post", "/api/user/addOrUpdateUser", param, function (data) {
+                    if (data) {
+                        if (data.header.code == 1000) {
+                            if (editModel(window.location.href)) {
+                                layer.msg("编辑用户信息成功！", {icon: 1, time: 3000});
+                            } else {
+                                layer.msg("添加用户信息成功！", {icon: 1, time: 3000});
+                            }
+                        } else {
+                            layer.msg(data.header.msg, {icon: 2, time: 3000});
+                        }
+                    }
+                });
+
+                var index = parent.layer.getFrameIndex(window.name);
+                parent.$('.btn-refresh').click();
+                parent.layer.close(index);
+            }
+        });
+
+        //刷新部门列表信息
+        function flushDepartment() {
+            ajaxRequest("post", "/api/department/listDepartment", {}, function (data) {
+                if (data) {
+                    if (data.header.code == 1000) {
+                        var departmentArray = data.body.data;
+                        var $departmentSelect = $("#nnlightctlDepartmentId");
+                        for (var i = 0; i < departmentArray.length; ++i) {
+                            var department = departmentArray[i];
+                            $('<option value="' + department.id + '">' + department.departmentName + '</option>').appendTo($departmentSelect);
+                        }
+                    }
+                }
+            });
+        }
+
+        flushDepartment();
+
+        //判断是否编辑模式
+        var id = editModel(window.location.href);
+        if (id) {
+            ajaxRequest("post", "/api/user/getUser", {"id" : id}, function (data) {
+                if (data) {
+                    if (data.header.code == 1000) {
+                        var user = data.body.data[0];
+                        //刷新表单
+                        $("#loginName").val(user.loginName);
+                        $("#userName").val(user.userName);
+                        $("#codeNumber").val(user.codeNumber);
+
+                        //性别
+                        $("#sex").val(user.sex);
+
+                        $("#phone").val(user.phone);
+                        $("#email").val(user.email);
+                        $("#age").val(user.age);
+                        $("#place").val(user.place);
+                        $("#nnlightctlDepartmentId").val(user.nnlightctlDepartmentId);
+                        $("#userType").val(user.userType);
+                        //隐藏密码表单项
+                        $("div.password").hide();
+                        $("div.password2").hide();
+                    } else {
+                        layer.msg(data.header.msg, {icon : 2});
+                    }
+                }
+            });
+        }
+
+    });
+</script>
+<!--/请在上方写此页面业务相关的脚本-->
 </body>
 </html>

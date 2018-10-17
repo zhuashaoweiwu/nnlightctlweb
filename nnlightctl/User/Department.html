@@ -27,7 +27,7 @@
                name="departmentName">
         <span class="pl-20">部门地址：</span>
         <input type="text" class="input-text" style="width:250px" placeholder="输入部门地址" id="addr" name="addr">
-        <button type="submit" class="btn btn-success" id="" name=""><i class="Hui-iconfont">&#xe665;</i> 搜部门</button>
+        <button type="submit" class="btn btn-success" id="btnSearch" name=""><i class="Hui-iconfont">&#xe665;</i> 搜部门</button>
     </div>
     <div class="cl pd-5 bg-1 bk-gray mt-20"><span class="l"><a href="javascript:void(0);"
                                                                onclick="department_del_more()"
@@ -200,6 +200,11 @@
     }
 
     searchDepartment(1);
+
+    /*搜索*/
+    $("#btnSearch").click(function () {
+        searchDepartment(1);
+    });
 
 </script>
 </body>
