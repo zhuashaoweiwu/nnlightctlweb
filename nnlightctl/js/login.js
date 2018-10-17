@@ -17,7 +17,8 @@ $(function(){
                        window.location.href='index.html'
 					}
                     else{
-                        alert("用户名和密码错误！请重新输入！");
+                        $('#errormsg').show();
+					    // alert("用户名和密码错误！请重新输入！");
 					}
                 },
                 error : function(data) {
