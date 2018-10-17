@@ -24,7 +24,7 @@
     </nav>
     <div class="page-container">
         <div id="map" style="position:relative;"></div>
-        <ul class="leftmaptab ml-20 mt-40">
+        <ul class="leftmaptab ml-40 mt-40">
             <li class="tab1"><a onclick="project_edit('灯具分组', 'Project-add.html', '1', '800', '500')" href="javascript:void(0);"><span>灯具分组</span></a></li>
             <li class="tab2"><a onclick="project_edit('任务开关', 'Project-add.html', '1', '800', '500')" href="javascript:void(0);"><span>任务开关</span></a></li>
             <li class="tab3"><a onclick="project_edit('场景', 'Project-add.html', '1', '800', '500')" href="javascript:void(0);"><span>场景</span></a></li>
@@ -42,16 +42,23 @@
     <script language="javascript" type="text/javascript">
         //获取当前屏幕宽度和高度
         var Vw = document.body.clientWidth-40;
-        var Vh = document.body.scrollHeight-80;
+        var Vh = document.documentElement.clientHeight - 80;
         $("#map").height(Vh); $("#map").width(Vw);
             // 百度地图API功能
-            var map = new BMap.Map("map");
+        var map = new BMap.Map("map");
+        var mapType1 = new BMap.MapTypeControl(
+		{
+		    mapTypes: [BMAP_NORMAL_MAP, BMAP_HYBRID_MAP],
+		    anchor: BMAP_ANCHOR_TOP_RIGHT
+		}
+	);
             var point = new BMap.Point(121.058537, 31.082668);
             var marker = new BMap.Marker(point);  // 创建标注
             map.addOverlay(marker);              // 将标注添加到地图中
             //marker.setAnimation(BMAP_ANIMATION_BOUNCE); //跳动的动画
             map.centerAndZoom(point, 15);
             map.enableScrollWheelZoom(true);
+            map.addControl(mapType1);
             var opts = {
                 width: 250,     // 信息窗口宽度
                 height: 80,     // 信息窗口高度

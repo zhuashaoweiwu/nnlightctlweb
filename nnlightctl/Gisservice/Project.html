@@ -35,10 +35,13 @@
     <script type="text/javascript" src="../js/jquery.min.js"></script>
     <script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=ow29ANFSyXM6nf6cYl14GdDI"></script>
     <script language="javascript" type="text/javascript">
-        //获取当前屏幕宽度和高度
-        var Vw = document.body.clientWidth-40;
-        var Vh = document.body.scrollHeight-80;
-        $("#map").height(Vh); $("#map").width(Vw);
+        $(function () {
+            //获取当前屏幕宽度和高度，并赋值
+            var Vw = document.body.clientWidth - 40;
+            var Vh = document.documentElement.clientHeight - 80;
+            $("#map").height(Vh); $("#map").width(Vw);
+        });
+        
             // 百度地图API功能
             var map = new BMap.Map("map");
             var point = new BMap.Point(121.058537, 31.082668);

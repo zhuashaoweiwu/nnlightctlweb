@@ -153,3 +153,13 @@
 
 .topmaptab{position:absolute;right:20px;top:80px;z-index:999;}
 .searchmaptab{position:absolute;left:20px;top:100px;z-index:999;}
+
+/*用电量*/
+.useengery{margin-top:30px;}
+.useengery dl{float:left;margin-left:40px;width:260px;height:150px;border-radius:5px;border:1px solid #1C9CF2;}
+.useengery dl.ue2{border-color:aqua;}
+.useengery dl.ue3{border-color:aquamarine;}
+
+.monthengery{width:860px;margin-top:30px;}
+
+.monthconut{width:400px;margin-top:30px;}
