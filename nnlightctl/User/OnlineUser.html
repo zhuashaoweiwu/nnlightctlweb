@@ -27,11 +27,11 @@
                 <thead>
                     <tr class="text-c">
                         <th width="25"><input type="checkbox" name="" value=""></th>
-                        <th width="80">ID</th>
+                        <th width="80">用户编号</th>
                         <th width="100">登录名</th>
-                        <th width="40">性别</th>
+                        <th width="120">用户名</th>
                         <th width="70">职位</th>
-                        <th width="100">机构</th>
+                        <th width="160">登录时间</th>
                         <th width="100">部门</th>
                         <th>用户类型</th>
                     </tr>
@@ -39,22 +39,11 @@
                 <tbody>
                     <tr class="text-c">
                         <td><input type="checkbox" value="1" name=""></td>
-                        <td>1</td>
+                        <td>0011</td>
+                        <td>admin</td>
                         <td>张三</td>
-                        <td>男</td>
                         <td>研发部主管</td>
-                        <td>北京市研发部</td>
-                        <td>研发部</td>
-                        <td>高级用户</td>
-                       
-                    </tr>
-                    <tr class="text-c">
-                        <td><input type="checkbox" value="1" name=""></td>
-                        <td>2</td>
-                        <td>李四</td>
-                        <td>男</td>
-                        <td>研发部主管</td>
-                        <td>北京市研发部</td>
+                        <td>2018-09-18 22:12:32</td>
                         <td>研发部</td>
                         <td>高级用户</td>
                     </tr>
@@ -62,7 +51,45 @@
             </table>
         </div>
     </div>
-   
 
+    <script type="text/javascript" src="../js/jquery.min.js"></script>
+    <script type="text/javascript" src="../lib/layer/2.4/layer.js"></script>
+    <script type="text/javascript" src="../js/api/requestRoot.js"></script>
+    <script type="text/javascript" src="../js/api/ajaxScript.js"></script>
+
+    <script type="text/javascript">
+        function searchOnlineUser(pageNumber) {
+            ajaxRequest("post", "/api/user/listOnlineUser", {}, function (data) {
+                debugger;
+                if (data) {
+                    if (data.header.code == 1000) {
+                        var userArray = data.body.data;
+
+                        //更新在线用户表格
+                        var $tableBody = $("table.table").find("tbody").eq(0);
+                        $tableBody.empty();
+
+                        for (var i = 0; i < userArray.length; ++i) {
+                            var user = userArray[i];
+                            $('<tr class="text-c">\n' +
+                                '<td><input type="checkbox" value="1" name=""></td>\n' +
+                                '<td>'+user.codeNumber+'</td>\n' +
+                                '<td>'+user.loginName+'</td>\n' +
+                                '<td>'+user.userName+'</td>\n' +
+                                '<td>'+user.place+'</td>\n' +
+                                '<td>2018-09-18 22:12:32</td>\n' +
+                                '<td>研发部</td>\n' +
+                                '<td>'+USER_TYPE[user.userType]+'</td>\n' +
+                                '</tr>').appendTo($tableBody);
+                        }
+                    } else {
+                        layer.msg(data.header.msg,{icon:2,time:3000});
+                    }
+                }
+            });
+        }
+
+        searchOnlineUser(1);
+    </script>
 </body>
 </html>
