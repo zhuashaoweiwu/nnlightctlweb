@@ -86,6 +86,14 @@
     <Content Include="css\iconfont\iconfont.svg" />
     <Content Include="css\login.css" />
     <Content Include="css\welcome.css" />
+    <Content Include="Engery\Analyze.html" />
+    <Content Include="Engery\EnergyMonitor.html" />
+    <Content Include="Engery\EnergyReport.html" />
+    <Content Include="Engery\History.html" />
+    <Content Include="Engery\Lamp.html" />
+    <Content Include="Engery\terReport.html" />
+    <Content Include="Gisservice\Lamp.html" />
+    <Content Include="Gisservice\Project.html" />
     <Content Include="Index.html" />
     <Content Include="js\admin.js" />
     <Content Include="js\common.js" />
