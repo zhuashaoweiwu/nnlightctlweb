@@ -24,7 +24,7 @@
             -
             <input type="text" onfocus="WdatePicker({minDate:'#F{$dp.$D(\'datemin\')}',maxDate:'%y-%M-%d'})" id="datemax" class="input-text Wdate" style="width:120px;" placeholder="结束日期">
             <span class="pl-10">日志内容：</span>
-            <input type="text" class="input-text" style="width:250px" placeholder="输入日志内容" id="" name=""><button type="submit" class="btn btn-success" id="" name=""><i class="icon-search"></i> 搜日志</button>
+            <input type="text" class="input-text" style="width:250px" placeholder="输入日志内容" id="logContent" name=""><button type="submit" class="btn btn-success" id="btnSearch" name=""><i class="icon-search"></i> 搜日志</button>
         </div>
         
         <div class="mt-20">
@@ -32,26 +32,21 @@
                 <thead>
                     <tr class="text-c">
                         <th width="25"><input type="checkbox" name="" value=""></th>
-                        <th width="100">账户</th>
-                        <th width="100">用户</th>
-                        <th>执行操作</th>
+                        <th width="100">登录名</th>
+                        <th width="100">用户名</th>
                         <th width="110">操作时间</th>
+                        <td width="160">操作描述</td>
+                        <td width="80">所在项目</td>
                     </tr>
                 </thead>
                 <tbody>
                     <tr class="text-c">
                         <td><input type="checkbox" value="1" name=""></td>
-                        <td>张三</td>
+                        <td>admin</td>
                         <td>张大帅</td>
-                        <td class="text-l">这是一件很严重的事情，请务必准确回答！</td>
                         <td>2018-10-15 11:11</td>
-                    </tr>
-                    <tr class="text-c">
-                        <td><input type="checkbox" value="2" name=""></td>
-                        <td>张三</td>
-                        <td>张大帅</td>
                         <td class="text-l">这是一件很严重的事情，请务必准确回答！</td>
-                        <td>2018-10-15 11:11</td>
+                        <td>北京项目</td>
                     </tr>
                 </tbody>
             </table>
@@ -60,21 +55,75 @@
     <!--_footer 作为公共模版分离出去-->
     <script type="text/javascript" src="../js/jquery.min.js"></script>
     <script type="text/javascript" src="../js/common.js"></script>
-    <script type="text/javascript" src="../js/admin.js"></script> <!--/_footer 作为公共模版分离出去-->
+    <script type="text/javascript" src="../lib/My97DatePicker/4.8/WdatePicker.js"></script> <!--日期插件-->
+    <script type="text/javascript" src="../js/admin.js"></script>
+
+    <script type="text/javascript" src="../js/api/requestRoot.js"></script>
+    <script type="text/javascript" src="../js/api/ajaxScript.js"></script>
+    <!--/_footer 作为公共模版分离出去-->
     <!--请在下方写此页面业务相关的脚本-->
     <script type="text/javascript" src="../lib/datatables/1.10.0/jquery.dataTables.min.js"></script>
     <script type="text/javascript" src="../lib/laypage/1.2/laypage.js"></script>
     <script type="text/javascript">
         $('.table-sort').dataTable({
-
-            "aaSorting": [[1, "desc"]],//默认第几个排序
-            "bStateSave": true,//状态保存
-            "aoColumnDefs": [
-	          //{"bVisible": false, "aTargets": [ 3 ]} //控制列的隐藏显示
-	          //{ "orderable": false, "aTargets": [0, 8, 9, 10, 11] }// 制定列不参与排序
-            ]
+            "searching": false,
+            "pading": false,
+            "bStateSave": true
         });
-        
+
+        //通过搜索条件分页搜索用户操作日志数据
+        function searchUserOpLog(pageNumber) {
+            //搜索条件
+            var startTime = $("#datemin").val();
+            var endTime = $("#datemax").val();
+            var searchContent = $("#logContent").val();
+
+            //搜索
+            var param = {};
+
+            param["startDate"] = startTime ? startTime : null;
+            param["endDate"] = endTime ? endTime : null;
+            param["content"] = searchContent;
+
+            debugger;
+            ajaxRequest("post", "/api/user/listUserOpLog", {}, function (data) {
+                debugger;
+                if (data) {
+                    if (data.header.code == 1000) {
+                        var userOpArray = data.body.data;
+
+                        //更新操作日志表格
+                        var $tableBody = $("table.table").find("tbody").eq(0);
+                        $tableBody.empty();
+
+                        for (var i = 0; i < userOpArray.length; ++i) {
+                            var userOp = userOpArray[i];
+                            $('<tr class="text-c">\n' +
+                                '<td><input type="checkbox" value="1" name=""></td>\n' +
+                                '<td>'+userOp.loginName+'</td>\n' +
+                                '<td>'+userOp.userName+'</td>\n' +
+                                '<td>'+formatDateTime(userOp.operationTime)+'</td>\n' +
+                                '<td class="text-l">'+userOp.operationDesc+'</td>\n' +
+                                '<td>'+userOp.projectName+'</td>\n' +
+                                '</tr>').appendTo($tableBody);
+                        }
+
+                        //更新分页
+                        $('.table-sort').dataTable();
+
+                    } else {
+                        layer.msg(data.header.msg,{icon:2,time:3000});
+                    }
+                }
+            });
+        }
+
+        searchUserOpLog(1);
+
+        /*搜索*/
+        $("#btnSearch").click(function () {
+            searchUserOpLog(1);
+        });
     </script>
 
 </body>
