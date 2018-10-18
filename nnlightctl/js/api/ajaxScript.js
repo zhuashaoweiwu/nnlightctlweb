@@ -17,7 +17,7 @@ function ajaxRequest(requestType, url, params, backFuc) {
     });
 }
 
-//时间方法
+//时间方法,时间对象转换成"2010-09-12 22:12:23"格式
 function formatDateTime(inputTime) {
     var date = new Date(inputTime);
     var y = date.getFullYear();
@@ -32,6 +32,14 @@ function formatDateTime(inputTime) {
     minute = minute < 10 ? ('0' + minute) : minute;
     second = second < 10 ? ('0' + second) : second;
     return y + '-' + m + '-' + d+' '+h+':'+minute+':'+second;
+}
+
+//时间方法，形如"2010-09-12"格式转换成时间对象
+function str2Date(dateStr) {
+    if (!dateStr) {
+        return null;
+    }
+    return new Date(dateStr.replace(/-/g,"/"));
 }
 
 //数组转换成后台可识别模式
