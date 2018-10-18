@@ -31,6 +31,7 @@
                 <table border="0">
                     <tr>
                         <td style="height:400px;width:48%;overflow-y:scroll;border:1px solid #ddd;" valign="top">
+                            <h4 class="f-18 tit"><span class="Hui-iconfont">&#xe667;</span><span class="pl-10">已归属项目（<span class="f-14 c-orange">备注：点击当前列，移除或添加</span>）</span></h4>
                             <table class="table table-border table-bordered table-bg table-hover">
                                 <thead>
                                     <tr class="text-c">
@@ -64,6 +65,7 @@
                         </td>
 
                         <td style="height:400px;width:48%;overflow-y:scroll;border:1px solid #ddd;" valign="top">
+                            <h4 class="f-18 tit"><span class="Hui-iconfont">&#xe667;</span><span class="pl-10">可以归属项目</span></h4>
                             <table class="table table-border table-bordered table-bg table-hover">
                                 <thead>
                                     <tr class="text-c">
@@ -83,20 +85,33 @@
                 </table>
        </div>
     </div>
-    <!--_footer 作为公共模版分离出去-->
+    <input type="text" value="&1&2" name="tb1_val" id="tb1_val" /><!--这里存储当前已归属项目，后台交互取这里的值-,可以隐藏显示-->
+    <input type="text" value="" name="tb2_val" id="tb2_val" /><!--这里存储当前可以归属项目，后台交互取这里的值-->
     <script type="text/javascript" src="../js/jquery.min.js"></script>
     <script type="text/javascript">
-        $(function () {
-            $("#tb1 tr").click(function () {
-                var _this = $(this);
-                var currentId = _this.attr("ref");
-                var StrHtml = "<tr class='text-c' onclick='delThis(this) ref='" + currentId + "'>" + _this.html() + "</tr>";
-                _this.remove();
-                $("#tb2").append(StrHtml);
+       
+        $("#tb1").delegate('.text-c', 'click', function () {
+            var _this = $(this);
+            _this.remove();
+            var currentId = _this.attr("ref");//这里的Id 是可以后台交互
+            var StrHtml = "<tr class='text-c' ref='" + currentId + "'>" + _this.html() + "</tr>";
+            $("#tb2").append(StrHtml);
+            //后面动态修改归属项目Id值
+            var Crrtb1_val = $("#tb1_val").val(); var Crrtb2_val = $("#tb2_val").val();
+            $("#tb1_val").val(Crrtb1_val.replace("&" + currentId, '')); $("#tb2_val").val(Crrtb2_val + "&" + currentId);
 
-            });
         });
-        
+        $("#tb2").delegate('.text-c', 'click', function () {
+            var _this = $(this);
+            _this.remove();
+            var currentId = _this.attr("ref");
+            var StrHtml = "<tr class='text-c' ref='" + currentId + "'>" + _this.html() + "</tr>";;
+            $("#tb1").append(StrHtml);
+            //后面动态修改归属项目Id值
+            var Crrtb1_val = $("#tb1_val").val(); var Crrtb2_val = $("#tb2_val").val();
+            $("#tb2_val").val(Crrtb2_val.replace("&" + currentId, '')); $("#tb1_val").val(Crrtb1_val + "&" + currentId);
+        });
+
     </script> 
 
 </body>
