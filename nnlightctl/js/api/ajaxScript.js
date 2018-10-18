@@ -84,3 +84,17 @@ function editModel(url) {
 
     return null;
 }
+//判断是否编辑模式，并获取编辑id
+function editModel2(url) {
+    var qIndex = url.lastIndexOf("?");
+    if (qIndex != -1) {
+        var requestParam = url.substring(qIndex + 1);
+        if (requestParam) {
+            var codeNunber = requestParam.substring(requestParam.lastIndexOf("=") + 1);
+            console.log(codeNunber);
+            return codeNunber;
+        }
+    }
+
+    return null;
+}
