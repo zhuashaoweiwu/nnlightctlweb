@@ -24,23 +24,80 @@
     </nav>
     <div class="page-container">
         <h4 class="f-18 tit"><span class="Hui-iconfont">&#xe667;</span><span class="pl-10">全球项目概况</span></h4>
-        <p>工程概况是指在施工程项目的基本情况,其主要内容包括:建设单位、设计单位、监理单位、施工单位、工程地点、工程总造价、施工条件、开竣工日期、建筑面积、结构形式等。</p>
-        <h4 class="f-18 mt-20 tit"><span class="Hui-iconfont">&#xe667;</span><span class="pl-10">全球统计数据</span></h4>
-        <div class="projectview">
+        <div id="globalProjectPanel" class="projectview">
             <div class="pr1">
                 <span class="Hui-iconfont bigfont">&#xe643;</span><span class="pl-10 f-18">项目</span>
                 <p class="pronum">12452222222224</p>
             </div>
+        </div>
+        <h4 class="f-18 mt-20 tit"><span class="Hui-iconfont">&#xe667;</span><span class="pl-10">全球统计数据</span></h4>
+        <div class="projectview">
+            <div class="pr1">
+                <span class="Hui-iconfont bigfont">&#xe643;</span><span class="pl-10 f-18">项目</span>
+                <p id="projectStatistic" class="pronum">12452222222224</p>
+            </div>
             <div class="pr2">
                 <span class="Hui-iconfont bigfont">&#xe72b;</span><span class="pl-10 f-18">控制柜</span>
-                <p class="pronum">12452222222224</p>
+                <p id="eleboxStatistic" class="pronum">12452222222224</p>
             </div>
             <div class="pr3">
                 <span class="Hui-iconfont bigfont">&#xe6c1;</span><span class="pl-10 f-18">灯具</span>
-                <p class="pronum">12452222222224</p>
+                <p id="lightStatistic" class="pronum">12452222222224</p>
             </div>
         </div>
     </div>
+
+    <script type="text/javascript" src="../js/jquery.min.js"></script>
+    <script type="text/javascript" src="../js/api/requestRoot.js"></script>
+    <script type="text/javascript" src="../js/api/ajaxScript.js"></script>
+    <script type="text/javascript">
+        ajaxRequest("post", "/api/project/listproject", {}, function (data) {
+            debugger;
+            if (data) {
+                if (data.header.code == 1000) {
+                    var projectArray = data.body.data;
+
+                    var countryStatistic = {};
+                    var eleboxTotal = 0;
+                    var lightingTotal = 0;
+                    var projectTotal = 0;
+
+                    for (var i = 0; i < projectArray.length; ++i) {
+                        var project = projectArray[i];
+                        var countryName = project.contryName;
+                        if (countryStatistic[countryName]) {
+                            countryStatistic[countryName] += 1;
+                        } else {
+                            countryStatistic[countryName] = 1;
+                        }
+
+                        eleboxTotal += project.eleboxs;
+                        lightingTotal += project.lights;
+                    }
+
+                    console.log("国家统计：");
+                    var $countryProjectPanel = $("#globalProjectPanel");
+                    $countryProjectPanel.empty();
+                    for (var key in countryStatistic) {
+                        console.log(key + ":" + countryStatistic[key]);
+                        $('<div class="pr1">' +
+                            '<span class="Hui-iconfont bigfont">&#xe643;</span><span class="pl-10 f-18">'+key+'</span>' +
+                            '<p class="pronum">'+countryStatistic[key]+'</p>' +
+                            '</div>').appendTo($countryProjectPanel);
+                        projectTotal += countryStatistic[key];
+                    }
+                    console.log("项目统计：" + projectTotal)
+                    $("#projectStatistic").text(projectTotal);
+                    console.log("控制柜统计：" + eleboxTotal);
+                    $("#eleboxStatistic").text(eleboxTotal);
+                    console.log("灯具统计：" + lightingTotal);
+                    $("#lightStatistic").text(lightingTotal);
+                } else {
+                    layer.msg(data.header.msg,{icon:2,time:3000});
+                }
+            }
+        });
+    </script>
 
 </body>
 </html>

@@ -81,12 +81,12 @@
             //搜索
             var param = {};
 
-            param["startDate"] = startTime ? startTime : null;
-            param["endDate"] = endTime ? endTime : null;
+            param["startDate"] = startTime ? str2Date(startTime) : new Date(new Date().getTime() - 24 * 3600 * 1000);
+            param["endDate"] = endTime ? str2Date(endTime) : new Date();
             param["content"] = searchContent;
 
             debugger;
-            ajaxRequest("post", "/api/user/listUserOpLog", {}, function (data) {
+            ajaxRequest("post", "/api/user/listUserOpLog", param, function (data) {
                 debugger;
                 if (data) {
                     if (data.header.code == 1000) {
