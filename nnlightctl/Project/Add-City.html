@@ -71,47 +71,69 @@
     <script type="text/javascript" src="../lib/jquery.validation/1.14.0/jquery.validate.js"></script>
     <script type="text/javascript" src="../lib/jquery.validation/1.14.0/validate-methods.js"></script>
     <script type="text/javascript" src="../lib/jquery.validation/1.14.0/messages_zh.js"></script>
+    <script type="text/javascript" src="../js/api/ajaxScript.js"></script>
+    <script type="text/javascript" src="../js/api/requestRoot.js"></script>
     <script type="text/javascript">
         $(function () {
+            $('.skin-minimal input').iCheck({
+                checkboxClass: 'icheckbox-blue',
+                radioClass: 'iradio-blue',
+                increaseArea: '20%'
+            });
 
             //数据验证
             $("#form-admin-add").validate({
                 rules: {
-                    cityName: {
+                    institution: {
                         required: true,
-                    },
-                    codeNumber: {
-                        required: true,
-                    },
-                    longitude: {
-                        required: true,
-                    },
-                    latitude: {
-                        required: true,
-                    },
-                    timeZone: {
-                        required: true,
-                    },
+                        minlength: 1,
+                        maxlength: 64
+                    }
                 },
                 onkeyup: false,
                 focusCleanup: true,
                 success: "valid",
                 submitHandler: function (form) {
-                    $(form).ajaxSubmit({
-                        type: 'post',
-                        url: "xxxxxxx",
-                        success: function (data) {
-                            layer.msg('提交成功!', { icon: 1, time: 1000 });
-                        },
-                        error: function (XmlHttpRequest, textStatus, errorThrown) {
-                            layer.msg('error!', { icon: 1, time: 1000 });
+                    //ajax上传表单
+                    //构造上传数据
+                    var param = {};
+                    var paramArray = $(form).serializeArray();
+                    for (var i = 0; i < paramArray.length; ++i) {
+                        var o = paramArray[i];
+                        param[o["name"]] = o["value"];
+                    }
+                    //param["codeNumber"] = editModel2(window.location.href);
+                    param["id"] = editModel(window.location.href);
+                    ajaxRequest("post", "/api/project/addorupdatecity", param, function (data) {
+                        if (data) {
+                            if (data.header.code == 1000) {
+                                layer.msg("添加城市信息成功！", {icon : 1, time : 3000});
+                            } else {
+                                layer.msg(data.header.msg, {icon : 2, time : 3000});
+                            }
                         }
                     });
-                    var index = parent.layer.getFrameIndex(window.name);
-                    parent.$('.btn-refresh').click();
-                    parent.layer.close(index);
                 }
             });
+
+            //判断是否编辑模式
+            var id = editModel(window.location.href);
+            // alert(id);
+            if (id) {
+                ajaxRequest("post", "/api/project/getcity", {"codeNumber" : id}, function (data) {
+                    if (data) {
+                        if (data.header.code == 1000) {
+                            var city = data.body.data[0];
+                            //刷新表单
+                            $("#provinveName").val(city.cityName);
+                            $("#codeNumber").val(city.codeNumber);
+                            $("#mem").val(city.mem);
+                        } else {
+                            layer.msg(data.header.msg, {icon : 2});
+                        }
+                    }
+                });
+            }
         });
     </script>
     <!--/请在上方写此页面业务相关的脚本-->

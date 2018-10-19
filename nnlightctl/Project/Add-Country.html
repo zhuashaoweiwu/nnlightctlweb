@@ -84,44 +84,32 @@
                         var o = paramArray[i];
                         param[o["name"]] = o["value"];
                     }
-                    param["codeNumber"] = editModel2(window.location.href);
+                    //param["codeNumber"] = editModel2(window.location.href);
                     param["id"] = editModel(window.location.href);
-                    console.log(param);
                     ajaxRequest("post", "/api/project/addorupdatecountry", param, function (data) {
                         if (data) {
                             if (data.header.code == 1000) {
-                               // console.log(editModel(window.location.href));
-                                if (editModel2(window.location.href)) {
-                                    alert("编辑");
-                                    layer.msg("编辑国家信息成功！", {icon : 1, time : 3000});
-                                } else {
-                                    alert("OXOXOX");
-                                    layer.msg("添加国家信息成功！", {icon : 1, time : 3000});
-                                }
+                                layer.msg("添加国家信息成功！", {icon : 1, time : 3000});
+                                // this.index().hide();
                             } else {
                                 layer.msg(data.header.msg, {icon : 2, time : 3000});
                             }
                         }
                     });
-
-                    //var index = parent.layer.getFrameIndex(window.name);
-                   // parent.$('.btn-refresh').click();
-                    //parent.layer.close(index);
                 }
             });
-
             //判断是否编辑模式
             var id = editModel2(window.location.href);
-            alert(id);
+            // alert(id);
             if (id) {
                 ajaxRequest("post", "/api/project/getcountry", {"codeNumber" : id}, function (data) {
                     if (data) {
                         if (data.header.code == 1000) {
-                            var institution = data.body.data[0];
+                            var country = data.body.data[0];
                             //刷新表单
-                            $("#countryName").val(institution.countryName);
-                            $("#codeNumber").val(institution.codeNumber);
-                            $("#mem").val(institution.mem);
+                            $("#countryName").val(country.countryName);
+                            $("#codeNumber").val(country.codeNumber);
+                            $("#mem").val(country.mem);
                         } else {
                             layer.msg(data.header.msg, {icon : 2});
                         }
