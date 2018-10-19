@@ -18,84 +18,101 @@
     <nav class="breadcrumb"><i class="Hui-iconfont">&#xe67f;</i> 首页 <span class="c-gray en">&gt;</span> 用户管理 <span class="c-gray en">&gt;</span>项目归属<a class="btn btn-success radius r" style="line-height:1.6em;margin-top:3px" href="javascript:location.replace(location.href);" title="刷新"><i class="Hui-iconfont">&#xe68f;</i></a></nav>
     <div class="pd-20">
         <div class="text-l">
-            <span class="select-box inline mr-10">
-                条件：
+            机构名称：
+            <span class="select-box inline">
                 <select name="" class="select">
-                    <option value="0">全部</option>
+                    <option value="0">全部机构</option>
                     <option value="1">分类一</option>
                     <option value="2">分类二</option>
                 </select>
             </span>
-            <span class="select-box inline mr-10">
-                属于：
-                <select class="select" name="brandclass" size="1">
-                    <option value="" selected>请选择</option>
-                    <option value="1">国内品牌</option>
-                    <option value="0">国外品牌</option>
-                </select>
-            </span>
-            <span class="select-box inline mr-10">
-                项目：
-                <select class="select" name="brandclass" size="1">
-                    <option value="" selected>请选择</option>
-                    <option value="1">国内品牌</option>
-                    <option value="0">国外品牌</option>
-                </select>
-            </span>
-                <input type="text" class="input-text" style="width:250px" placeholder="输入项目名称" id="" name=""><button type="submit" class="btn btn-success" id="" name=""><i class="icon-search"></i> 搜项目</button>
         </div>
         <div class="mt-20">
-            <table class="table table-border table-bordered table-bg table-hover table-sort table-responsive">
-                <thead>
-                    <tr class="text-c">
-                        <th width="25"><input type="checkbox" name="" value=""></th>
-                        <th width="80">ID</th>
-                        <th width="100">项目</th>
-                        <th width="100">机构</th>
-                        <th width="100">授权用户</th>
-                        <th>项目备注</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr class="text-c">
-                        <td><input type="checkbox" value="1" name=""></td>
-                        <td>1</td>
-                        <td>北京单控灯项目</td>
-                        <td>北京市研发部</td>
-                        <td>高级用户</td>
-                        <td>这个问题很严重，需要当面交代</td>
-                    </tr>
-                    <tr class="text-c">
-                        <td><input type="checkbox" value="2" name=""></td>
-                        <td>2</td>
-                        <td>北京单控灯项目</td>
-                        <td>北京市研发部</td>
-                        <td>高级用户</td>
-                        <td>这个问题很严重，需要当面交代</td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
-    </div>
-    <!--_footer 作为公共模版分离出去-->
-    <script type="text/javascript" src="../js/jquery.min.js"></script>
-    <script type="text/javascript" src="../js/common.js"></script>
-    <script type="text/javascript" src="../js/admin.js"></script> <!--/_footer 作为公共模版分离出去-->
-    <!--请在下方写此页面业务相关的脚本-->
-    <script type="text/javascript" src="../lib/datatables/1.10.0/jquery.dataTables.min.js"></script>
-    <script type="text/javascript" src="../lib/laypage/1.2/laypage.js"></script>
-    <script type="text/javascript">
-        $('.table-sort').dataTable({
+                <table border="0">
+                    <tr>
+                        <td style="height:400px;width:48%;overflow-y:scroll;border:1px solid #ddd;" valign="top">
+                            <h4 class="f-18 tit"><span class="Hui-iconfont">&#xe667;</span><span class="pl-10">已归属项目（<span class="f-14 c-orange">备注：点击当前列，移除或添加</span>）</span></h4>
+                            <table class="table table-border table-bordered table-bg table-hover">
+                                <thead>
+                                    <tr class="text-c">
+                                        <th width="50">项目编码</th>
+                                        <th>项目名称</th>
+                                        <th>项目地址</th>
+                                        <th>状态</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="tb1">
+                                    <tr class="text-c" ref="1">
+                                        <td>01</td>
+                                        <td>三亚项目</td>
+                                        <td>中国.三亚</td>
+                                        <td class="td-status"><span class="label label-success radius">是</span></td>
+                                    </tr>
+                                    <tr class="text-c" ref="2">
+                                        <td>02</td>
+                                        <td>三亚项目</td>
+                                        <td>中国.三亚</td>
+                                        <td class="td-status"><span class="label radius">否</span></td>
+                                    </tr>
+                                    
+                                </tbody>
+                            </table>
+                        </td>
 
-            "aaSorting": [[1, "desc"]],//默认第几个排序
-            "bStateSave": true,//状态保存
-            "aoColumnDefs": [
-	          //{"bVisible": false, "aTargets": [ 3 ]} //控制列的隐藏显示
-	          //{ "orderable": false, "aTargets": [0, 8, 9, 10, 11] }// 制定列不参与排序
-            ]
+                        <td width="4%" align="center">
+                            <!--<a href="javascript:void(0);" onclick="project_del_more()" class="btn btn-danger radius"><i class="Hui-iconfont">&#xe6e2;</i> 批量删除</a>
+                            <a href="javascript:void(0);" onclick="project_del_more()" class="btn btn-danger radius"><i class="Hui-iconfont">&#xe6e2;</i> 批量删除</a>-->
+                        </td>
+
+                        <td style="height:400px;width:48%;overflow-y:scroll;border:1px solid #ddd;" valign="top">
+                            <h4 class="f-18 tit"><span class="Hui-iconfont">&#xe667;</span><span class="pl-10">可以归属项目</span></h4>
+                            <table class="table table-border table-bordered table-bg table-hover">
+                                <thead>
+                                    <tr class="text-c">
+                                        <th width="50">项目编码</th>
+                                        <th>项目名称</th>
+                                        <th>项目地址</th>
+                                        <th>状态</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="tb2">
+                                    
+                                </tbody>
+                            </table>
+                        </td>
+
+                    </tr>
+                </table>
+       </div>
+    </div>
+    <input type="text" value="&1&2" name="tb1_val" id="tb1_val" /><!--这里存储当前已归属项目，后台交互取这里的值-,可以隐藏显示-->
+    <input type="text" value="" name="tb2_val" id="tb2_val" /><!--这里存储当前可以归属项目，后台交互取这里的值-->
+    <script type="text/javascript" src="../js/jquery.min.js"></script>
+    <script type="text/javascript">
+       
+        $("#tb1").delegate('.text-c', 'click', function () {
+            var _this = $(this);
+            _this.remove();
+            var currentId = _this.attr("ref");//这里的Id 是可以后台交互
+            var StrHtml = "<tr class='text-c' ref='" + currentId + "'>" + _this.html() + "</tr>";
+            $("#tb2").append(StrHtml);
+            //后面动态修改归属项目Id值
+            var Crrtb1_val = $("#tb1_val").val(); var Crrtb2_val = $("#tb2_val").val();
+            $("#tb1_val").val(Crrtb1_val.replace("&" + currentId, '')); $("#tb2_val").val(Crrtb2_val + "&" + currentId);
+
+        });
+        $("#tb2").delegate('.text-c', 'click', function () {
+            var _this = $(this);
+            _this.remove();
+            var currentId = _this.attr("ref");
+            var StrHtml = "<tr class='text-c' ref='" + currentId + "'>" + _this.html() + "</tr>";;
+            $("#tb1").append(StrHtml);
+            //后面动态修改归属项目Id值
+            var Crrtb1_val = $("#tb1_val").val(); var Crrtb2_val = $("#tb2_val").val();
+            $("#tb2_val").val(Crrtb2_val.replace("&" + currentId, '')); $("#tb1_val").val(Crrtb1_val + "&" + currentId);
         });
 
-    </script>
+    </script> 
 
 </body>
 </html>
