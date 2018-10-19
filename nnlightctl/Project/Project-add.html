@@ -5,137 +5,147 @@
     <meta charset="utf-8">
     <meta name="renderer" content="webkit|ie-comp|ie-stand">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no" />
-    <meta http-equiv="Cache-Control" content="no-siteapp" />
+    <meta name="viewport"
+          content="width=device-width,initial-scale=1,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no"/>
+    <meta http-equiv="Cache-Control" content="no-siteapp"/>
 
     <title>项目管理 --新增项目</title>
-    <link rel="stylesheet" type="text/css" href="../css/common.css" />
-    <link rel="stylesheet" type="text/css" href="../css/admin.css" />
-    <link rel="stylesheet" type="text/css" href="../css/iconfont/iconfont.css" />
+    <link rel="stylesheet" type="text/css" href="../css/common.css"/>
+    <link rel="stylesheet" type="text/css" href="../css/admin.css"/>
+    <link rel="stylesheet" type="text/css" href="../css/iconfont/iconfont.css"/>
 
 </head>
 <body>
-    <article class="page-container">
-        <form class="form form-horizontal" id="form-admin-add">
-            <div class="row cl">
-                <label class="form-label col-xs-4 col-sm-3">国家：</label>
-                <div class="formControls col-xs-8 col-sm-9">
+<article class="page-container">
+    <form class="form form-horizontal" id="form-admin-add">
+        <div id="countryRow" class="row cl">
+            <label class="form-label col-xs-4 col-sm-3">国家：</label>
+            <div class="formControls col-xs-8 col-sm-9">
                     <span class="select-box" style="width:200px;">
-                        <select class="select" name="nnlightctlProjectCountryId" id="nnlightctlProjectCountryId" size="1">
+                        <select class="select" name="nnlightctlProjectCountryId" id="nnlightctlProjectCountryId"
+                                size="1">
                             <option value="0">请选择国家</option>
                         </select>
                     </span>
-                    <a class="btn btn-primary radius f-r mr-10" data-title="添加国家" onclick="country_add('添加国家', 'Add-Country.html', '300', '350')" href="javascript:void(0);">
-                <i class="Hui-iconfont">&#xe600;</i> 添加</a>
-                </div>
+                <a class="btn btn-primary radius f-r mr-10" data-title="添加国家"
+                   onclick="country_add('添加国家', 'Add-Country.html', '300', '350')" href="javascript:void(0);">
+                    <i class="Hui-iconfont">&#xe600;</i> 添加</a>
             </div>
-            <div class="row cl">
-                <label class="form-label col-xs-4 col-sm-3">省份：</label>
-                <div class="formControls col-xs-8 col-sm-9">
+        </div>
+        <div id="provinceRow" class="row cl">
+            <label class="form-label col-xs-4 col-sm-3">省份：</label>
+            <div class="formControls col-xs-8 col-sm-9">
                     <span class="select-box" style="width:200px;">
-                        <select class="select" name="nnlightctlProjectProvinceId" id="nnlightctlProjectProvinceId" size="1">
+                        <select class="select" name="nnlightctlProjectProvinceId" id="nnlightctlProjectProvinceId"
+                                size="1">
                             <option value="0">请选择省份</option>
                         </select>
                     </span>
-                    <a class="btn btn-primary radius f-r mr-10" data-title="添加省份" onclick="province_add('添加省份', 'Add-Province.html', '300', '350')" href="javascript:void(0);">
-                        <i class="Hui-iconfont">&#xe600;</i> 添加
-                    </a>
-                </div>
+                <a class="btn btn-primary radius f-r mr-10" data-title="添加省份"
+                   onclick="province_add('添加省份', 'Add-Province.html', '300', '350')" href="javascript:void(0);">
+                    <i class="Hui-iconfont">&#xe600;</i> 添加
+                </a>
             </div>
-            <div class="row cl">
-                <label class="form-label col-xs-4 col-sm-3">城市：</label>
-                <div class="formControls col-xs-8 col-sm-9">
+        </div>
+        <div id="cityRow" class="row cl">
+            <label class="form-label col-xs-4 col-sm-3">城市：</label>
+            <div class="formControls col-xs-8 col-sm-9">
                     <span class="select-box" style="width:200px;">
                         <select class="select" name="nnlightctlProjectCityId" id="nnlightctlProjectCityId" size="1">
                             <option value="0">请选择城市</option>
                         </select>
                     </span>
-                    <a class="btn btn-primary radius f-r mr-10" data-title="添加城市" onclick="city_add('添加城市', 'Add-City.html', '300', '400')" href="javascript:void(0);">
-                        <i class="Hui-iconfont">&#xe600;</i> 添加
-                    </a>
-                </div>
+                <a class="btn btn-primary radius f-r mr-10" data-title="添加城市"
+                   onclick="city_add('添加城市', 'Add-City.html', '300', '400')" href="javascript:void(0);">
+                    <i class="Hui-iconfont">&#xe600;</i> 添加
+                </a>
             </div>
-            <div class="row cl">
-                <label class="form-label col-xs-4 col-sm-3">类型：</label>
-                <div class="formControls col-xs-8 col-sm-9">
+        </div>
+        <div class="row cl">
+            <label class="form-label col-xs-4 col-sm-3">类型：</label>
+            <div class="formControls col-xs-8 col-sm-9">
                     <span class="select-box" style="width:150px;">
                         <select class="select" name="type" id="type" size="1">
                             <option value="1">道路照明系统</option>
                         </select>
                     </span>
-                </div>
             </div>
-            <div class="row cl">
-                <label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>编码：</label>
-                <div class="formControls col-xs-8 col-sm-9">
-                    <input type="text" class="input-text" value="" placeholder="" id="projectCode" name="projectCode">
-                </div>
+        </div>
+        <div class="row cl">
+            <label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>编码：</label>
+            <div class="formControls col-xs-8 col-sm-9">
+                <input type="text" class="input-text" value="" placeholder="" id="projectCode" name="projectCode">
             </div>
-            <div class="row cl">
-                <label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>名称：</label>
-                <div class="formControls col-xs-8 col-sm-9">
-                    <input type="text" class="input-text" value="" placeholder="" id="projectName" name="projectName">
-                </div>
+        </div>
+        <div class="row cl">
+            <label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>名称：</label>
+            <div class="formControls col-xs-8 col-sm-9">
+                <input type="text" class="input-text" value="" placeholder="" id="projectName" name="projectName">
             </div>
-            
-            <div class="row cl">
-                <label class="form-label col-xs-4 col-sm-3">备注：</label>
-                <div class="formControls col-xs-8 col-sm-9">
-                    <textarea name="mem" id="mem" cols="" rows="" class="textarea" placeholder="说点什么...100个字符以内" dragonfly="true"></textarea>
-                    <p class="textarea-numberbar"><em class="textarea-length">0</em>/100</p>
-                </div>
-            </div>
-            <div class="row cl">
-                <div class="col-xs-8 col-sm-9 col-xs-offset-4 col-sm-offset-3">
-                    <input class="btn btn-primary radius" type="submit" value="&nbsp;&nbsp;提交&nbsp;&nbsp;">
-                </div>
-            </div>
-        </form>
-    </article>
+        </div>
 
-    <!--_footer 作为公共模版分离出去-->
-    <script type="text/javascript" src="../js/jquery.min.js"></script>
-    <script type="text/javascript" src="../lib/layer/2.4/layer.js"></script>
-    <script type="text/javascript" src="../js/common.js"></script>
-    <script type="text/javascript" src="../js/admin.js"></script>
+        <div class="row cl">
+            <label class="form-label col-xs-4 col-sm-3">备注：</label>
+            <div class="formControls col-xs-8 col-sm-9">
+                <textarea name="mem" id="mem" cols="" rows="" class="textarea" placeholder="说点什么...100个字符以内"
+                          dragonfly="true"></textarea>
+                <p class="textarea-numberbar"><em class="textarea-length">0</em>/100</p>
+            </div>
+        </div>
+        <div class="row cl">
+            <div class="col-xs-8 col-sm-9 col-xs-offset-4 col-sm-offset-3">
+                <input class="btn btn-primary radius" type="submit" value="&nbsp;&nbsp;提交&nbsp;&nbsp;">
+            </div>
+        </div>
+    </form>
+</article>
 
-    <script type="text/javascript" src="../js/api/requestRoot.js"></script>
-    <script type="text/javascript" src="../js/api/ajaxScript.js"></script>
-    <!--/_footer 作为公共模版分离出去-->
-    <!--请在下方写此页面业务相关的脚本-->
-    <script type="text/javascript" src="../lib/jquery.validation/1.14.0/jquery.validate.js"></script>
-    <script type="text/javascript" src="../lib/jquery.validation/1.14.0/validate-methods.js"></script>
-    <script type="text/javascript" src="../lib/jquery.validation/1.14.0/messages_zh.js"></script>
-    <script type="text/javascript">
-        /*国家增加*/
-        function country_add(title, url, w, h) {
-            layer_show(title, url, w, h);
-        }
-        /*省份增加*/
-        function province_add(title, url, w, h) {
-            layer_show(title, url, w, h);
-        }
-        /*城市增加*/
-        function city_add(title, url, w, h) {
-            layer_show(title, url, w, h);
-        }
-        $(function(){
+<!--_footer 作为公共模版分离出去-->
+<script type="text/javascript" src="../js/jquery.min.js"></script>
+<script type="text/javascript" src="../lib/layer/2.4/layer.js"></script>
+<script type="text/javascript" src="../js/common.js"></script>
+<script type="text/javascript" src="../js/admin.js"></script>
+
+<script type="text/javascript" src="../js/api/requestRoot.js"></script>
+<script type="text/javascript" src="../js/api/ajaxScript.js"></script>
+<!--/_footer 作为公共模版分离出去-->
+<!--请在下方写此页面业务相关的脚本-->
+<script type="text/javascript" src="../lib/jquery.validation/1.14.0/jquery.validate.js"></script>
+<script type="text/javascript" src="../lib/jquery.validation/1.14.0/validate-methods.js"></script>
+<script type="text/javascript" src="../lib/jquery.validation/1.14.0/messages_zh.js"></script>
+<script type="text/javascript">
+    /*国家增加*/
+    function country_add(title, url, w, h) {
+        layer_show(title, url, w, h);
+    }
+
+    /*省份增加*/
+    function province_add(title, url, w, h) {
+        layer_show(title, url, w, h);
+    }
+
+    /*城市增加*/
+    function city_add(title, url, w, h) {
+        layer_show(title, url, w, h);
+    }
+
+    $(function () {
         //数据验证
-	    $("#form-admin-add").validate({
-		    rules:{
+        $("#form-admin-add").validate({
+            rules: {
                 projectCode: {
-				    required:true,
-				    minlength:1,
-				    maxlength:64
-			    },
-		        projectName: {
-				    required:true
-			    }
-		    },
-		    onkeyup:false,
-		    focusCleanup:true,
-		    success:"valid",
-		    submitHandler:function(form){
+                    required: true,
+                    minlength: 1,
+                    maxlength: 64
+                },
+                projectName: {
+                    required: true
+                }
+            },
+            onkeyup: false,
+            focusCleanup: true,
+            success: "valid",
+            submitHandler: function (form) {
                 //ajax上传表单
                 //构造上传数据
                 var param = {};
@@ -167,76 +177,102 @@
                 var index = parent.layer.getFrameIndex(window.name);
                 parent.$('.btn-refresh').click();
                 parent.layer.close(index);
-		    }
-	    });
+            }
+        });
 
-	    //刷新国家列表
-            function flushCountry() {
-                ajaxRequest("post", "/api/project/listcountry", {}, function (data) {
-                    if (data) {
-                        if (data.body.data) {
-                            var countryArray = data.body.data;
+        //刷新国家列表
+        function flushCountry() {
+            ajaxRequest("post", "/api/project/listcountry", {}, function (data) {
+                if (data) {
+                    if (data.body.data) {
+                        var countryArray = data.body.data;
 
-                            var $countrySelect = $("#nnlightctlProjectCountryId");
+                        var $countrySelect = $("#nnlightctlProjectCountryId");
 
-                            for (var i = 0; i < countryArray.length; ++i) {
-                                var country = countryArray[i];
-                                $('<option value="'+country.id+'">'+country.countryName+'</option>').appendTo($countrySelect);
-                            }
+                        for (var i = 0; i < countryArray.length; ++i) {
+                            var country = countryArray[i];
+                            $('<option value="' + country.id + '">' + country.countryName + '</option>').appendTo($countrySelect);
                         }
                     }
-                });
-            }
-
-            flushCountry();
-
-            //按国家刷新省份
-            function flushProvinceByCountry(countryId) {
-                ajaxRequest("post", "/api/project/listprovince", {"nnlightctlProjectCountryId" : countryId}, function (data) {
-                    if (data) {
-                        if (data.body.data) {
-                            var provinceArray = data.body.data;
-
-                            var $provinceSelect = $("#nnlightctlProjectProvinceId");
-
-                            for (var i = 0; i < provinceArray.length; ++i) {
-                                var province = provinceArray[i];
-                                $('<option value="'+province.id+'">'+province.provinceName+'</option>').appendTo($provinceSelect);
-                            }
-                        }
-                    }
-                });
-            }
-
-            //按省份刷新城市信息
-            function flushCityByProvince(provinceId) {
-                ajaxRequest("post", "/api/project/listcity", {"nnlightctlProjectProvinceId" : provinceId}, function (data) {
-                    if (data) {
-                        if (data.body.data) {
-                            var cityArray = data.body.data;
-
-                            var $citySelect = $("#nnlightctlProjectCityId");
-
-                            for (var i = 0; i < cityArray.length; ++i) {
-                                var city = cityArray[i];
-                                $('<option value="'+city.id+'">'+city.cityName+'</option>').appendTo($citySelect);
-                            }
-                        }
-                    }
-                });
-            }
-
-            //注册国家列表选择事件
-            $("#nnlightctlProjectCountryId").change(function () {
-                flushProvinceByCountry($(this).val());
+                }
             });
+        }
 
-            //注册省份列表选择事件
-            $("#nnlightctlProjectProvinceId").change(function () {
-                flushCityByProvince($(this).val());
+        flushCountry();
+
+        //按国家刷新省份
+        function flushProvinceByCountry(countryId) {
+            ajaxRequest("post", "/api/project/listprovince", {"nnlightctlProjectCountryId": countryId}, function (data) {
+                if (data) {
+                    if (data.body.data) {
+                        var provinceArray = data.body.data;
+
+                        var $provinceSelect = $("#nnlightctlProjectProvinceId");
+
+                        for (var i = 0; i < provinceArray.length; ++i) {
+                            var province = provinceArray[i];
+                            $('<option value="' + province.id + '">' + province.provinceName + '</option>').appendTo($provinceSelect);
+                        }
+                    }
+                }
             });
+        }
+
+        //按省份刷新城市信息
+        function flushCityByProvince(provinceId) {
+            ajaxRequest("post", "/api/project/listcity", {"nnlightctlProjectProvinceId": provinceId}, function (data) {
+                if (data) {
+                    if (data.body.data) {
+                        var cityArray = data.body.data;
+
+                        var $citySelect = $("#nnlightctlProjectCityId");
+
+                        for (var i = 0; i < cityArray.length; ++i) {
+                            var city = cityArray[i];
+                            $('<option value="' + city.id + '">' + city.cityName + '</option>').appendTo($citySelect);
+                        }
+                    }
+                }
+            });
+        }
+
+        //注册国家列表选择事件
+        $("#nnlightctlProjectCountryId").change(function () {
+            flushProvinceByCountry($(this).val());
+        });
+
+        //注册省份列表选择事件
+        $("#nnlightctlProjectProvinceId").change(function () {
+            flushCityByProvince($(this).val());
+        });
+
+        //判断是否编辑模式
+        var id = editModel(window.location.href);
+        if (id) {
+            debugger;
+            ajaxRequest("post", "/api/project/getproject", {"id" : id}, function (data) {
+                debugger;
+                if (data) {
+                    if (data.header.code == 1000) {
+                        var project = data.body.data[0];
+                        //隐藏国家、省份、城市表单项
+                        $("#countryRow").hide();
+                        $("#provinceRow").hide();
+                        $("#cityRow").hide();
+
+                        //刷新表单
+                        $("#projectCode").val(project.codeNumber);
+                        $("#projectName").val(project.projectName);
+                        $("#mem").val(project.mem);
+                    } else {
+                        layer.msg(data.header.msg, {icon : 2});
+                    }
+                }
+            });
+        }
+
     });
-    </script>
-    <!--/请在上方写此页面业务相关的脚本-->
+</script>
+<!--/请在上方写此页面业务相关的脚本-->
 </body>
 </html>

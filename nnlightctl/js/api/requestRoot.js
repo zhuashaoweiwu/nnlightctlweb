@@ -17,3 +17,8 @@ const USER_TYPE = {
     1 : "机构管理员用户",
     2 : "部门用户"
 };
+
+const PROJECT_STATE = {
+    0 : "未启用",
+    1 : "已启用"
+};
