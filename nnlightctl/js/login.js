@@ -14,7 +14,7 @@ $(function(){
                 success: function (result) {
                      // console.log(result)
 					if(result.header.code == "1000"){
-                       window.location.href='index.html'
+                       window.location.href='Index.html'
 					}
                     else{
                         $('#errormsg').show();
