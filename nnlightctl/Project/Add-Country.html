@@ -96,6 +96,9 @@
                             }
                         }
                     });
+                    var index = parent.layer.getFrameIndex(window.name);
+                    parent.$('.btn-refresh').click();
+                    parent.layer.close(index);
                 }
             });
             //判断是否编辑模式
