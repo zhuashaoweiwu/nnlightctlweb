@@ -16,7 +16,7 @@
 .page-container{ padding:20px}
 /*左侧菜单*/
 .Hui-aside .menu_dropdown dl{ margin-bottom:0}
-.Hui-aside .menu_dropdown dt{display:block;line-height:35px;padding-left:15px;cursor:pointer;position:relative;border-bottom: 1px solid #e5e5e5;font-weight:normal}
+.Hui-aside .menu_dropdown dt{display:block;line-height:35px;padding-left:15px;cursor:pointer;position:relative;/*border-bottom: 1px solid #e5e5e5;*/font-weight:normal}
 .Hui-aside .menu_dropdown dt .menu_dropdown-arrow{ position:absolute;overflow: hidden; top:0; right:15px;transition-duration:0.3s ;transition-property:all}
 .Hui-aside .menu_dropdown dd{ display:none}
 .Hui-aside .menu_dropdown dt.selected .menu_dropdown-arrow{transform: rotate(180deg)}
@@ -37,8 +37,8 @@
 .dislpayArrow a:hover{ text-decoration:none; background-position:right 0}
 .dislpayArrow a.open:hover{background-position:right -61px}
 .Hui-aside{}/*侧边栏*/
-.Hui-aside .menu_dropdown dt{/*color:#333*/ color:#333}/*左侧二级导航菜单*/
-.Hui-aside .menu_dropdown dt{/*color:#333*/ color:#333}/*左侧二级导航菜单*/
+.Hui-aside .menu_dropdown dt{/*color:#333*/ color:#fff; line-height: 50px;}/*左侧二级导航菜单*/
+.Hui-aside .menu_dropdown dt{/*color:#333*/ color:#fff}/*左侧二级导航菜单*/
 .Hui-aside .menu_dropdown dt:hover{color:#148cf1}
 .Hui-aside .menu_dropdown dt:hover [class^="icon-"]{ color:#7e8795}
 .Hui-aside .menu_dropdown li a{/*color:#666;border-bottom: 1px solid #e5e5e5*/color:#fff;}
