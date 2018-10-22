@@ -6,7 +6,7 @@
 .admintop .adminnav .logotit .logo{height:45px;width:auto;}
 /*页面框架*/
 .Hui-header{position:absolute;top:0; right:0; left:0;height:56px;z-index:999; padding:0 15px}
-.Hui-aside{position: absolute;top:56px;bottom:0;left:0;padding-top:10px;width:199px;z-index:99;overflow:auto; background-color:rgba(238,238,238,0.98);_background-color:rgb(238,238,238);border-right: 1px solid #e5e5e5}
+.Hui-aside{position: absolute;top:56px;bottom:0;left:0;padding-top:10px;width:199px;z-index:99;overflow:auto; /*background-color:rgba(238,238,238,0.98);*/    background-color: rgb(48, 65, 86); _background-color:rgb(238,238,238);border-right: 1px solid #e5e5e5}
 .Hui-article-box{position: absolute;top:56px;right:0;bottom: 0;left:199px; overflow:hidden; z-index:1; background-color:#fff}
 .Hui-article{position: absolute;top:34px;bottom:0;left:0; right:0;overflow:auto;z-index:1;}
 .Hui-container{ padding:45px 0 0}
@@ -37,10 +37,11 @@
 .dislpayArrow a:hover{ text-decoration:none; background-position:right 0}
 .dislpayArrow a.open:hover{background-position:right -61px}
 .Hui-aside{}/*侧边栏*/
-.Hui-aside .menu_dropdown dt{color:#333}/*左侧二级导航菜单*/
+.Hui-aside .menu_dropdown dt{/*color:#333*/ color:#333}/*左侧二级导航菜单*/
+.Hui-aside .menu_dropdown dt{/*color:#333*/ color:#333}/*左侧二级导航菜单*/
 .Hui-aside .menu_dropdown dt:hover{color:#148cf1}
 .Hui-aside .menu_dropdown dt:hover [class^="icon-"]{ color:#7e8795}
-.Hui-aside .menu_dropdown li a{color:#666;border-bottom: 1px solid #e5e5e5}
+.Hui-aside .menu_dropdown li a{/*color:#666;border-bottom: 1px solid #e5e5e5*/color:#fff;}
 .Hui-aside .menu_dropdown li a:hover{color:#148cf1;background-color:#fafafa}
 .Hui-aside .menu_dropdown li.current a,.menu_dropdown li.current a:hover{color:#148cf1}
 .Hui-aside .menu_dropdown dt .Hui-iconfont{ color:#a0a7b1}
