@@ -66,7 +66,11 @@
     <script type="text/javascript" src="../js/jquery.min.js"></script>
     <script type="text/javascript" src="../lib/layer/2.4/layer.js"></script>
     <script type="text/javascript" src="../js/common.js"></script>
-    <script type="text/javascript" src="../js/admin.js"></script> <!--/_footer 作为公共模版分离出去-->
+    <script type="text/javascript" src="../js/admin.js"></script>
+
+    <script type="text/javascript" src="../js/api/requestRoot.js"></script>
+    <script type="text/javascript" src="../js/api/ajaxScript.js"></script>
+    <!--/_footer 作为公共模版分离出去-->
     <!--请在下方写此页面业务相关的脚本-->
     <script type="text/javascript" src="../lib/jquery.validation/1.14.0/jquery.validate.js"></script>
     <script type="text/javascript" src="../lib/jquery.validation/1.14.0/validate-methods.js"></script>
@@ -85,16 +89,30 @@
                 focusCleanup: true,
                 success: "valid",
                 submitHandler: function (form) {
-                    $(form).ajaxSubmit({
-                        type: 'post',
-                        url: "xxxxxxx",
-                        success: function (data) {
-                            layer.msg('提交成功!', { icon: 1, time: 1000 });
-                        },
-                        error: function (XmlHttpRequest, textStatus, errorThrown) {
-                            layer.msg('error!', { icon: 1, time: 1000 });
+                    //ajax上传表单
+                    //构造上传数据
+                    var param = {};
+                    var paramArray = $(form).serializeArray();
+                    for (var i = 0; i < paramArray.length; ++i) {
+                        var o = paramArray[i];
+                        param[o["name"]] = o["value"];
+                    }
+                    param["id"] = editModel(window.location.href);
+                    debugger;
+                    ajaxRequest("post", "/api/roadlighting/addOrUpdateLightModel", param, function (data) {
+                        if (data) {
+                            if (data.header.code == 1000) {
+                                if (editModel(window.location.href)) {
+                                    layer.msg("编辑灯具型号信息成功！", {icon: 1, time: 3000});
+                                } else {
+                                    layer.msg("添加灯具型号信息成功！", {icon: 1, time: 3000});
+                                }
+                            } else {
+                                layer.msg(data.header.msg, {icon: 2, time: 3000});
+                            }
                         }
                     });
+
                     var index = parent.layer.getFrameIndex(window.name);
                     parent.$('.btn-refresh').click();
                     parent.layer.close(index);
