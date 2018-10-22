@@ -89,6 +89,7 @@
     <Content Include="Engery\Analyze.html" />
     <Content Include="Engery\EnergyMonitor.html" />
     <Content Include="Engery\EnergyReport.html" />
+    <Content Include="Engery\EnergyReport1.html" />
     <Content Include="Engery\History.html" />
     <Content Include="Engery\Lamp.html" />
     <Content Include="Engery\terReport.html" />
