@@ -20,10 +20,8 @@
         <div class="text-l">
             机构名称：
             <span class="select-box inline">
-                <select name="" class="select">
-                    <option value="0">全部机构</option>
-                    <option value="1">分类一</option>
-                    <option value="2">分类二</option>
+                <select name="" class="select" id="institutionSelect">
+                    <option value="0">选择机构</option>
                 </select>
             </span>
         </div>
@@ -37,7 +35,7 @@
                                     <tr class="text-c">
                                         <th width="50">项目编码</th>
                                         <th>项目名称</th>
-                                        <th>项目地址</th>
+                                        <th>备注</th>
                                         <th>状态</th>
                                     </tr>
                                 </thead>
@@ -71,7 +69,7 @@
                                     <tr class="text-c">
                                         <th width="50">项目编码</th>
                                         <th>项目名称</th>
-                                        <th>项目地址</th>
+                                        <th>备注</th>
                                         <th>状态</th>
                                     </tr>
                                 </thead>
@@ -85,10 +83,20 @@
                 </table>
        </div>
     </div>
-    <input type="text" value="&1&2" name="tb1_val" id="tb1_val" /><!--这里存储当前已归属项目，后台交互取这里的值-,可以隐藏显示-->
-    <input type="text" value="" name="tb2_val" id="tb2_val" /><!--这里存储当前可以归属项目，后台交互取这里的值-->
+    <!--<input type="text" value="&1&2" name="tb1_val" id="tb1_val" />
+    <input type="text" value="" name="tb2_val" id="tb2_val" />-->
+    <div class="row cl">
+        <div class="col-xs-8 col-sm-9" style="margin-left: 15px;">
+            <input class="btn btn-primary radius" id="saveBtn" type="submit" value="&nbsp;&nbsp;保存&nbsp;&nbsp;">
+        </div>
+    </div>
     <script type="text/javascript" src="../js/jquery.min.js"></script>
+    <script type="text/javascript" src="../lib/layer/2.4/layer.js"></script>
+    <script type="text/javascript" src="../js/api/requestRoot.js"></script>
+    <script type="text/javascript" src="../js/api/ajaxScript.js"></script>
     <script type="text/javascript">
+
+        var oldProjectArray = [];
        
         $("#tb1").delegate('.text-c', 'click', function () {
             var _this = $(this);
@@ -97,8 +105,8 @@
             var StrHtml = "<tr class='text-c' ref='" + currentId + "'>" + _this.html() + "</tr>";
             $("#tb2").append(StrHtml);
             //后面动态修改归属项目Id值
-            var Crrtb1_val = $("#tb1_val").val(); var Crrtb2_val = $("#tb2_val").val();
-            $("#tb1_val").val(Crrtb1_val.replace("&" + currentId, '')); $("#tb2_val").val(Crrtb2_val + "&" + currentId);
+            // var Crrtb1_val = $("#tb1_val").val(); var Crrtb2_val = $("#tb2_val").val();
+            // $("#tb1_val").val(Crrtb1_val.replace("&" + currentId, '')); $("#tb2_val").val(Crrtb2_val + "&" + currentId);
 
         });
         $("#tb2").delegate('.text-c', 'click', function () {
@@ -108,8 +116,128 @@
             var StrHtml = "<tr class='text-c' ref='" + currentId + "'>" + _this.html() + "</tr>";;
             $("#tb1").append(StrHtml);
             //后面动态修改归属项目Id值
-            var Crrtb1_val = $("#tb1_val").val(); var Crrtb2_val = $("#tb2_val").val();
-            $("#tb2_val").val(Crrtb2_val.replace("&" + currentId, '')); $("#tb1_val").val(Crrtb1_val + "&" + currentId);
+            // var Crrtb1_val = $("#tb1_val").val(); var Crrtb2_val = $("#tb2_val").val();
+            // $("#tb2_val").val(Crrtb2_val.replace("&" + currentId, '')); $("#tb1_val").val(Crrtb1_val + "&" + currentId);
+        });
+
+        /*刷新机构下拉列表*/
+        function flushInstitution() {
+            ajaxRequest("post", "/api/institution/listInsitution", {}, function (data) {
+                if (data) {
+                    if (data.header.code == 1000) {
+                        var institutionArray = data.body.data;
+
+                        var $insitutionSelect = $("#institutionSelect");
+
+                        for (var i = 0; i < institutionArray.length; ++i) {
+                            var institution = institutionArray[i];
+
+                            $('<option value="'+institution.id+'">'+institution.institutionName+'</option>').appendTo($insitutionSelect);
+                        }
+                    } else {
+                        layer.msg(data.header.msg, {icon : 2, time : 3000});
+                    }
+                }
+            });
+        }
+
+        /*根据机构id刷新机构下项目列表*/
+        function flushInstitutionProjects(institutionId) {
+            if (!institutionId) {
+                return;
+            }
+            ajaxRequest("post", "/api/institution/getProjectsByInstitutionId", {"institutionId" : institutionId}, function (data) {
+                if (data) {
+                    if (data.header.code == 1000) {
+                        var projectArray = data.body.data;
+
+                        var $tbody = $("#tb1");
+                        $tbody.empty();
+
+                        oldProjectArray.length = 0;
+
+                        for (var i = 0; i < projectArray.length; ++i) {
+                            var project = projectArray[i];
+
+                            //保存old项目id
+                            oldProjectArray[i] = project.id;
+
+                            $('<tr class="text-c" ref="'+project.id+'">\n' +
+                                '<td>'+project.codeNumber+'</td>\n' +
+                                '<td>'+project.projectName+'</td>\n' +
+                                '<td>'+project.mem+'</td>\n' +
+                                '<td class="td-status"><span class="label label-success radius">'+PROJECT_STATE[project.state]+'</span></td>\n' +
+                                '</tr>').appendTo($tbody);
+                        }
+
+                    } else {
+                        layer.msg(data.header.msg, {icon : 2, time : 3000});
+                    }
+                }
+            });
+        }
+
+        /*刷新不属于任何机构的项目列表*/
+        function flushNotBeProject() {
+            ajaxRequest("post", "/api/institution/listNotBeProjects", {}, function (data) {
+                if (data) {
+                    if (data.header.code == 1000) {
+                        var projectArray = data.body.data;
+
+                        var $tbody = $("#tb2");
+                        $tbody.empty();
+
+                        for (var i = 0; i < projectArray.length; ++i) {
+                            var project = projectArray[i];
+                            $('<tr class="text-c" ref="'+project.id+'">\n' +
+                                '<td>'+project.codeNumber+'</td>\n' +
+                                '<td>'+project.projectName+'</td>\n' +
+                                '<td>'+project.mem+'</td>\n' +
+                                '<td class="td-status"><span class="label label-success radius">'+PROJECT_STATE[project.state]+'</span></td>\n' +
+                                '</tr>').appendTo($tbody);
+                        }
+                    } else {
+                        layer.msg(data.header.msg, {icon : 2, time : 3000});
+                    }
+                }
+            });
+        }
+
+        flushInstitution();
+
+        //注册机构下拉列表选择事件
+        $("#institutionSelect").change(function () {
+            var insitutionId = $(this).val();
+
+            flushInstitutionProjects(insitutionId);
+            flushNotBeProject();
+        });
+
+        //注册保存按扭事件
+        $("#saveBtn").click(function (event) {
+            var institutionId = $("#institutionSelect").val();
+            //收集当前机构下项目id集合
+            var newProjectArray = [];
+
+            var k = 0;
+            $("#tb1").find("tr").each(function (index, element) {
+                newProjectArray[k++] = $(element).attr("ref");
+            });
+
+            var param = {};
+            param["institutionId"] = institutionId;
+            param["oldProjectIds"] = oldProjectArray;
+            param["newProjectIds"] = newProjectArray;
+
+            ajaxRequest("post", "/api/institution/institutionMapProjects2", transArray(param), function (data) {
+                if (data) {
+                    if (data.header.code == 1000) {
+                        layer.msg("保存机构映射项目成功！", {icon : 1, time : 3000})
+                    } else {
+                        layer.msg(data.header.msg, {icon : 2, time : 3000});
+                    }
+                }
+            });
         });
 
     </script> 
