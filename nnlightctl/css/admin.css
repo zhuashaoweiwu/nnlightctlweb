@@ -1,4 +1,5 @@
 ﻿
+.tabCon{width:100%;}
 .ell{max-width:100%;overflow:hidden;white-space:nowrap;text-overflow: ellipsis;}
 .admintop{width:100%;height:56px;background:#222;}
 .admintop .adminnav{position:relative;}

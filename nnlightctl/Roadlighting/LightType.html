@@ -4,94 +4,112 @@
     <meta charset="utf-8">
     <meta name="renderer" content="webkit|ie-comp|ie-stand">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no" />
-    <meta http-equiv="Cache-Control" content="no-siteapp" />
+    <meta name="viewport"
+          content="width=device-width,initial-scale=1,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no"/>
+    <meta http-equiv="Cache-Control" content="no-siteapp"/>
 
     <title>灯具型号</title>
-    <link rel="stylesheet" type="text/css" href="../css/common.css" />
-    <link rel="stylesheet" type="text/css" href="../css/admin.css" />
-    <link rel="stylesheet" type="text/css" href="../css/iconfont/iconfont.css" />
+    <link rel="stylesheet" type="text/css" href="../css/common.css"/>
+    <link rel="stylesheet" type="text/css" href="../css/admin.css"/>
+    <link rel="stylesheet" type="text/css" href="../css/iconfont/iconfont.css"/>
 
 </head>
 <body>
-    <nav class="breadcrumb">
-        <i class="Hui-iconfont">&#xe67f;</i>
-        首页 <span class="c-gray en">&gt;</span>道路照明系统
-        <span class="c-gray en">&gt;</span>灯具型号
-        <a class="btn btn-success radius r" style="line-height:1.6em;margin-top:3px" href="javascript:location.replace(location.href);" title="刷新">
-            <i class="Hui-iconfont">&#xe68f;</i>
-        </a>
-    </nav>
-    <div class="page-container">
-        <div class="text-l">
-            型号名称：
-            <input type="text" name="modelName" id="modelName" placeholder="型号名称" style="width:250px" class="input-text">
-            
-            <button name="" id="Button1" class="btn btn-success f-r" type="submit"><i class="Hui-iconfont">&#xe665;</i>灯具型号</button>
-        </div>
-        <div class="cl pd-5 bg-1 bk-gray mt-20">
-            <span class="l">
-                <a href="javascript:void(0);" onclick="del_more()" class="btn btn-danger radius"><i class="Hui-iconfont">&#xe6e2;</i>批量删除</a>
-                <a class="btn btn-primary radius" data-title="添加灯具型号" onclick="add('添加灯具型号', 'addLightType.html', '800', '550')" href="javascript:void(0);"><i class="Hui-iconfont">&#xe600;</i>添加灯具型号</a>
-            </span>
-        </div>
-        <div class="mt-20">
-            <table class="table table-border table-bordered table-bg table-hover table-sort table-responsive">
-                <thead>
-                    <tr class="text-c">
-                        <th width="25"><input type="checkbox" name="" value=""></th>
-                        <th width="100">型号名称</th>
-                        <th width="100">额定电压</th>
-                        <th width="100">额定电流</th>
-                        <th width="100">额定功率</th>
-                        <th width="100">LED数量</th>
-                        <th>备注</th>
-                        <th width="120">操作</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr class="text-c">
-                        <td><input type="checkbox" value="" name=""></td>
-                        <td>modelName</td>
-                        <td>ratedVoltage</td>
-                        <td>ratedElectric</td>
-                        <td>ratedPower</td>
-                        <td>ledCount</td>
-                        <td class="text-l"><div class="ell" style="width:300px;">两个灯泡串联起来，根据串联分压原理，每个灯泡110V电压，每个灯泡虽然暗一些开关控制连接。</div></td>
-                        <td class="f-14 td-manage" style="background:#fff;">
-                        <a style="text-decoration:none" class="ml-5" onclick="edit('编辑灯具型号', 'addLightType.html', '1', '800', '500')" href="javascript:void(0);" title="编辑灯具型号"><i class="Hui-iconfont">&#xe6df;</i></a> 
-                        <a style="text-decoration:none" class="ml-5" onClick="del_one(this, '10001')" href="javascript:void(0);" title="删除"><i class="Hui-iconfont">&#xe6e2;</i></a></td>
-                    </tr>
-                  
-                </tbody>
-            </table>
-        </div>
-    </div>
+<nav class="breadcrumb">
+    <i class="Hui-iconfont">&#xe67f;</i>
+    首页 <span class="c-gray en">&gt;</span>道路照明系统
+    <span class="c-gray en">&gt;</span>灯具型号
+    <a class="btn btn-success radius r" style="line-height:1.6em;margin-top:3px"
+       href="javascript:location.replace(location.href);" title="刷新">
+        <i class="Hui-iconfont">&#xe68f;</i>
+    </a>
+</nav>
+<div class="page-container">
+    <div class="text-l">
+        型号名称：
+        <input type="text" name="modelName" id="modelName" placeholder="型号名称" style="width:250px" class="input-text">
 
-    <script type="text/javascript" src="../js/jquery.min.js"></script>
-    <script type="text/javascript" src="../js/common.js"></script>
-    <script type="text/javascript" src="../js/admin.js"></script>
-    <!--请在下方写此页面业务相关的脚本-->
-    <script type="text/javascript" src="../lib/layer/2.4/layer.js"></script><!--弹出插件-->
-    <script type="text/javascript" src="../lib/datatables/1.10.0/jquery.dataTables.min.js"></script><!--表单插件-->
-    <script type="text/javascript">
-        $('.table-sort').dataTable({
-            "ordering":false //设置所有布排序
-        });
-        //增加
-        function add(title, url, w, h) {
-            layer_show(title, url, w, h);
-        }
-        //编辑
-        function edit(title, url, id, w, h) {
-            layer_show(title, url, w, h);
-        }
-        //批量删除
-        function del_more() {
-            //这里写方法,可以模仿单次删除方法
-        }
-        //删除单个
-        function del_one(obj, id) {
+        <button name="" id="Button1" class="btn btn-success f-r" type="submit"><i class="Hui-iconfont">&#xe665;</i>灯具型号
+        </button>
+    </div>
+    <div class="cl pd-5 bg-1 bk-gray mt-20">
+            <span class="l">
+                <a href="javascript:void(0);" onclick="del_more()" class="btn btn-danger radius"><i
+                        class="Hui-iconfont">&#xe6e2;</i>批量删除</a>
+                <a class="btn btn-primary radius" data-title="添加灯具型号"
+                   onclick="add('添加灯具型号', 'addLightType.html', '800', '550')" href="javascript:void(0);"><i
+                        class="Hui-iconfont">&#xe600;</i>添加灯具型号</a>
+            </span>
+    </div>
+    <div class="mt-20">
+        <table class="table table-border table-bordered table-bg table-hover table-sort table-responsive">
+            <thead>
+            <tr class="text-c">
+                <th width="25"><input type="checkbox" name="" value=""></th>
+                <th width="100">型号名称</th>
+                <th width="100">额定电压</th>
+                <th width="100">额定电流</th>
+                <th width="100">额定功率</th>
+                <th width="100">LED数量</th>
+                <th>备注</th>
+                <th width="120">操作</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr class="text-c">
+                <td><input type="checkbox" value="" name=""></td>
+                <td>modelName</td>
+                <td>ratedVoltage</td>
+                <td>ratedElectric</td>
+                <td>ratedPower</td>
+                <td>ledCount</td>
+                <td class="text-l">
+                    <div class="ell" style="width:300px;">两个灯泡串联起来，根据串联分压原理，每个灯泡110V电压，每个灯泡虽然暗一些开关控制连接。</div>
+                </td>
+                <td class="f-14 td-manage" style="background:#fff;">
+                    <a style="text-decoration:none" class="ml-5"
+                       onclick="edit('编辑灯具型号', 'addLightType.html', '1', '800', '500')" href="javascript:void(0);"
+                       title="编辑灯具型号"><i class="Hui-iconfont">&#xe6df;</i></a>
+                    <a style="text-decoration:none" class="ml-5" onClick="del_one(this, '10001')"
+                       href="javascript:void(0);" title="删除"><i class="Hui-iconfont">&#xe6e2;</i></a></td>
+            </tr>
+
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<script type="text/javascript" src="../js/jquery.min.js"></script>
+<script type="text/javascript" src="../js/common.js"></script>
+<script type="text/javascript" src="../js/admin.js"></script>
+
+<script type="text/javascript" src="../js/api/requestRoot.js"></script>
+<script type="text/javascript" src="../js/api/ajaxScript.js"></script>
+<!--请在下方写此页面业务相关的脚本-->
+<script type="text/javascript" src="../lib/layer/2.4/layer.js"></script><!--弹出插件-->
+<script type="text/javascript" src="../lib/datatables/1.10.0/jquery.dataTables.min.js"></script><!--表单插件-->
+<script type="text/javascript">
+    $('.table-sort').dataTable({
+        "ordering": false //设置所有布排序
+    });
+
+    //增加
+    function add(title, url, w, h) {
+        layer_show(title, url, w, h);
+    }
+
+    //编辑
+    function edit(title, url, id, w, h) {
+        layer_show(title, url, w, h);
+    }
+
+    //批量删除
+    function del_more() {
+        //这里写方法,可以模仿单次删除方法
+    }
+
+    //删除单个
+    function del_one(obj, id) {
         layer.confirm('确认要删除吗？', function (index) {
             $.ajax({
                 type: 'POST',
@@ -99,7 +117,7 @@
                 dataType: 'json',
                 success: function (data) {
                     $(obj).parents("tr").remove();
-                    layer.msg('已删除!', { icon: 1, time: 1000 });
+                    layer.msg('已删除!', {icon: 1, time: 1000});
                 },
                 error: function (data) {
                     console.log(data.msg);
@@ -108,6 +126,64 @@
         });
     }
 
-    </script>
+    //通过搜索条件分页搜索灯具型号数据
+    function searchLightModel(pageNumber) {
+        //搜索条件
+        var searchLightModelName = $("#modelName").val().trim();
+
+        //搜索
+        var param = {};
+        param["modelName"] = searchLightModelName;
+
+        debugger;
+        ajaxRequest("post", "/api/roadlighting/listLightModel", param, function (data) {
+            debugger;
+            if (data) {
+                if (data.header.code == 1000) {
+                    var lightModelArray = data.body.data;
+
+                    //更新表格
+                    var $tableBody = $("table.table").find("tbody").eq(0);
+                    $tableBody.empty();
+
+                    for (var i = 0; i < lightModelArray.length; ++i) {
+                        var lightModel = lightModelArray[i];
+                        $('<tr class="text-c">\n' +
+                            '<td><input type="checkbox" value="'+lightModel.id+'" name=""></td>\n' +
+                            '<td>'+lightModel.modelName+'</td>\n' +
+                            '<td>'+lightModel.ratedVoltage+'</td>\n' +
+                            '<td>'+lightModel.ratedElectric+'</td>\n' +
+                            '<td>'+lightModel.ratedPower+'</td>\n' +
+                            '<td>'+lightModel.ledCount+'</td>\n' +
+                            '<td class="text-l">\n' +
+                            '<div class="ell" style="width:300px;">'+lightModel.mem+'</div>\n' +
+                            '</td>\n' +
+                            '<td class="f-14 td-manage" style="background:#fff;">\n' +
+                            '<a style="text-decoration:none" class="ml-5"\n' +
+                            'onclick="edit(\'编辑灯具型号\', \'addLightType.html\', \''+lightModel.id+'\', \'800\', \'500\')" href="javascript:void(0);"\n' +
+                            'title="编辑灯具型号"><i class="Hui-iconfont">&#xe6df;</i></a>\n' +
+                            '<a style="text-decoration:none" class="ml-5" onClick="del_one(this, \''+lightModel.id+'\')"\n' +
+                            'href="javascript:void(0);" title="删除"><i class="Hui-iconfont">&#xe6e2;</i></a></td>\n' +
+                            '</tr>').appendTo($tableBody);
+                    }
+
+                    //更新分页
+                    $('.table-sort').dataTable();
+
+                } else {
+                    layer.msg(data.header.msg,{icon:2,time:3000});
+                }
+            }
+        });
+    }
+
+    searchLightModel(1);
+
+    //注册搜索按扭事件
+    $("#Button1").click(function (event) {
+        searchLightModel(1);
+    });
+
+</script>
 </body>
 </html>
