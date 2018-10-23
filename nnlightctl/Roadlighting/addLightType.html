@@ -118,6 +118,27 @@
                     parent.layer.close(index);
                 }
             });
+
+            //判断是否编辑模式
+            var id = editModel(window.location.href);
+            if (id) {
+                ajaxRequest("post", "/api/roadlighting/getLightTypeById", {"id" : id}, function (data) {
+                    if (data) {
+                        if (data.header.code == 1000) {
+                            var lightModel = data.body.data[0];
+                            //刷新表单
+                            $("#modelName").val(lightModel.modelName);
+                            $("#ratedVoltage").val(lightModel.ratedVoltage);
+                            $("#ratedElectric").val(lightModel.ratedElectric);
+                            $("#ratedPower").val(lightModel.ratedPower);
+                            $("#ledCount").val(lightModel.ledCount);
+                            $("#mem").val(lightModel.mem);
+                        } else {
+                            layer.msg(data.header.msg, {icon : 2});
+                        }
+                    }
+                });
+            }
         });
     </script>
     <!--/请在上方写此页面业务相关的脚本-->
