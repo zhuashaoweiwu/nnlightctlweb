@@ -100,29 +100,52 @@
 
     //编辑
     function edit(title, url, id, w, h) {
-        layer_show(title, url, w, h);
+        layer_show(title, url + "?id=" + id, w, h);
+    }
+
+    /*删除*/
+    function batchDeleteLightModel(idArray) {
+        if (!idArray) {
+            return;
+        }
+
+        ajaxRequest("post", "/api/roadlighting/deleteLightModel", transArray({deleteLightModelList : idArray}), function (data) {
+            if (data) {
+                if (data.header.code == 1000) {
+                    searchLightModel(1);
+                } else {
+                    layer.msg(data.header.msg, { icon: 2, time: 3000 });
+                }
+            }
+        });
     }
 
     //批量删除
     function del_more() {
-        //这里写方法,可以模仿单次删除方法
+        //获取全部批量删除的id
+        var idArray = [];
+        $("table.table").find("input[type='checkbox']:checked").each(function () {
+            idArray.push($(this).val());
+        });
+
+        if (idArray.length <= 0) {
+            return;
+        }
+
+        layer.confirm('确认批量删除？', function (index) {
+            batchDeleteLightModel(idArray);
+            layer.close(index);
+        })
     }
 
     //删除单个
     function del_one(obj, id) {
         layer.confirm('确认要删除吗？', function (index) {
-            $.ajax({
-                type: 'POST',
-                url: '',
-                dataType: 'json',
-                success: function (data) {
-                    $(obj).parents("tr").remove();
-                    layer.msg('已删除!', {icon: 1, time: 1000});
-                },
-                error: function (data) {
-                    console.log(data.msg);
-                },
-            });
+            // var id = $(obj).parents("tr").find("input[type='checkbox']").eq(0).val();
+            var idArray = [];
+            idArray.push(id);
+            batchDeleteLightModel(idArray);
+            layer.close(index);
         });
     }
 
