@@ -37,13 +37,19 @@
                         <button name="" id="Button1" class="btn btn-success f-r" type="submit"><i class="Hui-iconfont">&#xe665;</i>控制柜</button>
                     </div>
                     <div class="cl pd-5 bg-1 bk-gray mt-20">
-                        <span class="l">
-                            <a href="javascript:void(0);" onclick="del_more()" class="btn btn-danger radius"><i class="Hui-iconfont">&#xe6e2;</i>批量删除</a>
-                            <a href="javascript:void(0);" onclick="project_del_more()" class="btn btn-secondary radius"><i class="Hui-iconfont">&#xe645;</i>导入</a>
-                            <a href="javascript:void(0);" onclick="project_del_more()" class="btn btn-success radius"><i class="Hui-iconfont">&#xe644;</i>导出</a>
-                            <a href="javascript:void(0);" onclick="project_del_more()" class="btn btn-warning radius"><i class="Hui-iconfont">&#xe63c;</i>批量设置</a>
-                            <a class="btn btn-primary radius" data-title="添加控制柜" onclick="addEleBox('添加控制柜', 'addEleBox.html', '600', '450')" href="javascript:void(0);"><i class="Hui-iconfont">&#xe600;</i>添加控制柜</a>
-                        </span>
+                        <ul class="cl tabnav">
+                            <li><a href="javascript:void(0);" onclick="del_more()" class="btn btn-danger radius mr-10"><i class="Hui-iconfont">&#xe6e2;</i>批量删除</a></li>
+                            <li><a href="javascript:void(0);" onclick="project_del_more()" class="btn btn-secondary radius mr-10"><i class="Hui-iconfont">&#xe645;</i>导入</a></li>
+                            <li><a href="javascript:void(0);" onclick="project_del_more()" class="btn btn-success radius mr-10"><i class="Hui-iconfont">&#xe644;</i>导出</a></li>
+                            <li class="dropDown dropDown_hover">
+                                <a href="#" class="btn btn-danger radius mr-10">批量设置<i class="Hui-iconfont">&#xe6d5;</i></a>
+                                <ul class="dropDown-menu menu radius box-shadow">
+                                    <li><a href="javascript:void(0);" onclick="setArea('设置区域', 'setArea.html', '500', '300')">设置区域</a></li>
+                                    <li><a href="javascript:void(0);" onclick="setMappic('设置地图图标', 'setMappic.html', '500', '300')">设置地图图标</a></li>
+                                </ul>
+                            </li>
+                            <li><a class="btn btn-primary radius" data-title="添加控制柜" data-href="../Roadlighting/addEleBox.html" onclick="Hui_admin_tab(this)" href="javascript:void(0);"><i class="Hui-iconfont">&#xe600;</i>添加控制柜</a></li>
+                         </ul>
                     </div>
                     <div class="mt-20">
                         <table class="table table-border table-bordered table-bg table-hover table-sort table-responsive">
@@ -74,7 +80,9 @@
                                     <td>spd防电涌</td>
                                     <td>120.1245786</td>
                                     <td>31.1245786</td>
-                                    <td class="f-14 td-manage" style="background:#fff;"><a style="text-decoration:none" class="ml-5" onclick="project_edit('项目编辑', 'Project-add.html', '1', '800', '500')" href="javascript:void(0);" title="机构编辑"><i class="Hui-iconfont">&#xe6df;</i></a> <a style="text-decoration:none" class="ml-5" onClick=" project_del(this, '10001' )" href="javascript:void(0);" title="删除"><i class="Hui-iconfont">&#xe6e2;</i></a></td>
+                                    <td class="f-14 td-manage" style="background:#fff;">
+                                    <a style="text-decoration:none" class="ml-5" onclick="editElebox('控制柜编辑', 'editElebox.html', '1', '800', '500')" href="javascript:void(0);" title="控制柜编辑"><i class="Hui-iconfont">&#xe6df;</i></a> 
+                                    <a style="text-decoration:none" class="ml-5" onClick="delElebox(this, '10001')" href="javascript:void(0);" title="删除"><i class="Hui-iconfont">&#xe6e2;</i></a></td>
                                 </tr>
                                     
                             </tbody>
@@ -90,14 +98,22 @@
                         <button name="" id="Button1" class="btn btn-success f-r" type="submit"><i class="Hui-iconfont">&#xe665;</i>灯具</button>
                     </div>
                     <div class="cl pd-5 bg-1 bk-gray mt-20">
-                        <span class="l">
-                            <a href="javascript:void(0);" onclick="project_del_more()" class="btn btn-danger radius"><i class="Hui-iconfont">&#xe6e2;</i>批量删除</a>
-                            <a href="javascript:void(0);" onclick="project_del_more()" class="btn btn-secondary radius"><i class="Hui-iconfont">&#xe645;</i>导入</a>
-                            <a href="javascript:void(0);" onclick="project_del_more()" class="btn btn-success radius"><i class="Hui-iconfont">&#xe644;</i>导出</a>
-                            <a href="javascript:void(0);" onclick="project_del_more()" class="btn btn-warning radius"><i class="Hui-iconfont">&#xe63c;</i>批量设置</a>
-                            <a href="javascript:void(0);" onclick="project_del_more()" class="btn btn-primary radius"><i class="Hui-iconfont">&#xe63c;</i>批量增加</a>
-                            <a href="javascript:void(0);" onclick="project_add('添加灯具', 'Project-add.html', '800', '550')" class="btn btn-primary radius" data-title="添加灯具" ><i class="Hui-iconfont">&#xe600;</i>添加灯具</a>
-                        </span>
+                        <ul class="cl tabnav">
+                            <li><a href="javascript:void(0);" onclick="del_more()" class="btn btn-danger radius mr-10"><i class="Hui-iconfont">&#xe6e2;</i>批量删除</a></li>
+                            <li><a href="javascript:void(0);" onclick="project_del_more()" class="btn btn-secondary radius mr-10"><i class="Hui-iconfont">&#xe645;</i>导入</a></li>
+                            <li><a href="javascript:void(0);" onclick="project_del_more()" class="btn btn-success radius mr-10"><i class="Hui-iconfont">&#xe644;</i>导出</a></li>
+                            <li class="dropDown dropDown_hover">
+                                <a href="#" class="btn btn-danger radius mr-10">批量设置<i class="Hui-iconfont">&#xe6d5;</i></a>
+                                <ul class="dropDown-menu menu radius box-shadow">
+                                    <li><a href="javascript:void(0);" onclick="setArea('设置区域', 'setArea.html', '500', '300')">设置区域</a></li>
+                                    <li><a href="javascript:void(0);" onclick="setEleBox('设置所属控制柜', 'setEleBox.html', '500', '300')">设置所属控制柜</a></li>
+                                    <li><a href="javascript:void(0);" onclick="setMappic('设置地图图标', 'setMappic.html', '500', '300')">设置地图图标</a></li>
+                                </ul>
+                            </li>
+                            <li><a class="btn btn-primary radius mr-10" data-title="添加灯具" onclick="addLamps('添加灯具', 'addLamps.html', '800', '550')" href="javascript:void(0);"><i class="Hui-iconfont">&#xe600;</i>添加灯具</a></li>
+                            <li><a class="btn btn-primary radius" data-title="批量添加灯具" onclick="addLampsMore('批量添加灯具', 'addLampsMore.html', '800', '550')" href="javascript:void(0);"><i class="Hui-iconfont">&#xe600;</i>批量添加灯具</a></li>
+                        </ul>
+                        
                     </div>
                     <div class="mt-20">
                         <table class="table table-border table-bordered table-bg table-hover table-sort table-responsive">
@@ -124,7 +140,9 @@
                                     <td>光衰</td>
                                     <td>30年</td>
                                     <td class="text-l">判断灯具UID是否重复判断灯具UID是否重复判断灯具UID是否重复</td>
-                                    <td class="f-14 td-manage" style="background:#fff;"><a style="text-decoration:none" class="ml-5" onclick="project_edit('项目编辑', 'Project-add.html', '1', '800', '500')" href="javascript:void(0);" title="机构编辑"><i class="Hui-iconfont">&#xe6df;</i></a> <a style="text-decoration:none" class="ml-5" onClick=" project_del(this, '10001' )" href="javascript:void(0);" title="删除"><i class="Hui-iconfont">&#xe6e2;</i></a></td>
+                                    <td class="f-14 td-manage" style="background:#fff;">
+                                    <a style="text-decoration:none" class="ml-5" onclick="editLamps('灯具编辑', 'addLamps.html', '1', '800', '500')" href="javascript:void(0);" title="灯具编辑"><i class="Hui-iconfont">&#xe6df;</i></a> 
+                                    <a style="text-decoration:none" class="ml-5" onClick="delLamps(this, '10001')" href="javascript:void(0);" title="删除"><i class="Hui-iconfont">&#xe6e2;</i></a></td>
                                 </tr>
 
                             </tbody>
@@ -154,7 +172,54 @@
         function addEleBox(title, url, w, h) {
             layer_show(title, url, w, h);
         }
+        //编辑控制柜
+        function editElebox(title, url,id, w, h) {
+            layer_show(title, url, w, h);
+        }
+        /*删除控制柜*/
+        function delElebox(obj, id) {
+            layer.confirm('确认要删除吗？', function (index) {
+                // var id = $(obj).parents("tr").find("input[type='checkbox']").eq(0).val();
+                var idArray = [];
+                idArray.push(id);
+                batchDeleteProject(idArray);
+                layer.close(index);
+            });
+        }
+        //批量添加灯具
+        function addLampsMore(title, url, w, h) {
+            layer_show(title, url, w, h);
+        }
+        //添加灯具
+        function addLamps(title, url, w, h) {
+            layer_show(title, url, w, h);
+        }
+        //编辑灯具
+        function editLamps(title, url, id, w, h) {
+            layer_show(title, url, w, h);
+        }
+        //删除灯具
+        function delLamps(obj, id) {
+            layer.confirm('确认要删除吗？', function (index) {
+                // var id = $(obj).parents("tr").find("input[type='checkbox']").eq(0).val();
+                var idArray = [];
+                idArray.push(id);
+                batchDeleteProject(idArray);
+                layer.close(index);
+            });
+        }
+        //设置区域
+        function setArea(title, url, w, h) {
+            layer_show(title, url, w, h);
+        }
+        //设置区域
+        function setEleBox(title, url, w, h) {
+            layer_show(title, url, w, h);
+        }
+        //设置区域
+        function setMappic(title, url, w, h) {
+            layer_show(title, url, w, h);
+        }
     </script>
-    <!--/请在上方写此页面业务相关的脚本-->
 </body>
 </html>

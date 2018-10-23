@@ -1,0 +1,125 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta charset="utf-8">
+    <meta name="renderer" content="webkit|ie-comp|ie-stand">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport"
+          content="width=device-width,initial-scale=1,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no" />
+    <meta http-equiv="Cache-Control" content="no-siteapp" />
+
+    <title>部署 -- 批量添加灯具</title>
+    <link rel="stylesheet" type="text/css" href="../css/common.css" />
+    <link rel="stylesheet" type="text/css" href="../css/admin.css" />
+    <link rel="stylesheet" type="text/css" href="../css/iconfont/iconfont.css" />
+
+</head>
+<body>
+    <article class="page-container">
+        <form class="form form-horizontal" id="form-admin-add">
+            <div class="row cl">
+                <label class="form-label col-xs-4 col-sm-2"><span class="c-red">*</span>灯具UID：</label>
+                <div class="formControls col-xs-8 col-sm-2">
+                    <input type="text" class="input-text" value="" placeholder="灯具UID" id="projectCode" name="projectCode">
+                </div>
+                <label class="form-label col-xs-4 col-sm-2"><span class="c-red">*</span>数量：</label>
+                <div class="formControls col-xs-8 col-sm-2">
+                    <input type="text" class="input-text" value="" placeholder="数量" id="projectCode" name="projectCode">
+                </div>
+                <label class="form-label col-xs-4 col-sm-2"><span class="c-red">*</span>每次递增：</label>
+                <div class="formControls col-xs-8 col-sm-2">
+                    <input type="text" class="input-text" value="" placeholder="每次递增" id="projectCode" name="projectCode">
+                </div>
+            </div>
+            <div class="row cl">
+                <label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>灯具编码：</label>
+                <div class="formControls col-xs-8 col-sm-9">
+                    <input type="text" class="input-text" value="" placeholder="灯具编码" id="projectCode" name="projectCode">
+                </div>
+            </div>
+            <div class="row cl">
+                <label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>所属项目：</label>
+                <div class="formControls col-xs-8 col-sm-9">
+                    <span class="select-box" style="width:150px;">
+                        <select class="select" name="nnlightctlInstitutionIdBelong" id="nnlightctlInstitutionIdBelong" size="1">
+                            <option value="0">请选择项目</option>
+                            <option value="1">请选择机构</option>
+                        </select>
+                    </span>
+                </div>
+            </div>
+            <div class="row cl">
+                <label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>生产日期：</label>
+                <div class="formControls col-xs-8 col-sm-9" style="width:200px;">
+                    <input type="text" class="input-text Wdate" onfocus="WdatePicker({ maxDate:'#F{$dp.$D(\'logmax1\')||\'%y-%M-%d\'}' })" value="" placeholder="配电柜生产日期" id="logmax1" name="logmax1">
+                </div>
+            </div>
+
+            <div class="row cl">
+                <label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>安装日期：</label>
+                <div class="formControls col-xs-8 col-sm-9" style="width:200px;">
+                    <input type="text" class="input-text Wdate" onfocus="WdatePicker({ maxDate:'#F{$dp.$D(\'logmax\')||\'%y-%M-%d\'}' })" value="" placeholder="配电柜使用日期" id="logmax" name="logmax">
+                </div>
+            </div>
+            <div class="row cl">
+                <label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>灯杆：</label>
+                <div class="formControls col-xs-8 col-sm-9" style="width:200px;">
+                    <input type="text" class="input-text" value="" placeholder="灯杆" id="projectName" name="projectName">
+                </div>
+            </div>
+            <div class="row cl">
+                <label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>灯头号：</label>
+                <div class="formControls col-xs-8 col-sm-9" style="width:200px;">
+                    <input type="text" class="input-text" value="" placeholder="灯头号" id="projectName" name="projectName">
+                </div>
+            </div>
+            <div class="row cl">
+                <label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>灯具型号：</label>
+                <div class="formControls col-xs-8 col-sm-9" style="width:200px;">
+                    <input type="text" class="input-text" value="" placeholder="灯具型号" id="projectName" name="projectName">
+                </div>
+            </div>
+            <div class="row cl">
+                <label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>灯具GIS信息：</label>
+                <div class="formControls col-xs-8 col-sm-9" style="width:200px;">
+                    <input type="text" class="input-text" value="" placeholder="灯具GIS信息" id="projectName" name="projectName">
+                </div>
+            </div>
+            <div class="row cl">
+                <label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>资产编号：</label>
+                <div class="formControls col-xs-8 col-sm-9" style="width:200px;">
+                    <input type="text" class="input-text" value="" placeholder="资产编号" id="projectName" name="projectName">
+                </div>
+            </div>
+            <div class="row cl">
+                <label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>最大使用时间（年）：</label>
+                <div class="formControls col-xs-8 col-sm-9" style="width:200px;">
+                    <input type="text" class="input-text" value="" placeholder="最大使用时间" id="projectName" name="projectName">
+                </div>
+            </div>
+            <div class="row cl">
+                <label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>光衰：</label>
+                <div class="formControls col-xs-8 col-sm-9">
+                    <input type="text" class="input-text" value="" placeholder="光衰" id="projectName" name="projectName">
+                </div>
+            </div>
+            <div class="row cl">
+                <label class="form-label col-xs-4 col-sm-3">&nbsp;备注：</label>
+                <div class="formControls col-xs-8 col-sm-9">
+                    <textarea cols="" rows="" class="textarea" placeholder="说点什么...100个字符以内" dragonfly="true" id="mem" name="mem"></textarea>
+                    <p class="textarea-numberbar"><em class="textarea-length">0</em>/100</p>
+                </div>
+            </div>
+            <div class="row cl">
+                <div class="col-xs-8 col-sm-9 col-xs-offset-4 col-sm-offset-3">
+                    <input class="btn btn-primary radius" type="submit" value="&nbsp;&nbsp;提交&nbsp;&nbsp;">
+                </div>
+            </div>
+        </form>
+    </article>
+    <script type="text/javascript" src="../js/jquery.min.js"></script>
+    <script type="text/javascript" src="../js/common.js"></script>
+    <script type="text/javascript" src="../lib/My97DatePicker/4.8/WdatePicker.js"></script> <!--日期插件-->
+</body>
+</html>
