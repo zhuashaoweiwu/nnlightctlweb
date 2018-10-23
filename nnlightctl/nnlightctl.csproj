@@ -97,6 +97,8 @@
     <Content Include="Gisservice\Project.html" />
     <Content Include="Index.html" />
     <Content Include="js\admin.js" />
+    <Content Include="js\api\ajaxScript.js" />
+    <Content Include="js\api\requestRoot.js" />
     <Content Include="js\common.js" />
     <Content Include="js\exporting.js" />
     <Content Include="js\highcharts.js" />

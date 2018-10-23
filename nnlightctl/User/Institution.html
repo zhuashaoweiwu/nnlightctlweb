@@ -24,10 +24,10 @@
 	<div class="text-l">
 		机构名称：
         <input type="text" name="searchInstitutionName" id="searchInstitutionName" placeholder="机构名称" style="width:250px" class="input-text">
-        <span class="pl-10">机构地址：</span>
+        <span class="pl-20">机构地址：</span>
 		<input type="text" name="searchInstitutionAddr" id="searchInstitutionAddr" placeholder="机构地址" style="width:250px" class="input-text">
         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-		<button name="" id="Button1" class="btn btn-success" type="button"><i class="Hui-iconfont">&#xe665;</i> 搜机构</button>
+		<button id="btnSearch" class="btn btn-success f-r" type="button"><i class="Hui-iconfont">&#xe665;</i> 搜机构</button>
 	</div>
 	<div class="cl pd-5 bg-1 bk-gray mt-20"> <span class="l">
         <a href="javascript:void(0);" onclick="Institution_del_more()" class="btn btn-danger radius"><i class="Hui-iconfont">&#xe6e2;</i> 批量删除</a> 
@@ -36,13 +36,14 @@
 	<div class="mt-20">
 		<table class="table table-border table-bordered table-bg table-hover table-sort table-responsive">
 			<thead>
-				<tr class="text-c">
-					<th width="25"><input type="checkbox" name="" value=""></th>
-					<th width="150">机构名称</th>
-					<th width="100">父机构</th>
-					<th width="130">创建时间</th>
+				<tr class="text-l">
+					<th><input type="checkbox" name="" value=""></th>
+					<th>机构名称</th>
+					<th>父机构</th>
+					<th>创建时间</th>
+                    <th>地址</th>
 					<th>备注</th>
-					<th width="120">操作</th>
+					<th>操作</th>
 				</tr>
 			</thead>
 			<tbody>
@@ -72,10 +73,64 @@
     <script type="text/javascript" src="../lib/datatables/1.10.0/jquery.dataTables.min.js"></script> 
     <script type="text/javascript" src="../lib/laypage/1.2/laypage.js"></script>
 <script type="text/javascript">
-    $('.table-sort').dataTable({
-        "searching": false,
-        "pading": false
+
+    var param = {};
+    $(function () { searchInstitution(param); });
+    $("#btnSearch").click(function () {
+        //搜索条件
+        var searchInstitutionName = $("#searchInstitutionName").val().trim();
+        var searchInstitutionAddr = $("#searchInstitutionAddr").val().trim();
+        //搜索
+        param["institutionName"] = searchInstitutionName;
+        param["addr"] = searchInstitutionAddr;
+        //初始化，然后绑定
+        $('.table-sort').DataTable().destroy();
+        searchInstitution(param);
     });
+    
+    function searchInstitution(param) {
+       
+        $('.table-sort').dataTable({
+            "searching": false,
+            "autoWidth": true,
+            "ordering": false, //设置所有布排序
+            "ajax": function (data, callback, settings) {
+                ajaxRequest("post", "/api/institution/listInsitution", param, function (result) {
+                    //封装返回数据
+                    var returnData = {};
+                    if (result) {
+                        if (result.header.code == 1000) {
+                            returnData.data = result.body.data;
+                        }
+                    }
+                    callback(returnData);
+                });
+            },
+            "columnDefs": [//对table格式的定义（表格的列从0开始）
+                {
+                targets: 0,
+                render: function (data, type,row) {
+                    return '<input type="checkbox" value="' + row.id + '" >';
+                     }
+		           },{
+                    targets: 6,//把第九列的样式改为超链接
+                    render: function (data, type,row) {
+                        return '<a style="text-decoration:none" class="ml-10" onclick="Institution_edit(\'机构编辑\', \'Institution-add.html\', \'' + row.id + '\', \'800\', \'500\')" href="javascript:void(0);" title="机构编辑"><i class="Hui-iconfont">&#xe6df;</i></a>' +
+                            '<a style="text-decoration:none" class="ml-10" onClick="Institution_del(this,\'' + row.id + '\')" href="javascript:void(0);" title="删除"><i class="Hui-iconfont">&#xe6e2;</i></a>';
+                    }                       
+                }
+            ],
+            "columns": [//返回的json数据在这里填充，注意一定要与上面的<th>数量对应，否则排版出现扭曲
+                        { "data": "id" },
+                        { "data": "institutionName" },
+                        {"data": "parentName", "defaultContent": ""},
+                        {"data": "createTime", "render": function (data) {
+                                return formatDateTime(data); }},
+                        { "data": "addr" },
+                        { "data": "mem" }
+            ]
+        });
+    }
     function Institution_add(title, url, w, h) {
         layer_show(title, url, w, h);
     }
@@ -127,56 +182,52 @@
         });
     }
 
-    /*搜索*/
-    $("#Button1").click(function () {
-        searchInstitution(1);
-    });
 
     //通过搜索条件分布搜索机构数据
-    function searchInstitution(pageNumber) {
-        //搜索条件
-        var searchInstitutionName = $("#searchInstitutionName").val().trim();
-        var searchInstitutionAddr = $("#searchInstitutionAddr").val().trim();
+    //function searchInstitution(pageNumber) {
+    //    //搜索条件
+    //    var searchInstitutionName = $("#searchInstitutionName").val().trim();
+    //    var searchInstitutionAddr = $("#searchInstitutionAddr").val().trim();
 
-        //搜索
-        var param = {};
-        // param["pageNumber"] = pageNumber;
-        // param["pageSize"] = PAGE_SIZE;
-        param["institutionName"] = searchInstitutionName;
-        param["addr"] = searchInstitutionAddr;
-        ajaxRequest("post", "/api/institution/listInsitution", param, function (data) {
-            if (data) {
-                if (data.header.code == 1000) {
-                    var institutionArray = data.body.data;
+    //    //搜索
+    //    var param = {};
+    //    // param["pageNumber"] = pageNumber;
+    //    // param["pageSize"] = PAGE_SIZE;
+    //    param["institutionName"] = searchInstitutionName;
+    //    param["addr"] = searchInstitutionAddr;
+    //    ajaxRequest("post", "/api/institution/listInsitution", param, function (data) {
+    //        if (data) {
+    //            if (data.header.code == 1000) {
+    //                var institutionArray = data.body.data;
 
-                    //更新机构表格
-                    var $tableBody = $("table.table").find("tbody").eq(0);
-                    $tableBody.empty();
+    //                //更新机构表格
+    //                var $tableBody = $("table.table").find("tbody").eq(0);
+    //                $tableBody.empty();
 
-                    for (var i = 0; i < institutionArray.length; ++i) {
-                        var institution = institutionArray[i];
-                        $('<tr class="text-c">\n' +
-                            '<td><input type="checkbox" value="'+institution.id+'" name=""></td>\n' +
-                            '<td class="text-c">' + institution.institutionName + '</td>\n' +
-                            '<td class="text-c">' + institution.nnlightctlInstitutionIdParent + '</td>\n' +
-                            '<td>' + formatDateTime(institution.createTime) + '</td>\n' +
-                            '<td class="text-l">' + institution.mem + '</td>\n' +
-                            '<td class="f-14 td-manage"><a style="text-decoration:none" class="ml-5" onclick="Institution_edit(\'机构编辑\', \'Institution-add.html\', \''+institution.id+'\', \'800\', \'500\')" href="javascript:void(0);" title="机构编辑"><i class="Hui-iconfont">&#xe6df;</i></a> <a style="text-decoration:none" class="ml-5" onClick="Institution_del(this, \'10001\')" href="javascript:;" title="删除"><i class="Hui-iconfont">&#xe6e2;</i></a></td>\n' +
-                            '</tr>').appendTo($tableBody);
-                    }
+    //                for (var i = 0; i < institutionArray.length; ++i) {
+    //                    var institution = institutionArray[i];
+    //                    $('<tr class="text-c">\n' +
+    //                        '<td><input type="checkbox" value="'+institution.id+'" name=""></td>\n' +
+    //                        '<td class="text-c">' + institution.institutionName + '</td>\n' +
+    //                        '<td class="text-c">' + institution.nnlightctlInstitutionIdParent + '</td>\n' +
+    //                        '<td>' + formatDateTime(institution.createTime) + '</td>\n' +
+    //                        '<td class="text-l">' + institution.mem + '</td>\n' +
+    //                        '<td class="f-14 td-manage"><a style="text-decoration:none" class="ml-5" onclick="Institution_edit(\'机构编辑\', \'Institution-add.html\', \''+institution.id+'\', \'800\', \'500\')" href="javascript:void(0);" title="机构编辑"><i class="Hui-iconfont">&#xe6df;</i></a> <a style="text-decoration:none" class="ml-5" onClick="Institution_del(this, \'10001\')" href="javascript:;" title="删除"><i class="Hui-iconfont">&#xe6e2;</i></a></td>\n' +
+    //                        '</tr>').appendTo($tableBody);
+    //                }
 
-                    //更新分页
-                    $('.table-sort').dataTable();
+    //                //更新分页
+    //                $('.table-sort').dataTable();
 
-                } else {
-                    layer.msg(data.header.msg,{icon:2,time:3000});
-                }
-            }
-        });
-    }
+    //            } else {
+    //                layer.msg(data.header.msg,{icon:2,time:3000});
+    //            }
+    //        }
+    //    });
+    //}
 
-    searchInstitution(1);
-
+   
+    //searchInstitution(1);
 </script> 
 </body>
 </html>
