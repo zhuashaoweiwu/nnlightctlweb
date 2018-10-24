@@ -58,9 +58,9 @@
             /*一、获取常规能耗统计数据年，月，日能耗*/
             ajaxRequest("post", "/api/energyStatistic/getCommonEnergyStatistic",{},
                 function (data) {
-                    $(".ue1 dd").append(data.body.data[2].total+"KW/h");
-                    $(".ue2 dd").append(data.body.data[1].total+"KW/h");
-                    $(".ue3 dd").append(data.body.data[0].total+"KW/h");
+                    $(".ue1 dd").append(data.body.data[2].total/1000+"KW/h");
+                    $(".ue2 dd").append(data.body.data[1].total/1000+"KW/h");
+                    $(".ue3 dd").append(data.body.data[0].total/1000+"KW/h");
                     var statistics = new Array();
                     statistics[0] = data.body.data[2].total;
                     statistics[1] = data.body.data[1].total;
@@ -106,8 +106,6 @@
             day = date.getDate();
             ajaxRequest("post", "/api/energyStatistic/listEnergyStatisticByDay",{'month':month},
                 function (data) {
-
-                console.log(data.body.data)
                     for(var i = 0 ; i < day ;i++){
                         if(i< 9){
                             var d = i+1;
@@ -116,18 +114,16 @@
                             categories[i] = i+1+"";
                         }
                     }
-                   console.log(data.body.data[2].total);
                     for(var h = 0 ; h < categories.length ; h++) {
                         for (var j = 0; j < data.body.data.length; j++) {
                             if (categories[h]==data.body.data[j].date.substr(8,9)) {
-                                ennery[h] = data.body.data[j].total;
+                                ennery[h] = data.body.data[j].total/1000;
                                 break;
                             } else {
                                 ennery[h] = 0;
                             }
                         }
                     }
-                    console.log(ennery)
                     Highcharts.chart('monthengery', {
                         chart: {
                             type: 'column'
@@ -168,17 +164,6 @@
                         }]
                     });
                 });
-
-
-
-           /* ajaxRequest("post", "/api/energyStatistic/getCommonEnergyStatistic",{},
-                function (data) {
-                    $(".ue1 dd").append(data.body.data[2].total+"KW/h");
-                    $(".ue2 dd").append(data.body.data[1].total+"KW/h");
-                    $(".ue3 dd").append(data.body.data[0].total+"KW/h");
-                });*/
-
-
             $('#monthconut1').highcharts({
                 chart: {
                     plotBackgroundColor: null,
@@ -212,39 +197,6 @@
                     ]
                 }]
             });
-        /*    $('#monthconut').highcharts({
-                chart: {
-                    plotBackgroundColor: null,
-                    plotBorderWidth: null,
-                    plotShadow: false
-                },
-                title: {
-                    text: '月能耗与本年能耗'
-                },
-                tooltip: {
-                    pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
-                },
-                plotOptions: {
-                    pie: {
-                        allowPointSelect: true,
-                        cursor: 'pointer',
-                        dataLabels: {
-                            enabled: true,
-                            color: '#D53A35',
-                            connectorColor: '#D53A35',
-                            format: '<b>{point.name}</b>: {point.percentage:.1f} %'
-                        }
-                    }
-                },
-                series: [{
-                    type: 'pie',
-                    name: '能耗',
-                    data: [
-                        ['本年度', 85.0],
-                        ['本月', 15.8]
-                    ]
-                }]
-            });*/
         });
     </script>
 </body>

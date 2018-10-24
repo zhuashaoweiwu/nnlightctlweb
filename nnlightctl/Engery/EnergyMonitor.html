@@ -53,20 +53,148 @@
                 <div id="container3" style="width:96%;"></div><!--绑定电能线图end-->
             </div>
         </div>
-            
+
         </div>
     <script type="text/javascript" src="../js/jquery.min.js"></script>
     <script type="text/javascript" src="../js/common.js"></script>
     <script type="text/javascript" src="../lib/My97DatePicker/4.8/WdatePicker.js"></script> <!--日期插件-->
     <script type="text/javascript" src="../js/highcharts.js"></script> <!--图表插件-->
     <script type="text/javascript" src="../js/exporting.js"></script> <!--图表下载插件-->
+    <script type="text/javascript" src="../js/api/requestRoot.js"></script>
+    <script type="text/javascript" src="../js/api/ajaxScript.js"></script>
     <script type="text/javascript">
         $(function () {
+            var eleboxId;
+            var startDate;
+            var endDate;
+            $("#Button1").click(function(){
+                eleboxId = $("#projectName").val();
+                startDate = new Date($("#logmin").val());
+                endDate = new Date($("#logmax").val());
+                console.log(startDate);
+
+                ajaxRequest("post", "/api/energyStatistic/listEleboxElectric",{"eleboxId":eleboxId,"startDate":startDate,"endDate":endDate},
+                    function (data) {
+                    console.log(data);
+                        var categories = new Array();
+                        var  ele = new Array();
+                        for (var i = 0 ; i< data.body.data.length ; i++){
+                            //categories[i] = data.body.data[i].realtimeDate;
+                            var now = new Date(data.body.data[i].realtimeDate)
+                            y = now.getFullYear(),
+                                m = ("0" + (now.getMonth() + 1)).slice(-2),
+                                d = ("0" + now.getDate()).slice(-2);
+                            var timestamp = y + "-" + m + "-" + d + " " + now.toTimeString().substr(0, 8)
+                            categories[i] = timestamp;
+                            ele[i] = data.body.data[i].electricity;
+                            Highcharts.chart('container1', {
+
+                                title: {
+                                    text: '电流',
+                                    x: 0 //center
+                                },
+                                subtitle: {
+                                    text: '',
+                                    x: 0
+                                },
+                                xAxis: {
+                                    categories: categories
+                                },
+                                yAxis: {
+                                    title: {
+                                        text: '电流（KW）'
+                                    },
+                                    plotLines: [{
+                                        value: 0,
+                                        width: 1,
+                                        color: '#808080'
+                                    }]
+                                },
+                                tooltip: {
+                                    valueSuffix: 'KW'
+                                },
+                                legend: {
+                                    layout: 'vertical',
+                                    align: 'right',
+                                    verticalAlign: 'middle',
+                                    borderWidth: 0
+                                },
+                                series: [{
+                                    name: '电流',
+                                    data: ele
+                                }]
+                            });
+                        }
+                    });
+
+            })
+
+            ajaxRequest("post", "/api/energyStatistic/listEleboxElectric",{"eleboxId":eleboxId,"startDate":startDate,"endDate":endDate},
+                function (data) {
+                    var eleboxIdFirst = data.body.data[0].id;
+                    ajaxRequest("post", "/api/energyStatistic/listEleboxElectric",{"eleboxId":eleboxIdFirst},
+                        function (data) {
+                            var categories = new Array();
+                            var  ele = new Array();
+                            for (var i = 0 ; i< data.body.data.length ; i++){
+                                //categories[i] = data.body.data[i].realtimeDate;
+                                var now = new Date(data.body.data[i].realtimeDate)
+                                y = now.getFullYear(),
+                                m = ("0" + (now.getMonth() + 1)).slice(-2),
+                                d = ("0" + now.getDate()).slice(-2);
+                                var timestamp = y + "-" + m + "-" + d + " " + now.toTimeString().substr(0, 8)
+                                categories[i] = timestamp;
+                                ele[i] = data.body.data[i].electricity;
+                            }
+                            console.log(data)
+                            Highcharts.chart('container1', {
+
+                                title: {
+                                    text: '电流',
+                                    x: 0 //center
+                                },
+                                subtitle: {
+                                    text: '',
+                                    x: 0
+                                },
+                                xAxis: {
+                                    categories: categories
+                                },
+                                yAxis: {
+                                    title: {
+                                        text: '电流（KW）'
+                                    },
+                                    plotLines: [{
+                                        value: 0,
+                                        width: 1,
+                                        color: '#808080'
+                                    }]
+                                },
+                                tooltip: {
+                                    valueSuffix: 'KW'
+                                },
+                                legend: {
+                                    layout: 'vertical',
+                                    align: 'right',
+                                    verticalAlign: 'middle',
+                                    borderWidth: 0
+                                },
+                                series: [{
+                                    name: '电流',
+                                    data: ele
+                                }]
+                            });
+                        }
+                    );
+                }
+            );
+
+
             //tab切换
             $("#tab-system").Huitab({
                 index: 0//默认第一个；
             });
-            //
+            //功率
             Highcharts.chart('container', {
                
                 title: {
@@ -108,7 +236,7 @@
                 }]
             });
 
-            //电流
+           /* //电流
             Highcharts.chart('container1', {
 
                 title: {
@@ -145,7 +273,7 @@
                     name: '电流',
                     data: [7.0, 6.9, 9.5, 14.5, 18.2, 21.5, 25.2, 26.5, 23.3, 18.3, 13.9, 9.6, 7.0, 6.9, 9.5, 14.5, 18.2, 21.5, 25.2, 26.5, 23.3, 18.3, 13.9, 9.6, 18.2]
                 }]
-            });
+            });*/
             //电压
             Highcharts.chart('container2', {
                 chart: {
