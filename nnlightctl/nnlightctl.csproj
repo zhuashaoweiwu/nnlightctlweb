@@ -194,12 +194,14 @@
     <Content Include="Roadlighting\addEleBox.html" />
     <Content Include="Roadlighting\addLamps.html" />
     <Content Include="Roadlighting\addLampsMore.html" />
+    <Content Include="Roadlighting\addLight.html" />
     <Content Include="Roadlighting\addLightType.html" />
     <Content Include="Roadlighting\addLoop.html" />
     <Content Include="Roadlighting\AreaAdmin.html" />
     <Content Include="Roadlighting\editEleBox.html" />
     <Content Include="Roadlighting\EquipmentType.html" />
     <Content Include="Roadlighting\Index.html" />
+    <Content Include="Roadlighting\LampsManage.html" />
     <Content Include="Roadlighting\LightType.html" />
     <Content Include="Roadlighting\setArea.html" />
     <Content Include="Roadlighting\setEleBox.html" />
