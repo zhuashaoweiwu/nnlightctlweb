@@ -28,6 +28,7 @@
                     <span>控制柜模式</span>
                     <span>灯具模式</span>
                 </div>
+                <!-- 控制柜面板 -->
                 <div class="tabCon mt-30">
                     <div class="text-l">
                         控制柜：
@@ -39,13 +40,13 @@
                     <div class="cl pd-5 bg-1 bk-gray mt-20">
                         <ul class="cl tabnav">
                             <li><a href="javascript:void(0);" onclick="del_more()" class="btn btn-danger radius mr-10"><i class="Hui-iconfont">&#xe6e2;</i>批量删除</a></li>
-                            <li><a href="javascript:void(0);" onclick="project_del_more()" class="btn btn-secondary radius mr-10"><i class="Hui-iconfont">&#xe645;</i>导入</a></li>
-                            <li><a href="javascript:void(0);" onclick="project_del_more()" class="btn btn-success radius mr-10"><i class="Hui-iconfont">&#xe644;</i>导出</a></li>
+                            <!--<li><a href="javascript:void(0);" onclick="project_del_more()" class="btn btn-secondary radius mr-10"><i class="Hui-iconfont">&#xe645;</i>导入</a></li>
+                            <li><a href="javascript:void(0);" onclick="project_del_more()" class="btn btn-success radius mr-10"><i class="Hui-iconfont">&#xe644;</i>导出</a></li>-->
                             <li class="dropDown dropDown_hover">
                                 <a href="#" class="btn btn-danger radius mr-10">批量设置<i class="Hui-iconfont">&#xe6d5;</i></a>
                                 <ul class="dropDown-menu menu radius box-shadow">
                                     <li><a href="javascript:void(0);" onclick="setArea('设置区域', 'setArea.html', '500', '300')">设置区域</a></li>
-                                    <li><a href="javascript:void(0);" onclick="setMappic('设置地图图标', 'setMappic.html', '500', '300')">设置地图图标</a></li>
+                                    <!--<li><a href="javascript:void(0);" onclick="setMappic('设置地图图标', 'setMappic.html', '500', '300')">设置地图图标</a></li>-->
                                 </ul>
                             </li>
                             <li><a class="btn btn-primary radius" data-title="添加控制柜" data-href="../Roadlighting/addEleBox.html" onclick="Hui_admin_tab(this)" href="javascript:void(0);"><i class="Hui-iconfont">&#xe600;</i>添加控制柜</a></li>
@@ -89,25 +90,26 @@
                         </table>
                     </div>
               </div>
+                <!-- 灯具面板 -->
                 <div class="tabCon mt-30">
                     <div class="text-l">
                         灯杆：
                         <input type="text" name="lamppost" id="lamppost" placeholder="灯杆" style="width:250px" class="input-text">
                         <span class="pl-20">灯头号：</span>
                         <input type="text" name="lamphead" id="lamphead" placeholder="灯头号" style="width:250px" class="input-text">
-                        <button name="" id="Button1" class="btn btn-success f-r" type="submit"><i class="Hui-iconfont">&#xe665;</i>灯具</button>
+                        <button name="" id="Button2" class="btn btn-success f-r" type="submit"><i class="Hui-iconfont">&#xe665;</i>灯具</button>
                     </div>
                     <div class="cl pd-5 bg-1 bk-gray mt-20">
                         <ul class="cl tabnav">
                             <li><a href="javascript:void(0);" onclick="del_more()" class="btn btn-danger radius mr-10"><i class="Hui-iconfont">&#xe6e2;</i>批量删除</a></li>
-                            <li><a href="javascript:void(0);" onclick="project_del_more()" class="btn btn-secondary radius mr-10"><i class="Hui-iconfont">&#xe645;</i>导入</a></li>
-                            <li><a href="javascript:void(0);" onclick="project_del_more()" class="btn btn-success radius mr-10"><i class="Hui-iconfont">&#xe644;</i>导出</a></li>
+                            <!--<li><a href="javascript:void(0);" onclick="project_del_more()" class="btn btn-secondary radius mr-10"><i class="Hui-iconfont">&#xe645;</i>导入</a></li>
+                            <li><a href="javascript:void(0);" onclick="project_del_more()" class="btn btn-success radius mr-10"><i class="Hui-iconfont">&#xe644;</i>导出</a></li>-->
                             <li class="dropDown dropDown_hover">
                                 <a href="#" class="btn btn-danger radius mr-10">批量设置<i class="Hui-iconfont">&#xe6d5;</i></a>
                                 <ul class="dropDown-menu menu radius box-shadow">
                                     <li><a href="javascript:void(0);" onclick="setArea('设置区域', 'setArea.html', '500', '300')">设置区域</a></li>
-                                    <li><a href="javascript:void(0);" onclick="setEleBox('设置所属控制柜', 'setEleBox.html', '500', '300')">设置所属控制柜</a></li>
-                                    <li><a href="javascript:void(0);" onclick="setMappic('设置地图图标', 'setMappic.html', '500', '300')">设置地图图标</a></li>
+                                    <!--<li><a href="javascript:void(0);" onclick="setEleBox('设置所属控制柜', 'setEleBox.html', '500', '300')">设置所属控制柜</a></li>
+                                    <li><a href="javascript:void(0);" onclick="setMappic('设置地图图标', 'setMappic.html', '500', '300')">设置地图图标</a></li>-->
                                 </ul>
                             </li>
                             <li><a class="btn btn-primary radius mr-10" data-title="添加灯具" onclick="addLamps('添加灯具', 'addLamps.html', '800', '550')" href="javascript:void(0);"><i class="Hui-iconfont">&#xe600;</i>添加灯具</a></li>

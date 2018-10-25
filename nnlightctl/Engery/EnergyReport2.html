@@ -7,7 +7,7 @@
     <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no" />
     <meta http-equiv="Cache-Control" content="no-siteapp" />
 
-    <title>终端报表</title>
+    <title>能耗报表</title>
     <link rel="stylesheet" type="text/css" href="../css/common.css?v=1" />
     <link rel="stylesheet" type="text/css" href="../css/admin.css" />
     <link rel="stylesheet" type="text/css" href="../css/iconfont/iconfont.css" />
@@ -17,16 +17,15 @@
     <nav class="breadcrumb">
         <i class="Hui-iconfont">&#xe67f;</i>
         首页<span class="c-gray en">&gt;</span>能耗分析
-        <span class="c-gray en">&gt;</span>终端报表
+        <span class="c-gray en">&gt;</span>能耗报表
         <a class="btn btn-success radius r" style="line-height:1.6em;margin-top:3px" href="javascript:location.replace(location.href);" title="刷新">
             <i class="Hui-iconfont">&#xe68f;</i>
         </a>
     </nav>
     <div class="page-container">
         <div class="text-l">
-            灯具编码：
-            <input type="text" name="projectName" id="projectName" placeholder="灯具编码" style="width:250px" class="input-text">
-            <span class="pl-20">日期范围：</span>
+
+            <span>日期范围：</span>
             <input type="text" onfocus="WdatePicker({ maxDate:'#F{$dp.$D(\'logmax\')||\'%y-%M-%d\'}' })" id="logmin" class="input-text Wdate" style="width:120px;">
             -
             <input type="text" onfocus="WdatePicker({ minDate:'#F{$dp.$D(\'logmin\')}',maxDate:'%y-%M-%d' })" id="logmax" class="input-text Wdate" style="width:120px;">

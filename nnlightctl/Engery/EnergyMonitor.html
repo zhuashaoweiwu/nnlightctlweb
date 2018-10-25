@@ -25,7 +25,9 @@
     <div class="page-container">
         <div class="text-l">
             控制柜：
-            <input type="text" name="projectName" id="projectName" placeholder="控制柜" style="width:250px" class="input-text">
+            <!--<input type="text" name="projectName" id="projectName" placeholder="控制柜" style="width:250px" class="input-text">-->
+            <select id = "eleboxName" style="width:250px" class="input-text" placeholder="控制柜">
+            </select>
             <span class="pl-20">日期范围：</span>
             <input type="text" onfocus="WdatePicker({ maxDate:'#F{$dp.$D(\'logmax\')||\'%y-%M-%d\'}' })" id="logmin" class="input-text Wdate" style="width:120px;">
             -
@@ -64,29 +66,232 @@
     <script type="text/javascript" src="../js/api/ajaxScript.js"></script>
     <script type="text/javascript">
         $(function () {
-            var eleboxId;
-            var startDate;
-            var endDate;
             $("#Button1").click(function(){
-                eleboxId = $("#projectName").val();
-                startDate = new Date($("#logmin").val());
-                endDate = new Date($("#logmax").val());
+                var param = {};
+                var eleboxId = parseInt($("#eleboxName").val());
+                param["eleboxId"] = eleboxId;
+                if ($("#logmin").val().trim()!=""){
+                    var startDate = new Date($("#logmin").val());
+                    param["startDate"] = startDate;
+                }else {
+                    startDate=null;
+                }
+                //var endDate = new Date($("#logmax").val());
+                if ($("#logmax").val().trim()!=""){
+                    var endDate = new Date($("#logmax").val());
+                    param["endDate"] = endDate;
+                }else {
+                    endDate=null;
+                }
                 console.log(startDate);
-
-                ajaxRequest("post", "/api/energyStatistic/listEleboxElectric",{"eleboxId":eleboxId,"startDate":startDate,"endDate":endDate},
+                ajaxRequest("post", "/api/energyStatistic/listEleboxElectric",param,
                     function (data) {
-                    console.log(data);
+                    console.log(data)
                         var categories = new Array();
                         var  ele = new Array();
-                        for (var i = 0 ; i< data.body.data.length ; i++){
-                            //categories[i] = data.body.data[i].realtimeDate;
+                        var vol = new Array();
+                        var power = new Array();//eleboxPower
+                        var length;
+                        if(data.body.data.length < 100){
+                            length =  data.body.data.length
+                        }else {
+                            length = 100
+                        }
+                        for (var i = 0 ; i< length ; i++){
                             var now = new Date(data.body.data[i].realtimeDate)
                             y = now.getFullYear(),
                                 m = ("0" + (now.getMonth() + 1)).slice(-2),
                                 d = ("0" + now.getDate()).slice(-2);
                             var timestamp = y + "-" + m + "-" + d + " " + now.toTimeString().substr(0, 8)
-                            categories[i] = timestamp;
                             ele[i] = data.body.data[i].electricity;
+                            vol[i] = data.body.data[i].voltage;
+                            power[i] = data.body.data[i].eleboxPower;
+                        }
+                        //X抽第一与最后一个显示时间中间显示数
+                       if (length != 0){
+                           var now = new Date(data.body.data[0].realtimeDate)
+                           y = now.getFullYear(),
+                               m = ("0" + (now.getMonth() + 1)).slice(-2),
+                               d = ("0" + now.getDate()).slice(-2);
+                           var timestamp = y + "-" + m + "-" + d + " " + now.toTimeString().substr(0, 8)
+                           categories[0] = timestamp
+                           if (length >= 1){
+                               var nowl = new Date(data.body.data[length-1].realtimeDate)
+                               yl = now.getFullYear(),
+                                   ml = ("0" + (now.getMonth() + 1)).slice(-2),
+                                   dl = ("0" + now.getDate()).slice(-2);
+                               var timestampl = yl + "-" + ml + "-" + dl + " " + now.toTimeString().substr(0, 8)
+                               categories[length-1] = timestampl;
+                           }
+                       }
+
+                        //电流
+                        Highcharts.chart('container1', {
+
+                            title: {
+                                text: '电流',
+                                x: 0 //center
+                            },
+                            subtitle: {
+                                text: '',
+                                x: 0
+                            },
+                            xAxis: {
+                                categories: categories
+                            },
+                            yAxis: {
+                                title: {
+                                    text: '电流（KW）'
+                                },
+                                plotLines: [{
+                                    value: 0,
+                                    width: 1,
+                                    color: '#808080'
+                                }]
+                            },
+                            tooltip: {
+                                valueSuffix: 'KW'
+                            },
+                            legend: {
+                                layout: 'vertical',
+                                align: 'right',
+                                verticalAlign: 'middle',
+                                borderWidth: 0
+                            },
+                            series: [{
+                                name: '电流',
+                                data: ele
+                            }]
+                        });
+                        //电压
+                        Highcharts.chart('container2', {
+                            chart: {
+                                type: 'column'
+                            },
+                            title: {
+                                text: '电压',
+                                x: 0 //center
+                            },
+                            subtitle: {
+                                text: '',
+                                x: 0
+                            },
+                            xAxis: {
+                                categories: categories
+                            },
+                            yAxis: {
+                                title: {
+                                    text: '电压（KW）'
+                                },
+                                plotLines: [{
+                                    value: 0,
+                                    width: 1,
+                                    color: '#808080'
+                                }]
+                            },
+                            tooltip: {
+                                valueSuffix: 'KW'
+                            },
+                            legend: {
+                                layout: 'vertical',
+                                align: 'right',
+                                verticalAlign: 'middle',
+                                borderWidth: 0
+                            },
+                            series: [{
+                                name: '电压',
+                                data: vol
+                            }]
+                        });
+                        //电能
+                        Highcharts.chart('container3', {
+
+                            title: {
+                                text: '电能',
+                                x: 0 //center
+                            },
+                            subtitle: {
+                                text: '',
+                                x: 0
+                            },
+                            xAxis: {
+                                categories: categories
+                            },
+                            yAxis: {
+                                title: {
+                                    text: '电能（KW）'
+                                },
+                                plotLines: [{
+                                    value: 0,
+                                    width: 1,
+                                    color: '#808080'
+                                }]
+                            },
+                            tooltip: {
+                                valueSuffix: 'KW'
+                            },
+                            legend: {
+                                layout: 'vertical',
+                                align: 'right',
+                                verticalAlign: 'middle',
+                                borderWidth: 0
+                            },
+                            series: [{
+                                name: '电能',
+                                data: power
+                            }]
+                        });
+                    });
+
+            })
+
+            ajaxRequest("post", "/api/energyStatistic/listEleboxElectric",{},
+                function (data) {
+                    var eleboxIdFirst = data.body.data[0].id;
+                    ajaxRequest("post", "/api/energyStatistic/listEleboxElectric",{"eleboxId":eleboxIdFirst},
+                        function (data) {
+                        console.log(data)
+                            var categories = new Array();
+                            var  ele = new Array();
+                            var vol  = new Array();
+                            var power = new Array();//eleboxPower
+                            var length;
+                            if(data.body.data.length < 100){
+                                length =  data.body.data.length
+                            }else {
+                                length = 100
+                            }
+                            for (var i = 0 ; i< length ; i++){
+                                //categories[i] = data.body.data[i].realtimeDate;
+                                var now = new Date(data.body.data[i].realtimeDate)
+                                y = now.getFullYear(),
+                                m = ("0" + (now.getMonth() + 1)).slice(-2),
+                                d = ("0" + now.getDate()).slice(-2);
+                                var timestamp = y + "-" + m + "-" + d + " " + now.toTimeString().substr(0, 8)
+
+                                //categories[i] = timestamp;
+                                ele[i] = data.body.data[i].electricity;
+                                vol[i] = data.body.data[i].voltage;
+                                power[i] = data.body.data[i].eleboxPower;
+                            }
+                            //X抽第一与最后一个显示时间中间显示数
+                            if (length != 0) {
+                                var now = new Date(data.body.data[0].realtimeDate)
+                                y = now.getFullYear(),
+                                    m = ("0" + (now.getMonth() + 1)).slice(-2),
+                                    d = ("0" + now.getDate()).slice(-2);
+                                var timestamp = y + "-" + m + "-" + d + " " + now.toTimeString().substr(0, 8)
+                                categories[0] = timestamp
+                                if (length >= 1) {
+                                    var nowl = new Date(data.body.data[length - 1].realtimeDate)
+                                    yl = now.getFullYear(),
+                                        ml = ("0" + (now.getMonth() + 1)).slice(-2),
+                                        dl = ("0" + now.getDate()).slice(-2);
+                                    var timestampl = yl + "-" + ml + "-" + dl + " " + now.toTimeString().substr(0, 8)
+                                    categories[length - 1] = timestampl;
+                                }
+                            }
+                            //电流
                             Highcharts.chart('container1', {
 
                                 title: {
@@ -124,33 +329,13 @@
                                     data: ele
                                 }]
                             });
-                        }
-                    });
-
-            })
-
-            ajaxRequest("post", "/api/energyStatistic/listEleboxElectric",{"eleboxId":eleboxId,"startDate":startDate,"endDate":endDate},
-                function (data) {
-                    var eleboxIdFirst = data.body.data[0].id;
-                    ajaxRequest("post", "/api/energyStatistic/listEleboxElectric",{"eleboxId":eleboxIdFirst},
-                        function (data) {
-                            var categories = new Array();
-                            var  ele = new Array();
-                            for (var i = 0 ; i< data.body.data.length ; i++){
-                                //categories[i] = data.body.data[i].realtimeDate;
-                                var now = new Date(data.body.data[i].realtimeDate)
-                                y = now.getFullYear(),
-                                m = ("0" + (now.getMonth() + 1)).slice(-2),
-                                d = ("0" + now.getDate()).slice(-2);
-                                var timestamp = y + "-" + m + "-" + d + " " + now.toTimeString().substr(0, 8)
-                                categories[i] = timestamp;
-                                ele[i] = data.body.data[i].electricity;
-                            }
-                            console.log(data)
-                            Highcharts.chart('container1', {
-
+                            //电压
+                            Highcharts.chart('container2', {
+                                chart: {
+                                    type: 'column'
+                                },
                                 title: {
-                                    text: '电流',
+                                    text: '电压',
                                     x: 0 //center
                                 },
                                 subtitle: {
@@ -162,7 +347,7 @@
                                 },
                                 yAxis: {
                                     title: {
-                                        text: '电流（KW）'
+                                        text: '电压（KW）'
                                     },
                                     plotLines: [{
                                         value: 0,
@@ -180,8 +365,46 @@
                                     borderWidth: 0
                                 },
                                 series: [{
-                                    name: '电流',
-                                    data: ele
+                                    name: '电压',
+                                    data: vol
+                                }]
+                            });
+                            //电能
+                            Highcharts.chart('container3', {
+
+                                title: {
+                                    text: '电能',
+                                    x: 0 //center
+                                },
+                                subtitle: {
+                                    text: '',
+                                    x: 0
+                                },
+                                xAxis: {
+                                    categories: categories
+                                },
+                                yAxis: {
+                                    title: {
+                                        text: '电能（KW）'
+                                    },
+                                    plotLines: [{
+                                        value: 0,
+                                        width: 1,
+                                        color: '#808080'
+                                    }]
+                                },
+                                tooltip: {
+                                    valueSuffix: 'KW'
+                                },
+                                legend: {
+                                    layout: 'vertical',
+                                    align: 'right',
+                                    verticalAlign: 'middle',
+                                    borderWidth: 0
+                                },
+                                series: [{
+                                    name: '电能',
+                                    data: power
                                 }]
                             });
                         }
@@ -275,7 +498,7 @@
                 }]
             });*/
             //电压
-            Highcharts.chart('container2', {
+            /*Highcharts.chart('container2', {
                 chart: {
                     type: 'column'
                 },
@@ -313,8 +536,8 @@
                     name: '电压',
                     data: [7.0, 6.9, 9.5, 14.5, 18.2, 21.5, 25.2, 26.5, 23.3, 18.3, 13.9, 9.6, 7.0, 6.9, 9.5, 14.5, 18.2, 21.5, 25.2, 26.5, 23.3, 18.3, 13.9, 9.6, 18.2]
                 }]
-            });
-            //电能
+            });*/
+            /*//电能
             Highcharts.chart('container3', {
 
                 title: {
@@ -351,7 +574,25 @@
                     name: '电能',
                     data: [7.0, 6.9, 9.5, 14.5, 18.2, 21.5, 25.2, 26.5, 23.3, 18.3, 13.9, 9.6, 7.0, 6.9, 9.5, 14.5, 18.2, 21.5, 25.2, 26.5, 23.3, 18.3, 13.9, 9.6, 18.2]
                 }]
-            });
+            });*/
+            //获取所有控制柜
+            function flushEleBox() {
+                ajaxRequest("post", "/api/roadlighting/listelebox", {}, function (data) {
+                    if (data) {
+                        if (data.header.code == 1000) {
+                            var eleBox = data.body.data;
+                            var $eleBoxSelect = $("#eleboxName");
+                            console.log(eleBox);
+                            for (var i = 0; i < eleBox.length; ++i) {
+                                var ele = eleBox[i];
+                                    $('<option value="' + ele.id + '">' + ele.codeNumber + '</option>').appendTo($eleBoxSelect);
+
+                            }
+                        }
+                    }
+                });
+            }
+            flushEleBox();
         });
     </script>
 

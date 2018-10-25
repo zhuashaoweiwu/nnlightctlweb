@@ -20,75 +20,81 @@
         <form class="form form-horizontal" id="form-admin-add">
 
             <div class="row cl">
+                <label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>灯具UUID：</label>
+                <div class="formControls col-xs-8 col-sm-9">
+                    <input type="text" class="input-text" value="" placeholder="灯具编码" id="uid" name="uid">
+                </div>
+            </div>
+            <div class="row cl">
                 <label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>灯具编码：</label>
                 <div class="formControls col-xs-8 col-sm-9">
-                    <input type="text" class="input-text" value="" placeholder="灯具编码" id="projectCode" name="projectCode">
+                    <input type="text" class="input-text" value="" placeholder="灯具编码" id="lightingCode" name="lightingCode">
                 </div>
             </div>
             <div class="row cl">
-                <label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>所属项目：</label>
-                <div class="formControls col-xs-8 col-sm-9">
-                    <span class="select-box" style="width:150px;">
-                        <select class="select" name="nnlightctlInstitutionIdBelong" id="nnlightctlInstitutionIdBelong" size="1">
-                            <option value="0">请选择项目</option>
-                            <option value="1">请选择机构</option>
-                        </select>
-                    </span>
-                </div>
-            </div>
-            <div class="row cl">
-                <label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>生产日期：</label>
+                <label class="form-label col-xs-4 col-sm-3">生产日期：</label>
                 <div class="formControls col-xs-8 col-sm-9" style="width:200px;">
-                    <input type="text" class="input-text Wdate" onfocus="WdatePicker({ maxDate:'#F{$dp.$D(\'logmax1\')||\'%y-%M-%d\'}' })" value="" placeholder="配电柜生产日期" id="logmax1" name="logmax1">
+                    <input type="text" class="input-text Wdate" onfocus="WdatePicker({ maxDate:'#F{$dp.$D(\'manufacture\')||\'%y-%M-%d\'}' })" value="" placeholder="配电柜生产日期" id="manufacture" name="manufacture">
                 </div>
             </div>
             
             <div class="row cl">
-                <label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>安装日期：</label>
+                <label class="form-label col-xs-4 col-sm-3">安装日期：</label>
                 <div class="formControls col-xs-8 col-sm-9" style="width:200px;">
-                    <input type="text" class="input-text Wdate" onfocus="WdatePicker({ maxDate:'#F{$dp.$D(\'logmax\')||\'%y-%M-%d\'}' })" value="" placeholder="配电柜使用日期" id="logmax" name="logmax">
+                    <input type="text" class="input-text Wdate" onfocus="WdatePicker({ maxDate:'#F{$dp.$D(\'useDate\')||\'%y-%M-%d\'}' })" value="" placeholder="配电柜使用日期" id="useDate" name="useDate">
                 </div>
             </div>
             <div class="row cl">
                 <label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>灯杆：</label>
                 <div class="formControls col-xs-8 col-sm-9" style="width:200px;">
-                    <input type="text" class="input-text" value="" placeholder="灯杆" id="projectName" name="projectName">
+                    <input type="text" class="input-text" value="" placeholder="灯杆" id="lamppost" name="lamppost">
                 </div>
             </div>
             <div class="row cl">
                 <label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>灯头号：</label>
                 <div class="formControls col-xs-8 col-sm-9" style="width:200px;">
-                    <input type="text" class="input-text" value="" placeholder="灯头号" id="projectName" name="projectName">
+                    <input type="text" class="input-text" value="" placeholder="灯头号" id="lamphead" name="lamphead">
                 </div>
             </div>
             <div class="row cl">
                 <label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>灯具型号：</label>
-                <div class="formControls col-xs-8 col-sm-9" style="width:200px;">
-                    <input type="text" class="input-text" value="" placeholder="灯具型号" id="projectName" name="projectName">
+                <div class="formControls col-xs-8 col-sm-9">
+                    <span class="select-box" style="width:150px;">
+                        <select class="select" name="nnlightctlLightingModelId" id="nnlightctlLightingModelId" size="1">
+                            <option value="0">灯具型号一</option>
+                            <option value="1">灯具型号二</option>
+                        </select>
+                    </span>
                 </div>
             </div>
             <div class="row cl">
-                <label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>灯具GIS信息：</label>
+                <label class="form-label col-xs-4 col-sm-3">经度：</label>
                 <div class="formControls col-xs-8 col-sm-9" style="width:200px;">
-                    <input type="text" class="input-text" value="" placeholder="灯具GIS信息" id="projectName" name="projectName">
+                    <input type="text" class="input-text" value="" placeholder="经度" id="longitude" name="longitude">
+                </div>
+            </div>
+            <div class="row cl">
+                <label class="form-label col-xs-4 col-sm-3">纬度：</label>
+                <div class="formControls col-xs-8 col-sm-9" style="width:200px;">
+                    <input type="text" class="input-text" value="" placeholder="纬度" id="latitude" name="latitude">
                 </div>
             </div>
             <div class="row cl">
                 <label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>资产编号：</label>
                 <div class="formControls col-xs-8 col-sm-9" style="width:200px;">
-                    <input type="text" class="input-text" value="" placeholder="资产编号" id="projectName" name="projectName">
+                    <input type="text" class="input-text" value="" placeholder="资产编号" id="propertySerialNumber" name="propertySerialNumber">
                 </div>
             </div>
             <div class="row cl">
-                <label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>最大使用时间（年）：</label>
+                <label class="form-label col-xs-4 col-sm-3">最大使用时间（年）：</label>
                 <div class="formControls col-xs-8 col-sm-9" style="width:200px;">
-                    <input type="text" class="input-text" value="" placeholder="最大使用时间" id="projectName" name="projectName">
+                    <input type="text" class="input-text" value="" placeholder="最大使用时间" id="maxUseTime" name="maxUseTime">
                 </div>
             </div>
             <div class="row cl">
-                <label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>光衰：</label>
+                <label class="form-label col-xs-4 col-sm-3">光衰：</label>
                 <div class="formControls col-xs-8 col-sm-9">
-                    <input type="text" class="input-text" value="" placeholder="光衰" id="projectName" name="projectName">
+                    <input type="text" class="input-text" value="" placeholder="光衰" id="decay" name="decay">
                 </div>
             </div>
             <div class="row cl">
@@ -99,6 +105,17 @@
                 </div>
             </div>
             <div class="row cl">
+                <label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>所属项目：</label>
+                <div class="formControls col-xs-8 col-sm-9">
+                    <span class="select-box" style="width:150px;">
+                        <select class="select" name="nnlightctlProjectId" id="nnlightctlProjectId" size="1">
+                            <option value="0">项目一</option>
+                            <option value="1">项目二</option>
+                        </select>
+                    </span>
+                </div>
+            </div>
+            <div class="row cl">
                 <div class="col-xs-8 col-sm-9 col-xs-offset-4 col-sm-offset-3">
                     <input class="btn btn-primary radius" type="submit" value="&nbsp;&nbsp;提交&nbsp;&nbsp;">
                 </div>
@@ -106,7 +123,127 @@
         </form>
     </article>
     <script type="text/javascript" src="../js/jquery.min.js"></script>
+    <script type="text/javascript" src="../lib/layer/2.4/layer.js"></script>
     <script type="text/javascript" src="../js/common.js"></script>
     <script type="text/javascript" src="../lib/My97DatePicker/4.8/WdatePicker.js"></script> <!--日期插件-->
+
+    <script type="text/javascript" src="../js/api/requestRoot.js"></script>
+    <script type="text/javascript" src="../js/api/ajaxScript.js"></script>
+
+    <script type="text/javascript" src="../lib/jquery.validation/1.14.0/jquery.validate.js"></script>
+    <script type="text/javascript" src="../lib/jquery.validation/1.14.0/validate-methods.js"></script>
+    <script type="text/javascript" src="../lib/jquery.validation/1.14.0/messages_zh.js"></script>
+    <script typeof="text/javascript">
+        $(function () {
+            //数据验证
+            $("#form-admin-add").validate({
+                rules: {
+                    uid: {
+                        required: true
+                    },
+
+                    lightingCode : {
+                        required : true
+                    },
+
+                    lamppost : {
+                        required : true
+                    },
+
+                    lamphead : {
+                        required : true
+                    },
+
+                    nnlightctlProjectId : {
+                        required : true
+                    },
+
+                    nnlightctlLightingModelId : {
+                        required : true
+                    }
+                },
+                onkeyup: false,
+                focusCleanup: true,
+                success: "valid",
+                submitHandler: function (form) {
+                    //ajax上传表单
+                    //构造上传数据
+                    var param = {};
+                    var paramArray = $(form).serializeArray();
+                    for (var i = 0; i < paramArray.length; ++i) {
+                        var o = paramArray[i];
+                        param[o["name"]] = o["value"];
+                    }
+                    param["manufacture"] = str2Date($("#manufacture").val().trim());
+                    param["useDate"] = str2Date($("#useDate").val().trim());
+                    param["id"] = editModel(window.location.href);
+                    debugger;
+                    ajaxRequest("post", "/api/roadlighting/addOrUpdateLighting", param, function (data) {
+                        if (data) {
+                            if (data.header.code == 1000) {
+                                if (editModel(window.location.href)) {
+                                    layer.msg("编辑灯具成功！", {icon: 1, time: 3000});
+                                } else {
+                                    layer.msg("添加灯具成功！", {icon: 1, time: 3000});
+                                }
+                            } else {
+                                layer.msg(data.header.msg, {icon: 2, time: 3000});
+                            }
+                        }
+                    });
+
+                    var index = parent.layer.getFrameIndex(window.name);
+                    parent.$('.btn-refresh').click();
+                    parent.layer.close(index);
+                }
+            });
+
+            //刷新灯具型号
+            function flushLightModel() {
+                ajaxRequest("post", "/api/roadlighting/listLightModel", {}, function (data) {
+                    if (data) {
+                        if (data.header.code == 1000) {
+                            var lightModelArray = data.body.data;
+
+                            var $lightModelSelect = $("#nnlightctlLightingModelId");
+                            $lightModelSelect.empty();
+
+                            for (var i = 0; i < lightModelArray.length; ++i) {
+                                var lightModel = lightModelArray[i];
+                                $('<option value="'+lightModel.id+'">'+lightModel.modelName+'</option>').appendTo($lightModelSelect);
+                            }
+                        } else {
+                            layer.msg(data.header.msg, {icon : 2, time : 3000});
+                        }
+                    }
+                });
+            }
+
+            flushLightModel();
+
+            //刷新项目列表
+            function flushProjectSelect() {
+                ajaxRequest("post", "/api/project/listproject", {}, function (data) {
+                    if (data) {
+                        if (data.header.code == 1000) {
+                            var projectArray = data.body.data;
+
+                            var $projectSelect = $("#nnlightctlProjectId");
+                            $projectSelect.empty();
+
+                            for (var i = 0; i < projectArray.length; ++i) {
+                                var project = projectArray[i];
+                                $('<option value="'+project.id+'">'+project.projectName+'</option>').appendTo($projectSelect);
+                            }
+                        } else {
+                            layer.msg(data.header.msg, {icon : 2, time : 3000});
+                        }
+                    }
+                });
+            }
+
+            flushProjectSelect();
+        });
+    </script>
 </body>
 </html>
