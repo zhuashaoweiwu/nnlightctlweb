@@ -34,6 +34,18 @@ function formatDateTime(inputTime) {
     return y + '-' + m + '-' + d+' '+h+':'+minute+':'+second;
 }
 
+//时间方法，时间对象转换成"2010-09-12"格式
+function formatDate(inputTime) {
+    var date = new Date(inputTime);
+    var y = date.getFullYear();
+    var m = date.getMonth() + 1;
+    m = m < 10 ? ('0' + m) : m;
+    var d = date.getDate();
+    d = d < 10 ? ('0' + d) : d;
+
+    return y + '-' + m + '-' + d;
+}
+
 //时间方法，形如"2010-09-12"格式转换成时间对象
 function str2Date(dateStr) {
     if (!dateStr) {
