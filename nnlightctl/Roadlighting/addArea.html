@@ -27,11 +27,28 @@
             <div class="row cl">
                 <label class="form-label col-xs-3 col-sm-2">&nbsp;区域描述：</label>
                 <div class="formControls col-xs-8 col-sm-8">
-                    <textarea cols="" rows="" class="textarea" placeholder="说点什么...100个字符以内" dragonfly="true" id="mem" name="mem"></textarea>
+                    <textarea cols="" rows="" class="textarea" placeholder="说点什么...100个字符以内" dragonfly="true" id="regionDesc" name="regionDesc"></textarea>
                     <p class="textarea-numberbar"><em class="textarea-length">0</em>/100</p>
                 </div>
             </div>
-            
+            <div class="row cl">
+                <label class="form-label col-xs-4 col-sm-3">所属父区域：</label>
+                <div class="formControls col-xs-8 col-sm-9">
+                    <span class="select-box" style="width:150px;">
+                        <select class="select" name="nnlightctlParentRegion" id="nnlightctlParentRegion"
+                                size="1">
+                            <option value="0">请选择父区域</option>
+                        </select>
+                    </span>
+                </div>
+            </div>
+          <!--  <div class="row cl">
+                <label class="form-label col-xs-4 col-sm-3">&nbsp;区域层级：</label>
+                <div class="formControls col-xs-8 col-sm-9">
+                    <div id="regionLevel"></div>
+                </div>
+            </div>-->
+
             <div class="row cl">
                 <div class="col-xs-8 col-sm-9 col-xs-offset-4 col-sm-offset-3">
                     <input class="btn btn-primary radius" type="submit" value="&nbsp;&nbsp;提交&nbsp;&nbsp;">
@@ -43,41 +60,117 @@
     <script type="text/javascript" src="../js/jquery.min.js"></script>
     <script type="text/javascript" src="../lib/layer/2.4/layer.js"></script>
     <script type="text/javascript" src="../js/common.js"></script>
-    <script type="text/javascript" src="../js/admin.js"></script> <!--/_footer 作为公共模版分离出去-->
+    <script type="text/javascript" src="../js/admin.js"></script>
+
+    <script type="text/javascript" src="../js/api/requestRoot.js"></script>
+    <script type="text/javascript" src="../js/api/ajaxScript.js"></script>
+    <!--/_footer 作为公共模版分离出去-->
     <!--请在下方写此页面业务相关的脚本-->
     <script type="text/javascript" src="../lib/jquery.validation/1.14.0/jquery.validate.js"></script>
     <script type="text/javascript" src="../lib/jquery.validation/1.14.0/validate-methods.js"></script>
     <script type="text/javascript" src="../lib/jquery.validation/1.14.0/messages_zh.js"></script>
-    <script type="text/javascript">
-        $(function () {
 
+    <script type="text/javascript">
+
+        $(function () {
             //数据验证
             $("#form-admin-add").validate({
                 rules: {
-                    areaName: {
+                    institution: {
                         required: true,
+                        minlength: 1,
+                        maxlength: 64
                     }
                 },
                 onkeyup: false,
                 focusCleanup: true,
                 success: "valid",
                 submitHandler: function (form) {
-                    $(form).ajaxSubmit({
-                        type: 'post',
-                        url: "xxxxxxx",
-                        success: function (data) {
-                            layer.msg('提交成功!', { icon: 1, time: 1000 });
-                        },
-                        error: function (XmlHttpRequest, textStatus, errorThrown) {
-                            layer.msg('error!', { icon: 1, time: 1000 });
+                    //ajax上传表单
+                    //构造上传数据
+                    var param = {};
+                    var paramArray = $(form).serializeArray();
+                    var nnlightctlParentRegion=$('#nnlightctlParentRegion').val();
+
+                    for (var i = 0; i < paramArray.length; ++i) {
+                        var o = paramArray[i];
+                        param[o["name"]] = o["value"];
+                    }
+                    if(nnlightctlParentRegion == 0){
+                        param["regionLevel"] = 0
+                    }else {
+                        param["regionLevel"] =1
+                    }
+
+                    param["id"] = editModel(window.location.href);
+                    // param["regionLevel"] = $('#nnlightctlParentRegion').val();
+
+                    ajaxRequest("post", "/api/roadlighting/addOrUpdateArea", param, function (data) {
+                        if (data) {
+                            if (data.header.code == 1000) {
+                                if (editModel(window.location.href)) {
+                                    layer.msg("编辑区域信息成功！", {icon: 1, time: 3000});
+                                } else {
+                                    layer.msg("添加区域信息成功！", {icon: 1, time: 3000});
+                                }
+                            } else {
+                                layer.msg(data.header.msg, {icon: 2, time: 3000});
+                            }
                         }
                     });
+
                     var index = parent.layer.getFrameIndex(window.name);
                     parent.$('.btn-refresh').click();
                     parent.layer.close(index);
                 }
             });
-        });
+
+            //刷新父机构列表
+            function flushInstitution() {
+                ajaxRequest("post", "/api/roadlighting/listArea", {}, function (data) {
+                    if (data) {
+                        if (data.header.code == 1000) {
+                            var AreaArray = data.body.data;
+                            var $areaSelect = $("#nnlightctlParentRegion");
+                            var id = editModel(window.location.href);
+                            // var regionLevel = $('#nnlightctlParentRegion').is(':checked') ? 1 : 0;
+                            for (var i = 0; i < AreaArray.length; ++i) {
+                                var Area = AreaArray[i];
+                                if (!id || Area.id != id) {
+                                    $('<option value="' + Area.id + '">' + Area.areaName + '</option>').appendTo($areaSelect);
+                                }
+
+                            }
+                        }
+                    }
+                });
+            }
+
+            flushInstitution();
+
+            //判断是否编辑模式
+            var id = editModel(window.location.href);
+            // alert(id);
+            if (id) {
+                ajaxRequest("post", "/api/roadlighting/getAreaById", {"id": id}, function (data) {
+                    if (data) {
+                        if (data.header.code == 1000) {
+                            var area = data.body.data[0];
+                            // var regionLevel = $('#nnlightctlParentRegion').is(':checked') ? 1 : 0;
+                            //刷新表单
+                            $("#areaName").val(area.areaName);
+                            $("#nnlightctlParentRegion").val(area.nnlightctlParentRegion);
+                            $("#regionDesc").val(area.regionDesc);
+                            $("#regionLevel").val(area.regionLevel);
+                            // $("#regionLevel").text(regionLevel);
+
+                        } else {
+                            layer.msg(data.header.msg, {icon: 2});
+                        }
+                    }
+                });
+            }
+        })
     </script>
     <!--/请在上方写此页面业务相关的脚本-->
 </body>

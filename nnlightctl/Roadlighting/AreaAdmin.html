@@ -23,7 +23,7 @@
         </a>
     </nav>
     <div class="page-container">
-        <div class="text-l">
+        <div class="text-l" style="display: none">
             区域名称：
             <input type="text" name="areaName" id="areaName" placeholder="区域名称" style="width:250px" class="input-text">
 
@@ -50,8 +50,8 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr class="text-c">
-                        <td><input type="checkbox" value="" name=""></td>
+                    <!--<tr class="text-c">
+                        &lt;!&ndash;<td><input type="checkbox" value="" name=""></td>
                         <td>五四大街</td>
                         <td>2018-10-20</td>
                         <td>2018-10-20</td>
@@ -61,24 +61,28 @@
                         <td class="f-14 td-manage" style="background:#fff;">
                             <a style="text-decoration:none" class="ml-5" onclick="Area_edit('编辑区域', 'addArea.html', '1', '500', '300')" href="javascript:void(0);" title="编辑区域"><i class="Hui-iconfont">&#xe6df;</i></a>
                             <a style="text-decoration:none" class="ml-5" onClick="del_one(this, '10001')" href="javascript:void(0);" title="删除"><i class="Hui-iconfont">&#xe6e2;</i></a>
-                        </td>
-                    </tr>
+                        </td>&ndash;&gt;
+                    </tr>-->
 
                 </tbody>
             </table>
         </div>
     </div>
 
+   <!-- _footer 作为公共模版分离出去-->
+
     <script type="text/javascript" src="../js/jquery.min.js"></script>
     <script type="text/javascript" src="../js/common.js"></script>
     <script type="text/javascript" src="../js/admin.js"></script>
-    <!--请在下方写此页面业务相关的脚本-->
-    <script type="text/javascript" src="../lib/layer/2.4/layer.js"></script><!--弹出插件-->
-    <script type="text/javascript" src="../lib/datatables/1.10.0/jquery.dataTables.min.js"></script><!--表单插件-->
-    <script type="text/javascript" src="../js/jquery.min.js"></script>
+
     <script type="text/javascript" src="../js/api/requestRoot.js"></script>
     <script type="text/javascript" src="../js/api/ajaxScript.js"></script>
+    <!--请在下方写此页面业务相关的脚本-->
+    <script type="text/javascript" src="../lib/layer/2.4/layer.js"></script>
+    <script type="text/javascript" src="../lib/datatables/1.10.0/jquery.dataTables.min.js"></script>
+    <script type="text/javascript" src="../lib/laypage/1.2/laypage.js"></script>
     <script type="text/javascript">
+
         // $('.table-sort').dataTable({
         //     "searching": false,
         //     "pading": false,
@@ -102,7 +106,7 @@
             }
 
             layer.confirm('确认批量删除？', function (index) {
-                batchDeleteProject(idArray);
+                batchDeleteArea(idArray);
                 layer.close(index);
             })
         }
@@ -113,15 +117,15 @@
         }
 
         /*删除*/
-        function batchDeleteProject(idArray) {
+        function batchDeleteArea(idArray) {
             if (!idArray) {
                 return;
             }
 
-            ajaxRequest("post", "/api/roadlighting/deleteArea", transArray({idList : idArray}), function (data) {
+            ajaxRequest("post", "/api/roadlighting/deleteArea", transArray({areaIdList : idArray}), function (data) {
                 if (data) {
                     if (data.header.code == 1000) {
-                        searchProject(1);
+                        searchArea(1);
                     } else {
                         layer.msg(data.header.msg, { icon: 2, time: 3000 });
                     }
@@ -132,25 +136,27 @@
         /*删除*/
         function Area_del(obj, id) {
             layer.confirm('确认要删除吗？', function (index) {
-                // var id = $(obj).parents("tr").find("input[type='checkbox']").eq(0).val();
+                var id = $(obj).parents("tr").find("input[type='checkbox']").eq(0).val();
                 var idArray = [];
                 idArray.push(id);
-                batchDeleteProject(idArray);
+                batchDeleteArea(idArray);
                 layer.close(index);
             });
         }
 
+
         //通过搜索条件分页搜索项目数据
-        function searchProject(pageNumber) {
+        function searchArea(pageNumber) {
             //搜索条件
             var searchAreaName = $("#areaName").val().trim();
 
             //搜索
             var param = {};
             param["areaName"] = searchAreaName;
-            debugger;
+            //debugger;
             ajaxRequest("post", "/api/roadlighting/listArea", param, function (data) {
-                debugger;
+                //debugger;
+                // console.log(data)
                 if (data) {
                     if (data.header.code == 1000) {
                         var AreaArray = data.body.data;
@@ -159,7 +165,7 @@
                         var $tableBody = $("table.table").find("tbody").eq(0);
                         $tableBody.empty();
 
-                        for (var i = 0; i < AreaArray.length; ++i) {
+                        for (var i = 0; i < AreaArray.length; i++) {
                             var Area = AreaArray[i];
                             $('<tr class="text-c">\n' +
                                 '<td><input type="checkbox" value="' + Area.id + '" name=""></td>\n' +
@@ -169,12 +175,12 @@
                                 '<td>' + Area.nnlightctlParentRegion + '</td>\n' +
                                 '<td>' + Area.regionLevel + '</td>\n' +
                                 '<td>' + Area.regionDesc + '</td>\n' +
-                                '<td class="f-14 td-manage" style="background:#fff;"><a style="text-decoration:none" class="ml-5" onclick="Area_edit(\'区域编辑\', \'addArea.html\', \'' + Area.id + '\', \'800\', \'500\')" href="javascript:void(0);" title="项目编辑"><i class="Hui-iconfont">&#xe6df;</i></a> <a style="text-decoration:none" class="ml-5" onClick="Area_del(this, \'' + Area.id + '\' )" href="javascript:void(0);" title="删除"><i class="Hui-iconfont">&#xe6e2;</i></a></td>\n' +
+                                '<td class="f-14 td-manage" style="background:#fff;"><a style="text-decoration:none" class="ml-5" onclick="Area_edit(\'区域编辑\', \'addArea.html\', \'' + Area.id + '\', \'800\', \'500\')" href="javascript:void(0);" title="区域编辑"><i class="Hui-iconfont">&#xe6df;</i></a> <a style="text-decoration:none" class="ml-5" onClick="Area_del(this, \'' + Area.id + '\' )" href="javascript:void(0);" title="删除"><i class="Hui-iconfont">&#xe6e2;</i></a></td>\n' +
                                 '</tr>').appendTo($tableBody);
                         }
 
                         //更新分页
-                        $('.table-sort').dataTable();
+                        // $('.table-sort').dataTable();
 
                     } else {
                         layer.msg(data.header.msg, {icon: 2, time: 3000});
@@ -183,11 +189,11 @@
             });
         }
 
-        searchProject(1);
+        searchArea(1);
 
         //注册搜索按扭事件
         $("#btnSearch").click(function () {
-            searchProject(1);
+            searchArea(1);
         });
     </script>
 </body>
