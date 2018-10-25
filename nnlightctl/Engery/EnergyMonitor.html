@@ -25,7 +25,14 @@
     <div class="page-container">
         <div class="text-l">
             控制柜：
-            <input type="text" name="projectName" id="projectName" placeholder="控制柜" style="width:250px" class="input-text">
+            <span class="select-box inline">
+                <select name="userType" id="userType" class="select">
+                    <option value="-1">请选择控制柜</option>
+                    <option value="0">控制柜1</option>
+                    <option value="1">控制柜2</option>
+                    <option value="2">控制柜3</option>
+                </select>
+            </span>
             <span class="pl-20">日期范围：</span>
             <input type="text" onfocus="WdatePicker({ maxDate:'#F{$dp.$D(\'logmax\')||\'%y-%M-%d\'}' })" id="logmin" class="input-text Wdate" style="width:120px;">
             -
