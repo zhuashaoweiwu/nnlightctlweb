@@ -72,6 +72,7 @@
     <Content Include="bg\icon_road.png" />
     <Content Include="bg\icon_user.png" />
     <Content Include="bg\loading.gif" />
+    <Content Include="bg\loginbg.png" />
     <Content Include="bg\logo.png" />
     <Content Include="bg\sort_asc.png" />
     <Content Include="bg\sort_both.png" />

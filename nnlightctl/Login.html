@@ -11,28 +11,30 @@
     <link href="css/common.css" rel="stylesheet" type="text/css" />
     <link href="css/login.css" rel="stylesheet" type="text/css" />
     <link href="css/iconfont/iconfont.css" rel="stylesheet" type="text/css" />
-    <script src="js/jquery.min.js"></script>
+    <script type="text/javascript" src="js/jquery.min.js"></script>
     <script type="text/javascript" src="js/api/requestRoot.js"></script>
     <script type="text/javascript" src="js/api/ajaxScript.js"></script>
     <script src="js/login.js"></script>
 </head>
 <body>
 
-<div class="header"><span style="padding-left:30px;"><img src="bg/logo.png" class="logo">北京新时空科技股份有限公司</span></div>
+<!--<div class="header"><span style="padding-left:30px;"><img src="bg/logo.png" class="logo">北京新时空科技股份有限公司</span></div>-->
 <div class="loginWraper">
-
-  <div id="loginform" class="loginBox"><h1>单灯控制系统</h1>
+    
+  <div id="loginform" class="loginBox">
+      <div class="login-container"><h1 class="title">新时空单灯管理系统</h1></div>
     <form class="form form-horizontal" action="Index.html" method="post">
+        <!--<h1 class="title">新时空单灯管理系统</h1>-->
       <div class="row cl">
         <label class="form-label col-xs-3"><i class="Hui-iconfont">&#xe60d;</i></label>
         <div class="formControls col-xs-8">
-          <input id="loginName" name="loginName" type="text" placeholder="账户" class="input-text size-L">
+          <input id="loginName" name="loginName" type="text" placeholder="账户" class="input-text size-L radius">
         </div>
       </div>
       <div class="row cl">
         <label class="form-label col-xs-3"><i class="Hui-iconfont">&#xe60e;</i></label>
         <div class="formControls col-xs-8">
-          <input id="pwd" name="pwd" onkeydown="keydown(event)" type="password" placeholder="密码" class="input-text size-L">
+          <input id="pwd" name="pwd" onkeydown="keydown(event)" type="password" placeholder="密码" class="input-text size-L radius">
         </div>
       </div>
      <div class="">
@@ -57,7 +59,7 @@
     </form>
   </div>
 </div>
-<div class="footer">Copyright 北京新时空科技股份有限公司 by 单灯控制系统 v1.1</div>
+<!--<div class="footer">Copyright 北京新时空科技股份有限公司 by 单灯控制系统 v1.1</div>-->
 
 
 </body>

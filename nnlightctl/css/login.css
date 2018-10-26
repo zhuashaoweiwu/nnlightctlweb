@@ -5,18 +5,21 @@ body{font-size:14px}
 
 .header,.footer{ position:absolute; left:0; right:0; width:100%; z-index:99}
 .header{top:0;height:60px;background:#426374;color:#fff;line-height:60px;font-size:20px;}
-
-.loginWraper{ position:absolute;width:100%; left:0; top:0; bottom:0; right:0; z-index:1; background:#3283AC url(../bg/admin-login-bg.jpg) no-repeat center;}
-/*.loginWraper .h1{margin: 168px auto;	text-align: center;}*/
-.loginBox{ position:absolute; width:617px; height:330px; background:url(../bg/admin-loginform-bg.png) no-repeat; left:50%; top:50%; margin-left:-309px; margin-top:-184px; padding-top:38px}
-.loginBox h1{
-	padding-top: 0; text-align: center;}
+.login-container {box-sizing: border-box; width:100%;text-align:center;}
+.login-container h1{font-size:40px;color:#fff; font-weight:700;}
+.loginWraper{ position:absolute;width:100%; left:0; top:0; bottom:0; right:0; z-index:1; background:#3283AC url(../bg/loginbg.png) no-repeat center;position: fixed;
+    height: 100%;
+    width: 100%;background-size: cover;}
+/*.loginWraper .h1{margin: 168px auto;	text-align: center; background:url(../bg/admin-loginform-bg.png) no-repeat;}*/
+.loginBox{ position:absolute; width:500px; height:260px; left:50%; top:50%; margin-left:-250px; margin-top:-230px; }
+.loginBox h1{padding-top: 0; text-align: center;color:#fff;padding-left:22px;}
+.form{background: hsla(0,0%,100%,.2);padding-top:26px;padding-bottom:40px;border-radius: 10px;margin-top:40px;}
 @media (max-width:617px) {
 	.loginbox{ width:100%; position:static; margin-top:0; margin-left:0;}
 }
 .loginBox .row{margin-top:20px;}
 .loginBox .row .form-label .Hui-iconfont{ font-size:24px}
-.loginBox .input-text{ width:360px}
+.loginBox .input-text{ width:260px}
 @media (max-width:617px) {
 	.loginBox .input-text{ width:80%}
 }
