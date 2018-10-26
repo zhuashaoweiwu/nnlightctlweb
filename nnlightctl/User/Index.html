@@ -23,15 +23,19 @@
             <input type="text" onfocus="WdatePicker({maxDate:'#F{$dp.$D(\'datemax\')||\'%y-%M-%d\'}'})" id="datemin" class="input-text Wdate" style="width:120px;" placeholder="开始日期">
             -
             <input type="text" onfocus="WdatePicker({minDate:'#F{$dp.$D(\'datemin\')}',maxDate:'%y-%M-%d'})" id="datemax" class="input-text Wdate" style="width:120px;" placeholder="结束日期">
-            <span class="pl-10">日志内容：</span>
-            <input type="text" class="input-text" style="width:250px" placeholder="输入日志内容" id="logContent" name=""><button type="submit" class="btn btn-success" id="btnSearch" name=""><i class="icon-search"></i> 搜日志</button>
+            <span class="pl-20">日志内容：</span>
+            <input type="text" class="input-text" style="width:250px" placeholder="输入日志内容" id="logContent" name="">
+            <button type="submit" class="btn btn-success f-r" id="btnSearch" ><i class="Hui-iconfont">&#xe665;</i> 搜日志</button>
         </div>
         
         <div class="mt-20">
             <table class="table table-border table-bordered table-bg table-hover table-sort table-responsive">
                 <thead>
-                    <tr class="text-c">
-                        <th width="25"><input type="checkbox" name="" value=""></th>
+                    <tr>
+                        <th scope="col" colspan="6">操作日志列表</th>
+                    </tr>
+                    <tr class="text-l">
+                        <th width="25">ID</th>
                         <th width="100">登录名</th>
                         <th width="100">用户名</th>
                         <th width="110">操作时间</th>
@@ -65,65 +69,54 @@
     <script type="text/javascript" src="../lib/datatables/1.10.0/jquery.dataTables.min.js"></script>
     <script type="text/javascript" src="../lib/laypage/1.2/laypage.js"></script>
     <script type="text/javascript">
-        $('.table-sort').dataTable({
-            "searching": false,
-            "pading": false,
-            "bStateSave": true
-        });
 
-        //通过搜索条件分页搜索用户操作日志数据
-        function searchUserOpLog(pageNumber) {
+        var param = {};
+        $(function () { searchUserOpLog(param); });
+        $("#btnSearch").click(function () {
             //搜索条件
             var startTime = $("#datemin").val();
             var endTime = $("#datemax").val();
             var searchContent = $("#logContent").val();
 
-            //搜索
-            var param = {};
-
             param["startDate"] = startTime ? str2Date(startTime) : new Date(new Date().getTime() - 24 * 3600 * 1000);
             param["endDate"] = endTime ? str2Date(endTime) : new Date();
             param["content"] = searchContent;
-
-            debugger;
-            ajaxRequest("post", "/api/user/listUserOpLog", param, function (data) {
-                debugger;
-                if (data) {
-                    if (data.header.code == 1000) {
-                        var userOpArray = data.body.data;
-
-                        //更新操作日志表格
-                        var $tableBody = $("table.table").find("tbody").eq(0);
-                        $tableBody.empty();
-
-                        for (var i = 0; i < userOpArray.length; ++i) {
-                            var userOp = userOpArray[i];
-                            $('<tr class="text-c">\n' +
-                                '<td><input type="checkbox" value="1" name=""></td>\n' +
-                                '<td>'+userOp.loginName+'</td>\n' +
-                                '<td>'+userOp.userName+'</td>\n' +
-                                '<td>'+formatDateTime(userOp.operationTime)+'</td>\n' +
-                                '<td class="text-l">'+userOp.operationDesc+'</td>\n' +
-                                '<td>'+userOp.projectName+'</td>\n' +
-                                '</tr>').appendTo($tableBody);
-                        }
-
-                        //更新分页
-                        $('.table-sort').dataTable();
-
-                    } else {
-                        layer.msg(data.header.msg,{icon:2,time:3000});
-                    }
-                }
-            });
-        }
-
-        searchUserOpLog(1);
-
-        /*搜索*/
-        $("#btnSearch").click(function () {
-            searchUserOpLog(1);
+            //初始化，然后绑定
+            $('.table-sort').DataTable().destroy();
+            searchUserOpLog(param);
         });
+        function searchUserOpLog(param) {
+            $('.table-sort').dataTable({
+                "searching": false,
+                "autoWidth": true,
+                "ordering": false, //设置所有布排序
+                "bStateSave": true,
+                "ajax": function (data, callback, settings) {
+                    ajaxRequest("post", "/api/user/listUserOpLog", param, function (data) {
+                        //封装返回数据
+                        var returnData = {};
+                        if (data) {
+                            if (data.header.code == 1000) {
+                                returnData.data = data.body.data;
+                            }
+                        }
+                        callback(returnData);
+                    });
+                },
+                "columns": [//返回的json数据在这里填充，注意一定要与上面的<th>数量对应，否则排版出现扭曲
+                            { "data": "id" },
+                            { "data": "loginName", "defaultContent": "" },
+                            { "data": "userName", "defaultContent": "" },
+                            {
+                                "data": "operationTime", "render": function (data) {
+                                    return formatDateTime(data);
+                                }
+                            },
+                            { "data": "operationDesc", "defaultContent": "" },
+                            { "data": "projectName", "defaultContent": "" }
+                           ]
+                });
+            }
     </script>
 
 </body>

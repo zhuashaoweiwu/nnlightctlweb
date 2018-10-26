@@ -16,196 +16,238 @@
 
 </head>
 <body>
-<nav class="breadcrumb"><i class="Hui-iconfont">&#xe67f;</i> 首页 <span class="c-gray en">&gt;</span>用户管理 <span
-        class="c-gray en">&gt;</span>部门岗位<a class="btn btn-success radius r" style="line-height:1.6em;margin-top:3px"
-                                            href="javascript:location.replace(location.href);" title="刷新"><i
-        class="Hui-iconfont">&#xe68f;</i></a></nav>
-<div class="page-container">
-    <div class="text-l">
-        部门名称：
-        <input type="text" class="input-text" style="width:250px" placeholder="输入部门名称" id="departmentName"
-               name="departmentName">
-        <span class="pl-20">部门地址：</span>
-        <input type="text" class="input-text" style="width:250px" placeholder="输入部门地址" id="addr" name="addr">
-        <button type="submit" class="btn btn-success" id="btnSearch" name=""><i class="Hui-iconfont">&#xe665;</i> 搜部门</button>
+    <nav class="breadcrumb"><i class="Hui-iconfont">&#xe67f;</i> 首页 <span class="c-gray en">&gt;</span>用户管理 <span class="c-gray en">&gt;</span>部门岗位
+        <a class="btn btn-success radius r" style="line-height:1.6em;margin-top:3px" href="javascript:location.replace(location.href);" title="刷新"><i class="Hui-iconfont">&#xe68f;</i></a>
+    </nav>
+    <div class="page-container">
+        <div class="text-l">
+            部门名称：
+            <input type="text" class="input-text" style="width:250px" placeholder="输入部门名称" id="departmentName" name="departmentName">
+            <span class="pl-20">部门地址：</span>
+            <input type="text" class="input-text" style="width:250px" placeholder="输入部门地址" id="addr" name="addr">
+            <button type="submit" class="btn btn-success f-r" id="btnSearch" name=""><i class="Hui-iconfont">&#xe665;</i> 搜部门</button>
+        </div>
+        <div class="cl pd-5 bg-1 bk-gray mt-20"><span class="l">
+            <a href="javascript:void(0);" onclick="department_del_more()" class="btn btn-danger radius"><i class="Hui-iconfont">&#xe6e2;</i> 批量删除</a> 
+            <a href="javascript:void(0);" onclick="department_add('添加部门', 'Department-add.html', '800', '500')" class="btn btn-primary radius"><i class="Hui-iconfont">&#xe600;</i> 添加部门</a></span>
+        </div>
+        <div class="mt-20">
+            <table class="table table-border table-bordered table-bg table-hover table-sort table-responsive">
+                <thead>
+                <tr>
+                    <th scope="col" colspan="7">部门岗位列表</th>
+                </tr>
+                <tr class="text-l">
+                    <th width="25"><input type="checkbox" name="" value=""></th>
+                    <th width="150px">部门名称</th>
+                    <th width="150px">部门所属机构</th>
+                    <th width="150px">部门地址</th>
+                    <th width="130px">创建时间</th>
+                    <th>备注</th>
+                    <th width="100">操作</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr class="text-c">
+                    <td><input type="checkbox" value="1" name=""></td>
+                    <td>网络部</td>
+                    <td>上海办事处</td>
+                    <td>上海市宝山区</td>
+                    <td>2018-10-13 11:11</td>
+                    <td>这个人很懒，备注都不添加</td>
+                    <td class="td-manage"><a title="编辑" href="javascript:void(0);" onclick="department_edit('部门编辑', 'Department-add.html', '1', '800', '500')" class="ml-5" style="text-decoration:none"><i class="Hui-iconfont">&#xe6df;</i></a>
+                        <a title="删除" href="javascript:void(0);" onclick="department_del(this, '1')" class="ml-5" style="text-decoration:none"><i class="Hui-iconfont">&#xe6e2;</i></a></td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
     </div>
-    <div class="cl pd-5 bg-1 bk-gray mt-20"><span class="l"><a href="javascript:void(0);"
-                                                               onclick="department_del_more()"
-                                                               class="btn btn-danger radius"><i class="Hui-iconfont">&#xe6e2;</i> 批量删除</a> <a
-            href="javascript:void(0);" onclick="department_add('添加部门', 'Department-add.html', '800', '500')"
-            class="btn btn-primary radius"><i class="Hui-iconfont">&#xe600;</i> 添加部门</a></span></div>
-    <div class="mt-20">
-        <table class="table table-border table-bordered table-bg table-hover table-sort table-responsive">
-            <thead>
-            <tr>
-                <th scope="col" colspan="9">部门岗位列表</th>
-            </tr>
-            <tr class="text-c">
-                <th width="25"><input type="checkbox" name="" value=""></th>
-                <th width="90">部门名称</th>
-                <th width="90">部门所属机构</th>
-                <th width="150">部门地址</th>
-                <th width="130">创建时间</th>
-                <th>备注</th>
-                <th width="100">操作</th>
-            </tr>
-            </thead>
-            <tbody>
-            <tr class="text-c">
-                <td><input type="checkbox" value="1" name=""></td>
-                <td>网络部</td>
-                <td>上海办事处</td>
-                <td>上海市宝山区</td>
-                <td>2018-10-13 11:11</td>
-                <td>这个人很懒，备注都不添加</td>
-                <td class="td-manage"><a title="编辑" href="javascript:void(0);"
-                                         onclick="department_edit('部门编辑', 'Department-add.html', '1', '800', '500')"
-                                         class="ml-5" style="text-decoration:none"><i class="Hui-iconfont">&#xe6df;</i></a>
-                    <a title="删除" href="javascript:void(0);" onclick="department_del(this, '1')" class="ml-5"
-                       style="text-decoration:none"><i class="Hui-iconfont">&#xe6e2;</i></a></td>
-            </tr>
-            </tbody>
-        </table>
-    </div>
-</div>
-<!--_footer 作为公共模版分离出去-->
-<script type="text/javascript" src="../js/jquery.min.js"></script>
-<script type="text/javascript" src="../lib/layer/2.4/layer.js"></script>
-<script type="text/javascript" src="../js/common.js"></script>
-<script type="text/javascript" src="../js/admin.js"></script>
+    <!--_footer 作为公共模版分离出去-->
+    <script type="text/javascript" src="../js/jquery.min.js"></script>
+    <script type="text/javascript" src="../lib/layer/2.4/layer.js"></script>
+    <script type="text/javascript" src="../js/common.js"></script>
+    <script type="text/javascript" src="../js/admin.js"></script>
 
-<script type="text/javascript" src="../js/api/requestRoot.js"></script>
-<script type="text/javascript" src="../js/api/ajaxScript.js"></script>
+    <script type="text/javascript" src="../js/api/requestRoot.js"></script>
+    <script type="text/javascript" src="../js/api/ajaxScript.js"></script>
 
-<!--/_footer 作为公共模版分离出去-->
-<!--请在下方写此页面业务相关的脚本-->
-<script type="text/javascript" src="../lib/My97DatePicker/4.8/WdatePicker.js"></script>
-<script type="text/javascript" src="../lib/datatables/1.10.0/jquery.dataTables.min.js"></script>
-<script type="text/javascript" src="../lib/laypage/1.2/laypage.js"></script>
-<script type="text/javascript">
-    $('.table-sort').dataTable({
-        "searching": false,
-        "pading": false
-    });
-    /*
-        参数解释：
-        title	标题
-        url		请求的url
-        id		需要操作的数据id
-        w		弹出层宽度（缺省调默认值）
-        h		弹出层高度（缺省调默认值）
-    */
-    /*增加*/
-    function department_add(title, url, w, h) {
-        layer_show(title, url, w, h);
-    }
+    <!--/_footer 作为公共模版分离出去-->
+    <!--请在下方写此页面业务相关的脚本-->
+    <script type="text/javascript" src="../lib/My97DatePicker/4.8/WdatePicker.js"></script>
+    <script type="text/javascript" src="../lib/datatables/1.10.0/jquery.dataTables.min.js"></script>
+    <script type="text/javascript" src="../lib/laypage/1.2/laypage.js"></script>
+    <script type="text/javascript">
+         var param = {};
+         $(function () { searchDepartment(param); });
+        $("#btnSearch").click(function () {
+            //搜索条件
+            var searchInstitutionName = $("#departmentName").val().trim();
+            var searchInstitutionAddr = $("#addr").val().trim();
 
-    /*删除*/
-    function batchDeleteDepartment(idArray) {
-        if (!idArray) {
-            return;
-        }
-
-        ajaxRequest("post", "/api/department/deleteDepartment", transArray({departmentIds : idArray}), function (data) {
-            if (data) {
-                if (data.header.code == 1000) {
-                    searchDepartment(1);
-                } else {
-                    layer.msg(data.header.msg, { icon: 2, time: 3000 });
-                }
-            }
+            param["institutionName"] = searchInstitutionName;
+            param["addr"] = searchInstitutionAddr;
+            //初始化，然后绑定
+            $('.table-sort').DataTable().destroy();
+            searchDepartment(param);
         });
-    }
-
-    //批量删除
-    function department_del_more() {
-        //获取全部批量删除的id
-        var idArray = [];
-        $("table.table").find("input[type='checkbox']:checked").each(function () {
-            idArray.push($(this).val());
-        });
-
-        if (idArray.length <= 0) {
-            return;
-        }
-
-        layer.confirm('确认批量删除？', function (index) {
-            batchDeleteDepartment(idArray);
-            layer.close(index);
-        })
-    }
-
-    /*删除*/
-    function department_del(obj, id) {
-        layer.confirm('确认要删除吗？', function (index) {
-            // var id = $(obj).parents("tr").find("input[type='checkbox']").eq(0).val();
-            var idArray = [];
-            idArray.push(id);
-            batchDeleteDepartment(idArray);
-            layer.close(index);
-        });
-    }
-
-    /*编辑*/
-    function department_edit(title, url, id, w, h) {
-        layer_show(title, url + "?id=" + id, w, h);
-    }
-
-    //通过搜索条件分页搜索部门数据
-    function searchDepartment(pageNumber) {
-        //搜索条件
-        var searchInstitutionName = $("#departmentName").val().trim();
-        var searchInstitutionAddr = $("#addr").val().trim();
-
-        //搜索
-        var param = {};
-
-        param["institutionName"] = searchInstitutionName;
-        param["addr"] = searchInstitutionAddr;
-        ajaxRequest("post", "/api/department/listDepartment", param, function (data) {
-            debugger;
-            if (data) {
-                if (data.header.code == 1000) {
-                    var departmentArray = data.body.data;
-
-                    //更新机构表格
-                    var $tableBody = $("table.table").find("tbody").eq(0);
-                    $tableBody.empty();
-
-                    for (var i = 0; i < departmentArray.length; ++i) {
-                        var department = departmentArray[i];
-                        $('<tr class="text-c">\n' +
-                            '<td><input type="checkbox" value="'+department.id+'" name=""></td>\n' +
-                            '<td>'+department.departmentName+'</td>\n' +
-                            '<td>'+department.nnlightctlInstitutionIdBelong+'</td>\n' +
-                            '<td>'+department.addr+'</td>\n' +
-                            '<td>'+formatDateTime(department.createTime)+'</td>\n' +
-                            '<td>'+department.mem+'</td>\n' +
-                            '<td class="td-manage"><a title="编辑" href="javascript:void(0);"\n' +
-                            'onclick="department_edit(\'部门编辑\', \'Department-add.html\', \''+department.id+'\', \'800\', \'500\')"\n' +
-                            'class="ml-5" style="text-decoration:none"><i class="Hui-iconfont">&#xe6df;</i></a>\n' +
-                            '<a title="删除" href="javascript:void(0);" onclick="department_del(this, \''+department.id+'\')" class="ml-5"\n' +
-                            'style="text-decoration:none"><i class="Hui-iconfont">&#xe6e2;</i></a></td>\n' +
-                            '</tr>').appendTo($tableBody);
+        function searchDepartment(param) {
+            $('.table-sort').dataTable({
+                "searching": false,
+                "autoWidth": true,
+                "ordering": false, //设置所有布排序
+                "bStateSave": true,
+                "ajax": function (data, callback, settings) {
+                    ajaxRequest("post", "/api/department/listDepartment", param, function (data) {
+                        //封装返回数据
+                        var returnData = {};
+                        if (data) {
+                            if (data.header.code == 1000) {
+                                returnData.data = data.body.data;
+                            }
+                        }
+                        callback(returnData);
+                    });
+                },
+                "columnDefs": [//对table格式的定义（表格的列从0开始）
+                    {
+                        targets: 0,
+                        render: function (data, type, row) {
+                            return '<input type="checkbox" value="' + row.id + '" >';
+                        }
+                    }, {
+                        targets: 6,
+                        render: function (data, type, row) {
+                            return '<a class="ml-10" href="javascript:void(0);" style="text-decoration:none" title="部门编辑" onclick="department_edit(\'部门编辑\', \'Department-add.html\', \'' + row.id + '\', \'800\', \'500\')"><i class="Hui-iconfont">&#xe6df;</i></a>' +
+                                   '<a class="ml-10" href="javascript:void(0);" style="text-decoration:none" title="删除" onclick="department_del(this, \'' + row.id + '\')" ><i class="Hui-iconfont">&#xe6e2;</i></a></td>';
+                        }
                     }
-
-                    //更新分页
-                    $('.table-sort').dataTable();
-
-                } else {
-                    layer.msg(data.header.msg,{icon:2,time:3000});
-                }
+                ],
+                "columns": [//返回的json数据在这里填充，注意一定要与上面的<th>数量对应，否则排版出现扭曲
+                            { "data": "id" },
+                            { "data": "departmentName", "defaultContent": "" },
+                            { "data": "institutionName", "defaultContent": "" },
+                            { "data": "addr", "defaultContent": "" },
+                            {
+                                "data": "createTime", "render": function (data) {
+                                    return formatDateTime(data);
+                                }
+                            },
+                           
+                            { "data": "mem", "defaultContent": "" }
+                           ]
+                });
             }
+        /*增加*/
+        function department_add(title, url, w, h) {
+            layer_show(title, url, w, h);
+        }
+
+        /*删除*/
+        function batchDeleteDepartment(idArray) {
+            if (!idArray) {
+                return;
+            }
+
+            ajaxRequest("post", "/api/department/deleteDepartment", transArray({departmentIds : idArray}), function (data) {
+                if (data) {
+                    if (data.header.code == 1000) {
+                        searchDepartment(1);
+                    } else {
+                        layer.msg(data.header.msg, { icon: 2, time: 3000 });
+                    }
+                }
+            });
+        }
+
+        //批量删除
+        function department_del_more() {
+            //获取全部批量删除的id
+            var idArray = [];
+            $("table.table").find("input[type='checkbox']:checked").each(function () {
+                idArray.push($(this).val());
+            });
+
+            if (idArray.length <= 0) {
+                return;
+            }
+
+            layer.confirm('确认批量删除？', function (index) {
+                batchDeleteDepartment(idArray);
+                layer.close(index);
+            })
+        }
+
+        /*删除*/
+        function department_del(obj, id) {
+            layer.confirm('确认要删除吗？', function (index) {
+                // var id = $(obj).parents("tr").find("input[type='checkbox']").eq(0).val();
+                var idArray = [];
+                idArray.push(id);
+                batchDeleteDepartment(idArray);
+                layer.close(index);
+            });
+        }
+
+        /*编辑*/
+        function department_edit(title, url, id, w, h) {
+            layer_show(title, url + "?id=" + id, w, h);
+        }
+
+        //通过搜索条件分页搜索部门数据
+        //function searchDepartment(pageNumber) {
+        //    //搜索条件
+        //    var searchInstitutionName = $("#departmentName").val().trim();
+        //    var searchInstitutionAddr = $("#addr").val().trim();
+
+        //    //搜索
+        //    var param = {};
+
+        //    param["institutionName"] = searchInstitutionName;
+        //    param["addr"] = searchInstitutionAddr;
+        //    ajaxRequest("post", "/api/department/listDepartment", param, function (data) {
+        //        debugger;
+        //        if (data) {
+        //            if (data.header.code == 1000) {
+        //                var departmentArray = data.body.data;
+
+        //                //更新机构表格
+        //                var $tableBody = $("table.table").find("tbody").eq(0);
+        //                $tableBody.empty();
+
+        //                for (var i = 0; i < departmentArray.length; ++i) {
+        //                    var department = departmentArray[i];
+        //                    $('<tr class="text-c">\n' +
+        //                        '<td><input type="checkbox" value="'+department.id+'" name=""></td>\n' +
+        //                        '<td>'+department.departmentName+'</td>\n' +
+        //                        '<td>'+department.nnlightctlInstitutionIdBelong+'</td>\n' +
+        //                        '<td>'+department.addr+'</td>\n' +
+        //                        '<td>'+formatDateTime(department.createTime)+'</td>\n' +
+        //                        '<td>'+department.mem+'</td>\n' +
+        //                        '<td class="td-manage"><a title="编辑" href="javascript:void(0);"\n' +
+        //                        'onclick="department_edit(\'部门编辑\', \'Department-add.html\', \''+department.id+'\', \'800\', \'500\')"\n' +
+        //                        'class="ml-5" style="text-decoration:none"><i class="Hui-iconfont">&#xe6df;</i></a>\n' +
+        //                        '<a title="删除" href="javascript:void(0);" onclick="department_del(this, \''+department.id+'\')" class="ml-5"\n' +
+        //                        'style="text-decoration:none"><i class="Hui-iconfont">&#xe6e2;</i></a></td>\n' +
+        //                        '</tr>').appendTo($tableBody);
+        //                }
+
+        //                //更新分页
+        //                $('.table-sort').dataTable();
+
+        //            } else {
+        //                layer.msg(data.header.msg,{icon:2,time:3000});
+        //            }
+        //        }
+        //    });
+        //}
+
+        //searchDepartment(1);
+
+        /*搜索*/
+        $("#btnSearch").click(function () {
+            searchDepartment(1);
         });
-    }
 
-    searchDepartment(1);
-
-    /*搜索*/
-    $("#btnSearch").click(function () {
-        searchDepartment(1);
-    });
-
-</script>
+    </script>
 </body>
 </html>
