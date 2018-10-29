@@ -22,35 +22,59 @@
             <div class="row cl">
                 <label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>回路编号：</label>
                 <div class="formControls col-xs-8 col-sm-9">
-                    <input type="text" class="input-text" value="" placeholder="回路编号" id="projectCode" name="projectCode">
+                    <input type="text" class="input-text" value="" placeholder="回路编号" id="loopCode" name="loopCode">
                 </div>
             </div>
             <div class="row cl">
-                <label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>回路电压：</label>
+                <label class="form-label col-xs-4 col-sm-3">回路电压：</label>
                 <div class="formControls col-xs-8 col-sm-9">
-                    <input type="text" class="input-text" value="" placeholder="回路电压" id="projectName" name="projectName">
+                    <input type="text" class="input-text" value="" placeholder="回路电压" id="voltage" name="voltage">
                 </div>
             </div>
             <div class="row cl">
-                <label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>回路电流：</label>
+                <label class="form-label col-xs-4 col-sm-3">回路电流：</label>
                 <div class="formControls col-xs-8 col-sm-9" style="width:200px;">
-                    <input type="text" class="input-text" value="" placeholder="回路电流" id="projectName" name="projectName">
+                    <input type="text" class="input-text" value="" placeholder="回路电流" id="electricity" name="electricity">
                 </div>
             </div>
             <div class="row cl">
-                <label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>回路灯具数量：</label>
+                <label class="form-label col-xs-4 col-sm-3">回路灯具数量：</label>
                 <div class="formControls col-xs-8 col-sm-9" style="width:200px;">
-                    <input type="text" class="input-text" value="" placeholder="回路灯具数量" id="projectName" name="projectName">
-                </div>
-            </div>
-            
-            <div class="row cl">
-                <div class="col-xs-8 col-sm-9 col-xs-offset-4 col-sm-offset-3">
-                    <input class="btn btn-primary radius" type="submit" value="&nbsp;&nbsp;提交&nbsp;&nbsp;">
+                    <input type="text" class="input-text" value="" placeholder="回路灯具数量" id="lightCount" name="lightCount">
                 </div>
             </div>
         </form>
     </article>
+
+    <script src="../js/jquery.min.js"></script>
+    <script type="text/javascript" src="../js/api/requestRoot.js"></script>
+    <script type="text/javascript" src="../js/api/ajaxScript.js"></script>
+    <script type="text/javascript">
+        var getData = function () {
+            var formDataArray = $(".form").serializeArray();
+
+            var param = [];
+            for (var i = 0; i < formDataArray.length; ++i) {
+                var o = formDataArray[i];
+                param[o["name"]] = o["value"];
+            }
+
+            return param;
+        };
+
+        $(function () {
+            //判断是否编辑模式
+            var paramContext = editModelParam(window.location.href);
+            if (paramContext) {
+                var paramArray = paramContext.split(",");
+                for (var i = 0; i < paramArray.length; ++i) {
+                    var paramStr = paramArray[i];
+                    var paramSplitArray = paramStr.split("=");
+                    $("#" + paramSplitArray[0]).val(paramSplitArray[1]);
+                }
+            }
+        });
+    </script>
     
 </body>
 </html>

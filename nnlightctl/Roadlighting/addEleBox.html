@@ -72,9 +72,21 @@
     <script type="text/javascript" src="../lib/jquery.validation/1.14.0/validate-methods.js"></script>
     <script type="text/javascript" src="../lib/jquery.validation/1.14.0/messages_zh.js"></script>
     <script type="text/javascript">
+
+        //控制柜包含模块集合
+        var modelArray = [];
+
         //添加设备
         function addDevice(title, url, w, h) {
-            layer_show(title, url, w, h);
+            layer_show(title, url, w, h, function (deviceArray) {
+                //添加入控制柜所包含模块集合中
+                for (var i = 0; i < deviceArray.length; ++i) {
+                    modelArray.push(deviceArray[i]);
+                }
+
+                //添加入表格中
+
+            });
         }
         //编辑设备
         function editDevice(title, url, w, h) {

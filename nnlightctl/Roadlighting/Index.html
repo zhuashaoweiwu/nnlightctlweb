@@ -261,8 +261,28 @@
         }
         //设置区域
         function setArea(title, url, w, h) {
+            //判断是否选择要设置区域的灯具
+            var idArray = [];
+            $("#lightTable").find("input[type='checkbox']:checked").each(function () {
+                idArray.push($(this).val());
+            });
+
+            if (idArray.length <= 0) {
+                return;
+            }
+
             layer_show(title, url, w, h, function (data) {
                 console.log("the select area id is : " + data);
+                ajaxRequest("post", "/api/roadlighting/batchSetLightArea",
+                    transArray({"beAreaId" : data, "lightIds" : idArray}), function (data) {
+                        if (data) {
+                            if (data.header.code == 1000) {
+                                layer.msg("批量设置区域成功！", {icon : 1, time : 3000});
+                            } else {
+                                layer.msg(data.header.msg, {icon : 2, time : 3000});
+                            }
+                        }
+                    });
             });
         }
         //设置区域
