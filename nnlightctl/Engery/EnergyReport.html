@@ -24,18 +24,18 @@
     </nav>
     <div class="page-container">
         <div class="text-l">
-            <a href="javascript:void(0)" class="btn btn-success radius">天统计</a>
-            <a href="javascript:void(0)" class="btn btn-success radius">月统计</a>
-            <a href="javascript:void(0)" class="btn btn-success radius mr-20">年统计</a>
+            <a href="javascript:dayStatistics(1);" class="btn btn-success radius">天统计</a>
+            <a href="javascript:dayStatistics(2);" class="btn btn-success radius">月统计</a>
+            <a href="javascript:dayStatistics(3);" class="btn btn-success radius mr-20">年统计</a>
             <span>日期范围：</span>
-            <input type="text" class="input-text" style="width:120px;" disabled="disabled">
+            <input type="text" class="input-text" style="width:120px;" onfocus="WdatePicker({ maxDate:'#F{$dp.$D(\'logmax\')||\'%y-%M-%d\'}' })" id="logmin">
             -
-            <input type="text" class="input-text" style="width:120px;" disabled="disabled">
+            <input type="text" class="input-text" style="width:120px;" onfocus="WdatePicker({ maxDate:'#F{$dp.$D(\'logmax\')||\'%y-%M-%d\'}' })" id="logmax">
 
             <button name="" id="Button1" class="btn btn-success f-r" type="submit"><i class="Hui-iconfont">&#xe665;</i>搜索</button>
         </div><!--搜索end-->
         <div id="tab-system" class="HuiTab mt-30">
-           
+
             <div class="tabCon mt-30">
                 <div class="monthengery f-l">
                     <table class="table table-border table-bordered table-bg table-hover table-sort table-responsive">
@@ -50,106 +50,8 @@
                                 <th>满载功率（KW）</th>
                             </tr>
                         </thead>
-                        <tbody>
-                            <tr class="text-c">
-                                <td>1</td>
-                                <td>资讯标题</td>
-                                <td>12.5</td>
-                                <td>12.456</td>
-                                <td>2.784</td>
-                                <td>45.23</td>
-                                <td>31.1245786</td>
-                            </tr>
-                            <tr class="text-c">
-                                <td>2</td>
-                                <td>资讯标题</td>
-                                <td>12.5</td>
-                                <td>12.456</td>
-                                <td>2.784</td>
-                                <td>45.23</td>
-                                <td>31.1245786</td>
-                            </tr>
-                            <tr class="text-c">
-                                <td>3</td>
-                                <td>资讯标题</td>
-                                <td>12.5</td>
-                                <td>12.456</td>
-                                <td>2.784</td>
-                                <td>45.23</td>
-                                <td>31.1245786</td>
-                            </tr>
-                            <tr class="text-c">
-                                <td>4</td>
-                                <td>资讯标题</td>
-                                <td>12.5</td>
-                                <td>12.456</td>
-                                <td>2.784</td>
-                                <td>45.23</td>
-                                <td>31.1245786</td>
-                            </tr>
-                            <tr class="text-c">
-                                <td>5</td>
-                                <td>资讯标题</td>
-                                <td>12.5</td>
-                                <td>12.456</td>
-                                <td>2.784</td>
-                                <td>45.23</td>
-                                <td>31.1245786</td>
-                            </tr>
-                            <tr class="text-c">
-                                <td>6</td>
-                                <td>资讯标题</td>
-                                <td>12.5</td>
-                                <td>12.456</td>
-                                <td>2.784</td>
-                                <td>45.23</td>
-                                <td>31.1245786</td>
-                            </tr>
-                            <tr class="text-c">
-                                <td>7</td>
-                                <td>资讯标题</td>
-                                <td>12.5</td>
-                                <td>12.456</td>
-                                <td>2.784</td>
-                                <td>45.23</td>
-                                <td>31.1245786</td>
-                            </tr>
-                            <tr class="text-c">
-                                <td>8</td>
-                                <td>资讯标题</td>
-                                <td>12.5</td>
-                                <td>12.456</td>
-                                <td>2.784</td>
-                                <td>45.23</td>
-                                <td>31.1245786</td>
-                            </tr>
-                            <tr class="text-c">
-                                <td>9</td>
-                                <td>资讯标题</td>
-                                <td>12.5</td>
-                                <td>12.456</td>
-                                <td>2.784</td>
-                                <td>45.23</td>
-                                <td>31.1245786</td>
-                            </tr>
-                            <tr class="text-c">
-                                <td>10</td>
-                                <td>资讯标题</td>
-                                <td>12.5</td>
-                                <td>12.456</td>
-                                <td>2.784</td>
-                                <td>45.23</td>
-                                <td>31.1245786</td>
-                            </tr>
-                            <tr class="text-c">
-                                <td>11</td>
-                                <td>资讯标题</td>
-                                <td>12.5</td>
-                                <td>12.456</td>
-                                <td>2.784</td>
-                                <td>45.23</td>
-                                <td>31.1245786</td>
-                            </tr>
+                        <tbody id="eleBoxListRecord">
+
                         </tbody>
                     </table>
                 </div>
@@ -159,7 +61,7 @@
                 </div>
                 <div id="container"></div><!--绑定线图end-->
             </div>
-           
+
         </div>
     </div>
     <script type="text/javascript" src="../js/jquery.min.js"></script>
@@ -167,8 +69,155 @@
     <script type="text/javascript" src="../lib/datatables/1.10.0/jquery.dataTables.min.js"></script><!--表单插件-->
     <script type="text/javascript" src="../js/highcharts.js"></script> <!--图表插件-->
     <script type="text/javascript" src="../js/exporting.js"></script> <!--图表插件-->
+    <script type="text/javascript" src="../js/api/requestRoot.js"></script>
+    <script type="text/javascript" src="../js/api/ajaxScript.js"></script>
+    <script type="text/javascript" src="../lib/My97DatePicker/4.8/WdatePicker.js"></script> <!--日期插件-->
     <script type="text/javascript">
+        function dayStatistics(type) {
+            var now = new Date();
+            y = now.getFullYear(), m = ("0" + (now.getMonth() + 1)).slice(-2), d = ("0" + now.getDate()).slice(-2);
+            var param = {};
+            if(type == 1){
+                var timestamp = y + "-" + m + "-" + d + " " + now.toTimeString().substr(0, 8)
+                var startDay = y + "-" + m + "-" + d  + " " +"00:00:01"
+                var endDay = y + "-" + m + "-" + d  + " " +now.toTimeString().substr(0, 8)
+                param["startDate"] = new Date(startDay);
+                param["endDate"] = new Date(endDay);
+                $("#eleBoxListRecord").empty();
+                ajaxRequest("post", "/api/energyStatistic/listEleboxEnergyStatistic",param,
+                    function (data) {
+                        if(data.header.code=="1000"){
+                            var length = data.body.data.length;
+                            if(length>0){
+                                for(var i = 0 ; i < length ; i++){
+                                    $("#eleBoxListRecord").append(" <tr class='text-c'>" +
+                                        "                                <td>"+(i+1)+"</td>" +
+                                        "                                <td>"+data.body.data[i].uid+"</td>" +
+                                        "                                <td>12.5</td>" +
+                                        "                                <td>"+data.body.data[i].total+"</td>" +
+                                        "                                <td>2.784</td>" +
+                                        "                                <td>45.23</td>" +
+                                        "                                <td>31.1245786</td>" +
+                                        "                            </tr>");
+                                }
+                            }
+                        }
+
+                    });
+            }
+            else if (type == 2){
+                var startMonth = y + "-" + m + "-" + "01"  + " " +"00:00:01"
+                var endMonth = y + "-" + m + "-" + d + " " +now.toTimeString().substr(0, 8)
+                param["startDate"] = new Date(startMonth);
+                param["endDate"] = new Date(endMonth);
+                $("#eleBoxListRecord").empty();
+                ajaxRequest("post", "/api/energyStatistic/listEleboxEnergyStatistic",param,
+                    function (data) {
+                        if(data.header.code=="1000"){
+                            var length = data.body.data.length;
+                            if(length>0){
+                                for(var i = 0 ; i < length ; i++){
+                                    $("#eleBoxListRecord").append(" <tr class='text-c'>" +
+                                        "                                <td>"+(i+1)+"</td>" +
+                                        "                                <td>"+data.body.data[i].uid+"</td>" +
+                                        "                                <td>12.5</td>" +
+                                        "                                <td>"+data.body.data[i].total+"</td>" +
+                                        "                                <td>2.784</td>" +
+                                        "                                <td>45.23</td>" +
+                                        "                                <td>31.1245786</td>" +
+                                        "                            </tr>");
+                                }
+                            }
+                        }
+
+                    });
+            }
+            else if(type==3){
+                var startYear = y + "-" + "01" + "-" + "01"  + " " +"00:00:01"
+                var endYear = y + "-" + m + "-" + d + " " +now.toTimeString().substr(0, 8)
+                param["startDate"] = new Date(startYear);
+                param["endDate"] = new Date(endYear);
+                $("#eleBoxListRecord").empty();
+                ajaxRequest("post", "/api/energyStatistic/listEleboxEnergyStatistic",param,
+                    function (data) {
+                        if(data.header.code=="1000"){
+                            var length = data.body.data.length;
+                            if(length>0){
+                                for(var i = 0 ; i < length ; i++){
+                                    $("#eleBoxListRecord").append(" <tr class='text-c'>" +
+                                        "                                <td>"+(i+1)+"</td>" +
+                                        "                                <td>"+data.body.data[i].uid+"</td>" +
+                                        "                                <td>12.5</td>" +
+                                        "                                <td>"+data.body.data[i].total+"</td>" +
+                                        "                                <td>2.784</td>" +
+                                        "                                <td>45.23</td>" +
+                                        "                                <td>31.1245786</td>" +
+                                        "                            </tr>");
+                                }
+                            }
+                        }
+
+                    });
+            }
+        }
         $(function () {
+            $("#Button1").click(function(){
+                var param = {};
+                if ($("#logmin").val().trim()!=""){
+                    var startDate = new Date($("#logmin").val());
+                    param["startDate"] = startDate;
+                }else {
+                    startDate=null;
+                }
+                if ($("#logmax").val().trim()!=""){
+                    var endDate = new Date($("#logmax").val());
+                    param["endDate"] = endDate;
+                }else {
+                    endDate=null;
+                }
+                $("#eleBoxListRecord").empty();
+                ajaxRequest("post", "/api/energyStatistic/listEleboxEnergyStatistic",param,
+                    function (data) {
+                        if(data.header.code=="1000"){
+                            var length = data.body.data.length;
+                            if(length>0){
+                                for(var i = 0 ; i < length ; i++){
+                                    $("#eleBoxListRecord").append(" <tr class='text-c'>" +
+                                        "                                <td>"+(i+1)+"</td>" +
+                                        "                                <td>"+data.body.data[i].uid+"</td>" +
+                                        "                                <td>12.5</td>" +
+                                        "                                <td>"+data.body.data[i].total+"</td>" +
+                                        "                                <td>2.784</td>" +
+                                        "                                <td>45.23</td>" +
+                                        "                                <td>31.1245786</td>" +
+                                        "                            </tr>");
+                                }
+                            }
+                        }
+
+                    });
+            });
+            ajaxRequest("post", "/api/energyStatistic/listEleboxEnergyStatistic",{},
+                function (data) {
+                    if(data.header.code=="1000"){
+                        var length = data.body.data.length;
+                        if(length>0){
+                            for(var i = 0 ; i < length ; i++){
+                                $("#eleBoxListRecord").append(" <tr class='text-c'>" +
+                                    "                                <td>"+(i+1)+"</td>" +
+                                    "                                <td>"+data.body.data[i].uid+"</td>" +
+                                    "                                <td>12.5</td>" +
+                                    "                                <td>"+data.body.data[i].total+"</td>" +
+                                    "                                <td>2.784</td>" +
+                                    "                                <td>45.23</td>" +
+                                    "                                <td>31.1245786</td>" +
+                                    "                            </tr>");
+                            }
+                        }
+                    }
+
+                });
+
             //绑定表单
             $('.table-sort').dataTable({
                 "ordering": false,//设置所有布排序
@@ -282,7 +331,7 @@
                     ]
                 }]
             });
-            
+
         });
     </script>
 </body>
