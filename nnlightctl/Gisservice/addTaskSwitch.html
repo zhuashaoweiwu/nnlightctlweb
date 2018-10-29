@@ -1,0 +1,99 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="renderer" content="webkit|ie-comp|ie-stand">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport"
+          content="width=device-width,initial-scale=1,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no" />
+    <meta http-equiv="Cache-Control" content="no-siteapp" />
+
+    <title>灯具道路地理信息--新建任务开关</title>
+    <link rel="stylesheet" type="text/css" href="../css/common.css" />
+    <link rel="stylesheet" type="text/css" href="../css/admin.css" />
+    <link rel="stylesheet" type="text/css" href="../css/iconfont/iconfont.css" />
+</head>
+<body>
+    <div class="page-container">
+        <div class="row cl">
+            <label class="form-label col-xs-4 col-sm-3 text-r"><span class="c-red">*</span>任务开关名称：</label>
+            <div class="formControls col-xs-8 col-sm-9">
+                <input type="text" class="input-text" value="" placeholder="任务开关名称" id="cityName" name="cityName">
+            </div>
+        </div>
+        <div class="row cl mt-10">
+            <label class="form-label col-xs-4 col-sm-3 text-r"><span class="c-red">*</span>描述：</label>
+            <div class="formControls col-xs-8 col-sm-9">
+                <textarea cols="" rows="" class="textarea" placeholder="说点什么...100个字符以内" dragonfly="true" id="mem" name="mem"></textarea>
+            </div>
+        </div>
+        <div class="row cl mt-10">
+            <label class="form-label col-xs-4 col-sm-3 text-r"><span class="c-red">*</span>定时设置：</label>
+            <div class="formControls col-xs-8 col-sm-9">
+                <input type="text" class="input-text" style="width:120px;" onfocus="WdatePicker({ maxDate:'#F{$dp.$D(\'logmax\')||\'%y-%M-%d\'}' })" id="logmin" placeholder="开始时间">
+                -
+                <input type="text" class="input-text" style="width:120px;" onfocus="WdatePicker({ maxDate:'#F{$dp.$D(\'logmax\')||\'%y-%M-%d\'}' })" id="logmax" placeholder="结束时间">
+            </div>
+        </div>
+        <div class="row cl mt-10">
+            <label class="form-label col-xs-4 col-sm-3 text-r">是否启用光照计：</label>
+            <div class="formControls col-xs-8 col-sm-9">
+                <span class="select-box" style="width:150px;">
+                    <select class="select" name="sex" id="sex" size="1">
+                        <option value="0">是</option>
+                        <option value="1">否</option>
+                    </select>
+                </span>
+            </div>
+        </div>
+        <div class="row cl mt-10">
+            <label class="form-label col-xs-4 col-sm-3 text-r">是否启用经纬度：</label>
+            <div class="formControls col-xs-8 col-sm-9">
+                <span class="select-box" style="width:150px;">
+                    <select class="select" name="sex" id="sex" size="1">
+                        <option value="0">否</option>
+                        <option value="1">是</option>
+                    </select>
+                </span>
+             </div>
+        </div>
+        <div class="row cl mt-10">
+            <label class="form-label col-xs-4 col-sm-3 text-r">经度：</label>
+            <div class="formControls col-xs-8 col-sm-4">
+                <input type="text" class="input-text" value="" placeholder="经度" id="longitude" name="longitude" disabled="disabled">
+            </div>
+        </div>
+        <div class="row cl mt-10">
+            <label class="form-label col-xs-4 col-sm-3 text-r">纬度：</label>
+            <div class="formControls col-xs-8 col-sm-4">
+                <input type="text" class="input-text" value="" placeholder="纬度" id="latitude" name="latitude" disabled="disabled">
+            </div>
+        </div>
+        <div class="row cl mt-10">
+            <label class="form-label col-xs-4 col-sm-3 text-r">调光控制：</label>
+            <div class="formControls col-xs-8 col-sm-9">
+                <input type="text" class="input-text" value="" placeholder="经度" id="longitude" name="longitude">
+            </div>
+        </div>
+        <div class="row cl mt-20">
+            <div class="col-xs-8 col-sm-9 col-xs-offset-4 col-sm-offset-3">
+                <input class="btn btn-primary radius" type="submit" value="&nbsp;&nbsp;提交&nbsp;&nbsp;">
+            </div>
+        </div>
+    </div>
+
+    <script type="text/javascript" src="../js/jquery.min.js"></script>
+    <script type="text/javascript" src="../js/common.js"></script>
+    <script type="text/javascript" src="../js/admin.js"></script>
+
+    <script type="text/javascript" src="../js/api/requestRoot.js"></script>
+    <script type="text/javascript" src="../js/api/ajaxScript.js"></script>
+    <!--请在下方写此页面业务相关的脚本-->
+    <script type="text/javascript" src="../lib/layer/2.4/layer.js"></script><!--弹出插件-->
+    <script type="text/javascript" src="../lib/My97DatePicker/4.8/WdatePicker.js"></script> <!--日期插件-->
+    <script type="text/javascript">
+           
+    </script>
+
+</body>
+</html>
