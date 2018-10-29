@@ -83,7 +83,6 @@
                 }else {
                     endDate=null;
                 }
-                console.log(startDate);
                 ajaxRequest("post", "/api/energyStatistic/listEleboxElectric",param,
                     function (data) {
                     console.log(data)
@@ -141,7 +140,7 @@
                             },
                             yAxis: {
                                 title: {
-                                    text: '电流（KW）'
+                                    text: '电流（mAh）'
                                 },
                                 plotLines: [{
                                     value: 0,
@@ -150,7 +149,7 @@
                                 }]
                             },
                             tooltip: {
-                                valueSuffix: 'KW'
+                                valueSuffix: 'mAh'
                             },
                             legend: {
                                 layout: 'vertical',
@@ -181,7 +180,7 @@
                             },
                             yAxis: {
                                 title: {
-                                    text: '电压（KW）'
+                                    text: '电压（V）'
                                 },
                                 plotLines: [{
                                     value: 0,
@@ -190,7 +189,7 @@
                                 }]
                             },
                             tooltip: {
-                                valueSuffix: 'KW'
+                                valueSuffix: 'V'
                             },
                             legend: {
                                 layout: 'vertical',
@@ -307,7 +306,7 @@
                                 },
                                 yAxis: {
                                     title: {
-                                        text: '电流（KW）'
+                                        text: '电流（mAh）'
                                     },
                                     plotLines: [{
                                         value: 0,
@@ -316,7 +315,7 @@
                                     }]
                                 },
                                 tooltip: {
-                                    valueSuffix: 'KW'
+                                    valueSuffix: 'mAh'
                                 },
                                 legend: {
                                     layout: 'vertical',
@@ -347,7 +346,7 @@
                                 },
                                 yAxis: {
                                     title: {
-                                        text: '电压（KW）'
+                                        text: '电压（V）'
                                     },
                                     plotLines: [{
                                         value: 0,
@@ -356,7 +355,7 @@
                                     }]
                                 },
                                 tooltip: {
-                                    valueSuffix: 'KW'
+                                    valueSuffix: 'V'
                                 },
                                 legend: {
                                     layout: 'vertical',
