@@ -1,0 +1,173 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="renderer" content="webkit|ie-comp|ie-stand">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport"
+          content="width=device-width,initial-scale=1,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no" />
+    <meta http-equiv="Cache-Control" content="no-siteapp" />
+
+    <title>灯具道路地理信息--新建灯具分组</title>
+    <link rel="stylesheet" type="text/css" href="../css/common.css" />
+    <link rel="stylesheet" type="text/css" href="../css/admin.css" />
+    <link rel="stylesheet" type="text/css" href="../css/iconfont/iconfont.css" />
+</head>
+<body>
+    <div class="page-container">
+        <div class="row cl">
+            <label class="form-label col-xs-4 col-sm-3 text-r"><span class="c-red">*</span>灯具分组名称：</label>
+            <div class="formControls col-xs-8 col-sm-9">
+                <input type="text" class="input-text" value="" placeholder="灯具分组名称" id="cityName" name="cityName">
+            </div>
+        </div>
+        <div class="row cl mt-10">
+            <label class="form-label col-xs-4 col-sm-3 text-r"><span class="c-red">*</span>描述：</label>
+            <div class="formControls col-xs-8 col-sm-9">
+                <textarea cols="" rows="" class="textarea" placeholder="说点什么...100个字符以内" dragonfly="true" id="mem" name="mem"></textarea>
+            </div>
+        </div>
+
+        <div id="tab-system" class="HuiTab mt-30">
+            <div class="tabBar cl">
+                <span>地图模式</span>
+                <span>控制柜模式</span>
+                <span>组组模式</span>
+            </div>
+            <!-- 控制柜面板 -->
+            <div class="tabCon mt-30">
+                <div id="map">这里绑定地图</div><!--地图end-->
+            </div>
+            <div class="tabCon mt-30">
+                    <table border="0">
+                        <tr>
+                            <td style="height:260px;width:48%;overflow-y:scroll;border:1px solid #ddd;" valign="top">
+                                <h4 class="f-18 tit"><span class="Hui-iconfont">&#xe667;</span><span class="pl-10">可添加灯具列表（<span class="f-18 c-orange">备注：点击当前列，移除</span>）</span></h4>
+                                <table class="table table-border table-bordered table-bg table-hover">
+                                    <thead>
+                                        <tr class="text-c">
+                                            <th>UID</th>
+                                            <th>灯杆</th>
+                                            <th>灯头号</th>
+                                            <th>经度</th>
+                                            <th>纬度</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody class="tb0_1">
+                                        <tr class="text-c" ref="1" data-id="0">
+                                            <td>01</td>
+                                            <td>三亚项目</td>
+                                            <td>三亚项目</td>
+                                            <td>121.232354</td>
+                                            <td>31.1212112</td>
+                                        </tr>
+                                        <tr class="text-c" ref="1" data-id="0">
+                                            <td>01</td>
+                                            <td>三亚项目</td>
+                                            <td>三亚项目</td>
+                                            <td>121.232354</td>
+                                            <td>31.1212112</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </td>
+
+                            <td width="4%" align="center"> </td>
+                            <td style="height:260px;width:48%;overflow-y:scroll;border:1px solid #ddd;" valign="top">
+                                <h4 class="f-18 tit"><span class="Hui-iconfont">&#xe667;</span><span class="pl-10">已添加灯具列表（<span class="f-18 c-orange">备注：点击当前列，移除</span>）</span></h4>
+                                
+                                <table class="table table-border table-bordered table-bg table-hover">
+                                    <thead>
+                                        <tr class="text-c">
+                                            <th>UID</th>
+                                            <th>灯杆</th>
+                                            <th>灯头号</th>
+                                            <th>经度</th>
+                                            <th>纬度</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody class="tb0"></tbody>
+                                </table>
+                            </td>
+
+                        </tr>
+                    </table><!--控制柜模式end-->
+            </div>
+            <div class="tabCon mt-30">
+                <table border="0">
+                    <tr>
+                        <td style="height:260px;width:48%;overflow-y:scroll;border:1px solid #ddd;" valign="top">
+                            <h4 class="f-18 tit"><span class="Hui-iconfont">&#xe667;</span><span class="pl-10">可添加灯具分组（<span class="f-18 c-orange">备注：点击当前列，移除</span>）</span></h4>
+                            <table class="table table-border table-bordered table-bg table-hover">
+                                <thead>
+                                    <tr class="text-c">
+                                        <th>灯具分组名称</th>
+                                        <th>描述</th>
+                                    </tr>
+                                </thead>
+                                <tbody class="tb1_1">
+                                    <tr class="text-c" ref="1" data-id="1">
+                                        <td>三亚项目</td>
+                                        <td>三亚项目</td>
+                                    </tr>
+                                    <tr class="text-c" ref="2" data-id="1">
+                                        <td>三亚项目1</td>
+                                        <td>三亚项目1</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </td>
+                        <td width="4%" align="center"> </td>
+                        <td style="height:260px;width:48%;overflow-y:scroll;border:1px solid #ddd;" valign="top">
+                            <h4 class="f-18 tit"><span class="Hui-iconfont">&#xe667;</span><span class="pl-10">已添加灯具分组（<span class="f-18 c-orange">备注：点击当前列，移除</span>）</span></h4>
+                            <table class="table table-border table-bordered table-bg table-hover">
+                                <thead>
+                                    <tr class="text-c">
+                                        <th>灯具分组名称</th>
+                                        <th>描述</th>
+                                    </tr>
+                                </thead>
+                                <tbody class="tb1"></tbody>
+                            </table>
+                        </td>
+
+                    </tr>
+                </table><!--组组模式end-->
+            </div>
+        </div><!--tab切换end -->
+
+    </div>
+
+        <script type="text/javascript" src="../js/jquery.min.js"></script>
+        <script type="text/javascript" src="../js/common.js"></script>
+        <script type="text/javascript" src="../js/admin.js"></script>
+
+        <script type="text/javascript" src="../js/api/requestRoot.js"></script>
+        <script type="text/javascript" src="../js/api/ajaxScript.js"></script>
+        <!--请在下方写此页面业务相关的脚本-->
+        <script type="text/javascript" src="../lib/layer/2.4/layer.js"></script><!--弹出插件-->
+        <script type="text/javascript">
+            $(function () {
+                //tab切换
+	            $("#tab-system").Huitab({
+	                index:0//默认第一个；
+	            });
+            });
+            $(".table tbody").delegate('.text-c', 'click', function () {
+                var _this = $(this);
+                _this.remove();
+                var currentId = _this.attr("ref");//这里的Id是数据Id
+                var data_id = _this.attr("data-id");//这里Id是tab切换绑定ID
+                var Strid = _this.attr("id");//这里Id是绑定左边ID
+                var TabId = ".tb" + data_id;
+                var StrHtml = "<tr class='text-c' ref='" + currentId + "' data-id='" + data_id + "' id='" + data_id + "'>" + _this.html() + "</tr>";
+                if (Strid != undefined && Strid != "") {
+                    TabId = ".tb" + Strid + "_1"; StrHtml = "<tr class='text-c' ref='" + currentId + "' data-id='" + data_id + "'>" + _this.html() + "</tr>";
+                }
+                $(TabId).append(StrHtml);
+            });
+            
+    </script>
+
+</body>
+</html>

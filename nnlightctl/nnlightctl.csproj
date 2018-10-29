@@ -94,8 +94,12 @@
     <Content Include="Engery\History.html" />
     <Content Include="Engery\Lamp.html" />
     <Content Include="Engery\terReport.html" />
+    <Content Include="Gisservice\addLampsGroup.html" />
     <Content Include="Gisservice\Lamp.html" />
+    <Content Include="Gisservice\LampsGroup.html" />
     <Content Include="Gisservice\Project.html" />
+    <Content Include="Gisservice\Scene.html" />
+    <Content Include="Gisservice\TaskSwitch.html" />
     <Content Include="Index.html" />
     <Content Include="js\admin.js" />
     <Content Include="js\api\ajaxScript.js" />

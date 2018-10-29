@@ -25,11 +25,11 @@
     <div class="page-container">
         <div id="map" style="position:relative;"></div>
         <ul class="leftmaptab ml-40 mt-40">
-            <li class="tab1"><a onclick="project_edit('灯具分组', 'Project-add.html', '1', '800', '500')" href="javascript:void(0);"><span>灯具分组</span></a></li>
-            <li class="tab2"><a onclick="project_edit('任务开关', 'Project-add.html', '1', '800', '500')" href="javascript:void(0);"><span>任务开关</span></a></li>
-            <li class="tab3"><a onclick="project_edit('场景', 'Project-add.html', '1', '800', '500')" href="javascript:void(0);"><span>场景</span></a></li>
-            <li class="tab4"><a onclick="project_edit('控制', 'Project-add.html', '1', '800', '500')" href="javascript:void(0);"><span>控制</span></a></li>
-            <li class="tab5"><a onclick="project_edit('灯具', 'Project-add.html', '1', '800', '500')" href="javascript:void(0);"><span>灯具</span></a></li>
+            <li class="tab1"><a href="javascript:void(0);" onclick="LampsGroup('灯具分组', 'LampsGroup.html', '1200', '700')"><span>灯具分组</span></a></li>
+            <li class="tab2"><a href="javascript:void(0);" onclick="TaskSwitch('任务开关', 'TaskSwitch.html', '800', '500')"><span>任务开关</span></a></li>
+            <li class="tab3"><a href="javascript:void(0);" onclick="Scene('场景', 'Scene.html', '800', '500')"><span>场景</span></a></li>
+            <li class="tab4"><a href="javascript:void(0);"><span>控制</span></a></li>
+            <li class="tab5"><a href="javascript:void(0);"><span>灯具</span></a></li>
         </ul>
         <div class="topmaptab mr-40">
             <a class="btn btn-primary" onclick="project_edit('快捷键', 'Project-add.html', '1', '800', '500')" href="javascript:void(0);"><i class="Hui-iconfont">&#xe632;</i><span class="pl-10">快捷键</span></a>
@@ -38,8 +38,21 @@
         </div>
     </div>
     <script type="text/javascript" src="../js/jquery.min.js"></script>
-    <script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=ow29ANFSyXM6nf6cYl14GdDI"></script>
-    <script language="javascript" type="text/javascript">
+    <script type="text/javascript" src="../js/common.js"></script>
+    <script type="text/javascript" src="../js/admin.js"></script>
+
+    <script type="text/javascript" src="../js/api/requestRoot.js"></script>
+    <script type="text/javascript" src="../js/api/ajaxScript.js"></script>
+    <!--请在下方写此页面业务相关的脚本-->
+    <script type="text/javascript" src="../lib/layer/2.4/layer.js"></script><!--弹出插件-->
+    <script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=ow29ANFSyXM6nf6cYl14GdDI"></script><!--百度地图-->-->
+    <script type="text/javascript">
+
+        //灯具分组
+        function LampsGroup(title, url, w, h) {
+            layer_show(title, url, w, h);
+        }
+
         //获取当前屏幕宽度和高度
         var Vw = document.body.clientWidth-40;
         var Vh = document.documentElement.clientHeight - 80;
@@ -47,11 +60,11 @@
             // 百度地图API功能
         var map = new BMap.Map("map");
         var mapType1 = new BMap.MapTypeControl(
-		{
-		    mapTypes: [BMAP_NORMAL_MAP, BMAP_HYBRID_MAP],
-		    anchor: BMAP_ANCHOR_TOP_RIGHT
-		}
-	);
+		    {
+		        mapTypes: [BMAP_NORMAL_MAP, BMAP_HYBRID_MAP],
+		        anchor: BMAP_ANCHOR_TOP_RIGHT
+		    }
+	    );
             var point = new BMap.Point(121.058537, 31.082668);
             var marker = new BMap.Marker(point);  // 创建标注
             map.addOverlay(marker);              // 将标注添加到地图中
@@ -62,7 +75,7 @@
             var opts = {
                 width: 250,     // 信息窗口宽度
                 height: 80,     // 信息窗口高度
-                title: "<span style='font-size:16px;color:#0a79d8;font-weight: bold'>香凝红木-生产基地</span>", // 信息窗口标题
+                title: "<span style='font-size:16px;color:#0a79d8;font-weight: bold'>生产基地</span>", // 信息窗口标题
                 enableMessage: true,//设置允许信息窗发送短息
                 message: "上海市青浦区朱枫公路1355号<br />（近沈砖路） +鉴赏热线：13311601955"
             }
