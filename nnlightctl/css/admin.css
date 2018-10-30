@@ -167,3 +167,13 @@
 .monthconut{width:400px;margin-top:30px;}
 
 .tabnav li{float:left;}
+
+
+.ucnav{margin-left:40px;overflow:hidden;}
+.ucnav .navtit{height:30px;line-height:30px;font-size:14px;cursor:pointer;padding:0px;}
+.ucnav .ucsub{padding:5px 0px;display:none;}
+.ucnav .ucsub li{height:30px;line-height:30px;padding-left:30px;}
+.ucnav .ucsub li a{height:30px;width:100%;display:inline-block;}
+.ucnav .ucsub li:hover{font-weight:bold;color:red;background:#f5f5f5;}
+.ucnav .ucsub li.selected a{color:red;}
+.ucnav .ucsub li.selected{font-weight:bold;background:#fbfbfb;}

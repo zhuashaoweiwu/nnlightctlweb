@@ -1,0 +1,91 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="renderer" content="webkit|ie-comp|ie-stand">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport"
+          content="width=device-width,initial-scale=1,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no" />
+    <meta http-equiv="Cache-Control" content="no-siteapp" />
+
+    <title>灯具道路地理信息--警报信息</title>
+    <link rel="stylesheet" type="text/css" href="../css/common.css" />
+    <link rel="stylesheet" type="text/css" href="../css/admin.css" />
+    <link rel="stylesheet" type="text/css" href="../css/iconfont/iconfont.css" />
+</head>
+<body>
+    <div class="page-container">
+        <div style="width:100%;height:340px;border:1px solid #dedede;">
+            <div style="width:210px" class="f-l">
+                <h4 class="f-18 tit"><span class="Hui-iconfont">&#xe667;</span><span class="pl-10">警报类型</span></h4>
+                <div class="ucnav">
+                    <h2 class="navtit ucgrzx" ref="0">全部</h2>
+                    <h2 class="navtit ucgrzx" ref="1"><i class="Hui-iconfont">&#xe6d7;</i>控制柜警报</h2>
+                    <ul class="ucsub tab1">
+                        <li><a href="javascript:void(0)">意外亮灯</a></li>
+                        <li><a href="javascript:void(0)">灭灯</a></li>
+                    </ul>
+                    <h2 class="navtit ucgrzx" ref="2"><i class="Hui-iconfont">&#xe6d7;</i>常规灯具警报</h2>
+                    <ul class="ucsub tab2">
+                        <li><a href="javascript:void(0)">灯具熄灭</a></li>
+                        <li><a href="javascript:void(0)">电源故障</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div style="width:530px;height:340px;border-left:1px solid #dedede;overflow-y:scroll;" class="f-r">
+                <h4 class="f-18 tit"><span class="Hui-iconfont">&#xe667;</span><span class="pl-10">警报列表</span></h4>
+                <table class="table table-border table-bordered table-bg table-hover table-sort">
+                    <thead>
+                        <tr class="text-l">
+                            <th>行号</th>
+                            <th>电表警告</th>
+                            <th>集中器警告</th>
+                            <th>开光警告</th>
+                            <th>防盗警告</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr class="text-l">
+                            <td>89755</td>
+                            <td>5555</td>
+                            <td>1</td>
+                            <td>136.254</td>
+                            <td>36.5845</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="clear"></div>
+        </div>
+        
+        <div class="row cl mt-20">
+            <div class="col-xs-8 col-sm-9 col-xs-offset-4 col-sm-offset-3">
+                <input class="btn btn-primary radius" type="submit" value="&nbsp;&nbsp;提交&nbsp;&nbsp;">
+            </div>
+        </div>
+    </div>
+    <script type="text/javascript" src="../js/jquery.min.js"></script>
+    <script type="text/javascript">
+        $(function () {
+            $(".navtit").click(function () {
+                var _this = $(this);
+                $(".ucnav .Hui-iconfont").html("&#xe6d7;");
+                _this.children("i").html("&#xe6d5;");
+                $(".ucsub").hide();
+                var TabId = "tab" + _this.attr("ref");
+                $("." + TabId).show(500);
+            });
+
+            $(".usertab li").click(function () {
+                var $t = $(this).index();
+                $(this).siblings().removeClass("selected");
+                $(this).addClass("selected");
+                $(".usertablist").css("display", "none");
+                $(".usertablist").eq($t).css("display", "block");
+            });
+        });
+
+
+    </script>
+</body>
+</html>

@@ -27,13 +27,13 @@
         <ul class="leftmaptab ml-40 mt-40">
             <li class="tab1"><a href="javascript:void(0);" onclick="LampsGroup('灯具分组', 'LampsGroup.html', '1200', '700')"><span>灯具分组</span></a></li>
             <li class="tab2"><a href="javascript:void(0);" onclick="TaskSwitch('任务开关', 'TaskSwitch.html', '1200', '700')"><span>任务开关</span></a></li>
-            <li class="tab3"><a href="javascript:void(0);" onclick="Scene('场景', 'Scene.html', '800', '500')"><span>场景</span></a></li>
-            <li class="tab4"><a href="javascript:void(0);"><span>控制</span></a></li>
-            <li class="tab5"><a href="javascript:void(0);"><span>灯具</span></a></li>
+            <li class="tab3"><a href="javascript:void(0);" onclick="Scene('场景', 'Scene.html', '1200', '700')"><span>场景</span></a></li>
+            <li class="tab4"><a href="javascript:void(0);" onclick="Control('控制柜', 'Control.html', '1200', '700')"><span>控制</span></a></li>
+            <li class="tab5"><a href="javascript:void(0);" onclick="Lights('灯具', 'Lights.html', '1200', '700')"><span>灯具</span></a></li>
         </ul>
         <div class="topmaptab mr-40">
-            <a class="btn btn-primary" onclick="project_edit('快捷键', 'Project-add.html', '1', '800', '500')" href="javascript:void(0);"><i class="Hui-iconfont">&#xe632;</i><span class="pl-10">快捷键</span></a>
-            <a class="btn btn-warning" onclick="project_edit('警报信息', 'Project-add.html', '1', '800', '500')" href="javascript:void(0);"><i class="Hui-iconfont">&#xe600;</i><span class="pl-10">警报信息</span></a>
+            <a href="javascript:void(0);" class="btn btn-primary" onclick="ShortcutKey('快捷键', 'ShortcutKey.html', '700', '320')"><i class="Hui-iconfont">&#xe632;</i><span class="pl-10">快捷键</span></a>
+            <a href="javascript:void(0);" class="btn btn-warning" onclick="AlertInfo('警报信息', 'AlertInfo.html', '800', '500')"><i class="Hui-iconfont">&#xe600;</i><span class="pl-10">警报信息</span></a>
 
         </div>
     </div>
@@ -52,7 +52,30 @@
         function LampsGroup(title, url, w, h) {
             layer_show(title, url, w, h);
         }
-
+        //任务开关
+        function TaskSwitch(title, url, w, h) {
+            layer_show(title, url, w, h);
+        }
+        //场景
+        function Scene(title, url, w, h) {
+            layer_show(title, url, w, h);
+        }
+        //控制
+        function Control(title, url, w, h) {
+            layer_show(title, url, w, h);
+        }
+        //灯具
+        function Lights(title, url, w, h) {
+            layer_show(title, url, w, h);
+        }
+        //快捷键
+        function ShortcutKey(title, url, w, h) {
+            layer_show(title, url, w, h);
+        }
+        //警报信息
+        function AlertInfo(title, url, w, h) {
+            layer_show(title, url, w, h);
+        }
         //获取当前屏幕宽度和高度
         var Vw = document.body.clientWidth-40;
         var Vh = document.documentElement.clientHeight - 80;
