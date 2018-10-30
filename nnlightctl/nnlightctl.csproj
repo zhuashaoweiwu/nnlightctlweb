@@ -204,6 +204,7 @@
     <Content Include="Roadlighting\addLightType.html" />
     <Content Include="Roadlighting\addLoop.html" />
     <Content Include="Roadlighting\AreaAdmin.html" />
+    <Content Include="Roadlighting\editDevice.html" />
     <Content Include="Roadlighting\editEleBox.html" />
     <Content Include="Roadlighting\EquipmentType.html" />
     <Content Include="Roadlighting\Index.html" />
