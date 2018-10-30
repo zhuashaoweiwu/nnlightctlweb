@@ -132,3 +132,15 @@ function editModel2(url) {
 
     return null;
 }
+
+//对象转换url参数
+function object2UrlParamStr(object) {
+    var urlParam = "";
+    for (var key in object) {
+        urlParam += (key + "=" + object[key]);
+        urlParam += ",";
+    }
+    urlParam = urlParam.substring(0, urlParam.lastIndexOf(","));
+
+    return urlParam;
+}

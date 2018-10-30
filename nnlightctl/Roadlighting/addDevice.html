@@ -147,12 +147,7 @@
                 var $tbody = $("#modelLoopTable").find("tbody").eq(0);
 
                 //构造编辑时回路字符参数
-                var urlParam = "";
-                for (var key in modelLoop) {
-                    urlParam += (key + "=" + modelLoop[key]);
-                    urlParam += ",";
-                }
-                urlParam = urlParam.substring(0, urlParam.lastIndexOf(","));
+                var urlParam = object2UrlParamStr(modelLoop);
 
                 $('<tr value="'+index+'" class="text-c">\n' +
                     '<td>'+modelLoop.loopCode+'</td>\n' +
@@ -172,12 +167,7 @@
                 modelLoopArray[index] = modelLoop;
 
                 //构造编辑时回路字符参数
-                var urlParam = "";
-                for (var key in modelLoop) {
-                    urlParam += (key + "=" + modelLoop[key]);
-                    urlParam += ",";
-                }
-                urlParam = urlParam.substring(0, urlParam.lastIndexOf(","));
+                var urlParam = object2UrlParamStr(modelLoop);
 
                 //更新表格
                 $("#modelLoopTable").find("tbody").find("tr").eq(index).replaceWith('<tr value="'+index+'" class="text-c">\n' +
