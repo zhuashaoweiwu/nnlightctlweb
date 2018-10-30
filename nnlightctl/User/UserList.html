@@ -151,7 +151,7 @@
                     }, {
                         targets: 10,
                         render: function (data, type, row) {
-                            var Struser = '<a href="javascript:void(0);" style="text-decoration:none" class="ml-10" title="停用" onClick="user_stop(this, \'' + row.id + '\')" href="javascript:void(0);"><i class="Hui-iconfont">&#xe60e;</i></a>';
+                            var Struser = '<a href="javascript:void(0);" style="text-decoration:none" class="ml-10" title="锁定" onClick="user_stop(this, \'' + row.id + '\')" href="javascript:void(0);"><i class="Hui-iconfont">&#xe60e;</i></a>';
                             if (row.userState == 2)
                             {
                                 Struser = '<a href="javascript:void(0);" style="text-decoration:none" class="ml-10" title="启用" onClick="user_start(this, \'' + row.id + '\')" href="javascript:void(0);"><i class="Hui-iconfont">&#xe605;</i></a>';
@@ -159,7 +159,7 @@
 
                             return '<a href="javascript:void(0);" style="text-decoration:none" title="添加权限" onClick="user_add_role(\'添加权限\', \'User-add-role.html\', \'' + row.id + '\', \'500\', \'350\')"><i class="Hui-iconfont">&#xe61d;</i></a>' +
                                     Struser +
-                                    '<a href="javascript:void(0);" style="text-decoration:none" class="ml-10" title="修改密码" onClick="user_password_edit(\'修改密码\', \'User-password-edit.html\', \'' + row.id + '\', \'370\', \'260\')"><i class="Hui-iconfont">&#xe63f;</i></a>' +
+                                    '<a href="javascript:void(0);" style="text-decoration:none" class="ml-10" title="初始化密码" onClick="user_init_password('+row.id+')"><i class="Hui-iconfont">&#xe63f;</i></a>' +
                                     '<a href="javascript:void(0);" style="text-decoration:none" class="ml-10" title="编辑" href="javascript:void(0);" onclick="user_edit(\'用户编辑\', \'User-add.html\', \'' + row.id + '\', \'800\', \'500\')" ><i class="Hui-iconfont">&#xe6df;</i></a> ' +
                                     '<a href="javascript:void(0);" style="text-decoration:none" class="ml-10" title="删除" href="javascript:void(0);" onclick="user_del(this, \'' + row.id + '\')" ><i class="Hui-iconfont">&#xe6e2;</i></a>';
                         }
@@ -259,28 +259,51 @@
         {
             layer_show(title, url, w, h);
         }
-        /*用户-停用*/
+        //初始化密码
+        function user_init_password(id) {
+            layer.confirm('确定要初始化密码(初始化为用户名拼音首字母+12345678)？', function (index) {
+                ajaxRequest("post", "/api/user/initUserPassword", {"id" : id}, function (data) {
+                    if (data) {
+                        if (data.header.code == 1000) {
+                            layer.msg("初始化密码成功", {icon : 1, time : 3000});
+                        } else {
+                            layer.msg(data.header.msg, {icon : 2, time : 3000});
+                        }
+                    }
+                });
+            });
+        }
+        /*用户-锁定*/
         function user_stop(obj, id) {
-            layer.confirm('确认要停用吗？', function (index) {
+            layer.confirm('确认要锁定该用户吗？', function (index) {
                 //此处请求后台程序，下方是成功后的前台处理……
-
-                $(obj).parents("tr").find(".td-manage").prepend('<a onClick="admin_start(this,id)" href="javascript:;" title="启用" style="text-decoration:none"><i class="Hui-iconfont">&#xe615;</i></a>');
-                $(obj).parents("tr").find(".td-status").html('<span class="label label-default radius">已禁用</span>');
-                $(obj).remove();
-                layer.msg('已停用!', { icon: 5, time: 1000 });
+                ajaxRequest("post", "/api/user/lockUser", {"id" : id, "state" : 2}, function (data) {
+                    if (data) {
+                        if (data.header.code == 1000) {
+                            layer.msg('用户已锁定!', { icon: 5, time: 3000 });
+                            location.replace(location.href);
+                        } else {
+                            layer.msg(data.header.msg, {icon : 2, time : 3000});
+                        }
+                    }
+                });
             });
         }
 
         /*用户-启用*/
         function user_start(obj, id) {
-            layer.confirm('确认要启用吗？', function (index) {
+            layer.confirm('确认要启用该用户吗？', function (index) {
                 //此处请求后台程序，下方是成功后的前台处理……
-
-
-                $(obj).parents("tr").find(".td-manage").prepend('<a onClick="admin_stop(this,id)" href="javascript:;" title="停用" style="text-decoration:none"><i class="Hui-iconfont">&#xe631;</i></a>');
-                $(obj).parents("tr").find(".td-status").html('<span class="label label-success radius">已启用</span>');
-                $(obj).remove();
-                layer.msg('已启用!', { icon: 6, time: 1000 });
+                ajaxRequest("post", "/api/user/lockUser", {"id" : id, "state" : 1}, function (data) {
+                    if (data) {
+                        if (data.header.code == 1000) {
+                            layer.msg('用户已启用!', { icon: 6, time: 1000 });
+                            location.replace(location.href);
+                        } else {
+                            layer.msg(data.header.msg, {icon : 2, time : 3000});
+                        }
+                    }
+                });
             });
         }
 
