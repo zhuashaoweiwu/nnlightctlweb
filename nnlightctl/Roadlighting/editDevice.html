@@ -106,6 +106,32 @@
     <!--/_footer 作为公共模版分离出去-->
    
     <!--/请在上方写此页面业务相关的脚本-->
+    <script type="text/javascript">
+        $(function () {
+            //更新表单数据
+            var formDataStr = editModelParam(window.location.href);
+
+            var formDataParamPairArray = formDataStr.split(",");
+            for (var i = 0; i < formDataParamPairArray.length; ++i) {
+                var paramPair = formDataParamPairArray[i];
+                var pairArray = paramPair.split("=");
+                $("#" + pairArray[0]).val(pairArray[1]);
+            }
+        });
+
+
+        var getData = function () {
+            var result = {};
+
+            var formDataArray = $("#form-admin-add").serializeArray();
+            for (var i = 0; i < formDataArray.length; ++i) {
+                var formDataPair = formDataArray[i];
+                result[formDataPair["name"]] = formDataPair["value"];
+            }
+
+            return result;
+        };
+    </script>
 </body>
 
 </html>

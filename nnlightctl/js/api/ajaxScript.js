@@ -111,7 +111,7 @@ function editModelParam(url) {
     if (qIndex != -1) {
         var requestParam = url.substring(qIndex + 1);
         if (requestParam) {
-            return requestParam;
+            return decodeURIComponent(requestParam);
         }
     }
 
@@ -126,7 +126,7 @@ function editModel2(url) {
         if (requestParam) {
             var codeNunber = requestParam.substring(requestParam.lastIndexOf("=") + 1);
             console.log(codeNunber);
-            return codeNunber;
+            return encodeURIComponent(codeNunber);
         }
     }
 

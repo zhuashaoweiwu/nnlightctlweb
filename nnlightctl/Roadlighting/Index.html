@@ -31,10 +31,10 @@
                 <!-- 控制柜面板 -->
                 <div class="tabCon mt-30">
                     <div class="text-l">
-                        控制柜：
-                        <input type="text" name="uid" id="uid" placeholder="控制柜" style="width:250px" class="input-text">
-                        <span class="pl-20">名称：</span>
-                        <input type="text" name="codeNumber" id="codeNumber" placeholder="名称" style="width:250px" class="input-text">
+                        控制柜UUID：
+                        <input type="text" name="uid" id="uid" placeholder="控制柜UUID" style="width:250px" class="input-text">
+                        <span class="pl-20">控制柜编码：</span>
+                        <input type="text" name="codeNumber" id="codeNumber" placeholder="控制柜编码" style="width:250px" class="input-text">
                         <button name="" id="Button1" class="btn btn-success f-r" type="submit"><i class="Hui-iconfont">&#xe665;</i>控制柜</button>
                     </div>
                     <div class="cl pd-5 bg-1 bk-gray mt-20">
@@ -53,12 +53,12 @@
                          </ul>
                     </div>
                     <div class="mt-20">
-                        <table class="table table-border table-bordered table-bg table-hover table-sort table-responsive">
+                        <table id="eleboxTable" class="table table-border table-bordered table-bg table-hover table-sort table-responsive">
                             <thead>
                                 <tr class="text-c">
                                     <th width="25"><input type="checkbox" name="" value=""></th>
-                                    <th width="100">区域</th>
-                                    <th width="100">安装日期</th>
+                                    <th width="100">ID</th>
+                                    <th width="100">编码</th>
                                     <th width="100">额定电压</th>
                                     <th width="100">额定电流</th>
                                     <th width="100">额定功率</th>
@@ -66,14 +66,15 @@
                                     <th width="100">spd</th>
                                     <th width="100">经度</th>
                                     <th width="100">纬度</th>
+                                    <th width="160">区域</th>
                                     <th width="120">操作</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 <tr class="text-c">
                                     <td><input type="checkbox" value="" name=""></td>
-                                    <td>001111</td>
-                                    <td>2018-10-20</td>
+                                    <td>1</td>
+                                    <td>E00001</td>
                                     <td>320.56</td>
                                     <td>13.22</td>
                                     <td>90.56</td>
@@ -81,6 +82,7 @@
                                     <td>spd防电涌</td>
                                     <td>120.1245786</td>
                                     <td>31.1245786</td>
+                                    <td>杭州-余杭区-路涌路</td>
                                     <td class="f-14 td-manage">
                                         <a style="text-decoration:none" class="ml-5" onclick="lampsManage('管理灯具', 'LampsManage.html', '1200', '800')" href="javascript:void(0);" title="管理灯具"><i class="Hui-iconfont">&#xe61d;</i></a> 
                                         <a style="text-decoration:none" class="ml-5" onclick="editElebox('控制柜编辑', 'editElebox.html', '1', '800', '500')" href="javascript:void(0);" title="控制柜编辑"><i class="Hui-iconfont">&#xe6df;</i></a> 
@@ -94,9 +96,9 @@
                 <div class="tabCon mt-30">
                     <div class="text-l">
                         UUID：
-                        <input type="text" name="uuid" id="uuid" placeholder="灯杆" style="width:250px" class="input-text">
+                        <input type="text" name="uuid" id="uuid" placeholder="UUID" style="width:250px" class="input-text">
                         <span class="pl-20">灯具唯一编码：</span>
-                        <input type="text" name="lightingCode" id="lightingCode" placeholder="灯头号" style="width:250px" class="input-text">
+                        <input type="text" name="lightingCode" id="lightingCode" placeholder="灯具唯一编码" style="width:250px" class="input-text">
                         <button name="" id="btnLightSearch" class="btn btn-success f-r" type="submit"><i class="Hui-iconfont">&#xe665;</i>灯具</button>
                     </div>
                     <div class="cl pd-5 bg-1 bk-gray mt-20">
@@ -169,6 +171,9 @@
 	            index:0//默认第一个；
 	        });
 
+	        //搜索控制柜列表
+            searchElebox();
+
 	        //搜索灯具列表
             searchLight();
 
@@ -182,7 +187,7 @@
             //批量删除
         }
         //管理灯具
-        function lampsManage(title, url, w, h) {
+        function lampsManage(title, url, id, w, h) {
             layer_show(title, url, w, h);
         }
         //添加控制柜
@@ -191,7 +196,7 @@
         }
         //编辑控制柜
         function editElebox(title, url,id, w, h) {
-            layer_show(title, url, w, h);
+            layer_show(title, url + "?id=" + id, w, h);
         }
         /*删除控制柜*/
         function delElebox(obj, id) {
@@ -292,6 +297,48 @@
         //设置区域
         function setMappic(title, url, w, h) {
             layer_show(title, url, w, h);
+        }
+
+        //通过搜索条件查询控制柜列表集合
+        function searchElebox() {
+            //获取搜索条件
+            var searchUUID = $("#uid").val().trim();
+            var searchCodeNumber = $("#codeNumber").val().trim();
+
+            //搜索
+            ajaxRequest("post", "/api/roadlighting/listelebox", {"uid" : searchUUID, "codeNumber" : searchCodeNumber}, function (data) {
+                if (data) {
+                    if (data.header.code == 1000) {
+                        var eleboxArray = data.body.data;
+                        var $tbody = $("#eleboxTable").find("tbody").eq(0);
+                        $tbody.empty();
+
+                        for (var i = 0; i < eleboxArray.length; ++i) {
+                            var elebox = eleboxArray[i];
+
+                            $('<tr class="text-c">\n' +
+                                '<td><input type="checkbox" value="'+elebox.id+'" name=""></td>\n' +
+                                '<td>'+elebox.id+'</td>\n' +
+                                '<td>'+elebox.codeNumber+'</td>\n' +
+                                '<td>'+elebox.ratedVoltage+'</td>\n' +
+                                '<td>'+elebox.ratedElectricty+'</td>\n' +
+                                '<td>'+elebox.powerRating+'</td>\n' +
+                                '<td>'+elebox.mainSwitch+'</td>\n' +
+                                '<td>'+elebox.spd+'</td>\n' +
+                                '<td>'+elebox.longitude+'</td>\n' +
+                                '<td>'+elebox.latitude+'</td>\n' +
+                                '<td>'+elebox.nnlightctlRegionId+'</td>\n' +
+                                '<td class="f-14 td-manage">\n' +
+                                '<a style="text-decoration:none" class="ml-5" onclick="lampsManage(\'管理灯具\', \'LampsManage.html\', \''+elebox.id+'\', \'1200\', \'800\')" href="javascript:void(0);" title="管理灯具"><i class="Hui-iconfont">&#xe61d;</i></a> \n' +
+                                '<a style="text-decoration:none" class="ml-5" onclick="editElebox(\'控制柜编辑\', \'editElebox.html\', \''+elebox.id+'\', \'800\', \'500\')" href="javascript:void(0);" title="控制柜编辑"><i class="Hui-iconfont">&#xe6df;</i></a> \n' +
+                                '<a style="text-decoration:none" class="ml-5" onClick="delElebox(this, \''+elebox.id+'\')" href="javascript:void(0);" title="删除"><i class="Hui-iconfont">&#xe6e2;</i></a></td>\n' +
+                                '</tr>').appendTo($tbody);
+                        }
+                    } else {
+                        layer.msg(data.header.msg, {icon : 2, time : 3000});
+                    }
+                }
+            });
         }
         
         //通过搜索条件查询灯具列表集合
