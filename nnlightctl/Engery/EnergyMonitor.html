@@ -85,11 +85,13 @@
                 }
                 ajaxRequest("post", "/api/energyStatistic/listEleboxElectric",param,
                     function (data) {
-                    console.log(data)
                         var categories = new Array();
                         var  ele = new Array();
                         var vol = new Array();
-                        var power = new Array();//eleboxPower
+                        var power = new Array();//功率
+                        var energy = new Array(); //能耗
+                        var notEnergy = new Array();//无用功
+                        var series = [];
                         var length;
                         if(data.body.data.length < 100){
                             length =  data.body.data.length
@@ -105,7 +107,11 @@
                             ele[i] = data.body.data[i].electricity;
                             vol[i] = data.body.data[i].voltage;
                             power[i] = data.body.data[i].eleboxPower;
+                            energy[i] = data.body.data[i].eleboxPower/10
+                            notEnergy[i] = 10 ;
                         }
+                        series.push(energy);
+                        series.push(notEnergy);
                         //X抽第一与最后一个显示时间中间显示数
                        if (length != 0){
                            var now = new Date(data.body.data[0].realtimeDate)
@@ -237,7 +243,48 @@
                             },
                             series: [{
                                 name: '电能',
-                                data: power
+                                data: energy
+                            }]
+                        });
+                        //功率
+                        Highcharts.chart('container', {
+
+                            title: {
+                                text: '',
+                                x: 0 //center
+                            },
+                            subtitle: {
+                                text: '',
+                                x: 0
+                            },
+                            xAxis: {
+                                categories: ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12', '13', '14', '15', '16', '17', '18', '19', '20', '21', '22', '23', '24', '25', '26', '27', '28', '29', '30', '31']
+                            },
+                            yAxis: {
+                                title: {
+                                    text: '功率（KW）'
+                                },
+                                plotLines: [{
+                                    value: 0,
+                                    width: 1,
+                                    color: '#808080'
+                                }]
+                            },
+                            tooltip: {
+                                valueSuffix: 'KW'
+                            },
+                            legend: {
+                                layout: 'vertical',
+                                align: 'right',
+                                verticalAlign: 'middle',
+                                borderWidth: 0
+                            },
+                            series: [{
+                                name: '有功功率',
+                                data: [7.0, 6.9, 9.5, 14.5, 18.2, 21.5, 25.2, 26.5, 23.3, 18.3, 13.9, 9.6, 7.0, 6.9, 9.5, 14.5, 18.2, 21.5, 25.2, 26.5, 23.3, 18.3, 13.9, 9.6, 18.2]
+                            }, {
+                                name: '无功功率',
+                                data: [3.9, 4.2, 5.7, 8.5, 11.9, 15.2, 17.0, 16.6, 14.2, 10.3, 6.6, 4.8, 3.9, 4.2, 5.7, 8.5, 11.9, 15.2, 17.0, 16.6, 14.2, 10.3, 6.6, 4.8]
                             }]
                         });
                     });
@@ -249,11 +296,13 @@
                     var eleboxIdFirst = data.body.data[0].id;
                     ajaxRequest("post", "/api/energyStatistic/listEleboxElectric",{"eleboxId":eleboxIdFirst},
                         function (data) {
-                        console.log(data)
                             var categories = new Array();
                             var  ele = new Array();
                             var vol  = new Array();
-                            var power = new Array();//eleboxPower
+                            var power = new Array();//功率
+                            var energy = new Array(); //能耗
+                            var notEnergy = new Array();//无用功
+                            var series = [];
                             var length;
                             if(data.body.data.length < 100){
                                 length =  data.body.data.length
@@ -272,7 +321,11 @@
                                 ele[i] = data.body.data[i].electricity;
                                 vol[i] = data.body.data[i].voltage;
                                 power[i] = data.body.data[i].eleboxPower;
+                                energy[i] = data.body.data[i].eleboxPower/10;
+                                notEnergy[i] = 20;
                             }
+                            series.push(energy);
+                            series.push(notEnergy);
                             //X抽第一与最后一个显示时间中间显示数
                             if (length != 0) {
                                 var now = new Date(data.body.data[0].realtimeDate)
@@ -403,7 +456,48 @@
                                 },
                                 series: [{
                                     name: '电能',
-                                    data: power
+                                    data: energy
+                                }]
+                            });
+                            //功率
+                            Highcharts.chart('container', {
+
+                                title: {
+                                    text: '',
+                                    x: 0 //center
+                                },
+                                subtitle: {
+                                    text: '',
+                                    x: 0
+                                },
+                                xAxis: {
+                                    categories: ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12', '13', '14', '15', '16', '17', '18', '19', '20', '21', '22', '23', '24', '25', '26', '27', '28', '29', '30', '31']
+                                },
+                                yAxis: {
+                                    title: {
+                                        text: '功率（KW）'
+                                    },
+                                    plotLines: [{
+                                        value: 0,
+                                        width: 1,
+                                        color: '#808080'
+                                    }]
+                                },
+                                tooltip: {
+                                    valueSuffix: 'KW'
+                                },
+                                legend: {
+                                    layout: 'vertical',
+                                    align: 'right',
+                                    verticalAlign: 'middle',
+                                    borderWidth: 0
+                                },
+                                series: [{
+                                    name: '有功功率',
+                                    data: [7.0, 6.9, 9.5, 14.5, 18.2, 21.5, 25.2, 26.5, 23.3, 18.3, 13.9, 9.6, 7.0, 6.9, 9.5, 14.5, 18.2, 21.5, 25.2, 26.5, 23.3, 18.3, 13.9, 9.6, 18.2]
+                                }, {
+                                    name: '无功功率',
+                                    data: [3.9, 4.2, 5.7, 8.5, 11.9, 15.2, 17.0, 16.6, 14.2, 10.3, 6.6, 4.8, 3.9, 4.2, 5.7, 8.5, 11.9, 15.2, 17.0, 16.6, 14.2, 10.3, 6.6, 4.8]
                                 }]
                             });
                         }
@@ -416,164 +510,6 @@
             $("#tab-system").Huitab({
                 index: 0//默认第一个；
             });
-            //功率
-            Highcharts.chart('container', {
-               
-                title: {
-                    text: '',
-                    x: 0 //center
-                },
-                subtitle: {
-                    text: '',
-                    x: 0
-                },
-                xAxis: {
-                    categories: ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12', '13', '14', '15', '16', '17', '18', '19', '20', '21', '22', '23', '24', '25', '26', '27', '28', '29', '30', '31']
-                },
-                yAxis: {
-                    title: {
-                        text: '功率（KW）'
-                    },
-                    plotLines: [{
-                        value: 0,
-                        width: 1,
-                        color: '#808080'
-                    }]
-                },
-                tooltip: {
-                    valueSuffix: 'KW'
-                },
-                legend: {
-                    layout: 'vertical',
-                    align: 'right',
-                    verticalAlign: 'middle',
-                    borderWidth: 0
-                },
-                series: [{
-                    name: '有功功率',
-                    data: [7.0, 6.9, 9.5, 14.5, 18.2, 21.5, 25.2, 26.5, 23.3, 18.3, 13.9, 9.6, 7.0, 6.9, 9.5, 14.5, 18.2, 21.5, 25.2, 26.5, 23.3, 18.3, 13.9, 9.6, 18.2]
-                }, {
-                    name: '无功功率',
-                    data: [3.9, 4.2, 5.7, 8.5, 11.9, 15.2, 17.0, 16.6, 14.2, 10.3, 6.6, 4.8, 3.9, 4.2, 5.7, 8.5, 11.9, 15.2, 17.0, 16.6, 14.2, 10.3, 6.6, 4.8]
-                }]
-            });
-
-           /* //电流
-            Highcharts.chart('container1', {
-
-                title: {
-                    text: '电流',
-                    x: 0 //center
-                },
-                subtitle: {
-                    text: '',
-                    x: 0
-                },
-                xAxis: {
-                    categories: ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12', '13', '14', '15', '16', '17', '18', '19', '20', '21', '22', '23', '24', '25', '26', '27', '28', '29', '30', '31']
-                },
-                yAxis: {
-                    title: {
-                        text: '电流（KW）'
-                    },
-                    plotLines: [{
-                        value: 0,
-                        width: 1,
-                        color: '#808080'
-                    }]
-                },
-                tooltip: {
-                    valueSuffix: 'KW'
-                },
-                legend: {
-                    layout: 'vertical',
-                    align: 'right',
-                    verticalAlign: 'middle',
-                    borderWidth: 0
-                },
-                series: [{
-                    name: '电流',
-                    data: [7.0, 6.9, 9.5, 14.5, 18.2, 21.5, 25.2, 26.5, 23.3, 18.3, 13.9, 9.6, 7.0, 6.9, 9.5, 14.5, 18.2, 21.5, 25.2, 26.5, 23.3, 18.3, 13.9, 9.6, 18.2]
-                }]
-            });*/
-            //电压
-            /*Highcharts.chart('container2', {
-                chart: {
-                    type: 'column'
-                },
-                title: {
-                    text: '电压',
-                    x: 0 //center
-                },
-                subtitle: {
-                    text: '',
-                    x: 0
-                },
-                xAxis: {
-                    categories: ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12', '13', '14', '15', '16', '17', '18', '19', '20', '21', '22', '23', '24', '25', '26', '27', '28', '29', '30', '31']
-                },
-                yAxis: {
-                    title: {
-                        text: '电压（KW）'
-                    },
-                    plotLines: [{
-                        value: 0,
-                        width: 1,
-                        color: '#808080'
-                    }]
-                },
-                tooltip: {
-                    valueSuffix: 'KW'
-                },
-                legend: {
-                    layout: 'vertical',
-                    align: 'right',
-                    verticalAlign: 'middle',
-                    borderWidth: 0
-                },
-                series: [{
-                    name: '电压',
-                    data: [7.0, 6.9, 9.5, 14.5, 18.2, 21.5, 25.2, 26.5, 23.3, 18.3, 13.9, 9.6, 7.0, 6.9, 9.5, 14.5, 18.2, 21.5, 25.2, 26.5, 23.3, 18.3, 13.9, 9.6, 18.2]
-                }]
-            });*/
-            /*//电能
-            Highcharts.chart('container3', {
-
-                title: {
-                    text: '电能',
-                    x: 0 //center
-                },
-                subtitle: {
-                    text: '',
-                    x: 0
-                },
-                xAxis: {
-                    categories: ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12', '13', '14', '15', '16', '17', '18', '19', '20', '21', '22', '23', '24', '25', '26', '27', '28', '29', '30', '31']
-                },
-                yAxis: {
-                    title: {
-                        text: '电能（KW）'
-                    },
-                    plotLines: [{
-                        value: 0,
-                        width: 1,
-                        color: '#808080'
-                    }]
-                },
-                tooltip: {
-                    valueSuffix: 'KW'
-                },
-                legend: {
-                    layout: 'vertical',
-                    align: 'right',
-                    verticalAlign: 'middle',
-                    borderWidth: 0
-                },
-                series: [{
-                    name: '电能',
-                    data: [7.0, 6.9, 9.5, 14.5, 18.2, 21.5, 25.2, 26.5, 23.3, 18.3, 13.9, 9.6, 7.0, 6.9, 9.5, 14.5, 18.2, 21.5, 25.2, 26.5, 23.3, 18.3, 13.9, 9.6, 18.2]
-                }]
-            });*/
             //获取所有控制柜
             function flushEleBox() {
                 ajaxRequest("post", "/api/roadlighting/listelebox", {}, function (data) {
@@ -581,7 +517,6 @@
                         if (data.header.code == 1000) {
                             var eleBox = data.body.data;
                             var $eleBoxSelect = $("#eleboxName");
-                            console.log(eleBox);
                             for (var i = 0; i < eleBox.length; ++i) {
                                 var ele = eleBox[i];
                                     $('<option value="' + ele.id + '">' + ele.codeNumber + '</option>').appendTo($eleBoxSelect);
