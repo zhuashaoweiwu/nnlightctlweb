@@ -4,76 +4,79 @@
     <meta charset="utf-8">
     <meta name="renderer" content="webkit|ie-comp|ie-stand">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no" />
-    <meta http-equiv="Cache-Control" content="no-siteapp" />
+    <meta name="viewport"
+          content="width=device-width,initial-scale=1,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no"/>
+    <meta http-equiv="Cache-Control" content="no-siteapp"/>
 
     <title>部署--灯具增加</title>
 
-    <link rel="stylesheet" type="text/css" href="../css/common.css" />
-    <link rel="stylesheet" type="text/css" href="../css/admin.css" />
-    <link rel="stylesheet" type="text/css" href="../css/iconfont/iconfont.css" />
+    <link rel="stylesheet" type="text/css" href="../css/common.css"/>
+    <link rel="stylesheet" type="text/css" href="../css/admin.css"/>
+    <link rel="stylesheet" type="text/css" href="../css/iconfont/iconfont.css"/>
 </head>
 <body>
-    <div class="page-container">
-        <div class="mt-20">
-            <table border="0">
-                <tr>
-                    <td style="height:400px;width:48%;overflow-y:scroll;border:1px solid #ddd;" valign="top">
-                        <h4 class="f-18 tit"><span class="Hui-iconfont">&#xe667;</span><span class="pl-10">已选择（<span class="f-18 c-orange">备注：点击当前列，移除</span>）</span></h4>
-                        <h4 class="f-20">
-                            <a href="javascript:void(0);" onclick="project_del_more()" class="btn btn-secondary radius mr-10"><i class="Hui-iconfont">&#xe645;</i>导入</a>
-                            <a class="btn btn-primary radius mr-10" data-title="添加灯具" onclick="addLamps('添加灯具', 'addLamps.html', '800', '550')" href="javascript:void(0);"><i class="Hui-iconfont">&#xe600;</i>添加灯具</a>
-                            <a class="btn btn-primary radius" data-title="批量添加灯具" onclick="addLampsMore('批量添加灯具', 'addLampsMore.html', '1050', '550')" href="javascript:void(0);"><i class="Hui-iconfont">&#xe600;</i>批量添加灯具</a>
-                        </h4>
-                            <table class="table table-border table-bordered table-bg table-hover">
-                                <thead>
-                                    <tr class="text-c">
-                                        <th>UID</th>
-                                        <th>灯头号</th>
-                                        <th>灯杆</th>
-                                        <th>光衰</th>
-                                        <th>备注</th>
-                                    </tr>
-                                </thead>
-                                <tbody id="tb1">
-                                    <tr class="text-c" ref="1">
-                                        <td>01</td>
-                                        <td>三亚项目</td>
-                                        <td>三亚项目</td>
-                                        <td>中国.三亚</td>
-                                        <td class="td-status"><span class="label label-success radius">是</span></td>
-                                    </tr>
-                                    <tr class="text-c" ref="2">
-                                        <td>02</td>
-                                        <td>三亚项目</td>
-                                        <td>三亚项目</td>
-                                        <td>中国.三亚</td>
-                                        <td class="td-status"><span class="label radius">否</span></td>
-                                    </tr>
+<div class="page-container">
+    <div class="mt-20">
+        <table border="0">
+            <tr>
+                <td style="height:400px;width:48%;overflow-y:scroll;border:1px solid #ddd;" valign="top">
+                    <h4 class="f-18 tit"><span class="Hui-iconfont">&#xe667;</span><span class="pl-10">可添加（<span
+                            class="f-18 c-orange">备注：点击当前列，移除</span>）</span></h4>
+                    <!--<h4 class="f-20">
+                        <a href="javascript:void(0);" onclick="project_del_more()" class="btn btn-secondary radius mr-10"><i class="Hui-iconfont">&#xe645;</i>导入</a>
+                        <a class="btn btn-primary radius mr-10" data-title="添加灯具" onclick="addLamps('添加灯具', 'addLamps.html', '800', '550')" href="javascript:void(0);"><i class="Hui-iconfont">&#xe600;</i>添加灯具</a>
+                        <a class="btn btn-primary radius" data-title="批量添加灯具" onclick="addLampsMore('批量添加灯具', 'addLampsMore.html', '1050', '550')" href="javascript:void(0);"><i class="Hui-iconfont">&#xe600;</i>批量添加灯具</a>
+                    </h4>-->
+                    <table id="selectableTable" class="table table-border table-bordered table-bg table-hover">
+                        <thead>
+                        <tr class="text-c">
+                            <th>灯具编码</th>
+                            <th>灯头</th>
+                            <th>灯杆</th>
+                            <th>资产编号</th>
+                            <th>区域</th>
+                        </tr>
+                        </thead>
+                        <tbody id="tb1">
+                        <tr class="text-c" ref="1">
+                            <td>L0001</td>
+                            <td>L00012H0180917</td>
+                            <td>L00012P0180917</td>
+                            <td>L00012P0180917</td>
+                            <td>三亚-海东区-精英路</td>
+                        </tr>
+                        <tr class="text-c" ref="2">
+                            <td>L0002</td>
+                            <td>L00012H0180917</td>
+                            <td>L00012P0180917</td>
+                            <td>L00012P0180917</td>
+                            <td>三亚-海东区-精英路</td>
+                        </tr>
 
-                                </tbody>
-                            </table>
-                    </td>
+                        </tbody>
+                    </table>
+                </td>
 
-                    <td width="4%" align="center">
-                        <!--<a href="javascript:void(0);" onclick="project_del_more()" class="btn btn-danger radius"><i class="Hui-iconfont">&#xe6e2;</i> 批量删除</a>
-                    <a href="javascript:void(0);" onclick="project_del_more()" class="btn btn-danger radius"><i class="Hui-iconfont">&#xe6e2;</i> 批量删除</a>-->
-                    </td>
+                <td width="4%" align="center">
+                    <!--<a href="javascript:void(0);" onclick="project_del_more()" class="btn btn-danger radius"><i class="Hui-iconfont">&#xe6e2;</i> 批量删除</a>
+                <a href="javascript:void(0);" onclick="project_del_more()" class="btn btn-danger radius"><i class="Hui-iconfont">&#xe6e2;</i> 批量删除</a>-->
+                </td>
 
-                    <td style="height:400px;width:48%;overflow-y:scroll;border:1px solid #ddd;" valign="top">
-                        <h4 class="f-18 tit"><span class="Hui-iconfont">&#xe667;</span><span class="pl-10">可选择（<span class="f-18 c-orange">备注：点击当前列，移除</span>）</span></h4>
-                        <h4 class="f-20">
-                            <span class="c-red">*</span>模块：
-                            <span class="select-box inline">
-                                <select name="userType" id="userType" class="select">
+                <td style="height:400px;width:48%;overflow-y:scroll;border:1px solid #ddd;" valign="top">
+                    <h4 class="f-18 tit"><span class="Hui-iconfont">&#xe667;</span><span class="pl-10">已添加（<span
+                            class="f-18 c-orange">备注：点击当前列，移除</span>）</span></h4>
+                    <h4 class="f-20">
+                        <span class="c-red">*</span>模块：
+                        <span class="select-box inline">
+                                <select name="modelSelect" id="modelSelect" class="select">
                                     <option value="-1">请选择模块</option>
                                     <option value="0">模块1</option>
                                     <option value="1">模块2</option>
                                     <option value="2">模块3</option>
                                 </select>
                             </span>
-                            <span class="c-red pl-25">*</span>回路：
-                            <span class="select-box inline">
+                        <span class="c-red pl-25">*</span>回路：
+                        <span class="select-box inline">
                                 <select name="userType" id="userType" class="select">
                                     <option value="-1">请选择回路</option>
                                     <option value="0">回路1</option>
@@ -81,66 +84,116 @@
                                     <option value="2">回路3</option>
                                 </select>
                             </span>
-                        </h4>
+                    </h4>
 
-                            <table class="table table-border table-bordered table-bg table-hover">
-                                <thead>
-                                    <tr class="text-c">
-                                        <th>UID</th>
-                                        <th>灯头号</th>
-                                        <th>灯杆</th>
-                                        <th>光衰</th>
-                                        <th>备注</th>
-                                    </tr>
-                                </thead>
-                                <tbody id="tb2"></tbody>
-                            </table>
-</td>
+                    <table id="selectedTable" class="table table-border table-bordered table-bg table-hover">
+                        <thead>
+                        <tr class="text-c">
+                            <th>灯具编码</th>
+                            <th>灯头</th>
+                            <th>灯杆</th>
+                            <th>资产编号</th>
+                            <th>区域</th>
+                            <th>回路序号</th>
+                        </tr>
+                        </thead>
+                        <tbody id="tb2"></tbody>
+                    </table>
+                </td>
 
-                </tr>
-            </table>
-        </div>
+            </tr>
+        </table>
     </div>
+</div>
 
-    <script type="text/javascript" src="../js/jquery.min.js"></script>
-    <script type="text/javascript" src="../js/common.js"></script>
-    <script type="text/javascript" src="../js/admin.js"></script>
+<script type="text/javascript" src="../js/jquery.min.js"></script>
+<script type="text/javascript" src="../js/common.js"></script>
+<script type="text/javascript" src="../js/admin.js"></script>
 
-    <script type="text/javascript" src="../js/api/requestRoot.js"></script>
-    <script type="text/javascript" src="../js/api/ajaxScript.js"></script>
-    <!--请在下方写此页面业务相关的脚本-->
-    <script type="text/javascript" src="../lib/layer/2.4/layer.js"></script><!--弹出插件-->
-    <script type="text/javascript">
-        $("#tb1").delegate('.text-c', 'click', function () {
-            var _this = $(this);
-            _this.remove();
-            var currentId = _this.attr("ref");//这里的Id 是可以后台交互
-            var StrHtml = "<tr class='text-c' ref='" + currentId + "'>" + _this.html() + "</tr>";
-            $("#tb2").append(StrHtml);
-            //后面动态修改归属项目Id值
-            // var Crrtb1_val = $("#tb1_val").val(); var Crrtb2_val = $("#tb2_val").val();
-            // $("#tb1_val").val(Crrtb1_val.replace("&" + currentId, '')); $("#tb2_val").val(Crrtb2_val + "&" + currentId);
+<script type="text/javascript" src="../js/api/requestRoot.js"></script>
+<script type="text/javascript" src="../js/api/ajaxScript.js"></script>
+<!--请在下方写此页面业务相关的脚本-->
+<script type="text/javascript" src="../lib/layer/2.4/layer.js"></script><!--弹出插件-->
+<script type="text/javascript">
+    $("#tb1").delegate('.text-c', 'click', function () {
+        var _this = $(this);
+        _this.remove();
+        var currentId = _this.attr("ref");//这里的Id 是可以后台交互
+        var StrHtml = "<tr class='text-c' ref='" + currentId + "'>" + _this.html() + "</tr>";
+        $("#tb2").append(StrHtml);
+    });
+    $("#tb2").delegate('.text-c', 'click', function () {
+        var _this = $(this);
+        _this.remove();
+        var currentId = _this.attr("ref");
+        var StrHtml = "<tr class='text-c' ref='" + currentId + "'>" + _this.html() + "</tr>";
+        ;
+        $("#tb1").append(StrHtml);
+    });
 
+    //批量添加灯具
+    function addLampsMore(title, url, w, h) {
+        layer_show(title, url, w, h);
+    }
+
+    //添加灯具
+    function addLamps(title, url, w, h) {
+        layer_show(title, url, w, h);
+    }
+
+    //刷新可添加灯具列表
+    function flushSelectableLight() {
+        ajaxRequest("post", "/api/roadlighting/listLighting", {"notBe" : 1}, function (data) {
+            if (data) {
+                if (data.header.code == 1000) {
+                    var lightArray = data.body.data;
+
+                    var $tbody = $("#tb1");
+                    $tbody.empty();
+
+                    for (var i = 0; i < lightArray.length; ++i) {
+                        var light = lightArray[i];
+
+                        $('<tr class="text-c" ref="1">\n' +
+                            '<td>'+light.lightingCode+'</td>\n' +
+                            '<td>'+light.lamphead+'</td>\n' +
+                            '<td>'+light.lamppost+'</td>\n' +
+                            '<td>'+light.propertySerialNumber+'</td>\n' +
+                            '<td>'+light.regionLevelDesc+'</td>\n' +
+                            '</tr>').appendTo($tbody);
+                    }
+
+                } else {
+                    layer.msg(data.header.msg, {icon : 2, time : 3000});
+                }
+            }
         });
-        $("#tb2").delegate('.text-c', 'click', function () {
-            var _this = $(this);
-            _this.remove();
-            var currentId = _this.attr("ref");
-            var StrHtml = "<tr class='text-c' ref='" + currentId + "'>" + _this.html() + "</tr>";;
-            $("#tb1").append(StrHtml);
-            //后面动态修改归属项目Id值
-            // var Crrtb1_val = $("#tb1_val").val(); var Crrtb2_val = $("#tb2_val").val();
-            // $("#tb2_val").val(Crrtb2_val.replace("&" + currentId, '')); $("#tb1_val").val(Crrtb1_val + "&" + currentId);
+    }
+
+    //刷新该控制柜下全部模块
+    function flushEleboxModel() {
+        var eleboxId = editModel(window.location.href);
+        ajaxRequest("post", "/api/roadlighting/listmodel", {"eleboxId" : eleboxId}, function (data) {
+            if (data) {
+                if (data.header.code == 1000) {
+                    var modelArray = data.body.data;
+
+                } else {
+                    layer.msg(data.header.msg, {icon : 2, time : 3000});
+                }
+            }
         });
-        //批量添加灯具
-        function addLampsMore(title, url, w, h) {
-            layer_show(title, url, w, h);
-        }
-        //添加灯具
-        function addLamps(title, url, w, h) {
-            layer_show(title, url, w, h);
-        }
-    </script>
+    }
+
+    //根据模块id获取该模块下全部回路
+    function flushModelLoopByModelId(modelId) {
+
+    }
+
+    $(function () {
+        flushSelectableLight();
+    });
+</script>
 
 </body>
 </html>
