@@ -99,7 +99,7 @@
 
         <div class="row cl">
             <label class="form-label col-xs-4 col-sm-3">控制柜区域：</label>
-            <div class="formControls col-xs-8 col-sm-9" style="width:200px;">
+            <div class="formControls col-xs-8 col-sm-9" style="width:400px;">
                 <input type="text" class="input-text" regionId="" value="" placeholder="控制柜区域" id="nnlightctlRegionId"
                        name="nnlightctlRegionId">
             </div>
@@ -118,18 +118,23 @@
 
         <div class="row cl">
             <div class="col-xs-8 col-sm-9 col-xs-offset-4 col-sm-offset-3">
-                <input class="btn btn-primary radius" type="submit" value="&nbsp;&nbsp;提交&nbsp;&nbsp;">
+                <input id="btnSubmit" class="btn btn-primary radius" type="submit" value="&nbsp;&nbsp;提交&nbsp;&nbsp;">
             </div>
         </div>
     </form>
 </article>
 <script type="text/javascript" src="../js/jquery.min.js"></script>
 <script type="text/javascript" src="../js/common.js"></script>
+<script type="text/javascript" src="../js/admin.js"></script>
 <script type="text/javascript" src="../lib/My97DatePicker/4.8/WdatePicker.js"></script> <!--日期插件-->
 
 <script type="text/javascript" src="../js/api/requestRoot.js"></script>
 <script type="text/javascript" src="../js/api/ajaxScript.js"></script>
 <script type="text/javascript" src="../lib/layer/2.4/layer.js"></script><!--弹出插件-->
+
+<script type="text/javascript" src="../lib/jquery.validation/1.14.0/jquery.validate.js"></script>
+<script type="text/javascript" src="../lib/jquery.validation/1.14.0/validate-methods.js"></script>
+<script type="text/javascript" src="../lib/jquery.validation/1.14.0/messages_zh.js"></script>
 <script type="text/javascript">
     $(function () {
         //刷新项目列表
@@ -163,6 +168,8 @@
                     for (var key in elebox) {
                         $("#" + key).val(elebox[key]);
                     }
+                    $("#manufacture").val(formatDate(elebox["manufacture"]));
+                    $("#useDate").val(formatDate(elebox["useDate"]));
                     //填充区域数据
                     var regionId = elebox["nnlightctlRegionId"];
                     $("#nnlightctlRegionId").attr("regionId", regionId);
@@ -183,7 +190,70 @@
         });
 
         //注册区域文本框点击事件
+        $("#nnlightctlRegionId").click(function () {
+            layer_show("设置区域", "setArea.html", "600", "400", function (regionId) {
+                $("#nnlightctlRegionId").attr("regionId", regionId);
+                ajaxRequest("post", "/api/roadlighting/getAreaDescById", {"id": regionId}, function (data) {
+                    if (data) {
+                        if (data.header.code == 1000) {
+                            var regionDesc = data.body.data[0];
+                            $("#nnlightctlRegionId").val(regionDesc);
+                        } else {
+                            layer.msg(data.header.msg, {icon: 2, time: 3000});
+                        }
+                    }
+                });
+            });
+        });
+        
+        //表单提交
+        $("#form-admin-add").validate({
+            rules: {
+                uid: {
+                    required: true
+                },
+                codeNumber: {
+                    required: true
+                },
+                nnlightctlProjectId: {
+                    required: true
+                }
+            },
+            onkeyup: false,
+            focusCleanup: true,
+            success: "valid",
+            submitHandler: function (form) {
+                //收集更新控制柜参数
+                var param = {};
 
+                var formDataArray = $(form).serializeArray();
+                for (var i = 0; i < formDataArray.length; ++i) {
+                    var formDataPair = formDataArray[i];
+                    param[formDataPair["name"]] = formDataPair["value"];
+                }
+                //日期
+                param["useDate"] = str2Date($("#useDate").val());
+                param["manufacture"] = str2Date($("#manufacture").val());
+                //区域id
+                param["nnlightctlRegionId"] = $("#nnlightctlRegionId").attr("regionId");
+                //id
+                param["id"] = editModel(window.location.href);
+
+                ajaxRequest("post", "/api/roadlighting/updateelebox", param, function (data) {
+                        if (data) {
+                            if (data.header.code == 1000) {
+                                layer.msg("编辑控制柜成功！", {icon : 1, time : 3000});
+                            } else {
+                                layer.msg(data.header.msg, {icon : 2, time : 3000});
+                            }
+                        }
+                    });
+
+                var index = parent.layer.getFrameIndex(window.name);
+                parent.$('.btn-refresh').click();
+                parent.layer.close(index);
+            }
+        });
     });
 </script>
 </body>
