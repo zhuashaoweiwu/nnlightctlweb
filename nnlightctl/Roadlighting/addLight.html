@@ -69,7 +69,7 @@
                         <span class="c-red">*</span>模块：
                         <span class="select-box inline">
                                 <select name="modelSelect" id="modelSelect" class="select">
-                                    <option value="-1">请选择模块</option>
+                                    <option value="0">请选择模块</option>
                                     <option value="0">模块1</option>
                                     <option value="1">模块2</option>
                                     <option value="2">模块3</option>
@@ -77,7 +77,7 @@
                             </span>
                         <span class="c-red pl-25">*</span>回路：
                         <span class="select-box inline">
-                                <select name="userType" id="userType" class="select">
+                                <select name="modelLoopSelect" id="modelLoopSelect" class="select">
                                     <option value="-1">请选择回路</option>
                                     <option value="0">回路1</option>
                                     <option value="1">回路2</option>
@@ -97,7 +97,21 @@
                             <th>回路序号</th>
                         </tr>
                         </thead>
-                        <tbody id="tb2"></tbody>
+                        <tbody id="tb2">
+                            <tr ref="2">
+                                <td class="text-c">L0002</td>
+                                <td class="text-c">L00012H0180917</td>
+                                <td class="text-c">L00012P0180917</td>
+                                <td class="text-c">L00012P0180917</td>
+                                <td class="text-c">三亚-海东区-精英路</td>
+                                <td>
+                                    <select>
+                                        <option value="1">1</option>
+                                        <option value="2">2</option>
+                                    </select>
+                                </td>
+                            </tr>
+                        </tbody>
                     </table>
                 </td>
 
@@ -116,20 +130,27 @@
 <script type="text/javascript" src="../lib/layer/2.4/layer.js"></script><!--弹出插件-->
 <script type="text/javascript">
     $("#tb1").delegate('.text-c', 'click', function () {
-        var _this = $(this);
+        var _this = $(this).parent("tr").eq(0);
         _this.remove();
         var currentId = _this.attr("ref");//这里的Id 是可以后台交互
-        var StrHtml = "<tr class='text-c' ref='" + currentId + "'>" + _this.html() + "</tr>";
+        var StrHtml = "<tr ref='" + currentId + "'>" + _this.html() + "</tr>";
         $("#tb2").append(StrHtml);
     });
+
     $("#tb2").delegate('.text-c', 'click', function () {
-        var _this = $(this);
+        var _this = $(this).parent("tr").eq(0);
         _this.remove();
         var currentId = _this.attr("ref");
-        var StrHtml = "<tr class='text-c' ref='" + currentId + "'>" + _this.html() + "</tr>";
-        ;
+        var StrHtml = "<tr ref='" + currentId + "'>" + _this.html() + "</tr>";
         $("#tb1").append(StrHtml);
     });
+
+    //重置回路表格序号下拉列表
+    function resetSortColumn() {
+        var count = $("#tb2").find("tr").length;
+
+        var $selectTdColumn = $('');
+    }
 
     //批量添加灯具
     function addLampsMore(title, url, w, h) {
@@ -154,12 +175,12 @@
                     for (var i = 0; i < lightArray.length; ++i) {
                         var light = lightArray[i];
 
-                        $('<tr class="text-c" ref="1">\n' +
-                            '<td>'+light.lightingCode+'</td>\n' +
-                            '<td>'+light.lamphead+'</td>\n' +
-                            '<td>'+light.lamppost+'</td>\n' +
-                            '<td>'+light.propertySerialNumber+'</td>\n' +
-                            '<td>'+light.regionLevelDesc+'</td>\n' +
+                        $('<tr ref="'+light.id+'">\n' +
+                            '<td class="text-c">'+light.lightingCode+'</td>\n' +
+                            '<td class="text-c">'+light.lamphead+'</td>\n' +
+                            '<td class="text-c">'+light.lamppost+'</td>\n' +
+                            '<td class="text-c">'+light.propertySerialNumber+'</td>\n' +
+                            '<td class="text-c">'+light.regionLevelDesc+'</td>\n' +
                             '</tr>').appendTo($tbody);
                     }
 
@@ -178,6 +199,13 @@
                 if (data.header.code == 1000) {
                     var modelArray = data.body.data;
 
+                    var $modelSelect = $("#modelSelect");
+
+                    for (var i = 0; i < modelArray.length; ++i) {
+                        var model = modelArray[i];
+                        $('<option value="'+model.id+'">'+model.modelName+'</option>').appendTo($modelSelect);
+                    }
+
                 } else {
                     layer.msg(data.header.msg, {icon : 2, time : 3000});
                 }
@@ -187,11 +215,62 @@
 
     //根据模块id获取该模块下全部回路
     function flushModelLoopByModelId(modelId) {
+        ajaxRequest("post", "/api/roadlighting/listmodelloop", {"modelId" : modelId}, function (data) {
+            if (data) {
+                if (data.header.code == 1000) {
+                    var modelLoopArray = data.body.data;
+                    var $modelLoopSelect = $("#modelLoopSelect");
 
+                    for (var i = 0; i < modelLoopArray.length; ++i) {
+                        var modelLoop = modelLoopArray[i];
+
+                        $('<option value="'+modelLoop.id+'">'+modelLoop.loopCode+'</option>').appendTo($modelLoopSelect);
+                    }
+                } else {
+                    layer.msg(data.header.msg, {icon : 2, time : 3000});
+                }
+            }
+        });
+    }
+
+    //根据回路id获取回路下全部灯具
+    function listLightByModelLoopId(modelLoopId) {
+        ajaxRequest("post", "/api/roadlighting/getLoopLight", {"id" : modelLoopId}, function (data) {
+           if (data) {
+               if (data.header.code == 1000) {
+                   var lightArray = data.body.data;
+
+                   //表格
+                   var $tbody = $("#tb2");
+                   $tbody.empty();
+
+                   for (var i = 0; i < lightArray.length; ++i) {
+                       var light = lightArray[i];
+
+                       $('<tr class="text-c" ref="'+light.id+'">\n' +
+                           '<td>'+light.lightingCode+'</td>\n' +
+                           '<td>'+light.lamphead+'</td>\n' +
+                           '<td>'+light.lamppost+'</td>\n' +
+                           '<td>'+light.propertySerialNumber+'</td>\n' +
+                           '<td>'+light.regionLevelDesc+'</td>\n' +
+                           '</tr>').appendTo($tbody);
+                   }
+               }
+           }
+        });
     }
 
     $(function () {
         flushSelectableLight();
+        flushEleboxModel();
+        //注册模块下拉列表选择事件
+        $("#modelSelect").change(function () {
+            flushModelLoopByModelId($(this).val());
+        });
+        //注册回路下拉列表选择事件
+        $("#modelLoopSelect").change(function () {
+            listLightByModelLoopId(this(this).val());
+        });
     });
 </script>
 
