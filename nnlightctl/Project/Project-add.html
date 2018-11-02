@@ -27,8 +27,7 @@
                             <option value="0">请选择国家</option>
                         </select>
                     </span>
-                <a class="btn btn-primary radius f-r mr-10" data-title="添加国家"
-                   onclick="country_add('添加国家', 'Add-Country.html', '300', '350')" href="javascript:void(0);">
+                <a class="btn btn-primary radius f-r mr-10" data-title="添加国家" onclick="country_add('添加国家', 'Add-Country.html', '300', '350')" href="javascript:void(0);">
                     <i class="Hui-iconfont">&#xe600;</i> 添加</a>
             </div>
         </div>
@@ -41,8 +40,7 @@
                             <option value="0">请选择省份</option>
                         </select>
                     </span>
-                <a class="btn btn-primary radius f-r mr-10" data-title="添加省份"
-                   onclick="province_add('添加省份', 'Add-Province.html', '300', '350')" href="javascript:void(0);">
+                <a class="btn btn-primary radius f-r mr-10" data-title="添加省份" onclick="province_add('添加省份', 'Add-Province.html', '300', '350')" href="javascript:void(0);">
                     <i class="Hui-iconfont">&#xe600;</i> 添加
                 </a>
             </div>
@@ -55,8 +53,7 @@
                             <option value="0">请选择城市</option>
                         </select>
                     </span>
-                <a class="btn btn-primary radius f-r mr-10" data-title="添加城市"
-                   onclick="city_add('添加城市', 'Add-City.html', '300', '400')" href="javascript:void(0);">
+                <a class="btn btn-primary radius f-r mr-10" data-title="添加城市" onclick="city_add('添加城市', 'Add-City.html', '300', '400')" href="javascript:void(0);">
                     <i class="Hui-iconfont">&#xe600;</i> 添加
                 </a>
             </div>
@@ -72,34 +69,33 @@
             </div>
         </div>
         <div class="row cl">
-            <label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>编码：</label>
-            <div class="formControls col-xs-8 col-sm-9">
+            <label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>项目编码：</label>
+            <div class="formControls col-xs-8 col-sm-7">
                 <input type="text" class="input-text" value="" placeholder="" id="projectCode" name="projectCode">
             </div>
         </div>
         <div class="row cl">
-            <label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>名称：</label>
-            <div class="formControls col-xs-8 col-sm-9">
-                <input type="text" class="input-text" value="" placeholder="" id="projectName" name="projectName">
+            <label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>项目名称：</label>
+            <div class="formControls col-xs-8 col-sm-7">
+                <input type="text" class="input-text" value="" placeholder="项目名称" id="projectName" name="projectName">
             </div>
         </div>
         <div class="row cl">
             <label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>经度：</label>
-            <div class="formControls col-xs-8 col-sm-9" style="width:200px;">
-                <input type="text" class="input-text" value="" placeholder="" id="longitude" name="longitude">
+            <div class="formControls col-xs-8 col-sm-7" style="width:200px;">
+                <input type="text" class="input-text" value="" placeholder="经度" id="longitude" name="longitude">
             </div>
         </div>
         <div class="row cl">
             <label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>纬度：</label>
-            <div class="formControls col-xs-8 col-sm-9" style="width:200px;">
-                <input type="text" class="input-text" value="" placeholder="" id="latitude" name="latitude">
+            <div class="formControls col-xs-8 col-sm-7" style="width:200px;">
+                <input type="text" class="input-text" value="" placeholder="纬度" id="latitude" name="latitude">
             </div>
         </div>
         <div class="row cl">
             <label class="form-label col-xs-4 col-sm-3">备注：</label>
-            <div class="formControls col-xs-8 col-sm-9">
-                <textarea name="mem" id="mem" cols="" rows="" class="textarea" placeholder="说点什么...100个字符以内"
-                          dragonfly="true"></textarea>
+            <div class="formControls col-xs-8 col-sm-7">
+                <textarea name="mem" id="mem" class="textarea" placeholder="说点什么...100个字符以内" dragonfly="true"></textarea>
                 <p class="textarea-numberbar"><em class="textarea-length">0</em>/100</p>
             </div>
         </div>
@@ -149,9 +145,9 @@
                     minlength: 1,
                     maxlength: 64
                 },
-                projectName: {
-                    required: true
-                }
+                projectName: { required: true },
+                longitude: { required: true },
+                latitude: { required: true },
             },
             onkeyup: false,
             focusCleanup: true,
@@ -186,6 +182,7 @@
                 });
 
                 var index = parent.layer.getFrameIndex(window.name);
+                
                 parent.$('.btn-refresh').click();
                 parent.layer.close(index);
             }
