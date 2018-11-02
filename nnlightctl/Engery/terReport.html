@@ -177,6 +177,7 @@
 
             var k = 0;
             var list = new Array();
+            var code = 0;
             ajaxRequest("post", "/api/roadlighting/listLighting",{},
                 function (data) {
                     if(data.header.code=="1000"){
@@ -184,14 +185,15 @@
                         if (length > 0){
                             for(var i = 0 ; i < length ; i++){
                                 if (data.body.data[i].lightingCode){
-                                    ++k;
+                                    k++;
                                     list[k] = data.body.data[i].lightingCode;
+                                    break;
                                 }
                             }
                         }
                     }
                 })
-            ajaxRequest("post", "/api/energyStatistic/statisticLightEnergy",{"lightingCode":list[0]},
+            ajaxRequest("post", "/api/energyStatistic/statisticLightEnergy",{"lightingCode":"10004"},
                 function (data) {
                     if (data.header.code == "1000"){
                         var categories = new Array();
@@ -276,7 +278,22 @@
                         }, {
                             name: '无功功率',
                             data: notEnergy
-                        }]
+                        }],
+                        lang:{
+
+                            printChart: '打印图表',
+
+                            downloadPNG: '下载JPEG 图片',
+
+                            downloadJPEG: '下载JPEG文档',
+
+                            downloadPDF: '下载PDF 图片',
+
+                            downloadSVG: '下载SVG 矢量图',
+
+                            contextButtonTitle: '下载图片'
+
+                        }
                     });
                     //电流
                     Highcharts.chart('container1', {
@@ -314,7 +331,22 @@
                         series: [{
                             name: '电流',
                             data: ele
-                        }]
+                        }],
+                        lang:{
+
+                            printChart: '打印图表',
+
+                            downloadPNG: '下载JPEG 图片',
+
+                            downloadJPEG: '下载JPEG文档',
+
+                            downloadPDF: '下载PDF 图片',
+
+                            downloadSVG: '下载SVG 矢量图',
+
+                            contextButtonTitle: '下载图片'
+
+                        }
                     });
                     //电压
                     Highcharts.chart('container2', {
@@ -354,7 +386,22 @@
                         series: [{
                             name: '电压',
                             data:vol
-                        }]
+                        }],
+                        lang:{
+
+                            printChart: '打印图表',
+
+                            downloadPNG: '下载JPEG 图片',
+
+                            downloadJPEG: '下载JPEG文档',
+
+                            downloadPDF: '下载PDF 图片',
+
+                            downloadSVG: '下载SVG 矢量图',
+
+                            contextButtonTitle: '下载图片'
+
+                        }
                     });
                     //电能
                     Highcharts.chart('container3', {
@@ -392,7 +439,22 @@
                         series: [{
                             name: '电能',
                             data:energy
-                        }]
+                        }],
+                        lang:{
+
+                            printChart: '打印图表',
+
+                            downloadPNG: '下载JPEG 图片',
+
+                            downloadJPEG: '下载JPEG文档',
+
+                            downloadPDF: '下载PDF 图片',
+
+                            downloadSVG: '下载SVG 矢量图',
+
+                            contextButtonTitle: '下载图片'
+
+                        }
                     });
                 })
 
@@ -498,7 +560,22 @@
                             }, {
                                 name: '无功功率',
                                 data: notEnergy
-                            }]
+                            }],
+                            lang:{
+
+                                printChart: '打印图表',
+
+                                downloadPNG: '下载JPEG 图片',
+
+                                downloadJPEG: '下载JPEG文档',
+
+                                downloadPDF: '下载PDF 图片',
+
+                                downloadSVG: '下载SVG 矢量图',
+
+                                contextButtonTitle: '下载图片'
+
+                            }
                         });
                         //电流
                         Highcharts.chart('container1', {
@@ -536,7 +613,22 @@
                             series: [{
                                 name: '电流',
                                 data: ele
-                            }]
+                            }],
+                            lang:{
+
+                                printChart: '打印图表',
+
+                                downloadPNG: '下载JPEG 图片',
+
+                                downloadJPEG: '下载JPEG文档',
+
+                                downloadPDF: '下载PDF 图片',
+
+                                downloadSVG: '下载SVG 矢量图',
+
+                                contextButtonTitle: '下载图片'
+
+                            }
                         });
                         //电压
                         Highcharts.chart('container2', {
@@ -576,7 +668,22 @@
                             series: [{
                                 name: '电压',
                                 data:vol
-                            }]
+                            }],
+                            lang:{
+
+                                printChart: '打印图表',
+
+                                downloadPNG: '下载JPEG 图片',
+
+                                downloadJPEG: '下载JPEG文档',
+
+                                downloadPDF: '下载PDF 图片',
+
+                                downloadSVG: '下载SVG 矢量图',
+
+                                contextButtonTitle: '下载图片'
+
+                            }
                         });
                         //电能
                         Highcharts.chart('container3', {
@@ -614,7 +721,22 @@
                             series: [{
                                 name: '电能',
                                 data:energy
-                            }]
+                            }],
+                            lang:{
+
+                                printChart: '打印图表',
+
+                                downloadPNG: '下载JPEG 图片',
+
+                                downloadJPEG: '下载JPEG文档',
+
+                                downloadPDF: '下载PDF 图片',
+
+                                downloadSVG: '下载SVG 矢量图',
+
+                                contextButtonTitle: '下载图片'
+
+                            }
                         });
                     })
             });
