@@ -58,6 +58,7 @@
             /*一、获取常规能耗统计数据年，月，日能耗*/
             ajaxRequest("post", "/api/energyStatistic/getCommonEnergyStatistic",{},
                 function (data) {
+                console.log(data);
                     var year=0;
                     var month=0;
                     var day=0;
@@ -70,13 +71,11 @@
                                 }else if(data.body.data[i].year){
                                     year = data.body.data[i].total;
                                 }else if(data.body.data[i].date){
-                                    year = data.body.data[i].date;
+                                    day = data.body.data[i].total;
                                 }
                             }
                         }
                     }
-                    console.log(data);
-                    console.log(month);
                     var statistics = new Array();
                     $(".ue1 dd").append(year/1000+"KW/h");
                     $(".ue2 dd").append(month/1000+"KW/h");
