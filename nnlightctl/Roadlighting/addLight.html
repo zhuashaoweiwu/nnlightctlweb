@@ -27,34 +27,36 @@
                         <a class="btn btn-primary radius mr-10" data-title="添加灯具" onclick="addLamps('添加灯具', 'addLamps.html', '800', '550')" href="javascript:void(0);"><i class="Hui-iconfont">&#xe600;</i>添加灯具</a>
                         <a class="btn btn-primary radius" data-title="批量添加灯具" onclick="addLampsMore('批量添加灯具', 'addLampsMore.html', '1050', '550')" href="javascript:void(0);"><i class="Hui-iconfont">&#xe600;</i>批量添加灯具</a>
                     </h4>-->
-                    <table id="selectableTable" class="table table-border table-bordered table-bg table-hover">
-                        <thead>
-                        <tr class="text-c">
-                            <th>灯具编码</th>
-                            <th>灯头</th>
-                            <th>灯杆</th>
-                            <th>资产编号</th>
-                            <th>区域</th>
-                        </tr>
-                        </thead>
-                        <tbody id="tb1">
-                        <tr class="text-c" ref="1">
-                            <td>L0001</td>
-                            <td>L00012H0180917</td>
-                            <td>L00012P0180917</td>
-                            <td>L00012P0180917</td>
-                            <td>三亚-海东区-精英路</td>
-                        </tr>
-                        <tr class="text-c" ref="2">
-                            <td>L0002</td>
-                            <td>L00012H0180917</td>
-                            <td>L00012P0180917</td>
-                            <td>L00012P0180917</td>
-                            <td>三亚-海东区-精英路</td>
-                        </tr>
+                    <div>
+                        <table id="selectableTable" class="table table-border table-bordered table-bg table-hover">
+                            <thead>
+                            <tr class="text-c">
+                                <th>灯具编码</th>
+                                <th>灯头</th>
+                                <th>灯杆</th>
+                                <th>资产编号</th>
+                                <th>区域</th>
+                            </tr>
+                            </thead>
+                            <tbody id="tb1">
+                            <tr class="text-c" ref="1">
+                                <td>L0001</td>
+                                <td>L00012H0180917</td>
+                                <td>L00012P0180917</td>
+                                <td>L00012P0180917</td>
+                                <td>三亚-海东区-精英路</td>
+                            </tr>
+                            <tr class="text-c" ref="2">
+                                <td>L0002</td>
+                                <td>L00012H0180917</td>
+                                <td>L00012P0180917</td>
+                                <td>L00012P0180917</td>
+                                <td>三亚-海东区-精英路</td>
+                            </tr>
 
-                        </tbody>
-                    </table>
+                            </tbody>
+                        </table>
+                    </div>
                 </td>
 
                 <td width="4%" align="center">
@@ -79,19 +81,19 @@
                                 </select>
                             </span>
                     </h4>
-
-                    <table id="selectedTable" class="table table-border table-bordered table-bg table-hover">
-                        <thead>
-                        <tr class="text-c">
-                            <th>灯具编码</th>
-                            <th>灯头</th>
-                            <th>灯杆</th>
-                            <th>资产编号</th>
-                            <th>区域</th>
-                            <th>回路序号</th>
-                        </tr>
-                        </thead>
-                        <tbody id="tb2">
+                    <div>
+                        <table id="selectedTable" class="table table-border table-bordered table-bg table-hover">
+                            <thead>
+                            <tr class="text-c">
+                                <th>灯具编码</th>
+                                <th>灯头</th>
+                                <th>灯杆</th>
+                                <th>资产编号</th>
+                                <th>区域</th>
+                                <th>回路序号</th>
+                            </tr>
+                            </thead>
+                            <tbody id="tb2">
                             <!--<tr ref="2">
                                 <td class="text-c">L0002</td>
                                 <td class="text-c">L00012H0180917</td>
@@ -105,12 +107,19 @@
                                     </select>
                                 </td>
                             </tr>-->
-                        </tbody>
-                    </table>
+                            </tbody>
+                        </table>
+                    </div>
                 </td>
 
             </tr>
         </table>
+    </div>
+
+    <div class="row cl">
+        <div class="col-xs-8 col-sm-9 col-xs-offset-4 col-sm-offset-3">
+            <input id="btnSubmit" class="btn btn-primary radius" type="button" value="&nbsp;&nbsp;提交&nbsp;&nbsp;">
+        </div>
     </div>
 </div>
 
@@ -181,9 +190,15 @@
             $Select.empty();
 
             for (var i = 0; i < count; ++i) {
-                $('<option value="'+(i+1)+'">'+(i+1)+'</option>').appendTo($Select);
+                $('<option value="' + (i + 1) + '">' + (i + 1) + '</option>').appendTo($Select);
             }
-        })
+
+            //选中当前序号
+            var priority = $Select.attr("cur");
+            if (priority && priority > 0) {
+                $Select.val(priority);
+            }
+        });
     }
 
     //批量添加灯具
@@ -198,7 +213,7 @@
 
     //刷新可添加灯具列表
     function flushSelectableLight() {
-        ajaxRequest("post", "/api/roadlighting/listLighting", {"notBe" : 1}, function (data) {
+        ajaxRequest("post", "/api/roadlighting/listLighting", {"notBe": 1}, function (data) {
             if (data) {
                 if (data.header.code == 1000) {
                     var lightArray = data.body.data;
@@ -209,17 +224,17 @@
                     for (var i = 0; i < lightArray.length; ++i) {
                         var light = lightArray[i];
 
-                        $('<tr ref="'+light.id+'">\n' +
-                            '<td class="text-c">'+light.lightingCode+'</td>\n' +
-                            '<td class="text-c">'+light.lamphead+'</td>\n' +
-                            '<td class="text-c">'+light.lamppost+'</td>\n' +
-                            '<td class="text-c">'+light.propertySerialNumber+'</td>\n' +
-                            '<td class="text-c">'+light.regionLevelDesc+'</td>\n' +
+                        $('<tr ref="' + light.id + '">\n' +
+                            '<td class="text-c">' + light.lightingCode + '</td>\n' +
+                            '<td class="text-c">' + light.lamphead + '</td>\n' +
+                            '<td class="text-c">' + light.lamppost + '</td>\n' +
+                            '<td class="text-c">' + light.propertySerialNumber + '</td>\n' +
+                            '<td class="text-c">' + light.regionLevelDesc + '</td>\n' +
                             '</tr>').appendTo($tbody);
                     }
 
                 } else {
-                    layer.msg(data.header.msg, {icon : 2, time : 3000});
+                    layer.msg(data.header.msg, {icon: 2, time: 3000});
                 }
             }
         });
@@ -228,7 +243,7 @@
     //刷新该控制柜下全部模块
     function flushEleboxModel() {
         var eleboxId = editModel(window.location.href);
-        ajaxRequest("post", "/api/roadlighting/listmodel", {"eleboxId" : eleboxId}, function (data) {
+        ajaxRequest("post", "/api/roadlighting/listmodel", {"eleboxId": eleboxId}, function (data) {
             if (data) {
                 if (data.header.code == 1000) {
                     var modelArray = data.body.data;
@@ -237,11 +252,11 @@
 
                     for (var i = 0; i < modelArray.length; ++i) {
                         var model = modelArray[i];
-                        $('<option value="'+model.id+'">'+model.modelName+'</option>').appendTo($modelSelect);
+                        $('<option value="' + model.id + '">' + model.modelName + '</option>').appendTo($modelSelect);
                     }
 
                 } else {
-                    layer.msg(data.header.msg, {icon : 2, time : 3000});
+                    layer.msg(data.header.msg, {icon: 2, time: 3000});
                 }
             }
         });
@@ -249,19 +264,20 @@
 
     //根据模块id获取该模块下全部回路
     function flushModelLoopByModelId(modelId) {
-        ajaxRequest("post", "/api/roadlighting/listmodelloop", {"modelId" : modelId}, function (data) {
+        ajaxRequest("post", "/api/roadlighting/listmodelloop", {"modelId": modelId}, function (data) {
             if (data) {
                 if (data.header.code == 1000) {
                     var modelLoopArray = data.body.data;
                     var $modelLoopSelect = $("#modelLoopSelect");
+                    $modelLoopSelect.empty();
 
                     for (var i = 0; i < modelLoopArray.length; ++i) {
                         var modelLoop = modelLoopArray[i];
 
-                        $('<option value="'+modelLoop.id+'">'+modelLoop.loopCode+'</option>').appendTo($modelLoopSelect);
+                        $('<option value="' + modelLoop.id + '">' + modelLoop.loopCode + '</option>').appendTo($modelLoopSelect);
                     }
                 } else {
-                    layer.msg(data.header.msg, {icon : 2, time : 3000});
+                    layer.msg(data.header.msg, {icon: 2, time: 3000});
                 }
             }
         });
@@ -269,28 +285,31 @@
 
     //根据回路id获取回路下全部灯具
     function listLightByModelLoopId(modelLoopId) {
-        ajaxRequest("post", "/api/roadlighting/getLoopLight", {"id" : modelLoopId}, function (data) {
-           if (data) {
-               if (data.header.code == 1000) {
-                   var lightArray = data.body.data;
+        ajaxRequest("post", "/api/roadlighting/getLoopLight", {"id": modelLoopId}, function (data) {
+            if (data) {
+                if (data.header.code == 1000) {
+                    var lightArray = data.body.data;
 
-                   //表格
-                   var $tbody = $("#tb2");
-                   $tbody.empty();
+                    //表格
+                    var $tbody = $("#tb2");
+                    $tbody.empty();
 
-                   for (var i = 0; i < lightArray.length; ++i) {
-                       var light = lightArray[i];
+                    for (var i = 0; i < lightArray.length; ++i) {
+                        var light = lightArray[i];
 
-                       $('<tr class="text-c" ref="'+light.id+'">\n' +
-                           '<td>'+light.lightingCode+'</td>\n' +
-                           '<td>'+light.lamphead+'</td>\n' +
-                           '<td>'+light.lamppost+'</td>\n' +
-                           '<td>'+light.propertySerialNumber+'</td>\n' +
-                           '<td>'+light.regionLevelDesc+'</td>\n' +
-                           '</tr>').appendTo($tbody);
-                   }
-               }
-           }
+                        $('<tr class="text-c" ref="' + light.id + '">\n' +
+                            '<td>' + light.lightingCode + '</td>\n' +
+                            '<td>' + light.lamphead + '</td>\n' +
+                            '<td>' + light.lamppost + '</td>\n' +
+                            '<td>' + light.propertySerialNumber + '</td>\n' +
+                            '<td>' + light.regionLevelDesc + '</td>\n' +
+                            '<td><select cur="'+light.loopPriority+'"></select></td>' +
+                            '</tr>').appendTo($tbody);
+                    }
+
+                    resetSortColumn();
+                }
+            }
         });
     }
 
