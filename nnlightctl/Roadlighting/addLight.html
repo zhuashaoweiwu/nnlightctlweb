@@ -70,18 +70,12 @@
                         <span class="select-box inline">
                                 <select name="modelSelect" id="modelSelect" class="select">
                                     <option value="0">请选择模块</option>
-                                    <option value="0">模块1</option>
-                                    <option value="1">模块2</option>
-                                    <option value="2">模块3</option>
                                 </select>
                             </span>
                         <span class="c-red pl-25">*</span>回路：
                         <span class="select-box inline">
                                 <select name="modelLoopSelect" id="modelLoopSelect" class="select">
                                     <option value="-1">请选择回路</option>
-                                    <option value="0">回路1</option>
-                                    <option value="1">回路2</option>
-                                    <option value="2">回路3</option>
                                 </select>
                             </span>
                     </h4>
@@ -98,7 +92,7 @@
                         </tr>
                         </thead>
                         <tbody id="tb2">
-                            <tr ref="2">
+                            <!--<tr ref="2">
                                 <td class="text-c">L0002</td>
                                 <td class="text-c">L00012H0180917</td>
                                 <td class="text-c">L00012P0180917</td>
@@ -110,7 +104,7 @@
                                         <option value="2">2</option>
                                     </select>
                                 </td>
-                            </tr>
+                            </tr>-->
                         </tbody>
                     </table>
                 </td>
@@ -132,24 +126,64 @@
     $("#tb1").delegate('.text-c', 'click', function () {
         var _this = $(this).parent("tr").eq(0);
         _this.remove();
-        var currentId = _this.attr("ref");//这里的Id 是可以后台交互
-        var StrHtml = "<tr ref='" + currentId + "'>" + _this.html() + "</tr>";
+        var StrHtml = getRightRowFromLeft(_this);
         $("#tb2").append(StrHtml);
+        resetSortColumn();
     });
 
     $("#tb2").delegate('.text-c', 'click', function () {
         var _this = $(this).parent("tr").eq(0);
         _this.remove();
-        var currentId = _this.attr("ref");
-        var StrHtml = "<tr ref='" + currentId + "'>" + _this.html() + "</tr>";
+        var StrHtml = getLeftRowFromRight(_this);
         $("#tb1").append(StrHtml);
+        resetSortColumn();
     });
+
+    //左边到右边，获取右边行html
+    function getRightRowFromLeft($leftRow) {
+        var currentId = $leftRow.attr("ref");
+        var html = ("<tr ref='" + currentId + "'>");
+        $leftRow.find("td").each(function (index, value) {
+            var tdHtml = "<td class=\"text-c\">" + $(this).html() + "</td>";
+            html += tdHtml;
+        });
+
+        //添加下拉列表列
+        html += "<td><select></select></td>";
+
+        html += "</tr>";
+
+        return html;
+    }
+
+    //右边到左边，获取左边行html
+    function getLeftRowFromRight($rightRow) {
+        var currentId = $rightRow.attr("ref");
+        var html = ("<tr ref='" + currentId + "'>");
+        $rightRow.find("td").each(function (index, value) {
+            if ($(this).find("select").length <= 0) {
+                var tdHtml = "<td class=\"text-c\">" + $(this).html() + "</td>";
+                html += tdHtml;
+            }
+        });
+
+        html += "</tr>";
+
+        return html;
+    }
 
     //重置回路表格序号下拉列表
     function resetSortColumn() {
         var count = $("#tb2").find("tr").length;
 
-        var $selectTdColumn = $('');
+        $("#tb2").find("tr").each(function (index, value) {
+            var $Select = $(this).find("select").eq(0);
+            $Select.empty();
+
+            for (var i = 0; i < count; ++i) {
+                $('<option value="'+(i+1)+'">'+(i+1)+'</option>').appendTo($Select);
+            }
+        })
     }
 
     //批量添加灯具

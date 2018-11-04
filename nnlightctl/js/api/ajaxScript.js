@@ -1,6 +1,9 @@
 //设置ajax全局默认参数
 $.ajaxSetup({
+    contentType : "application/x-www-form-urlencoded",
+    timeout : 60000,
     dataType : "json",
+    async: false,
     error : function (xmlRequest, errorInfo, exception) {
         console.log("XmlHttpRequest:" + xmlRequest + ", errorInfo:" + errorInfo + ", exception:" + exception);
     }

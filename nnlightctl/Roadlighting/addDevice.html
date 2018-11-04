@@ -183,6 +183,8 @@
         var getData = function () {
             var modelArray = [];
 
+            debugger;
+
             //单个模块的信息收集
             var model = {};
 
@@ -191,6 +193,7 @@
                 var pair = formDataArray[i];
                 model[pair["name"]] = pair["value"];
             }
+            delete model.count;
 
             model["modelLoopList"] = modelLoopArray;
 
