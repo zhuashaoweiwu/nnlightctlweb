@@ -38,7 +38,7 @@
 .dislpayArrow a:hover{ text-decoration:none; background-position:right 0}
 .dislpayArrow a.open:hover{background-position:right -61px}
 .Hui-aside{}/*侧边栏*/
-.Hui-aside .menu_dropdown dt{/*color:#333*/ color:#fff; line-height: 50px;}/*左侧二级导航菜单*/
+.Hui-aside .menu_dropdown dt{/*color:#333*/ color:#fff}/*左侧二级导航菜单*/
 .Hui-aside .menu_dropdown dt{/*color:#333*/ color:#fff}/*左侧二级导航菜单*/
 .Hui-aside .menu_dropdown dt:hover{color:#148cf1}
 .Hui-aside .menu_dropdown dt:hover [class^="icon-"]{ color:#7e8795}

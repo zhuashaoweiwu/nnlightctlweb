@@ -9162,3 +9162,11 @@ function($) {
 $(function() {
 	$('.switch')['bootstrapSwitch']();
 });
+// 时间格式转换
+function timestamp() {
+    var now = new Date(data.body.data[i].realtimeDate)
+    y = now.getFullYear(),
+        m = ("0" + (now.getMonth() + 1)).slice(-2),
+        d = ("0" + now.getDate()).slice(-2);
+    var timestamp = y + "-" + m + "-" + d + " " + now.toTimeString().substr(0, 8)
+}
