@@ -88,7 +88,7 @@
 		        anchor: BMAP_ANCHOR_TOP_RIGHT
 		    }
 	    );
-            var point = new BMap.Point(121.058537, 31.082668);
+            var point = new BMap.Point(116.306681, 39.830931);
             var marker = new BMap.Marker(point);  // 创建标注
             map.addOverlay(marker);              // 将标注添加到地图中
             //marker.setAnimation(BMAP_ANIMATION_BOUNCE); //跳动的动画
@@ -98,8 +98,7 @@
             var opts = {
                 width: 250,     // 信息窗口宽度
                 height: 80,     // 信息窗口高度
-                title: "<span style='font-size:16px;color:#0a79d8;font-weight: bold'>生产基地</span>", // 信息窗口标题
-                enableMessage: true,//设置允许信息窗发送短息
+                title: "<span style='font-size:16px;color:#0a79d8;font-weight: bold'>灯光调节</span>", // 信息窗口标题
                 message: "上海市青浦区朱枫公路1355号<br />（近沈砖路） +鉴赏热线：13311601955"
             }
             var infoWindow = new BMap.InfoWindow("<p style='font-size:14px;line-height:140%'>上海市青浦区朱枫公路1355号<br />（近沈砖路） <br />++鉴赏热线：13311601955</p>", opts);  // 创建信息窗口对象

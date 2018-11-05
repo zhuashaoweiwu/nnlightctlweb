@@ -27,7 +27,7 @@
                         <a class="btn btn-primary radius mr-10" data-title="添加灯具" onclick="addLamps('添加灯具', 'addLamps.html', '800', '550')" href="javascript:void(0);"><i class="Hui-iconfont">&#xe600;</i>添加灯具</a>
                         <a class="btn btn-primary radius" data-title="批量添加灯具" onclick="addLampsMore('批量添加灯具', 'addLampsMore.html', '1050', '550')" href="javascript:void(0);"><i class="Hui-iconfont">&#xe600;</i>批量添加灯具</a>
                     </h4>-->
-                    <div>
+                    <div style="height:340px;overflow-y:scroll;">
                         <table id="selectableTable" class="table table-border table-bordered table-bg table-hover">
                             <thead>
                             <tr class="text-c">
@@ -64,7 +64,7 @@
                 <a href="javascript:void(0);" onclick="project_del_more()" class="btn btn-danger radius"><i class="Hui-iconfont">&#xe6e2;</i> 批量删除</a>-->
                 </td>
 
-                <td style="height:400px;width:48%;overflow-y:scroll;border:1px solid #ddd;" valign="top">
+                <td style="border:1px solid #ddd;" valign="top">
                     <h4 class="f-18 tit"><span class="Hui-iconfont">&#xe667;</span><span class="pl-10">已添加（<span
                             class="f-18 c-orange">备注：点击当前列，移除</span>）</span></h4>
                     <h4 class="f-20">
@@ -81,32 +81,32 @@
                                 </select>
                             </span>
                     </h4>
-                    <div>
+                    <div style="height:340px;overflow-y:scroll;">
                         <table id="selectedTable" class="table table-border table-bordered table-bg table-hover">
                             <thead>
-                            <tr class="text-c">
-                                <th>灯具编码</th>
-                                <th>灯头</th>
-                                <th>灯杆</th>
-                                <th>资产编号</th>
-                                <th>区域</th>
-                                <th>回路序号</th>
-                            </tr>
+                                <tr class="text-c">
+                                    <th>灯具编码</th>
+                                    <th>灯头</th>
+                                    <th>灯杆</th>
+                                    <th>资产编号</th>
+                                    <th>区域</th>
+                                    <th>回路序号</th>
+                                </tr>
                             </thead>
                             <tbody id="tb2">
-                            <!--<tr ref="2">
-                                <td class="text-c">L0002</td>
-                                <td class="text-c">L00012H0180917</td>
-                                <td class="text-c">L00012P0180917</td>
-                                <td class="text-c">L00012P0180917</td>
-                                <td class="text-c">三亚-海东区-精英路</td>
-                                <td>
-                                    <select>
-                                        <option value="1">1</option>
-                                        <option value="2">2</option>
-                                    </select>
-                                </td>
-                            </tr>-->
+                                <!--<tr ref="2">
+                    <td class="text-c">L0002</td>
+                    <td class="text-c">L00012H0180917</td>
+                    <td class="text-c">L00012P0180917</td>
+                    <td class="text-c">L00012P0180917</td>
+                    <td class="text-c">三亚-海东区-精英路</td>
+                    <td>
+                        <select>
+                            <option value="1">1</option>
+                            <option value="2">2</option>
+                        </select>
+                    </td>
+                </tr>-->
                             </tbody>
                         </table>
                     </div>
@@ -116,7 +116,7 @@
         </table>
     </div>
 
-    <div class="row cl">
+    <div class="row cl mt-20">
         <div class="col-xs-8 col-sm-9 col-xs-offset-4 col-sm-offset-3">
             <input id="btnSubmit" class="btn btn-primary radius" type="button" value="&nbsp;&nbsp;提交&nbsp;&nbsp;">
         </div>
