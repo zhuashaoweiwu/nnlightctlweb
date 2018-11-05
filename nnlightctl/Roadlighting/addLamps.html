@@ -32,6 +32,12 @@
                 </div>
             </div>
             <div class="row cl">
+                <label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>UUid：</label>
+                <div class="formControls col-xs-8 col-sm-9">
+                    <input type="text" class="input-text" value="" placeholder="UUid" id="lightingUid" name="lightingUid">
+                </div>
+            </div>
+            <div class="row cl">
                 <label class="form-label col-xs-4 col-sm-3">生产日期：</label>
                 <div class="formControls col-xs-8 col-sm-9" style="width:200px;">
                     <input type="text" class="input-text Wdate" onfocus="WdatePicker({ maxDate:'#F{$dp.$D(\'manufacture\')||\'%y-%M-%d\'}' })" value="" placeholder="灯具生产日期" id="manufacture" name="manufacture">
@@ -176,6 +182,7 @@
                     }
                     param["manufacture"] = str2Date($("#manufacture").val().trim());
                     param["useDate"] = str2Date($("#useDate").val().trim());
+                    param["uid"] = $("#lightingUid").val().trim();
                     param["id"] = editModel(window.location.href);
                     debugger;
                     ajaxRequest("post", "/api/roadlighting/addOrUpdateLighting", param, function (data) {
@@ -251,12 +258,15 @@
                 ajaxRequest("post", "/api/roadlighting/getLighting", {"id" : id}, function (data) {
                     debugger;
                     if (data) {
+                        console.log();
                         if (data.header.code == 1000) {
+                            console.log(data);
                             var light = data.body.data[0];
                             //隐藏uuid
                             $("#uuidDiv").hide();
                             //刷新表单
                             $("#lightingCode").val(light.lightingCode);
+                            $("#lightingUid").val(light.uid);
                             $("#manufacture").val(formatDate(light.manufacture));
                             $("#useDate").val(formatDate(light.useDate));
                             $("#lamphead").val(light.lamphead);
