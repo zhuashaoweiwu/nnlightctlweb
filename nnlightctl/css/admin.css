@@ -177,3 +177,8 @@
 .ucnav .ucsub li:hover{font-weight:bold;color:red;background:#f5f5f5;}
 .ucnav .ucsub li.selected a{color:red;}
 .ucnav .ucsub li.selected{font-weight:bold;background:#fbfbfb;}
+
+#mappage{display:none;}
+.linghtbox{width:700px;position:relative;}
+.linghtbox .imgbox{width:260px;height:260px;border:1px solid #dedede;}
+#powerange{position:absolute;right:100px;top:20px;height:240px;}
