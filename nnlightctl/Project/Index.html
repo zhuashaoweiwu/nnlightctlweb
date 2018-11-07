@@ -30,7 +30,7 @@
                 <p class="pronum">12452222222224</p>
             </div>
         </div>
-        <h4 class="f-18 tit" style="margin-top:60px;"><span class="Hui-iconfont">&#xe667;</span><span class="pl-10">全球统计数据</span></h4>
+        <h4 class="f-18 tit" style="margin-top:40px;"><span class="Hui-iconfont">&#xe667;</span><span class="pl-10">全球统计数据</span></h4>
         <div class="projectview">
             <div class="pr1">
                 <span class="Hui-iconfont bigfont">&#xe643;</span><span class="pl-10 f-18">项目</span>
@@ -52,7 +52,6 @@
     <script type="text/javascript" src="../js/api/ajaxScript.js"></script>
     <script type="text/javascript">
         ajaxRequest("post", "/api/project/listproject", {}, function (data) {
-            debugger;
             if (data) {
                 if (data.header.code == 1000) {
                     var projectArray = data.body.data;
