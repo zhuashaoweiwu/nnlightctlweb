@@ -49,6 +49,7 @@
 
 <script language="javascript" type="text/javascript">
 
+    var markWrapArray = [];
     var map = null;
 
     function init() {
@@ -67,14 +68,37 @@
         document.body.appendChild(script);
     }
 
-    function addMarker(point, projectName) {
+    function addMarker(point, project) {
         var marker = new BMap.Marker(point);
         marker.addEventListener("click", function () {
             window.location.href = ("Lamp.html?id=" + project.id);
         });
-        var label = new BMap.Label(projectName,{offset:new BMap.Size(20,-10)});
+
+        var label = new BMap.Label(project.projectName,{offset:new BMap.Size(20,-10)});
         marker.setLabel(label);
+
+        var myIcon = new BMap.Icon('../bg/project.png', new BMap.Size(60,60));
+        marker.setIcon(myIcon);
+
         map.addOverlay(marker);
+
+        //添加marker到集合中
+        var markerWrap = {
+            "id" : project.id,
+            "marker" : marker
+        };
+        markWrapArray.push(markerWrap);
+    }
+
+    function getMarkWrap(projectId) {
+        for (var i = 0; i < markWrapArray.length; ++i) {
+            var markerWrap = markWrapArray[i];
+            if (markerWrap.id == projectId) {
+                return markerWrap;
+            }
+        }
+
+        return null;
     }
 
     function flushProject() {
@@ -94,19 +118,18 @@
                         //地图标识
                         if (project.longitude && project.latitude) {    //存在经纬度信息
                             var point = new BMap.Point(project.longitude, project.latitude);
-                            addMarker(point, project.projectName);
+                            addMarker(point, project);
                             if (i == 0) {
                                 map.centerAndZoom(point, 15);
                             }
                         } else {    //不存在经纬度信息，则获取所在城市经纬度信息
-
                             ajaxRequest("post", "/api/project/getCityById", {"id" : project.cityId}, function (data) {
                                 if (data) {
                                     if (data.header.code == 1000) {
                                         var city = data.body.data[0];
 
                                         var point = new BMap.Point(city.longitude, city.latitude);
-                                        addMarker(point, project.projectName);
+                                        addMarker(point, project);
                                     }
                                 }
                             });
@@ -125,6 +148,16 @@
         var Vh = document.documentElement.clientHeight - 80;
         $("#map").height(Vh);
         $("#map").width(Vw);
+
+        //项目列表选择事件
+        $("#projectName").change(function () {
+            var projectId = $(this).val();
+            var markerWrap = getMarkWrap(projectId);
+            var marker = markerWrap.marker;
+            if (map) {
+                map.centerAndZoom(marker.getPosition(), 15);
+            }
+        });
 
         loadJScript();
     });
