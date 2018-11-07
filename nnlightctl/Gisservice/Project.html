@@ -99,6 +99,7 @@
                                 map.centerAndZoom(point, 15);
                             }
                         } else {    //不存在经纬度信息，则获取所在城市经纬度信息
+
                             ajaxRequest("post", "/api/project/getCityById", {"id" : project.cityId}, function (data) {
                                 if (data) {
                                     if (data.header.code == 1000) {
