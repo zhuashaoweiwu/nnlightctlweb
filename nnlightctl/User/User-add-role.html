@@ -104,39 +104,64 @@
         $(function () {
 
             function doGetLevel0Node(levelArea) {
-                // console.log(levelArea);
                 var o = {};
-
                 o["text"] = levelArea.name;
                 o["id"] = levelArea.id;
                 o["state"] =  {};
-                console.log(o);
-                // o["checkedIcon"]='glyphicon glyphicon-check'
-                // console.log(checkedIcon);
 
                 var subMenuViewList = levelArea.subMenuViewList;
                 if (subMenuViewList && subMenuViewList.length > 0) {
                     var subNodeArray = [];
-
                     for (var i = 0; i < subMenuViewList.length; ++i) {
                         subNodeArray.push(doGetLevel0Node(subMenuViewList[i]));
                     }
-
-                    o["nodes"] = subNodeArray;
+                    /*var array=selectMenu();*/
+                    //console.log(array);
+                   /* for(i=0; i<array.length; i++){
+                        array.push(getChildNodeIdArr1(data.body.data[i]));
+                    }*/
+                   o["nodes"] = subNodeArray;
                 }
+                // if(array.id == levelArea.id){
+                //     o["state"] =  {"checked":true};
+                // }
+
 
                 return o;
             }
 
             function getTree(levelAreaArray) {
                 var tree = [];
+
                 for (var i = 0; i < levelAreaArray.length; ++i) {
                     tree.push(doGetLevel0Node(levelAreaArray[i]));
                 }
-
+                var array=selectMenu();
+                console.log(tree);
+                // tree[0].state={"checked":true};
+                // tree[1].state={"checked":true};
+                // tree[1].nodes[0].state={"checked":true};
                 return tree;
-            }
 
+            }
+            function getChildNodeIdArr2(node) {
+                var ts = [];
+                if (node.nodes) {
+                    for (x in node) {
+                        ts.push(node[x].nodeId);
+                        if (node[x].nodes) {
+                            var getNodeDieDai = getChildNodeIdArr2(node[x]);
+                            for (j in getNodeDieDai) {
+                                ts.push(getNodeDieDai[j]);
+                            }
+                        }
+                    }
+                } else {
+                    ts.push(node.nodeId);
+                }
+                console.log(ts);
+                return ts;
+            }
             //请求层级区域信息
             function getLevelArea() {
                 ajaxRequest("post", "/api/login/getStaticMenu", {}, function (data) {
@@ -153,20 +178,20 @@
                                 checkboxes: true,
                                 checkedIcon:"glyphicon glyphicon-check",
                                 showCheckbox:true,
-                                // onNodeChecked: function(event, node) { //选中节点
-                                //     var selectNodes = getChildNodeIdArr(node); //获取所有子节点
-                                //     if (selectNodes) { //子节点不为空，则选中所有子节点
-                                //         $('#tree').treeview('checkNode', [selectNodes, { silent: true }]);
-                                //     }
-                                //     var parentNode = $("#tree").treeview("getNode", node.parentId);
-                                //     setParentNodeCheck(node);
-                                // },
-                                // onNodeUnchecked: function(event, node) { //取消选中节点
-                                //     var selectNodes = getChildNodeIdArr(node); //获取所有子节点
-                                //     if (selectNodes) { //子节点不为空，则取消选中所有子节点
-                                //         $('#tree').treeview('uncheckNode', [selectNodes, { silent: true }]);
-                                //     }
-                                // }
+                                onNodeChecked: function(event, node) { //选中节点
+                                    var selectNodes = getChildNodeIdArr(node); //获取所有子节点
+                                    if (selectNodes) { //子节点不为空，则选中所有子节点
+                                        $('#tree').treeview('checkNode', [selectNodes, { silent: true }]);
+                                    }
+                                    var parentNode = $("#tree").treeview("getNode", node.parentId);
+                                    setParentNodeCheck(node);
+                                },
+                                onNodeUnchecked: function(event, node) { //取消选中节点
+                                    var selectNodes = getChildNodeIdArr(node); //获取所有子节点
+                                    if (selectNodes) { //子节点不为空，则取消选中所有子节点
+                                        $('#tree').treeview('uncheckNode', [selectNodes, { silent: true }]);
+                                    }
+                                }
                             });
                         } else {
                             layer.msg(data.header.msg, {icon: 2, time: 3000});
@@ -185,54 +210,93 @@
                 for (var i = 0; i < selectNodes.length; ++i) {
                     var node = selectNodes[i];
                     return node.id;
-
                 }
             }
             return null;
         };
-        // $("#admin-role-save").click(function () {
-        //     $('#tree_ul_id').treeview('getChecked');
-        // })
-
-        // function getChildNodeIdArr(node) {
-        //     var ts = [];
-        //     if (node.nodes) {
-        //         for (x in node.nodes) {
-        //             ts.push(node.nodes[x].nodeId);
-        //             if (node.nodes[x].nodes) {
-        //                 var getNodeDieDai = getChildNodeIdArr(node.nodes[x]);
-        //                 for (j in getNodeDieDai) {
-        //                     ts.push(getNodeDieDai[j]);
-        //                 }
-        //             }
-        //         }
-        //     } else {
-        //         ts.push(node.nodeId);
-        //     }
-        //     return ts;
-        // }
-        //
-        // function setParentNodeCheck(node) {
-        //     var parentNode = $("#tree").treeview("getNode", node.parentId);
-        //     if (parentNode.nodes) {
-        //         var checkedCount = 0;
-        //         for (x in parentNode.nodes) {
-        //             if (parentNode.nodes[x].state.checked) {
-        //                 checkedCount ++;
-        //             } else {
-        //                 break;
-        //             }
-        //         }
-        //         if (checkedCount === parentNode.nodes.length) {
-        //             $("#tree").treeview("checkNode", parentNode.nodeId);
-        //             setParentNodeCheck(parentNode);
-        //             // console.log(setParentNodeCheck);
-        //         }
-        //     }
-        //
-        // }
 
 
+        function getChildNodeIdArr(node) {
+            var ts = [];
+            if (node.nodes) {
+                for (x in node.nodes) {
+                    ts.push(node.nodes[x].nodeId);
+                    if (node.nodes[x].nodes) {
+                        var getNodeDieDai = getChildNodeIdArr(node.nodes[x]);
+                        for (j in getNodeDieDai) {
+                            ts.push(getNodeDieDai[j]);
+                        }
+                    }
+                }
+            } else {
+                ts.push(node.nodeId);
+            }
+            return ts;
+        }
+
+        function setParentNodeCheck(node) {
+            var parentNode = $("#tree").treeview("getNode", node.parentId);
+            if (parentNode.nodes) {
+                var checkedCount = 0;
+                for(var i = 0 ; i < parentNode.nodes.length ; i++){
+                    if(parentNode.nodes[i].state.checked){
+                        $('#tree').treeview('checkNode', [ parentNode.nodes[i].parentId, { silent: true } ]);
+                        break;
+                    }
+                }
+            }
+            $('#tree_ul_id').treeview('getChecked')
+        }
+        //通过用户id获取用户权限菜单
+        function selectMenu(){
+            var tree = [];
+            var id = editModel(window.location.href);
+            ajaxRequest("post", "/api/login/getMenuById", {"id":id}, function (data) {
+                if(data.body.data){
+                     for(var i = 0 ; i< data.body.data.length ; i++){
+                         tree.push(getChildNodeIdArr1(data.body.data[i]));
+                     }
+                }
+
+            })
+            return tree;
+        }
+
+        function getChildNodeIdArr1(node) {
+            var ts = [];
+            if (node.subMenuViewList.length > 0) {
+                ts.push(node.id);
+                for (var i = 0 ; i < node.subMenuViewList.length ; i++){
+                    ts.push(node.subMenuViewList[i].id);
+                    if (node.subMenuViewList[i].subMenuViewList.length > 0) {
+                        var getNodeDieDai = getChildNodeIdArr1(node.subMenuViewList[i]);
+                        for (var j = 0 ; j < getNodeDieDai.length ; j++){
+                            ts.push(getNodeDieDai[j]);
+                        }
+                    }
+                }
+            } else {
+                ts.push(node.id);
+            }
+            return ts;
+        }
+        // 保存用户信息
+        $("#admin-role-save").click(function () {
+
+            ajaxRequest("post", "/api/menu/saveUserMapRighters", {}, function (data) {
+                if (data) {
+                    if (data.header.code == 1000) {
+                        var role = data.body.data[0];
+                        //刷新表单
+                        $('#tree').treeview('getChecked');
+                    } else {
+                        layer.msg(data.header.msg, {icon : 2});
+                    }
+                }
+                // $('#tree_ul_id').treeview('getChecked');
+            })
+
+        })
 
     </script>
     <!--/请在上方写此页面业务相关的脚本-->
