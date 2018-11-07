@@ -67,6 +67,16 @@
         document.body.appendChild(script);
     }
 
+    function addMarker(point, projectName) {
+        var marker = new BMap.Marker(point);
+        marker.addEventListener("click", function () {
+            window.location.href = ("Lamp.html?id=" + project.id);
+        });
+        var label = new BMap.Label(projectName,{offset:new BMap.Size(20,-10)});
+        marker.setLabel(label);
+        map.addOverlay(marker);
+    }
+
     function flushProject() {
         ajaxRequest("post", "/api/project/listproject", {}, function (data) {
             if (data) {
@@ -84,17 +94,21 @@
                         //地图标识
                         if (project.longitude && project.latitude) {    //存在经纬度信息
                             var point = new BMap.Point(project.longitude, project.latitude);
-                            var marker = new BMap.Marker(point);
-                            marker.addEventListener("click", function () {
-                                window.location.href = ("Lamp.html?id=" + project.id);
-                            });
-                            var label = new BMap.Label(project.projectName,{offset:new BMap.Size(20,-10)});
-                            marker.setLabel(label);
-                            map.addOverlay(marker);
-
+                            addMarker(point, project.projectName);
                             if (i == 0) {
                                 map.centerAndZoom(point, 15);
                             }
+                        } else {    //不存在经纬度信息，则获取所在城市经纬度信息
+                            ajaxRequest("post", "/api/project/getCityById", {"id" : project.cityId}, function (data) {
+                                if (data) {
+                                    if (data.header.code == 1000) {
+                                        var city = data.body.data[0];
+
+                                        var point = new BMap.Point(city.longitude, city.latitude);
+                                        addMarker(point, project.projectName);
+                                    }
+                                }
+                            });
                         }
                     }
                 } else {
