@@ -16,17 +16,17 @@
 </head>
 <body>
     <nav class="breadcrumb"><i class="Hui-iconfont">&#xe67f;</i> 首页 <span class="c-gray en">&gt;</span> 用户管理 <span class="c-gray en">&gt;</span>项目归属<a class="btn btn-success radius r" style="line-height:1.6em;margin-top:3px" href="javascript:location.replace(location.href);" title="刷新"><i class="Hui-iconfont">&#xe68f;</i></a></nav>
-    <div class="pd-20">
-        <div class="text-l">
-            机构名称：
-            <span class="select-box inline">
-                <select name="" class="select" id="institutionSelect">
-                    <option value="0">选择机构</option>
-                </select>
-            </span>
-        </div>
-        <div class="mt-20">
-                <table border="0">
+    <div class="page-container">
+            <div class="text-l">
+                机构名称：
+                <span class="select-box inline">
+                    <select name="" class="select" id="institutionSelect">
+                        <option value="0">选择机构</option>
+                    </select>
+                </span>
+            </div>
+            <div class="mt-20">
+                <table border="0" style="width:98%">
                     <tr>
                         <td style="height:400px;width:48%;overflow-y:scroll;border:1px solid #ddd;" valign="top">
                             <h4 class="f-18 tit"><span class="Hui-iconfont">&#xe667;</span><span class="pl-10">已归属项目（<span class="f-16 c-orange">备注：点击当前列，移除</span>）</span></h4>
@@ -52,7 +52,7 @@
                                         <td>中国.三亚</td>
                                         <td class="td-status"><span class="label radius">否</span></td>
                                     </tr>
-                                    
+
                                 </tbody>
                             </table>
                         </td>
@@ -73,174 +73,173 @@
                                         <th>状态</th>
                                     </tr>
                                 </thead>
-                                <tbody id="tb2">
-                                    
-                                </tbody>
+                                <tbody id="tb2"></tbody>
                             </table>
                         </td>
 
                     </tr>
                 </table>
-       </div>
-    </div>
-    <!--<input type="text" value="&1&2" name="tb1_val" id="tb1_val" />
-    <input type="text" value="" name="tb2_val" id="tb2_val" />-->
-    <div class="row cl">
-        <div class="col-xs-8 col-sm-9" style="margin-left: 15px;">
-            <input class="btn btn-primary radius" id="saveBtn" type="submit" value="&nbsp;&nbsp;保存&nbsp;&nbsp;">
+            </div>
+        <div class="row cl">
+            <div class="col-xs-8 col-sm-9 text-c mt-30">
+                <input class="btn btn-primary radius" id="saveBtn" type="submit" value="&nbsp;&nbsp;保存&nbsp;&nbsp;">
+            </div>
         </div>
-    </div>
-    <script type="text/javascript" src="../js/jquery.min.js"></script>
-    <script type="text/javascript" src="../lib/layer/2.4/layer.js"></script>
-    <script type="text/javascript" src="../js/api/requestRoot.js"></script>
-    <script type="text/javascript" src="../js/api/ajaxScript.js"></script>
-    <script type="text/javascript">
+     </div>
+        <!--<input type="text" value="&1&2" name="tb1_val" id="tb1_val" />
+        <input type="text" value="" name="tb2_val" id="tb2_val" />-->
+        
+        <script type="text/javascript" src="../js/jquery.min.js"></script>
+        <script type="text/javascript" src="../lib/layer/2.4/layer.js"></script>
+        <script type="text/javascript" src="../js/api/requestRoot.js"></script>
+        <script type="text/javascript" src="../js/api/ajaxScript.js"></script>
+        <script type="text/javascript">
 
-        var oldProjectArray = [];
-       
-        $("#tb1").delegate('.text-c', 'click', function () {
-            var _this = $(this);
-            _this.remove();
-            var currentId = _this.attr("ref");//这里的Id 是可以后台交互
-            var StrHtml = "<tr class='text-c' ref='" + currentId + "'>" + _this.html() + "</tr>";
-            $("#tb2").append(StrHtml);
-            //后面动态修改归属项目Id值
-            // var Crrtb1_val = $("#tb1_val").val(); var Crrtb2_val = $("#tb2_val").val();
-            // $("#tb1_val").val(Crrtb1_val.replace("&" + currentId, '')); $("#tb2_val").val(Crrtb2_val + "&" + currentId);
+            var oldProjectArray = [];
 
-        });
-        $("#tb2").delegate('.text-c', 'click', function () {
-            var _this = $(this);
-            _this.remove();
-            var currentId = _this.attr("ref");
-            var StrHtml = "<tr class='text-c' ref='" + currentId + "'>" + _this.html() + "</tr>";;
-            $("#tb1").append(StrHtml);
-            //后面动态修改归属项目Id值
-            // var Crrtb1_val = $("#tb1_val").val(); var Crrtb2_val = $("#tb2_val").val();
-            // $("#tb2_val").val(Crrtb2_val.replace("&" + currentId, '')); $("#tb1_val").val(Crrtb1_val + "&" + currentId);
-        });
+            $("#tb1").delegate('.text-c', 'click', function () {
+                var _this = $(this);
+                _this.remove();
+                var currentId = _this.attr("ref");//这里的Id 是可以后台交互
+                var StrHtml = "<tr class='text-c' ref='" + currentId + "'>" + _this.html() + "</tr>";
+                $("#tb2").append(StrHtml);
+                //后面动态修改归属项目Id值
+                // var Crrtb1_val = $("#tb1_val").val(); var Crrtb2_val = $("#tb2_val").val();
+                // $("#tb1_val").val(Crrtb1_val.replace("&" + currentId, '')); $("#tb2_val").val(Crrtb2_val + "&" + currentId);
 
-        /*刷新机构下拉列表*/
-        function flushInstitution() {
-            ajaxRequest("post", "/api/institution/listInsitution", {}, function (data) {
-                if (data) {
-                    if (data.header.code == 1000) {
-                        var institutionArray = data.body.data;
-
-                        var $insitutionSelect = $("#institutionSelect");
-
-                        for (var i = 0; i < institutionArray.length; ++i) {
-                            var institution = institutionArray[i];
-
-                            $('<option value="'+institution.id+'">'+institution.institutionName+'</option>').appendTo($insitutionSelect);
-                        }
-                    } else {
-                        layer.msg(data.header.msg, {icon : 2, time : 3000});
-                    }
-                }
             });
-        }
+            $("#tb2").delegate('.text-c', 'click', function () {
+                var _this = $(this);
+                _this.remove();
+                var currentId = _this.attr("ref");
+                var StrHtml = "<tr class='text-c' ref='" + currentId + "'>" + _this.html() + "</tr>";;
+                $("#tb1").append(StrHtml);
+                //后面动态修改归属项目Id值
+                // var Crrtb1_val = $("#tb1_val").val(); var Crrtb2_val = $("#tb2_val").val();
+                // $("#tb2_val").val(Crrtb2_val.replace("&" + currentId, '')); $("#tb1_val").val(Crrtb1_val + "&" + currentId);
+            });
 
-        /*根据机构id刷新机构下项目列表*/
-        function flushInstitutionProjects(institutionId) {
-            if (!institutionId) {
-                return;
+            /*刷新机构下拉列表*/
+            function flushInstitution() {
+                ajaxRequest("post", "/api/institution/listInsitution", {}, function (data) {
+                    if (data) {
+                        if (data.header.code == 1000) {
+                            var institutionArray = data.body.data;
+
+                            var $insitutionSelect = $("#institutionSelect");
+
+                            for (var i = 0; i < institutionArray.length; ++i) {
+                                var institution = institutionArray[i];
+
+                                $('<option value="' + institution.id + '">' + institution.institutionName + '</option>').appendTo($insitutionSelect);
+                            }
+                        } else {
+                            layer.msg(data.header.msg, { icon: 2, time: 3000 });
+                        }
+                    }
+                });
             }
-            ajaxRequest("post", "/api/institution/getProjectsByInstitutionId", {"institutionId" : institutionId}, function (data) {
-                if (data) {
-                    if (data.header.code == 1000) {
-                        var projectArray = data.body.data;
 
-                        var $tbody = $("#tb1");
-                        $tbody.empty();
+            /*根据机构id刷新机构下项目列表*/
+            function flushInstitutionProjects(institutionId) {
+                if (!institutionId) {
+                    return;
+                }
+                ajaxRequest("post", "/api/institution/getProjectsByInstitutionId", { "institutionId": institutionId }, function (data) {
+                    if (data) {
+                        if (data.header.code == 1000) {
+                            var projectArray = data.body.data;
 
-                        oldProjectArray.length = 0;
+                            var $tbody = $("#tb1");
+                            $tbody.empty();
 
-                        for (var i = 0; i < projectArray.length; ++i) {
-                            var project = projectArray[i];
+                            oldProjectArray.length = 0;
 
-                            //保存old项目id
-                            oldProjectArray[i] = project.id;
+                            for (var i = 0; i < projectArray.length; ++i) {
+                                var project = projectArray[i];
 
-                            $('<tr class="text-c" ref="'+project.id+'">\n' +
-                                '<td>'+project.codeNumber+'</td>\n' +
-                                '<td>'+project.projectName+'</td>\n' +
-                                '<td>'+project.mem+'</td>\n' +
-                                '<td class="td-status"><span class="label label-success radius">'+PROJECT_STATE[project.state]+'</span></td>\n' +
-                                '</tr>').appendTo($tbody);
+                                //保存old项目id
+                                oldProjectArray[i] = project.id;
+
+                                $('<tr class="text-c" ref="' + project.id + '">\n' +
+                                    '<td>' + project.codeNumber + '</td>\n' +
+                                    '<td>' + project.projectName + '</td>\n' +
+                                    '<td>' + project.mem + '</td>\n' +
+                                    '<td class="td-status"><span class="label label-success radius">' + PROJECT_STATE[project.state] + '</span></td>\n' +
+                                    '</tr>').appendTo($tbody);
+                            }
+
+                        } else {
+                            layer.msg(data.header.msg, { icon: 2, time: 3000 });
                         }
-
-                    } else {
-                        layer.msg(data.header.msg, {icon : 2, time : 3000});
                     }
-                }
-            });
-        }
+                });
+            }
 
-        /*刷新不属于任何机构的项目列表*/
-        function flushNotBeProject() {
-            ajaxRequest("post", "/api/institution/listNotBeProjects", {}, function (data) {
-                if (data) {
-                    if (data.header.code == 1000) {
-                        var projectArray = data.body.data;
+            /*刷新不属于任何机构的项目列表*/
+            function flushNotBeProject() {
+                ajaxRequest("post", "/api/institution/listNotBeProjects", {}, function (data) {
+                    if (data) {
+                        if (data.header.code == 1000) {
+                            var projectArray = data.body.data;
 
-                        var $tbody = $("#tb2");
-                        $tbody.empty();
+                            var $tbody = $("#tb2");
+                            $tbody.empty();
 
-                        for (var i = 0; i < projectArray.length; ++i) {
-                            var project = projectArray[i];
-                            $('<tr class="text-c" ref="'+project.id+'">\n' +
-                                '<td>'+project.codeNumber+'</td>\n' +
-                                '<td>'+project.projectName+'</td>\n' +
-                                '<td>'+project.mem+'</td>\n' +
-                                '<td class="td-status"><span class="label label-success radius">'+PROJECT_STATE[project.state]+'</span></td>\n' +
-                                '</tr>').appendTo($tbody);
+                            for (var i = 0; i < projectArray.length; ++i) {
+                                var project = projectArray[i];
+                                $('<tr class="text-c" ref="' + project.id + '">\n' +
+                                    '<td>' + project.codeNumber + '</td>\n' +
+                                    '<td>' + project.projectName + '</td>\n' +
+                                    '<td>' + project.mem + '</td>\n' +
+                                    '<td class="td-status"><span class="label label-success radius">' + PROJECT_STATE[project.state] + '</span></td>\n' +
+                                    '</tr>').appendTo($tbody);
+                            }
+                        } else {
+                            layer.msg(data.header.msg, { icon: 2, time: 3000 });
                         }
-                    } else {
-                        layer.msg(data.header.msg, {icon : 2, time : 3000});
                     }
-                }
-            });
-        }
+                });
+            }
 
-        flushInstitution();
+            flushInstitution();
 
-        //注册机构下拉列表选择事件
-        $("#institutionSelect").change(function () {
-            var insitutionId = $(this).val();
+            //注册机构下拉列表选择事件
+            $("#institutionSelect").change(function () {
+                var insitutionId = $(this).val();
 
-            flushInstitutionProjects(insitutionId);
-            flushNotBeProject();
-        });
-
-        //注册保存按扭事件
-        $("#saveBtn").click(function (event) {
-            var institutionId = $("#institutionSelect").val();
-            //收集当前机构下项目id集合
-            var newProjectArray = [];
-
-            var k = 0;
-            $("#tb1").find("tr").each(function (index, element) {
-                newProjectArray[k++] = $(element).attr("ref");
+                flushInstitutionProjects(insitutionId);
+                flushNotBeProject();
             });
 
-            var param = {};
-            param["institutionId"] = institutionId;
-            param["oldProjectIds"] = oldProjectArray;
-            param["newProjectIds"] = newProjectArray;
+            //注册保存按扭事件
+            $("#saveBtn").click(function (event) {
+                var institutionId = $("#institutionSelect").val();
+                //收集当前机构下项目id集合
+                var newProjectArray = [];
 
-            ajaxRequest("post", "/api/institution/institutionMapProjects2", transArray(param), function (data) {
-                if (data) {
-                    if (data.header.code == 1000) {
-                        layer.msg("保存机构映射项目成功！", {icon : 1, time : 3000})
-                    } else {
-                        layer.msg(data.header.msg, {icon : 2, time : 3000});
+                var k = 0;
+                $("#tb1").find("tr").each(function (index, element) {
+                    newProjectArray[k++] = $(element).attr("ref");
+                });
+
+                var param = {};
+                param["institutionId"] = institutionId;
+                param["oldProjectIds"] = oldProjectArray;
+                param["newProjectIds"] = newProjectArray;
+
+                ajaxRequest("post", "/api/institution/institutionMapProjects2", transArray(param), function (data) {
+                    if (data) {
+                        if (data.header.code == 1000) {
+                            layer.msg("保存机构映射项目成功！", { icon: 1, time: 3000 })
+                        } else {
+                            layer.msg(data.header.msg, { icon: 2, time: 3000 });
+                        }
                     }
-                }
+                });
             });
-        });
 
-    </script> 
+        </script>
 
 </body>
 </html>
