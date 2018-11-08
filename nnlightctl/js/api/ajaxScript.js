@@ -57,6 +57,7 @@ function str2Date(dateStr) {
     return new Date(dateStr.replace(/-/g,"/"));
 }
 
+
 //数组转换成后台可识别模式
 function transArray(data) {
     var dataType = typeof data;
