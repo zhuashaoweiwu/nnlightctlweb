@@ -63,7 +63,8 @@
         });
         //新建灯具分组
         function addLampsGroup(title, url, w, h) {
-            layer_show(title, url, w, h);
+            var id = editModel(window.location.href);
+            layer_show(title, url+"?id="+id, w, h);
         }
         //编辑灯具分组
         function editLampsGroup(title, url, id, w, h) {

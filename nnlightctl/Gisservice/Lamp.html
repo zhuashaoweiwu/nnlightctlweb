@@ -161,7 +161,8 @@
 
         //灯具分组
         function LampsGroup(title, url, w, h) {
-            layer_show(title, url, w, h);
+            var id = editModel(window.location.href);
+            layer_show(title, url+"?id="+id, w, h);
         }
         //任务开关
         function TaskSwitch(title, url, w, h) {

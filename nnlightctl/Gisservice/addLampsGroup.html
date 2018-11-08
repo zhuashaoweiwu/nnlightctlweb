@@ -30,14 +30,14 @@
 
         <div id="tab-system" class="HuiTab mt-30">
             <div class="tabBar cl">
-                <span>地图模式</span>
+                <!--<span>地图模式</span>-->
                 <span>控制柜模式</span>
                 <span>组组模式</span>
             </div>
             <!-- 控制柜面板 -->
-            <div class="tabCon mt-30">
-                <div id="map">这里绑定地图</div><!--地图end-->
-            </div>
+           <!-- <div class="tabCon mt-30">
+                <div id="map">这里绑定地图</div>&lt;!&ndash;地图end&ndash;&gt;
+            </div>-->
             <div class="tabCon mt-30">
                     <table border="0">
                         <tr>
@@ -54,7 +54,7 @@
                                         </tr>
                                     </thead>
                                     <tbody class="tb0_1">
-                                        <tr class="text-c" ref="1" data-id="0">
+                                       <!-- <tr class="text-c" ref="1" data-id="0">
                                             <td>01</td>
                                             <td>三亚项目</td>
                                             <td>三亚项目</td>
@@ -67,7 +67,7 @@
                                             <td>三亚项目</td>
                                             <td>121.232354</td>
                                             <td>31.1212112</td>
-                                        </tr>
+                                        </tr>-->
                                     </tbody>
                                 </table>
                             </td>
@@ -83,15 +83,18 @@
                                             <th>灯杆</th>
                                             <th>灯头号</th>
                                             <th>经度</th>
-                                            <th>纬度</th>
+                                            <th>纬度2</th>
                                         </tr>
                                     </thead>
-                                    <tbody class="tb0"></tbody>
+                                    <tbody class="tb0"  id="tb2"></tbody>
                                 </table>
                             </td>
 
                         </tr>
                     </table><!--控制柜模式end-->
+                <div class="col-xs-8 col-sm-9 col-xs-offset-4 col-sm-offset-4 mt-20">
+                    <input class="btn btn-primary radius" type="submit" id = "lightingGroupBtn" value="&nbsp;&nbsp;提交&nbsp;&nbsp;">
+                </div>
             </div>
             <div class="tabCon mt-30">
                 <table border="0">
@@ -133,6 +136,9 @@
 
                     </tr>
                 </table><!--组组模式end-->
+                <div class="col-xs-8 col-sm-9 col-xs-offset-4 col-sm-offset-4 mt-20">
+                    <input class="btn btn-primary radius" type="submit" value="&nbsp;&nbsp;提交&nbsp;&nbsp;">
+                </div>
             </div>
         </div><!--tab切换end -->
 
@@ -148,10 +154,58 @@
         <script type="text/javascript" src="../lib/layer/2.4/layer.js"></script><!--弹出插件-->
         <script type="text/javascript">
             $(function () {
+                getAllLightingByProjectId();
+                //getAllGroup();
+                function getAllLightingByProjectId() {
+                    var id = editModel(window.location.href);
+                    var projectId = parseInt(id);
+                    ajaxRequest("post", "/api/gis/listLighting",{"projectId":projectId},
+                        function (data) {
+                            if(data.body.data){
+                                for (var i = 0 ; i < data.body.data.length ; i++){
+                                    $(".tb0_1").append("<tr class='text-c' ref="+data.body.data[i].id+" data-id='0'>"+
+                                        "<td>"+data.body.data[i].id+"</td>"+
+                                        "<td>"+data.body.data[i].lamppost+"</td>"+
+                                        "<td>"+data.body.data[i].lamphead+"</td>"+
+                                        "<td>"+data.body.data[i].longitude+"</td>"+
+                                        "<td>"+data.body.data[i].latitude+"</td>"+
+                                        "</tr>");
+                                }
+                            }
+
+                        });
+                }
+                
+                function getAllGroup() {
+                    ajaxRequest("post", "/api/lightGroup/listLightGroup",{},
+                        function (data) {
+                            //console.log(data)
+                        })
+                }
+                
+                
                 //tab切换
 	            $("#tab-system").Huitab({
 	                index:0//默认第一个；
 	            });
+                $("#lightingGroupBtn").click(function(){
+                    alert("OXOXO");
+                    var lightIds = [];
+                    $("#tb2").find("tr").each(function (index, value) {
+                        lightIds.push(parseInt($(this).attr("ref")));
+                    });
+                    var groupName = $("#cityName").val();
+                    var mem = $("#mem").val();
+                    console.log(lightIds+mem)
+                    var param = {}
+                    param["cGroupName"] = groupName;
+                    param["men"] = mem;
+                    param["lightIds"] = lightIds;
+                    ajaxRequest("post", "/api/lightGroup/createLightGroupByLightIds",param,
+                        function (data) {//api/lightGroup/createLightGroupByLightIds
+                            console.log(data);
+                        })
+                });
             });
             $(".table tbody").delegate('.text-c', 'click', function () {
                 var _this = $(this);
@@ -162,7 +216,8 @@
                 var TabId = ".tb" + data_id;
                 var StrHtml = "<tr class='text-c' ref='" + currentId + "' data-id='" + data_id + "' id='" + data_id + "'>" + _this.html() + "</tr>";
                 if (Strid != undefined && Strid != "") {
-                    TabId = ".tb" + Strid + "_1"; StrHtml = "<tr class='text-c' ref='" + currentId + "' data-id='" + data_id + "'>" + _this.html() + "</tr>";
+                    TabId = ".tb" + Strid + "_1";
+                    StrHtml = "<tr class='text-c' ref='" + currentId + "' data-id='" + data_id + "'>" + _this.html() + "</tr>";
                 }
                 $(TabId).append(StrHtml);
             });
