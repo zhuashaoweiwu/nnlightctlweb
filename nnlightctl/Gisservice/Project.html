@@ -60,14 +60,6 @@
         flushProject();
     }
 
-    //百度地图API功能
-    function loadJScript() {
-        var script = document.createElement("script");
-        script.type = "text/javascript";
-        script.src = "http://api.map.baidu.com/api?v=2.0&ak=ow29ANFSyXM6nf6cYl14GdDI&callback=init";
-        document.body.appendChild(script);
-    }
-
     function addMarker(point, project) {
         var marker = new BMap.Marker(point);
         marker.addEventListener("click", function () {
