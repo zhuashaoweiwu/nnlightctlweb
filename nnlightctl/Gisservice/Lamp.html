@@ -157,7 +157,6 @@
     noUiSlider.create(slider, {
         start: 0,
         connect: true,
-        orientation: 'vertical',
         step: 1,
         direction: 'rtl',
         orientation: 'vertical',
@@ -211,7 +210,7 @@
         layer_show(title, url, w, h);
     }
 
-    var eleboxLineData = {};
+    var eleboxArray = null;
 
     var map = null;
 
@@ -220,64 +219,47 @@
         height: 600,     // 信息窗口高度
         title: "<span style='font-size:16px;color:#0a79d8;font-weight: bold'>灯光调节</span>", // 信息窗口标题
     }
-        //灯具分组
-        function LampsGroup(title, url, w, h) {
-            var id = editModel(window.location.href);
-            layer_show(title, url+"?id="+id, w, h);
-        }
-        //任务开关
-        function TaskSwitch(title, url, w, h) {
-            layer_show(title, url, w, h);
-        }
-        //场景
-        function Scene(title, url, w, h) {
-            layer_show(title, url, w, h);
-        }
-        //控制
-        function Control(title, url, w, h) {
-            layer_show(title, url, w, h);
-        }
-        //灯具
-        function Lights(title, url, w, h) {
-            layer_show(title, url, w, h);
-        }
-        //快捷键
-        function ShortcutKey(title, url, w, h) {
-            layer_show(title, url, w, h);
-        }
-        //警报信息
-        function AlertInfo(title, url, w, h) {
-            layer_show(title, url, w, h);
-        }
-        //获取当前屏幕宽度和高度
-        var Vw = document.body.clientWidth-40;
-        var Vh = document.documentElement.clientHeight - 80;
-        $("#map").height(Vh); $("#map").width(Vw);
-            // 百度地图API功能
-        var map = new BMap.Map("map");
-        var mapType1 = new BMap.MapTypeControl(
-		    {
-		        mapTypes: [BMAP_NORMAL_MAP, BMAP_HYBRID_MAP],
-		        anchor: BMAP_ANCHOR_TOP_RIGHT
-		    }
-	    );
-            var point = new BMap.Point(116.306681, 39.830931);
-            var marker = new BMap.Marker(point);  // 创建标注
-            map.addOverlay(marker);              // 将标注添加到地图中
-            //marker.setAnimation(BMAP_ANIMATION_BOUNCE); //跳动的动画
-            map.centerAndZoom(point, 15);
-            map.enableScrollWheelZoom(true);
-            map.addControl(mapType1);
-            var opts = {
-                width: 700,     // 信息窗口宽度
-                height: 600,     // 信息窗口高度
-                title: "<span style='font-size:16px;color:#0a79d8;font-weight: bold'>灯光调节</span>", // 信息窗口标题
-            }
+
+    //灯具分组
+    function LampsGroup(title, url, w, h) {
+        var id = editModel(window.location.href);
+        layer_show(title, url + "?id=" + id, w, h);
+    }
+
+    //任务开关
+    function TaskSwitch(title, url, w, h) {
+        layer_show(title, url, w, h);
+    }
+
+    //场景
+    function Scene(title, url, w, h) {
+        layer_show(title, url, w, h);
+    }
+
+    //控制
+    function Control(title, url, w, h) {
+        layer_show(title, url, w, h);
+    }
+
+    //灯具
+    function Lights(title, url, w, h) {
+        layer_show(title, url, w, h);
+    }
+
+    //快捷键
+    function ShortcutKey(title, url, w, h) {
+        layer_show(title, url, w, h);
+    }
+
+    //警报信息
+    function AlertInfo(title, url, w, h) {
+        layer_show(title, url, w, h);
+    }
 
     function addMarker(point, isLight) {
         var marker = new BMap.Marker(point);  // 创建标注
         if (isLight) {
-            var icon = new BMap.Icon('../bg/light.png', new BMap.Size(60,60));
+            var icon = new BMap.Icon('../bg/light.png', new BMap.Size(60, 60));
             marker.setIcon(icon);
             marker.addEventListener("click", function () {
                 var StrHtml = $("#mappage").html();
@@ -285,55 +267,115 @@
                 map.openInfoWindow(infoWindow, point); //开启信息窗口
             });
         } else {
-            var icon = new BMap.Icon('../bg/elebox.png', new BMap.Size(60,60));
+            var icon = new BMap.Icon('../bg/elebox.png', new BMap.Size(60, 60));
             marker.setIcon(icon);
         }
 
         map.addOverlay(marker);
     }
 
-    /*回路灯具集合按序号排序*/
-    function sortLight(lightArray, low, high) {
-        var keyIndex = parseInt((low + high) / 2);
+    /*根据序号查询灯具，可多返回*/
+    function searchLightByPriority(lightArray, priority) {
+        var searchLightArray = [];
+        for (var i = 0; i < lightArray.length; ++i) {
+            var light = lightArray[i];
+            if (light.loopPriority == priority) {
+                searchLightArray.push(light);
+            }
+        }
 
+        return searchLightArray;
+    }
+
+    /*回路灯具集合按序号排序*/
+    function sortLight(lightArray) {
+        var sortLightArray = [];
+
+        for (var i = 0; i < lightArray.length; ++i) {
+            var searchKey = i + 1;
+            sortLightArray.push(searchLightByPriority(lightArray, searchKey));
+        }
+
+        return sortLightArray;
+    }
+
+    function getEleboxFromArray(eleboxId) {
+        if (eleboxArray) {
+            for (var i = 0; i < eleboxArray.length; ++i) {
+                if (eleboxArray[i].id == eleboxId) {
+                    return eleboxArray[i];
+                }
+            }
+        }
+
+        return null;
     }
 
 
     /*根据回路id获取该回路下全部灯具*/
     function flushModelLoopLight(modelLoopId) {
-        ajaxRequest("post", "/api/roadlighting/getLoopLight", {"id" : modelLoopId}, function (data) {
-           if (data) {
-               if (data.header.code == 1000) {
-                   var lightArray = data.body.data;
+        ajaxRequest("post", "/api/roadlighting/getLoopLight", {"id": modelLoopId}, function (data) {
+            if (data) {
+                if (data.header.code == 1000) {
+                    var lightArray = data.body.data;
 
-                   for (var i = 0; i < lightArray.length; ++i) {
-                       var light = lightArray[i];
+                    for (var i = 0; i < lightArray.length; ++i) {
+                        var light = lightArray[i];
 
-                       addMarker(new BMap.Point(light.longitude, light.latitude), true);
-                   }
+                        addMarker(new BMap.Point(light.longitude, light.latitude), true);
+                    }
 
-                   //构造灯具连线数据
+                    //构造灯具连线数据
+                    var sortLightArray = sortLight(lightArray);
 
+                    var linePointArray = [];
+                    for (var i = 0; i < sortLightArray.length; ++i) {
+                        var light = sortLightArray[i];
+                        var point = new BMap.Point(light.longitude, light.latitude);
+                        linePointArray.push(point);
+                    }
 
-               }
-           }
+                    if (sortLightArray && sortLightArray.length > 0) {
+                        var eleboxId = sortLightArray[0][0]["nnlightctlEleboxId"];
+                        var elebox = getEleboxFromArray(eleboxId);
+                        if (elebox) {
+                            var startPoint = new BMap.Point(elebox.longitude, elebox.latitude);
+                            var bmapPointArray = [];
+                            bmapPointArray.push(startPoint);
+
+                            for (var i = 0; i < sortLightArray.length; ++i) {
+                                var lights = sortLightArray[i];
+                                for (var k = 0; k < lights.length; ++k) {
+                                    bmapPointArray.push(new BMap.Point(lights[k].longitude, lights[k].latitude));
+                                }
+                            }
+
+                            var polyline = new BMap.Polyline(bmapPointArray, {strokeColor:"blue", strokeWeight:2, strokeOpacity:0.5});
+                            if (map) {
+                                map.addOverlay(polyline);
+                            }
+                        }
+                    }
+
+                }
+            }
         });
     }
 
     /*根据模块id获取该模块下全部回路*/
     function flushEleboxModelLoop(eleboxModelId) {
-        ajaxRequest("post", "/api/roadlighting/listmodelloop", {"modelId" : eleboxModelId}, function (data) {
-           if (data) {
-               if (data.header.code == 1000) {
-                   var modelLoopArray = data.body.data;
+        ajaxRequest("post", "/api/roadlighting/listmodelloop", {"modelId": eleboxModelId}, function (data) {
+            if (data) {
+                if (data.header.code == 1000) {
+                    var modelLoopArray = data.body.data;
 
-                   for (var i = 0; i < modelLoopArray.length; ++i) {
-                       var modelLoop = modelLoopArray[i];
+                    for (var i = 0; i < modelLoopArray.length; ++i) {
+                        var modelLoop = modelLoopArray[i];
 
-                       flushModelLoopLight(modelLoop.id);
-                   }
-               }
-           }
+                        flushModelLoopLight(modelLoop.id);
+                    }
+                }
+            }
         });
     }
 
@@ -342,17 +384,17 @@
      * @param eleboxId
      */
     function flushEleboxModel(eleboxId) {
-        ajaxRequest("post", "/api/roadlighting/listmodel", {"eleboxId" : eleboxId}, function (data) {
-           if (data) {
-               if (data.header.code == 1000) {
-                   var eleboxModelArray = data.body.data;
+        ajaxRequest("post", "/api/roadlighting/listmodel", {"eleboxId": eleboxId}, function (data) {
+            if (data) {
+                if (data.header.code == 1000) {
+                    var eleboxModelArray = data.body.data;
 
-                   for (var i = 0; i < eleboxModelArray.length; ++i) {
-                       var eleboxModel = eleboxModelArray[i];
-                       flushEleboxModelLoop(eleboxModel.id);
-                   }
-               }
-           }
+                    for (var i = 0; i < eleboxModelArray.length; ++i) {
+                        var eleboxModel = eleboxModelArray[i];
+                        flushEleboxModelLoop(eleboxModel.id);
+                    }
+                }
+            }
         });
     }
 
@@ -362,10 +404,11 @@
     function flushElebox() {
         var projectId = editModel(window.location.href);
 
-        ajaxRequest("post", "/api/gis/listElebox", {"projectId" : projectId}, function (data) {
+        ajaxRequest("post", "/api/gis/listElebox", {"projectId": projectId}, function (data) {
             if (data) {
                 if (data.header.code == 1000) {
-                    var eleboxArray = data.body.data;
+
+                    eleboxArray = data.body.data;
 
                     for (var i = 0; i < eleboxArray.length; ++i) {
                         var point = new BMap.Point(eleboxArray[i].longitude, eleboxArray[i].latitude);
@@ -377,9 +420,6 @@
 
                         //获取控制柜中全部模块
                         flushEleboxModel(eleboxArray[i].id);
-
-                        //构造控制柜连线数据
-                        eleboxLineData[eleboxArray[i].id] = [];
                     }
                 }
             }
