@@ -4,161 +4,221 @@
     <meta charset="utf-8">
     <meta name="renderer" content="webkit|ie-comp|ie-stand">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no" />
-    <meta http-equiv="Cache-Control" content="no-siteapp" />
+    <meta name="viewport"
+          content="width=device-width,initial-scale=1,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no"/>
+    <meta http-equiv="Cache-Control" content="no-siteapp"/>
 
     <title>灯具地理信息</title>
-    <link rel="stylesheet" type="text/css" href="../css/common.css?v=1" />
-    <link rel="stylesheet" type="text/css" href="../css/admin.css" />
-    <link rel="stylesheet" type="text/css" href="../css/iconfont/iconfont.css" />
-    <link rel="stylesheet" type="text/css" href="../css/nouislider.css" /><!--滑动条-->
+    <link rel="stylesheet" type="text/css" href="../css/common.css?v=1"/>
+    <link rel="stylesheet" type="text/css" href="../css/admin.css"/>
+    <link rel="stylesheet" type="text/css" href="../css/iconfont/iconfont.css"/>
+    <link rel="stylesheet" type="text/css" href="../css/nouislider.css"/><!--滑动条-->
     <script type="text/javascript" src="../js/jquery.min.js"></script>
 </head>
 <body>
-    <nav class="breadcrumb">
-        <i class="Hui-iconfont">&#xe67f;</i>
-        首页<span class="c-gray en">&gt;</span>Gis地理信息
-        <span class="c-gray en">&gt;</span>灯具地理信息
-        <a class="btn btn-success radius r" style="line-height:1.6em;margin-top:3px" href="javascript:location.replace(location.href);" title="刷新">
-            <i class="Hui-iconfont">&#xe68f;</i>
-        </a>
-    </nav>
-    <div class="page-container">
-        <div id="map" style="position:relative;"></div>
-        <ul class="leftmaptab ml-40 mt-40">
-            <li class="tab1"><a href="javascript:void(0);" onclick="LampsGroup('灯具分组', 'LampsGroup.html', '1200', '700')"><span>灯具分组</span></a></li>
-            <li class="tab2"><a href="javascript:void(0);" onclick="TaskSwitch('任务开关', 'TaskSwitch.html', '1200', '700')"><span>任务开关</span></a></li>
-            <li class="tab3"><a href="javascript:void(0);" onclick="Scene('场景', 'Scene.html', '1200', '700')"><span>场景</span></a></li>
-            <li class="tab4"><a href="javascript:void(0);" onclick="Control('控制柜', 'Control.html', '1200', '700')"><span>控制</span></a></li>
-            <li class="tab5"><a href="javascript:void(0);" onclick="Lights('灯具', 'Lights.html', '1200', '700')"><span>灯具</span></a></li>
-        </ul>
-        <div class="topmaptab mr-40">
-            <a href="javascript:void(0);" class="btn btn-primary" onclick="ShortcutKey('快捷键', 'ShortcutKey.html', '700', '320')"><i class="Hui-iconfont">&#xe632;</i><span class="pl-10">快捷键</span></a>
-            <a href="javascript:void(0);" class="btn btn-warning" onclick="AlertInfo('警报信息', 'AlertInfo.html', '800', '500')"><i class="Hui-iconfont">&#xe600;</i><span class="pl-10">警报信息</span></a>
+<nav class="breadcrumb">
+    <i class="Hui-iconfont">&#xe67f;</i>
+    首页<span class="c-gray en">&gt;</span>Gis地理信息
+    <span class="c-gray en">&gt;</span>灯具地理信息
+    <a class="btn btn-success radius r" style="line-height:1.6em;margin-top:3px"
+       href="javascript:location.replace(location.href);" title="刷新">
+        <i class="Hui-iconfont">&#xe68f;</i>
+    </a>
+</nav>
+<div class="page-container">
+    <div id="map" style="position:relative;"></div>
+    <ul class="leftmaptab ml-40 mt-40">
+        <li class="tab1"><a href="javascript:void(0);"
+                            onclick="LampsGroup('灯具分组', 'LampsGroup.html', '1200', '700')"><span>灯具分组</span></a></li>
+        <li class="tab2"><a href="javascript:void(0);"
+                            onclick="TaskSwitch('任务开关', 'TaskSwitch.html', '1200', '700')"><span>任务开关</span></a></li>
+        <li class="tab3"><a href="javascript:void(0);"
+                            onclick="Scene('场景', 'Scene.html', '1200', '700')"><span>场景</span></a></li>
+        <!--<li class="tab4"><a href="javascript:void(0);"
+                            onclick="Control('控制柜', 'Control.html', '1200', '600')"><span>控制</span></a></li>
+        <li class="tab5"><a href="javascript:void(0);"
+                            onclick="Lights('灯具', 'Lights.html', '1200', '700')"><span>灯具</span></a></li>-->
+    </ul>
+    <div class="topmaptab mr-40">
+        <a href="javascript:void(0);" class="btn btn-primary"
+           onclick="ShortcutKey('快捷键', 'ShortcutKey.html', '700', '320')"><i class="Hui-iconfont">&#xe632;</i><span
+                class="pl-10">快捷键</span></a>
+        <a href="javascript:void(0);" class="btn btn-warning"
+           onclick="AlertInfo('警报信息', 'AlertInfo.html', '800', '500')"><i class="Hui-iconfont">&#xe600;</i><span
+                class="pl-10">警报信息</span></a>
 
+    </div>
+</div>
+<div class="page-container" id="mappage">
+
+    <!--这里是地图弹出的内容，可以动态JS获取，修改里面的一些数值-->
+    <p class="mt-20 f-14"><span class="c-red">灯具坐标：</span><span>经度：116.306681 </span><span>纬度：39.830931</span> <span
+            class="pl-10 c-red">光衰：</span><span>30年</span></p>
+    <div class="linghtbox clearfix mt-20">
+        <img src="../bg//lightsbg.jpg" class="imgbox f-l mr-30"/>
+        <div class="f-l ml-40">
+            <a href="javascript:void(0);" rel="100" class="lightbtn btn btn-danger radius mt-20"
+               style="width:100px;display:block"><span>100%</span></a>
+            <a href="javascript:void(0);" rel="75" class="lightbtn btn btn-danger radius mt-20"
+               style="width:100px;display:block"><span>75%</span></a>
+            <a href="javascript:void(0);" rel="50" class="lightbtn btn btn-danger radius mt-20"
+               style="width:100px;display:block"><span>50%</span></a>
+            <a href="javascript:void(0);" rel="25" class="lightbtn btn btn-danger radius mt-20"
+               style="width:100px;display:block"><span>25%</span></a>
+            <a href="javascript:void(0);" rel="0" class="lightbtn btn btn-danger radius mt-20"
+               style="width:100px;display:block"><span>0</span></a>
+        </div>
+        <!--<input type="text" class="powerange f-r" style="display: none;" />-->
+        <div id="powerange"></div>
+        <!--<input type="range" name="points" min="1" max="10" class="f-r" />-->
+    </div>
+    <div class="mt-20">
+        <h4 class="f-18 tit"><span class="Hui-iconfont">&#xe667;</span><span class="pl-10">灯具型号</span></h4>
+        <div style="height:150px;overflow-y:scroll;">
+            <table id="selectableTable" class="table table-border table-bordered table-bg table-hover">
+                <thead>
+                <tr class="text-c">
+                    <th>灯具型号</th>
+                    <th>资产编号</th>
+                    <th>灯杆</th>
+                    <th>生产日期</th>
+                    <th>使用日期</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr class="text-c">
+                    <td>LED90W</td>
+                    <td>220</td>
+                    <td>H201812545457</td>
+                    <td>2018-11-10</td>
+                    <td>2018-11-10</td>
+                </tr>
+                <tr class="text-c">
+                    <td>LED90W</td>
+                    <td>220</td>
+                    <td>H201812545457</td>
+                    <td>2018-11-10</td>
+                    <td>2018-11-10</td>
+                </tr>
+                <tr class="text-c">
+                    <td>LED90W</td>
+                    <td>220</td>
+                    <td>H201812545457</td>
+                    <td>2018-11-10</td>
+                    <td>2018-11-10</td>
+                </tr>
+                </tbody>
+            </table>
         </div>
     </div>
-    <div class="page-container" id="mappage">
-        
-        <!--这里是地图弹出的内容，可以动态JS获取，修改里面的一些数值-->
-        <p class="mt-20 f-14"><span class="c-red">灯具坐标：</span><span>经度：116.306681 </span><span>纬度：39.830931</span>  <span class="pl-10 c-red">光衰：</span><span>30年</span></p>
-        <div class="linghtbox clearfix mt-20">
-            <img src="../bg//lightsbg.jpg" class="imgbox f-l mr-30" />
-            <div class="f-l ml-40">
-                <a href="javascript:void(0);" rel="100" class="lightbtn btn btn-danger radius mt-20" style="width:100px;display:block"><span>100%</span></a>
-                <a href="javascript:void(0);" rel="75" class="lightbtn btn btn-danger radius mt-20" style="width:100px;display:block"><span>75%</span></a>
-                <a href="javascript:void(0);" rel="50" class="lightbtn btn btn-danger radius mt-20" style="width:100px;display:block"><span>50%</span></a>
-                <a href="javascript:void(0);" rel="25" class="lightbtn btn btn-danger radius mt-20" style="width:100px;display:block"><span>25%</span></a>
-                <a href="javascript:void(0);" rel="0" class="lightbtn btn btn-danger radius mt-20" style="width:100px;display:block"><span>0</span></a>
-            </div>
-            <!--<input type="text" class="powerange f-r" style="display: none;" />-->
-            <div id="powerange"></div>
-            <!--<input type="range" name="points" min="1" max="10" class="f-r" />-->
+    <div class="row cl mt-10">
+        <div class="col-xs-8 col-sm-9 col-xs-offset-4 col-sm-offset-3">
+            <input id="btnSubmit" class="btn btn-primary radius ml-20" type="button" value="&nbsp;&nbsp;提交&nbsp;&nbsp;">
+            <input id="btnCancel" class="btn radius ml-20" type="button" value="&nbsp;&nbsp;取消&nbsp;&nbsp;">
         </div>
-        <div class="mt-20">
-            <h4 class="f-18 tit"> <span class="Hui-iconfont">&#xe667;</span><span class="pl-10">灯具型号</span></h4>
-            <div style="height:150px;overflow-y:scroll;">
-                <table id="selectableTable" class="table table-border table-bordered table-bg table-hover">
-                    <thead>
-                        <tr class="text-c">
-                            <th>灯具型号</th>
-                            <th>资产编号</th>
-                            <th>灯杆</th>
-                            <th>生产日期</th>
-                            <th>使用日期</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr class="text-c">
-                            <td>LED90W</td>
-                            <td>220</td>
-                            <td>H201812545457</td>
-                            <td>2018-11-10</td>
-                            <td>2018-11-10</td>
-                        </tr>
-                        <tr class="text-c">
-                            <td>LED90W</td>
-                            <td>220</td>
-                            <td>H201812545457</td>
-                            <td>2018-11-10</td>
-                            <td>2018-11-10</td>
-                        </tr>
-                        <tr class="text-c">
-                            <td>LED90W</td>
-                            <td>220</td>
-                            <td>H201812545457</td>
-                            <td>2018-11-10</td>
-                            <td>2018-11-10</td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-        </div>
-        <div class="row cl mt-10">
-            <div class="col-xs-8 col-sm-9 col-xs-offset-4 col-sm-offset-3">
-                <input id="btnSubmit" class="btn btn-primary radius ml-20" type="button" value="&nbsp;&nbsp;提交&nbsp;&nbsp;">
-                <input id="btnCancel" class="btn radius ml-20" type="button" value="&nbsp;&nbsp;取消&nbsp;&nbsp;">
-            </div>
-        </div>
+    </div>
 
-        
-    </div><!--地图弹出内容-->
-    
-    <script type="text/javascript" src="../js/jquery.min.js"></script>
-    <script type="text/javascript" src="../js/common.js"></script>
-    <script type="text/javascript" src="../js/admin.js"></script>
 
-    <script type="text/javascript" src="../js/api/requestRoot.js"></script>
-    <script type="text/javascript" src="../js/api/ajaxScript.js"></script>
-    <!--请在下方写此页面业务相关的脚本-->
-    <script type="text/javascript" src="../lib/layer/2.4/layer.js"></script><!--弹出插件-->
-    <script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=ow29ANFSyXM6nf6cYl14GdDI"></script><!--百度地图-->
+</div><!--地图弹出内容-->
 
-    <script type="text/javascript" src="../js/nouislider.js"></script>
-    <script type="text/javascript">
-        $(".lightbtn").click(function () {
-            var StaVal = $(this).attr("rel");
-            var slider = document.getElementById('powerange');
+<script type="text/javascript" src="../js/jquery.min.js"></script>
+<script type="text/javascript" src="../js/common.js"></script>
+<script type="text/javascript" src="../js/admin.js"></script>
 
-            noUiSlider.create(slider, {
-                start: StaVal,
-                connect: true,
-                orientation: 'vertical',
-                step: 1,
-                direction: 'rtl',
-                orientation: 'vertical',
-                tooltips: true,
-                handles: 1,
-                range: {
-                    'min': 0,
-                    'max': 100
-                }
-            });
+<script type="text/javascript" src="../js/api/requestRoot.js"></script>
+<script type="text/javascript" src="../js/api/ajaxScript.js"></script>
+<!--请在下方写此页面业务相关的脚本-->
+<script type="text/javascript" src="../lib/layer/2.4/layer.js"></script><!--弹出插件-->
+<script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=ow29ANFSyXM6nf6cYl14GdDI"></script><!--百度地图-->
 
-        });
+<script type="text/javascript" src="../js/nouislider.js"></script>
+<script type="text/javascript">
+    $(".lightbtn").click(function () {
+        var StaVal = $(this).attr("rel");
         var slider = document.getElementById('powerange');
 
         noUiSlider.create(slider, {
-            start: 0,
+            start: StaVal,
             connect: true,
             orientation: 'vertical',
             step: 1,
             direction: 'rtl',
             orientation: 'vertical',
             tooltips: true,
-            handles:1,
+            handles: 1,
             range: {
                 'min': 0,
                 'max': 100
             }
         });
-        slider.noUiSlider.on('hover', function (value) {
-            console.log(value);
-        });
 
-    </script>
-    <script type="text/javascript">
+    });
+    var slider = document.getElementById('powerange');
 
+    noUiSlider.create(slider, {
+        start: 0,
+        connect: true,
+        orientation: 'vertical',
+        step: 1,
+        direction: 'rtl',
+        orientation: 'vertical',
+        tooltips: true,
+        handles: 1,
+        range: {
+            'min': 0,
+            'max': 100
+        }
+    });
+    slider.noUiSlider.on('hover', function (value) {
+        console.log(value);
+    });
+
+</script>
+<script type="text/javascript">
+
+    //灯具分组
+    function LampsGroup(title, url, w, h) {
+        layer_show(title, url, w, h);
+    }
+
+    //任务开关
+    function TaskSwitch(title, url, w, h) {
+        layer_show(title, url, w, h);
+    }
+
+    //场景
+    function Scene(title, url, w, h) {
+        layer_show(title, url, w, h);
+    }
+
+    //控制
+    function Control(title, url, w, h) {
+        var projectId = editModel(window.location.href);
+        layer_show(title, url + "?id=" + projectId, w, h);
+    }
+
+    //灯具
+    function Lights(title, url, w, h) {
+        layer_show(title, url, w, h);
+    }
+
+    //快捷键
+    function ShortcutKey(title, url, w, h) {
+        layer_show(title, url, w, h);
+    }
+
+    //警报信息
+    function AlertInfo(title, url, w, h) {
+        layer_show(title, url, w, h);
+    }
+
+    var map = null;
+
+    var opts = {
+        width: 700,     // 信息窗口宽度
+        height: 600,     // 信息窗口高度
+        title: "<span style='font-size:16px;color:#0a79d8;font-weight: bold'>灯光调节</span>", // 信息窗口标题
+    }
         //灯具分组
         function LampsGroup(title, url, w, h) {
             var id = editModel(window.location.href);
@@ -213,12 +273,69 @@
                 title: "<span style='font-size:16px;color:#0a79d8;font-weight: bold'>灯光调节</span>", // 信息窗口标题
             }
 
-            //map.openInfoWindow(infoWindow, point); //开启信息窗口
+    function addMarker(point, isLight) {
+        var marker = new BMap.Marker(point);  // 创建标注
+        if (isLight) {
+            var icon = new BMap.Icon('../bg/light.png', new BMap.Size(60,60));
+            marker.setIcon(icon);
             marker.addEventListener("click", function () {
                 var StrHtml = $("#mappage").html();
                 var infoWindow = new BMap.InfoWindow(StrHtml, opts);  // 创建信息窗口对象
                 map.openInfoWindow(infoWindow, point); //开启信息窗口
             });
-    </script>
+        } else {
+            var icon = new BMap.Icon('../bg/elebox.png', new BMap.Size(60,60));
+            marker.setIcon(icon);
+        }
+
+        map.addOverlay(marker);
+    }
+
+    function flushElebox() {
+        var projectId = editModel(window.location.href);
+
+        ajaxRequest("post", "/api/gis/listElebox", {"projectId" : projectId}, function (data) {
+            if (data) {
+                if (data.header.code == 1000) {
+                    var eleboxArray = data.body.data;
+
+                    for (var i = 0; i < eleboxArray.length; ++i) {
+                        var point = new BMap.Point(eleboxArray[i].longitude, eleboxArray[i].latitude);
+                        addMarker(point, false);
+
+                        if (i == 0) {
+                            map.centerAndZoom(point, 15);
+                        }
+                    }
+                }
+            }
+        });
+    }
+
+    function init() {
+        map = new BMap.Map("map");
+        map.centerAndZoom(new BMap.Point(116.404, 39.915), 15);
+        var mapType1 = new BMap.MapTypeControl(
+            {
+                mapTypes: [BMAP_NORMAL_MAP, BMAP_HYBRID_MAP],
+                anchor: BMAP_ANCHOR_TOP_RIGHT
+            }
+        );
+        map.addControl(mapType1);
+        map.enableScrollWheelZoom(true);
+
+        flushElebox();
+    }
+
+    $(function () {
+        //获取当前屏幕宽度和高度
+        var Vw = document.body.clientWidth - 40;
+        var Vh = document.documentElement.clientHeight - 80;
+        $("#map").height(Vh);
+        $("#map").width(Vw);
+
+        loadJScript();
+    });
+</script>
 </body>
 </html>
