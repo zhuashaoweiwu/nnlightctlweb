@@ -109,14 +109,14 @@
                                     </tr>
                                 </thead>
                                 <tbody class="tb1_1">
-                                    <tr class="text-c" ref="1" data-id="1">
+                                  <!--  <tr class="text-c" ref="1" data-id="1">
                                         <td>三亚项目</td>
                                         <td>三亚项目</td>
                                     </tr>
                                     <tr class="text-c" ref="2" data-id="1">
                                         <td>三亚项目1</td>
                                         <td>三亚项目1</td>
-                                    </tr>
+                                    </tr>-->
                                 </tbody>
                             </table>
                         </td>
@@ -130,14 +130,14 @@
                                         <th>描述</th>
                                     </tr>
                                 </thead>
-                                <tbody class="tb1"></tbody>
+                                <tbody class="tb1" id="tb1"></tbody>
                             </table>
                         </td>
 
                     </tr>
                 </table><!--组组模式end-->
                 <div class="col-xs-8 col-sm-9 col-xs-offset-4 col-sm-offset-4 mt-20">
-                    <input class="btn btn-primary radius" type="submit" value="&nbsp;&nbsp;提交&nbsp;&nbsp;">
+                    <input class="btn btn-primary radius" id="lightGroupGroupbtn" type="submit" value="&nbsp;&nbsp;提交&nbsp;&nbsp;">
                 </div>
             </div>
         </div><!--tab切换end -->
@@ -155,31 +155,12 @@
         <script type="text/javascript">
             $(function () {
                 getAllLightingByProjectId();
-                //getAllGroup();
-                function getAllLightingByProjectId() {
-                    var id = editModel(window.location.href);
-                    var projectId = parseInt(id);
-                    ajaxRequest("post", "/api/gis/listLighting",{"projectId":projectId},
-                        function (data) {
-                            if(data.body.data){
-                                for (var i = 0 ; i < data.body.data.length ; i++){
-                                    $(".tb0_1").append("<tr class='text-c' ref="+data.body.data[i].id+" data-id='0'>"+
-                                        "<td>"+data.body.data[i].id+"</td>"+
-                                        "<td>"+data.body.data[i].lamppost+"</td>"+
-                                        "<td>"+data.body.data[i].lamphead+"</td>"+
-                                        "<td>"+data.body.data[i].longitude+"</td>"+
-                                        "<td>"+data.body.data[i].latitude+"</td>"+
-                                        "</tr>");
-                                }
-                            }
+                getAllLightGroup();
 
-                        });
-                }
-                
                 function getAllGroup() {
                     ajaxRequest("post", "/api/lightGroup/listLightGroup",{},
                         function (data) {
-                            //console.log(data)
+
                         })
                 }
                 
@@ -189,24 +170,124 @@
 	                index:0//默认第一个；
 	            });
                 $("#lightingGroupBtn").click(function(){
-                    alert("OXOXO");
                     var lightIds = [];
                     $("#tb2").find("tr").each(function (index, value) {
                         lightIds.push(parseInt($(this).attr("ref")));
                     });
                     var groupName = $("#cityName").val();
                     var mem = $("#mem").val();
-                    console.log(lightIds+mem)
                     var param = {}
                     param["cGroupName"] = groupName;
                     param["men"] = mem;
                     param["lightIds"] = lightIds;
-                    ajaxRequest("post", "/api/lightGroup/createLightGroupByLightIds",param,
-                        function (data) {//api/lightGroup/createLightGroupByLightIds
-                            console.log(data);
+                    ajaxRequest("post", "/api/lightGroup/createLightGroupByLightIds",transArray(param),
+                        function (data) {
+                            if(data.header.code=="1000"){
+                                var index = parent.layer.getFrameIndex(window.name);
+                                parent.$('.btn-refresh').click();
+                                parent.layer.close(index);
+                            }
                         })
                 });
+                $("#lightGroupGroupbtn").click(function(){
+                    var GroupLightIds = [];
+                    $("#tb1").find("tr").each(function (index, value) {
+                        GroupLightIds.push(parseInt($(this).attr("ref")));
+                        var groupName = $("#cityName").val();
+                        var mem = $("#mem").val();
+                        var param = {}
+                        param["cGroupName"] = groupName;
+                        param["men"] = mem;
+                        param["lightGroupIds"] = GroupLightIds;
+                        ajaxRequest("post", "/api/lightGroup/createLightGroupByLightGroup",transArray(param),
+                            function (data) {
+                                if(data.header.code=="1000"){
+                                    var index = parent.layer.getFrameIndex(window.name);
+                                    parent.$('.btn-refresh').click();
+                                    parent.layer.close(index);
+                                }
+                            })
+                    });
+                });
+                //编辑显示
+                var id = editModel(window.location.href);
+                if (id) {
+                    ajaxRequest("post", "/api/lightGroup/getLightGroupSubLight", {"id": id}, function (data) {
+                            if (data.body.data) {
+                                if(data.body.data.length > 0){
+                                    $("#cityName").val(data.body.data[0].cGroupName);
+                                    $("#mem").val(data.body.data[0].mem)
+                                    if(data.body.data[0].lightingGroupList){
+                                        if (data.body.data[0].lightingGroupList.length>0){
+                                            for(var i = 0 ; i < data.body.data[0].lightingGroupList.length>0 ; i++){
+                                                var group = data.body.data[0].lightingGroupList[i]
+                                                $("#tb1").append("<tr class='text-c' ref="+group.id+" data-id='0'>\n" +
+                                                    "                                            <td>"+group.cGroupName+"</td>" +
+                                                    "                                            <td>"+group.mem+"</td>" +
+                                                    "                                        </tr>");
+                                            }
+                                        }
+                                    }
+                                    if(data.body.data[0].lightingList){
+                                        if(data.body.data[0].lightingList.length > 0){
+                                            for (var i = 0 ; i < data.body.data[0].lightingList.length ; i++){
+                                                var light = data.body.data[0].lightingList[i];
+                                                $("#tb2").append("<tr class='text-c' ref="+light.id+" data-id='0'>"+
+                                                    "<td>"+light.id+"</td>"+
+                                                    "<td>"+light.lamppost+"</td>"+
+                                                    "<td>"+light.lamphead+"</td>"+
+                                                    "<td>"+light.longitude+"</td>"+
+                                                    "<td>"+light.latitude+"</td>"+
+                                                    "</tr>");
+                                            }
+                                        }
+                                    }
+
+                                }
+                                console.log(data)
+                                /**/
+
+                            } else {
+                                layer.msg(data.header.msg, {icon: 2});
+                            }
+                    });
+                }
             });
+            //获取某个项目下所有灯具
+            function getAllLightingByProjectId() {
+                var id = editModel(window.location.href);
+                var projectId = parseInt(id);
+                ajaxRequest("post", "/api/gis/listLighting",{"projectId":projectId},
+                    function (data) {
+                        if(data.body.data){
+                            for (var i = 0 ; i < data.body.data.length ; i++){
+                                $(".tb0_1").append("<tr class='text-c' ref="+data.body.data[i].id+" data-id='0'>"+
+                                    "<td>"+data.body.data[i].id+"</td>"+
+                                    "<td>"+data.body.data[i].lamppost+"</td>"+
+                                    "<td>"+data.body.data[i].lamphead+"</td>"+
+                                    "<td>"+data.body.data[i].longitude+"</td>"+
+                                    "<td>"+data.body.data[i].latitude+"</td>"+
+                                    "</tr>");
+                            }
+                        }
+
+                    });
+            }
+
+            //获取所有灯具分组
+            function getAllLightGroup(){
+                ajaxRequest("post", "/api/lightGroup/listLightGroup",{},
+                    function (data) {
+                        if(data.body.data){
+                            for (var i = 0 ; i < data.body.data.length ; i++){
+                                $(".tb1_1").append("<tr class='text-c' ref="+data.body.data[i].id+" data-id='1'>" +
+                                    "                                        <td>"+data.body.data[i].cGroupName+"</td>" +
+                                    "                                        <td>"+data.body.data[i].mem+"</td>" +
+                                    "                                    </tr>");
+                            }
+                        }
+                    })
+            }
             $(".table tbody").delegate('.text-c', 'click', function () {
                 var _this = $(this);
                 _this.remove();
