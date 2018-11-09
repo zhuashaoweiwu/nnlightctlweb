@@ -44,7 +44,7 @@
            onclick="ShortcutKey('快捷键', 'ShortcutKey.html', '700', '320')"><i class="Hui-iconfont">&#xe632;</i><span
                 class="pl-10">快捷键</span></a>
         <a href="javascript:void(0);" class="btn btn-warning"
-           onclick="AlertInfo('警报信息', 'AlertInfo.html', '800', '500')"><i class="Hui-iconfont">&#xe600;</i><span
+           onclick="AlertInfo('警报信息', 'AlertInfo.html', '1060', '600')"><i class="Hui-iconfont">&#xe600;</i><span
                 class="pl-10">警报信息</span></a>
 
     </div>
@@ -143,7 +143,6 @@
             orientation: 'vertical',
             step: 1,
             direction: 'rtl',
-            orientation: 'vertical',
             tooltips: true,
             handles: 1,
             range: {
@@ -212,6 +211,8 @@
         layer_show(title, url, w, h);
     }
 
+    var eleboxLineData = {};
+
     var map = null;
 
     var opts = {
@@ -219,6 +220,59 @@
         height: 600,     // 信息窗口高度
         title: "<span style='font-size:16px;color:#0a79d8;font-weight: bold'>灯光调节</span>", // 信息窗口标题
     }
+        //灯具分组
+        function LampsGroup(title, url, w, h) {
+            var id = editModel(window.location.href);
+            layer_show(title, url+"?id="+id, w, h);
+        }
+        //任务开关
+        function TaskSwitch(title, url, w, h) {
+            layer_show(title, url, w, h);
+        }
+        //场景
+        function Scene(title, url, w, h) {
+            layer_show(title, url, w, h);
+        }
+        //控制
+        function Control(title, url, w, h) {
+            layer_show(title, url, w, h);
+        }
+        //灯具
+        function Lights(title, url, w, h) {
+            layer_show(title, url, w, h);
+        }
+        //快捷键
+        function ShortcutKey(title, url, w, h) {
+            layer_show(title, url, w, h);
+        }
+        //警报信息
+        function AlertInfo(title, url, w, h) {
+            layer_show(title, url, w, h);
+        }
+        //获取当前屏幕宽度和高度
+        var Vw = document.body.clientWidth-40;
+        var Vh = document.documentElement.clientHeight - 80;
+        $("#map").height(Vh); $("#map").width(Vw);
+            // 百度地图API功能
+        var map = new BMap.Map("map");
+        var mapType1 = new BMap.MapTypeControl(
+		    {
+		        mapTypes: [BMAP_NORMAL_MAP, BMAP_HYBRID_MAP],
+		        anchor: BMAP_ANCHOR_TOP_RIGHT
+		    }
+	    );
+            var point = new BMap.Point(116.306681, 39.830931);
+            var marker = new BMap.Marker(point);  // 创建标注
+            map.addOverlay(marker);              // 将标注添加到地图中
+            //marker.setAnimation(BMAP_ANIMATION_BOUNCE); //跳动的动画
+            map.centerAndZoom(point, 15);
+            map.enableScrollWheelZoom(true);
+            map.addControl(mapType1);
+            var opts = {
+                width: 700,     // 信息窗口宽度
+                height: 600,     // 信息窗口高度
+                title: "<span style='font-size:16px;color:#0a79d8;font-weight: bold'>灯光调节</span>", // 信息窗口标题
+            }
 
     function addMarker(point, isLight) {
         var marker = new BMap.Marker(point);  // 创建标注
@@ -238,6 +292,73 @@
         map.addOverlay(marker);
     }
 
+    /*回路灯具集合按序号排序*/
+    function sortLight(lightArray, low, high) {
+        var keyIndex = parseInt((low + high) / 2);
+
+    }
+
+
+    /*根据回路id获取该回路下全部灯具*/
+    function flushModelLoopLight(modelLoopId) {
+        ajaxRequest("post", "/api/roadlighting/getLoopLight", {"id" : modelLoopId}, function (data) {
+           if (data) {
+               if (data.header.code == 1000) {
+                   var lightArray = data.body.data;
+
+                   for (var i = 0; i < lightArray.length; ++i) {
+                       var light = lightArray[i];
+
+                       addMarker(new BMap.Point(light.longitude, light.latitude), true);
+                   }
+
+                   //构造灯具连线数据
+
+
+               }
+           }
+        });
+    }
+
+    /*根据模块id获取该模块下全部回路*/
+    function flushEleboxModelLoop(eleboxModelId) {
+        ajaxRequest("post", "/api/roadlighting/listmodelloop", {"modelId" : eleboxModelId}, function (data) {
+           if (data) {
+               if (data.header.code == 1000) {
+                   var modelLoopArray = data.body.data;
+
+                   for (var i = 0; i < modelLoopArray.length; ++i) {
+                       var modelLoop = modelLoopArray[i];
+
+                       flushModelLoopLight(modelLoop.id);
+                   }
+               }
+           }
+        });
+    }
+
+    /**
+     * 根据控制柜id获取该控制柜下全部模块
+     * @param eleboxId
+     */
+    function flushEleboxModel(eleboxId) {
+        ajaxRequest("post", "/api/roadlighting/listmodel", {"eleboxId" : eleboxId}, function (data) {
+           if (data) {
+               if (data.header.code == 1000) {
+                   var eleboxModelArray = data.body.data;
+
+                   for (var i = 0; i < eleboxModelArray.length; ++i) {
+                       var eleboxModel = eleboxModelArray[i];
+                       flushEleboxModelLoop(eleboxModel.id);
+                   }
+               }
+           }
+        });
+    }
+
+    /**
+     * 获取项目下全部控制柜集合
+     */
     function flushElebox() {
         var projectId = editModel(window.location.href);
 
@@ -253,6 +374,12 @@
                         if (i == 0) {
                             map.centerAndZoom(point, 15);
                         }
+
+                        //获取控制柜中全部模块
+                        flushEleboxModel(eleboxArray[i].id);
+
+                        //构造控制柜连线数据
+                        eleboxLineData[eleboxArray[i].id] = [];
                     }
                 }
             }
