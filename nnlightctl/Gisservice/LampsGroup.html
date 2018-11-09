@@ -72,16 +72,39 @@
         //新建灯具分组
         function addLampsGroup(title, url, w, h) {
             var id = editModel(window.location.href);
-            layer_show(title, url+"?id="+id, w, h);
+            layer_show(title, url+"?id="+"a"+id, w, h);
         }
         //编辑灯具分组
         function editLampsGroup(title, url, id, w, h) {
-            layer_show(title, url+"?id="+id, w, h);
+            var ida = editModel(window.location.href);
+            layer_show(title, url+"?id="+ida+"u"+id, w, h);
         }
         //删除
-        function del_one(id) {
-            //
+        function del_one(obj,id) {
+            layer.confirm('确认要删除吗？', function (index) {
+                var idArray = [];
+                idArray.push(parseInt(id));
+                batchDeleteLightGroup(idArray);
+                layer.close(index);
+            });
         }
+      /*删除*/
+      function batchDeleteLightGroup(idArray) {
+          if (!idArray) {
+              return;
+          }
+          console.log(idArray)
+          ajaxRequest("post", "/api/lightGroup/deleteLightGroup", transArray({lightGroupIdArray : transArray(idArray)}), function (data) {
+              if (data) {
+                  console.log(data)
+                  if (data.header.code == 1000) {
+                      searchLightGroup(1);
+                  } else {
+                      layer.msg(data.header.msg, { icon: 2, time: 3000 });
+                  }
+              }
+          });
+      }
         var param = {};
         $(function(){searchLightGroup(param);})
         $("#btnSearch").click(function () {

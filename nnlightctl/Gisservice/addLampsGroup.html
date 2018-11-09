@@ -153,10 +153,8 @@
         <!--请在下方写此页面业务相关的脚本-->
         <script type="text/javascript" src="../lib/layer/2.4/layer.js"></script><!--弹出插件-->
         <script type="text/javascript">
-            $(function () {
-                getAllLightingByProjectId();
-                getAllLightGroup();
 
+            $(function () {
                 function getAllGroup() {
                     ajaxRequest("post", "/api/lightGroup/listLightGroup",{},
                         function (data) {
@@ -169,6 +167,7 @@
 	            $("#tab-system").Huitab({
 	                index:0//默认第一个；
 	            });
+/*
                 $("#lightingGroupBtn").click(function(){
                     var lightIds = [];
                     $("#tb2").find("tr").each(function (index, value) {
@@ -208,11 +207,59 @@
                                 }
                             })
                     });
-                });
+                });*/
                 //编辑显示
                 var id = editModel(window.location.href);
-                if (id) {
-                    ajaxRequest("post", "/api/lightGroup/getLightGroupSubLight", {"id": id}, function (data) {
+                if(id.indexOf("a") != -1 ){
+                    var addId = id.replace("a","");
+                    var add = parseInt(addId);
+                    $("#lightingGroupBtn").click(function(){
+                        var lightIds = [];
+                        $("#tb2").find("tr").each(function (index, value) {
+                            lightIds.push(parseInt($(this).attr("ref")));
+                        });
+                        var groupName = $("#cityName").val();
+                        var mem = $("#mem").val();
+                        var param = {}
+                        param["cGroupName"] = groupName;
+                        param["men"] = mem;
+                        param["lightIds"] = lightIds;
+                        ajaxRequest("post", "/api/lightGroup/createLightGroupByLightIds",transArray(param),
+                            function (data) {
+                                if(data.header.code=="1000"){
+                                    var index = parent.layer.getFrameIndex(window.name);
+                                    parent.$('.btn-refresh').click();
+                                    parent.layer.close(index);
+                                }
+                            })
+                    });
+                    $("#lightGroupGroupbtn").click(function(){
+                        var GroupLightIds = [];
+                        $("#tb1").find("tr").each(function (index, value) {
+                            GroupLightIds.push(parseInt($(this).attr("ref")));
+                            var groupName = $("#cityName").val();
+                            var mem = $("#mem").val();
+                            var param = {}
+                            param["cGroupName"] = groupName;
+                            param["men"] = mem;
+                            param["lightGroupIds"] = GroupLightIds;
+                            ajaxRequest("post", "/api/lightGroup/createLightGroupByLightGroup",transArray(param),
+                                function (data) {
+                                    if(data.header.code=="1000"){
+                                        var index = parent.layer.getFrameIndex(window.name);
+                                        parent.$('.btn-refresh').click();
+                                        parent.layer.close(index);
+                                    }
+                                })
+                        });
+                    });
+                    getAllLightingByProjectId(add);
+                    getAllLightGroup();
+                }else {
+                    var projectId = getStr(id,"u")
+                    var groupId = getStr2(id,"u")
+                    if (groupId) {
+                        ajaxRequest("post", "/api/lightGroup/getLightGroupSubLight", {"id": getStr2(id,"u")}, function (data) {
                             if (data.body.data) {
                                 if(data.body.data.length > 0){
                                     $("#cityName").val(data.body.data[0].cGroupName);
@@ -244,20 +291,65 @@
                                     }
 
                                 }
-                                console.log(data)
-                                /**/
-
                             } else {
                                 layer.msg(data.header.msg, {icon: 2});
                             }
+                        });
+                    }
+
+                    $("#lightingGroupBtn").click(function(){
+                        var lightIds = [];
+                        $("#tb2").find("tr").each(function (index, value) {
+                            lightIds.push(parseInt($(this).attr("ref")));
+                        });
+                        var groupName = $("#cityName").val();
+                        var mem = $("#mem").val();
+                        var param = {}
+                        param["id"] = groupId;
+                        param["cGroupName"] = groupName;
+                        param["men"] = mem;
+                        param["lightIds"] = lightIds;
+                        console.log(param);
+                        ajaxRequest("post", "/api/lightGroup/updateLightGroupFromLight",transArray(param),
+                            function (data) {
+                                if(data.header.code=="1000"){
+                                    var index = parent.layer.getFrameIndex(window.name);
+                                    parent.$('.btn-refresh').click();
+                                    parent.layer.close(index);
+                                }
+                            })
                     });
+                    $("#lightGroupGroupbtn").click(function(){
+                        alert("OXOXO");
+                        var GroupLightIds = [];
+                        $("#tb1").find("tr").each(function (index, value) {
+                            GroupLightIds.push(parseInt($(this).attr("ref")));
+                            var groupName = $("#cityName").val();
+                            var mem = $("#mem").val();
+                            var param = {}
+                            param["id"] = groupId;
+                            param["cGroupName"] = groupName;
+                            param["men"] = mem;
+                            param["lightGroupIds"] = GroupLightIds;
+                            console.log(param);
+                            ajaxRequest("post", "/api/lightGroup/updateLightGroupFromLightGroup",transArray(param),
+                                function (data) {
+                                    if(data.header.code=="1000"){
+                                        var index = parent.layer.getFrameIndex(window.name);
+                                        parent.$('.btn-refresh').click();
+                                        parent.layer.close(index);
+                                    }
+                                })
+                        });
+                    });
+                    getAllLightingByProjectId(getStr(id,"u"));
+                    getAllLightGroup();
                 }
+
             });
             //获取某个项目下所有灯具
-            function getAllLightingByProjectId() {
-                var id = editModel(window.location.href);
-                var projectId = parseInt(id);
-                ajaxRequest("post", "/api/gis/listLighting",{"projectId":projectId},
+            function getAllLightingByProjectId(id) {
+                ajaxRequest("post", "/api/gis/listLighting",{"projectId":id},
                     function (data) {
                         if(data.body.data){
                             for (var i = 0 ; i < data.body.data.length ; i++){
@@ -302,7 +394,16 @@
                 }
                 $(TabId).append(StrHtml);
             });
-            
+            function getStr(string,str){
+                var str_before = string.split(str)[0];
+                var str_after = string.split(str)[1];
+                return str_before;
+            }
+            function getStr2(string,str){
+                var str_before = string.split(str)[0];
+                var str_after = string.split(str)[1];
+                return str_after;
+            }
     </script>
 
 </body>
