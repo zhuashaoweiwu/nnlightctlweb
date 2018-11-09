@@ -291,6 +291,63 @@
         map.addOverlay(marker);
     }
 
+
+    /*根据回路id获取该回路下全部灯具*/
+    function flushModelLoopLight(modelLoopId) {
+        ajaxRequest("post", "/api/roadlighting/getLoopLight", {"id" : modelLoopId}, function (data) {
+           if (data) {
+               if (data.header.code == 1000) {
+                   var lightArray = data.body.data;
+
+                   for (var i = 0; i < lightArray.length; ++i) {
+                       var light = lightArray[i];
+
+                       addMarker(new BMap.Point(light.longitude, light.latitude), true);
+                   }
+               }
+           }
+        });
+    }
+
+    /*根据模块id获取该模块下全部回路*/
+    function flushEleboxModelLoop(eleboxModelId) {
+        ajaxRequest("post", "/api/roadlighting/listmodelloop", {"modelId" : eleboxModelId}, function (data) {
+           if (data) {
+               if (data.header.code == 1000) {
+                   var modelLoopArray = data.body.data;
+
+                   for (var i = 0; i < modelLoopArray.length; ++i) {
+                       var modelLoop = modelLoopArray[i];
+
+                       flushModelLoopLight(modelLoop.id);
+                   }
+               }
+           }
+        });
+    }
+
+    /**
+     * 根据控制柜id获取该控制柜下全部模块
+     * @param eleboxId
+     */
+    function flushEleboxModel(eleboxId) {
+        ajaxRequest("post", "/api/roadlighting/listmodel", {"eleboxId" : eleboxId}, function (data) {
+           if (data) {
+               if (data.header.code == 1000) {
+                   var eleboxModelArray = data.body.data;
+
+                   for (var i = 0; i < eleboxModelArray.length; ++i) {
+                       var eleboxModel = eleboxModelArray[i];
+                       flushEleboxModelLoop(eleboxModel.id);
+                   }
+               }
+           }
+        });
+    }
+
+    /**
+     * 获取项目下全部控制柜集合
+     */
     function flushElebox() {
         var projectId = editModel(window.location.href);
 
@@ -306,6 +363,9 @@
                         if (i == 0) {
                             map.centerAndZoom(point, 15);
                         }
+
+                        //获取控制柜中全部模块
+                        flushEleboxModel(eleboxArray[i].id);
                     }
                 }
             }
