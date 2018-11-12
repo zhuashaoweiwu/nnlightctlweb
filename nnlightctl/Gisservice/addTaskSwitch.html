@@ -15,10 +15,11 @@
 </head>
 <body>
     <div class="page-container">
+        <form class="form form-horizontal" id="form-admin-add">
         <div class="row cl">
             <label class="form-label col-xs-4 col-sm-3 text-r"><span class="c-red">*</span>任务开关名称：</label>
             <div class="formControls col-xs-8 col-sm-9">
-                <input type="text" class="input-text" value="" placeholder="任务开关名称" id="cityName" name="cityName">
+                <input type="text" class="input-text" value="" placeholder="任务开关名称" id="switchName" name="switchName">
             </div>
         </div>
         <div class="row cl mt-10">
@@ -30,9 +31,9 @@
         <div class="row cl mt-10">
             <label class="form-label col-xs-4 col-sm-3 text-r"><span class="c-red">*</span>定时设置：</label>
             <div class="formControls col-xs-8 col-sm-9">
-                <input type="text" class="input-text" style="width:120px;" onfocus="WdatePicker({ maxDate:'#F{$dp.$D(\'logmax\')||\'%y-%M-%d\'}' })" id="logmin" placeholder="开始时间">
+                <input type="text" class="input-text" style="width:150px;" onfocus="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm:ss',minDate:'08:00:00',quickSel:['%H-00-00','%H-15-00','%H-30-00','%H-45-00']})" id="startTime" placeholder="开始时间">
                 -
-                <input type="text" class="input-text" style="width:120px;" onfocus="WdatePicker({ maxDate:'#F{$dp.$D(\'logmax\')||\'%y-%M-%d\'}' })" id="logmax" placeholder="结束时间">
+                <input type="text" class="input-text" style="width:150px;" onfocus="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm:ss',minDate:'08:00:00',quickSel:['%H-00-00','%H-15-00','%H-30-00','%H-45-00']})" id="endTime" placeholder="结束时间">
             </div>
         </div>
         <div class="row cl mt-10">
@@ -40,35 +41,45 @@
             <div class="formControls col-xs-8 col-sm-9">
                 <span class="select-box" style="width:150px;">
                     <select class="select" name="isUsebeam" id="isUsebeam" size="1">
-                        <option value="0">是</option>
-                        <option value="1">否</option>
+                        <option value="1">是</option>
+                        <option value="0">否</option>
                     </select>
                 </span>
             </div>
         </div>
         <div class="row cl mt-10">
-            <label class="form-label col-xs-4 col-sm-3 text-r">是否启用经纬度：</label>
+            <label class="form-label col-xs-4 col-sm-3 text-r">是否开灯：</label>
             <div class="formControls col-xs-8 col-sm-9">
                 <span class="select-box" style="width:150px;">
                     <select class="select" name="isLighton" id="isLighton">
-                        <option value="0">否</option>
                         <option value="1">是</option>
+                        <option value="0">否</option>
                     </select>
                 </span>
              </div>
         </div>
         <div class="row cl mt-10">
-            <label class="form-label col-xs-4 col-sm-3 text-r">经度：</label>
-            <div class="formControls col-xs-8 col-sm-4">
-                <input type="text" class="input-text" value="" placeholder="经度" id="longitude" name="longitude" disabled="disabled">
+            <label class="form-label col-xs-4 col-sm-3 text-r"><span class="c-red">*</span>周期：</label>
+            <div class="formControls col-xs-8 col-sm-9">
+            <span class="select-box" id="period" name="period" style="width:200px;">
+                <label><input name="period" id="period1" type="checkbox" value="1" />平常 </label>
+                <label><input name="period"  id="period2" type="checkbox" value="2" />周末 </label>
+                <label><input name="period"  id="period3" type="checkbox" value="4" />节假日 </label>
+            </span>
             </div>
         </div>
-        <div class="row cl mt-10">
-            <label class="form-label col-xs-4 col-sm-3 text-r">纬度：</label>
-            <div class="formControls col-xs-8 col-sm-4">
-                <input type="text" class="input-text" value="" placeholder="纬度" id="latitude" name="latitude" disabled="disabled">
-            </div>
-        </div>
+        <!--<div class="row cl mt-10">-->
+            <!--<label class="form-label col-xs-4 col-sm-3 text-r">经度：</label>-->
+            <!--<div class="formControls col-xs-8 col-sm-4">-->
+                <!--<input type="text" class="input-text" value="" placeholder="经度" id="longitude" name="longitude" >-->
+            <!--</div>-->
+        <!--</div>-->
+        <!--<div class="row cl mt-10">-->
+            <!--<label class="form-label col-xs-4 col-sm-3 text-r">纬度：</label>-->
+            <!--<div class="formControls col-xs-8 col-sm-4">-->
+                <!--<input type="text" class="input-text" value="" placeholder="纬度" id="latitude" name="latitude">-->
+            <!--</div>-->
+        <!--</div>-->
         <div class="row cl mt-10">
             <label class="form-label col-xs-4 col-sm-3 text-r">调光控制：</label>
             <div class="formControls col-xs-8 col-sm-4">
@@ -80,6 +91,7 @@
                 <input class="btn btn-primary radius" type="submit" value="&nbsp;&nbsp;提交&nbsp;&nbsp;">
             </div>
         </div>
+        </form>
     </div>
 
     <script type="text/javascript" src="../js/jquery.min.js"></script>
@@ -91,18 +103,173 @@
     <!--请在下方写此页面业务相关的脚本-->
     <script type="text/javascript" src="../lib/layer/2.4/layer.js"></script><!--弹出插件-->
     <script type="text/javascript" src="../lib/My97DatePicker/4.8/WdatePicker.js"></script> <!--日期插件-->
+
+    <!--/_footer 作为公共模版分离出去-->
+    <!--请在下方写此页面业务相关的脚本-->
+    <script type="text/javascript" src="../lib/jquery.validation/1.14.0/jquery.validate.js"></script>
+    <script type="text/javascript" src="../lib/jquery.validation/1.14.0/validate-methods.js"></script>
+    <script type="text/javascript" src="../lib/jquery.validation/1.14.0/messages_zh.js"></script>
     <script type="text/javascript">
-        $("#isLighton").change(function () {
-            var StrVal = $(this).val();
-            if (StrVal == "1") {
-                $('#longitude').removeAttr("disabled");
-                $('#latitude').removeAttr("disabled");
-            } else {
-                $('#longitude').attr("disabled","disabled"); 
-                $('#latitude').attr("disabled","disabled"); 
+        $(function () {
+            $('.skin-minimal input').iCheck({
+                checkboxClass: 'icheckbox-blue',
+                radioClass: 'iradio-blue',
+                increaseArea: '20%'
+            });
+
+            //数据验证
+            $("#form-admin-add").validate({
+                rules: {
+                    taskSwitch: {
+                        required: true,
+                        minlength: 1,
+                        maxlength: 64
+                    }
+                },
+                onkeyup: false,
+                focusCleanup: true,
+                success: "valid",
+                submitHandler: function (form) {
+                    //ajax上传表单
+                    //构造上传数据
+                    var param = {};
+                    var paramArray = $(form).serializeArray();
+                    var isLighton = $("#isLighton").val();
+                    var isUsebeam = $("#isUsebeam").val();
+                    var startTime = $("#startTime").val();
+                    var endTime = $("#endTime").val();
+                    // var period1 = $("#period1").val();
+                    var period1=$("#period1").attr("checked",true);
+                    var period2=$("#period2").attr("checked",true);
+                    var period3=$("#period3").attr("checked",true);
+                    for (var i = 0; i < paramArray.length; ++i) {
+                        var o = paramArray[i];
+                        param[o["name"]] = o["value"];
+                    }
+                    if(isLighton == 0){
+                        param["isLighton"] = 0
+                    }else {
+                        param["isLighton"] = 1
+                    }
+                    if(isUsebeam == 0){
+                        param["isUsebeam"] = 0
+                    }else {
+                        param["isUsebeam"] = 1
+                    }
+                    if(period1){
+                        param["period"] = 1
+                    }
+                    if(period2){
+                        param["period"] = 2
+                    }
+                    if(period3){
+                        param["period"] = 4
+                    }
+                    if(period1 && period2){
+                        param["period"] = 3
+                    }
+                    if(period1 && period3){
+                        param["period"] = 5
+                    }
+                    if(period2 && period3){
+                        param["period"] = 6
+                    }
+                    if(period1 && period2 && period3){
+                        param["period"] = 7
+                    }
+                    // console.log(formatDate(new Date()) +" "+ $("#endTime").val())
+                    var startdate = str2Date($("#startTime").val());
+                    var enddate = str2Date($("#endTime").val());
+
+                    param["startTime"]=startdate;
+                    param["endTime"]=enddate;
+
+                    param["id"] = editModel(window.location.href);
+                    ajaxRequest("post", "/api/switchTask/addOrUpdateSwitchTask", param, function (data) {
+                        if (data) {
+                            if (data.header.code == 1000) {
+
+                                if (editModel(window.location.href)) {
+                                    layer.msg("编辑任务开关信息成功！", {icon : 1, time : 3000});
+                                } else {
+                                    layer.msg("添加任务开关信息成功！", {icon : 1, time : 3000});
+                                }
+                            } else {
+                                layer.msg(data.header.msg, {icon : 2, time : 3000});
+                            }
+                        }
+                    });
+
+                    var index = parent.layer.getFrameIndex(window.name);
+                    parent.$('.btn-refresh').click();
+                    parent.layer.close(index);
+                }
+            });
+
+            //判断是否编辑模式
+            var id = editModel(window.location.href);
+            console.log(id);
+            if (id) {
+                ajaxRequest("post", "/api/switchTask/getSimpleSwitchTask", {"id" : id}, function (data) {
+                    if (data) {
+                        if (data.header.code == 1000) {
+                            var taskSwitch = data.body.data[0];
+                            if(taskSwitch.period == 1){
+                                $("#period1").attr("checked",true);
+                            }
+                            if(taskSwitch.period == 2){
+                                $("#period2").attr("checked",true);
+                            }
+                            if(taskSwitch.period == 4){
+                                $("#period3").attr("checked",true);
+                            }
+                            if(taskSwitch.period == 3){
+                                $("#period1").attr("checked",true);
+                                $("#period2").attr("checked",true);
+                            }
+                            if(taskSwitch.period == 5){
+                                $("#period1").attr("checked",true);
+                                $("#period3").attr("checked",true);
+                            }
+                            if(taskSwitch.period == 6){
+                                $("#period2").attr("checked",true);
+                                $("#period3").attr("checked",true);
+                            }
+                            if(taskSwitch.period == 7){
+                                $("#period1").attr("checked",true);
+                                $("#period2").attr("checked",true);
+                                $("#period3").attr("checked",true);
+                            }
+                            //刷新表单
+                            $("#switchName").val(taskSwitch.switchName);
+                            $("#mem").val(taskSwitch.mem);
+                            $("#startTime").val(formatDateTime(taskSwitch.startTime));
+                            $("#endTime").val(formatDateTime(taskSwitch.endTime));
+                            $("#isLighton").val(taskSwitch.isLighton);
+                            $("#isUsebeam").val(taskSwitch.isUsebeam);
+                            $("#period").val(taskSwitch.period);
+                            $("#lightPercent").val(taskSwitch.lightPercent);
+
+                        } else {
+                            layer.msg(data.header.msg, {icon : 2});
+                        }
+                    }
+                });
             }
         });
     </script>
+    <!--<script type="text/javascript">-->
+        <!--$("#isLighton").change(function () {-->
+            <!--var StrVal = $(this).val();-->
+            <!--if (StrVal == "1") {-->
+                <!--$('#longitude').removeAttr("disabled");-->
+                <!--$('#latitude').removeAttr("disabled");-->
+            <!--} else {-->
+                <!--$('#longitude').attr("disabled","disabled"); -->
+                <!--$('#latitude').attr("disabled","disabled"); -->
+            <!--}-->
+        <!--});-->
+    <!--</script>-->
 
 </body>
 </html>

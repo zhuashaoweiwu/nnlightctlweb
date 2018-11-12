@@ -92,6 +92,8 @@
         });
         function searchDepartment(param) {
             $('.table-sort').dataTable({
+                "bStateSave": true,
+                "destroy": true,
                 "searching": false,
                 "autoWidth": true,
                 "ordering": false, //设置所有布排序
@@ -127,12 +129,7 @@
                             { "data": "departmentName", "defaultContent": "" },
                             { "data": "institutionName", "defaultContent": "" },
                             { "data": "addr", "defaultContent": "" },
-                            {
-                                "data": "createTime", "render": function (data) {
-                                    return formatDateTime(data);
-                                }
-                            },
-                           
+                            { "data": "createTime", "render": function (data) { return formatDateTime(data); } },
                             { "data": "mem", "defaultContent": "" }
                            ]
                 });
@@ -192,61 +189,6 @@
         function department_edit(title, url, id, w, h) {
             layer_show(title, url + "?id=" + id, w, h);
         }
-
-        //通过搜索条件分页搜索部门数据
-        //function searchDepartment(pageNumber) {
-        //    //搜索条件
-        //    var searchInstitutionName = $("#departmentName").val().trim();
-        //    var searchInstitutionAddr = $("#addr").val().trim();
-
-        //    //搜索
-        //    var param = {};
-
-        //    param["institutionName"] = searchInstitutionName;
-        //    param["addr"] = searchInstitutionAddr;
-        //    ajaxRequest("post", "/api/department/listDepartment", param, function (data) {
-        //        debugger;
-        //        if (data) {
-        //            if (data.header.code == 1000) {
-        //                var departmentArray = data.body.data;
-
-        //                //更新机构表格
-        //                var $tableBody = $("table.table").find("tbody").eq(0);
-        //                $tableBody.empty();
-
-        //                for (var i = 0; i < departmentArray.length; ++i) {
-        //                    var department = departmentArray[i];
-        //                    $('<tr class="text-c">\n' +
-        //                        '<td><input type="checkbox" value="'+department.id+'" name=""></td>\n' +
-        //                        '<td>'+department.departmentName+'</td>\n' +
-        //                        '<td>'+department.nnlightctlInstitutionIdBelong+'</td>\n' +
-        //                        '<td>'+department.addr+'</td>\n' +
-        //                        '<td>'+formatDateTime(department.createTime)+'</td>\n' +
-        //                        '<td>'+department.mem+'</td>\n' +
-        //                        '<td class="td-manage"><a title="编辑" href="javascript:void(0);"\n' +
-        //                        'onclick="department_edit(\'部门编辑\', \'Department-add.html\', \''+department.id+'\', \'800\', \'500\')"\n' +
-        //                        'class="ml-5" style="text-decoration:none"><i class="Hui-iconfont">&#xe6df;</i></a>\n' +
-        //                        '<a title="删除" href="javascript:void(0);" onclick="department_del(this, \''+department.id+'\')" class="ml-5"\n' +
-        //                        'style="text-decoration:none"><i class="Hui-iconfont">&#xe6e2;</i></a></td>\n' +
-        //                        '</tr>').appendTo($tableBody);
-        //                }
-
-        //                //更新分页
-        //                $('.table-sort').dataTable();
-
-        //            } else {
-        //                layer.msg(data.header.msg,{icon:2,time:3000});
-        //            }
-        //        }
-        //    });
-        //}
-
-        //searchDepartment(1);
-
-        /*搜索*/
-        $("#btnSearch").click(function () {
-            searchDepartment(1);
-        });
 
     </script>
 </body>

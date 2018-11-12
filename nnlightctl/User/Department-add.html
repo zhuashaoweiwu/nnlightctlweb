@@ -102,7 +102,6 @@
                     param[o["name"]] = o["value"];
                 }
                 param["id"] = editModel(window.location.href);
-                debugger;
                 ajaxRequest("post", "/api/department/addOrUpdateDepartment", param, function (data) {
                     if (data) {
                         if (data.header.code == 1000) {
@@ -116,10 +115,8 @@
                         }
                     }
                 });
-
-                var index = parent.layer.getFrameIndex(window.name);
-                parent.$('.btn-refresh').click();
-                parent.layer.close(index);
+                ResetWindow();
+                
             }
         });
 

@@ -132,6 +132,9 @@
 <!--请在下方写此页面业务相关的脚本-->
 <script type="text/javascript" src="../lib/layer/2.4/layer.js"></script><!--弹出插件-->
 <script type="text/javascript">
+
+    var originalLightIds = [];
+
     $("#tb1").delegate('.text-c', 'click', function () {
         var _this = $(this).parent("tr").eq(0);
         _this.remove();
@@ -198,6 +201,19 @@
             if (priority && priority > 0) {
                 $Select.val(priority);
             }
+
+            //注册select选择事件
+            var lightId = $(this).attr("ref");
+            $Select.unbind("change").change(function () {
+                var number = $(this).val();
+                ajaxRequest("post", "/api/roadlighting/updateLightPriority", {"id" : lightId, "priority" : number}, function (data) {
+                    if (data) {
+                        if (data.header.code != 1000) {
+                            layer.msg(data.header.msg, {icon : 2, time : 3000});
+                        }
+                    }
+                });
+            });
         });
     }
 
@@ -295,20 +311,26 @@
                     var $tbody = $("#tb2");
                     $tbody.empty();
 
+                    originalLightIds = [];
                     for (var i = 0; i < lightArray.length; ++i) {
                         var light = lightArray[i];
 
-                        $('<tr class="text-c" ref="' + light.id + '">\n' +
-                            '<td>' + light.lightingCode + '</td>\n' +
-                            '<td>' + light.lamphead + '</td>\n' +
-                            '<td>' + light.lamppost + '</td>\n' +
-                            '<td>' + light.propertySerialNumber + '</td>\n' +
-                            '<td>' + light.regionLevelDesc + '</td>\n' +
+                        $('<tr ref="' + light.id + '">\n' +
+                            '<td class="text-c">' + light.lightingCode + '</td>\n' +
+                            '<td class="text-c">' + light.lamphead + '</td>\n' +
+                            '<td class="text-c">' + light.lamppost + '</td>\n' +
+                            '<td class="text-c">' + light.propertySerialNumber + '</td>\n' +
+                            '<td class="text-c">' + light.regionLevelDesc + '</td>\n' +
                             '<td><select cur="'+light.loopPriority+'"></select></td>' +
                             '</tr>').appendTo($tbody);
+
+                        originalLightIds.push(light.id);
                     }
 
                     resetSortColumn();
+
+                    //刷新左侧可添加灯具列表
+                    flushSelectableLight();
                 }
             }
         });
@@ -317,13 +339,43 @@
     $(function () {
         flushSelectableLight();
         flushEleboxModel();
+
         //注册模块下拉列表选择事件
         $("#modelSelect").change(function () {
             flushModelLoopByModelId($(this).val());
         });
+
         //注册回路下拉列表选择事件
         $("#modelLoopSelect").change(function () {
-            listLightByModelLoopId(this(this).val());
+            listLightByModelLoopId($(this).val());
+        });
+
+        //注册提交按扭事件
+        $("#btnSubmit").click(function () {
+            //获取操作后灯具id集合
+            var lightIds = [];
+            $("#tb2").find("tr").each(function (index, value) {
+                lightIds.push($(this).attr("ref"));
+            });
+
+            var eleboxId = editModel(window.location.href);
+            var modelLoopId = $("#modelLoopSelect").val();
+
+            ajaxRequest("post", "/api/roadlighting/updateLightBeEleboxBeLoop2",
+                transArray({"beEleboxId" : eleboxId, "modelLoopId" : modelLoopId, "originalLightIds" : originalLightIds, "lightIdList" : lightIds}),
+                function (data) {
+                    if (data) {
+                        if (data.header.code == 1000) {
+                            layer.msg("回路添加灯具成功", {icon : 2, time : 3000});
+                            //关闭对话框
+                            var index = parent.layer.getFrameIndex(window.name);
+                            parent.$('.btn-refresh').click();
+                            parent.layer.close(index);
+                        } else {
+                            layer.msg(data.header.msg, {icon : 2, time : 3000});
+                        }
+                    }
+            });
         });
     });
 </script>

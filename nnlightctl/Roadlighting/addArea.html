@@ -57,9 +57,9 @@
     </article>
     <!--_footer 作为公共模版分离出去-->
     <script type="text/javascript" src="../js/jquery.min.js"></script>
-    <script type="text/javascript" src="../lib/layer/2.4/layer.js"></script>
+    
     <script type="text/javascript" src="../js/common.js"></script>
-    <script type="text/javascript" src="../js/admin.js"></script>
+    <script type="text/javascript" src="../js/admin.js?v=1"></script>
 
     <script type="text/javascript" src="../js/api/requestRoot.js"></script>
     <script type="text/javascript" src="../js/api/ajaxScript.js"></script>
@@ -68,6 +68,8 @@
     <script type="text/javascript" src="../lib/jquery.validation/1.14.0/jquery.validate.js"></script>
     <script type="text/javascript" src="../lib/jquery.validation/1.14.0/validate-methods.js"></script>
     <script type="text/javascript" src="../lib/jquery.validation/1.14.0/messages_zh.js"></script>
+    <script type="text/javascript" src="../lib/layer/2.4/layer.js"></script>
+    <script type="text/javascript" src="../lib/laypage/1.2/laypage.js"></script>
 
     <script type="text/javascript">
 
@@ -100,27 +102,24 @@
                     }else {
                         param["regionLevel"] =1
                     }
-
                     param["id"] = editModel(window.location.href);
                     // param["regionLevel"] = $('#nnlightctlParentRegion').val();
 
                     ajaxRequest("post", "/api/roadlighting/addOrUpdateArea", param, function (data) {
                         if (data) {
                             if (data.header.code == 1000) {
+
                                 if (editModel(window.location.href)) {
-                                    layer.msg("编辑区域信息成功！", {icon: 1, time: 3000});
+                                    layer.msg("编辑区域信息成功！", { icon: 5 });
                                 } else {
-                                    layer.msg("添加区域信息成功！", {icon: 1, time: 3000});
+                                    layer.msg("添加区域信息成功！", { icon: 6 });
                                 }
                             } else {
                                 layer.msg(data.header.msg, {icon: 2, time: 3000});
                             }
                         }
                     });
-
-                    var index = parent.layer.getFrameIndex(window.name);
-                    parent.$('.btn-refresh').click();
-                    parent.layer.close(index);
+                    ResetWindow();
                 }
             });
 

@@ -126,6 +126,8 @@
     
         function searchUser(param) {
             $('.table-sort').dataTable({
+                "bStateSave": true,
+                "destroy": true,
                 "searching": false,
                 "autoWidth": true,
                 "ordering": false, //设置所有布排序
@@ -151,17 +153,17 @@
                     }, {
                         targets: 10,
                         render: function (data, type, row) {
-                            var Struser = '<a href="javascript:void(0);" style="text-decoration:none" class="ml-10" title="锁定" onClick="user_stop(this, \'' + row.id + '\')" href="javascript:void(0);"><i class="Hui-iconfont">&#xe60e;</i></a>';
+                            var Struser = '<a href="javascript:void(0);" style="text-decoration:none" class="ml-10" title="锁定" onClick="user_stop(this, \'' + row.id + '\')"><i class="Hui-iconfont">&#xe60e;</i></a>';
                             if (row.userState == 2)
                             {
-                                Struser = '<a href="javascript:void(0);" style="text-decoration:none" class="ml-10" title="启用" onClick="user_start(this, \'' + row.id + '\')" href="javascript:void(0);"><i class="Hui-iconfont">&#xe605;</i></a>';
+                                Struser = '<a href="javascript:void(0);" style="text-decoration:none" class="ml-10" title="启用" onClick="user_start(this, \'' + row.id + '\')"><i class="Hui-iconfont">&#xe605;</i></a>';
                             }
 
                             return '<a href="javascript:void(0);" style="text-decoration:none" title="添加权限" onClick="user_add_role(\'添加权限\', \'User-add-role.html\', \'' + row.id + '\', \'500\', \'350\')"><i class="Hui-iconfont">&#xe61d;</i></a>' +
                                     Struser +
                                     '<a href="javascript:void(0);" style="text-decoration:none" class="ml-10" title="初始化密码" onClick="user_init_password('+row.id+')"><i class="Hui-iconfont">&#xe63f;</i></a>' +
-                                    '<a href="javascript:void(0);" style="text-decoration:none" class="ml-10" title="编辑" href="javascript:void(0);" onclick="user_edit(\'用户编辑\', \'User-add.html\', \'' + row.id + '\', \'800\', \'500\')" ><i class="Hui-iconfont">&#xe6df;</i></a> ' +
-                                    '<a href="javascript:void(0);" style="text-decoration:none" class="ml-10" title="删除" href="javascript:void(0);" onclick="user_del(this, \'' + row.id + '\')" ><i class="Hui-iconfont">&#xe6e2;</i></a>';
+                                    '<a href="javascript:void(0);" style="text-decoration:none" class="ml-10" title="编辑" onclick="user_edit(\'用户编辑\', \'User-add.html\', \'' + row.id + '\', \'800\', \'500\')" ><i class="Hui-iconfont">&#xe6df;</i></a> ' +
+                                    '<a href="javascript:void(0);" style="text-decoration:none" class="ml-10" title="删除" onclick="user_del(this, \'' + row.id + '\')" ><i class="Hui-iconfont">&#xe6e2;</i></a>';
                         }
                     }
                 ],
@@ -198,7 +200,7 @@
         //添加权限
         function user_add_role(title, url, id, w, h)
         {
-            layer_show(title, url, w, h);
+            layer_show(title, url + "?id=" + id, w, h);
         }
         /*增加*/
         function user_add(title, url, w, h) {

@@ -5,114 +5,196 @@
     <meta name="renderer" content="webkit|ie-comp|ie-stand">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <meta name="viewport"
-          content="width=device-width,initial-scale=1,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no" />
-    <meta http-equiv="Cache-Control" content="no-siteapp" />
+          content="width=device-width,initial-scale=1,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no"/>
+    <meta http-equiv="Cache-Control" content="no-siteapp"/>
 
     <title>灯具道路地理信息--新建场景</title>
-    <link rel="stylesheet" type="text/css" href="../css/common.css" />
-    <link rel="stylesheet" type="text/css" href="../css/admin.css" />
-    <link rel="stylesheet" type="text/css" href="../css/iconfont/iconfont.css" />
+    <link rel="stylesheet" type="text/css" href="../css/common.css"/>
+    <link rel="stylesheet" type="text/css" href="../css/admin.css"/>
+    <link rel="stylesheet" type="text/css" href="../css/iconfont/iconfont.css"/>
 </head>
 <body>
-    <div class="page-container">
-        <div class="row cl">
-            <label class="form-label col-xs-4 col-sm-3 text-r"><span class="c-red">*</span>场景名称：</label>
-            <div class="formControls col-xs-8 col-sm-7">
-                <input type="text" class="input-text" value="" placeholder="场景名称" id="cityName" name="cityName">
-            </div>
+<div class="page-container">
+    <div class="row cl">
+        <label class="form-label col-xs-4 col-sm-3 text-r"><span class="c-red">*</span>场景名称：</label>
+        <div class="formControls col-xs-8 col-sm-7">
+            <input type="text" class="input-text" value="" placeholder="场景名称" id="sceneName" name="sceneName">
         </div>
-        <div class="row cl mt-10">
-            <label class="form-label col-xs-4 col-sm-3 text-r"><span class="c-red">*</span>场景描述：</label>
-            <div class="formControls col-xs-8 col-sm-7">
-                <textarea cols="" rows="" class="textarea" placeholder="说点什么...100个字符以内" dragonfly="true" id="mem" name="mem"></textarea>
-            </div>
-        </div>
-        
-        <div style="width:100%;height:260px;border:1px solid #dedede;" class="mt-20">
-            <table border="0">
-                <tr>
-                    <td style="height:260px;width:48%;overflow-y:scroll;border:1px solid #ddd;" valign="top">
-                        <h4 class="f-18 tit"><span class="Hui-iconfont">&#xe667;</span><span class="pl-10">灯具分组</span>
-                            <a href="javascript:void(0);" class="btn btn-primary radius f-r" onclick="checkLampsGroup('选择灯具分组', 'checkLampsGroup.html', '800', '500')"><i class="Hui-iconfont">&#xe600;</i>添加灯具分组</a>
-                        </h4>
-                        <table class="table table-border table-bordered table-bg table-hover">
-                            <thead>
-                                <tr class="text-c">
-                                    <th>行号</th>
-                                    <th>分组名称</th>
-                                    <th>描述</th>
-                                    <th>操作</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr class="text-c">
-                                    <td>01</td>
-                                    <td>三亚项目</td>
-                                    <td>三亚项目</td>
-                                    <td class="f-14 td-manage">
-                                        <a href="javascript:void(0);" style="text-decoration:none" class="ml-5" onClick="del_one(this, '10001')" title="删除"><i class="Hui-iconfont">&#xe6e2;</i></a>
-                                    </td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </td>
-                    <td width="4%" align="center"> </td>
-                    <td style="height:260px;width:48%;overflow-y:scroll;border:1px solid #ddd;" valign="top">
-                        <h4 class="f-18 tit"><span class="Hui-iconfont">&#xe667;</span><span class="pl-10">任务开关</span>
-                            <a href="javascript:void(0);" class="btn btn-primary radius f-r" onclick="checkTaskSwitch('选择任务开关', 'checkTaskSwitch.html', '800', '500')"><i class="Hui-iconfont">&#xe600;</i>添加任务开关</a>
-                        </h4>
-                        <table class="table table-border table-bordered table-bg table-hover">
-                            <thead>
-                                <tr class="text-c">
-                                    <th>行号</th>
-                                    <th>任务名称</th>
-                                    <th>描述</th>
-                                    <th>操作</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr class="text-c">
-                                    <td>01</td>
-                                    <td>三亚项目</td>
-                                    <td>三亚项目</td>
-                                    <td class="f-14 td-manage">
-                                        <a href="javascript:void(0);" style="text-decoration:none" class="ml-5" onClick="del_one(this, '10001')" title="删除"><i class="Hui-iconfont">&#xe6e2;</i></a>
-                                    </td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </td>
-
-                </tr>
-            </table><!--组组模式end-->
-        </div>
-
-        <div class="row cl mt-30">
-            <div class="col-xs-8 col-sm-9 col-xs-offset-4 col-sm-offset-3">
-                <input class="btn btn-primary radius" type="submit" value="&nbsp;&nbsp;提交&nbsp;&nbsp;">
-            </div>
+    </div>
+    <div class="row cl mt-10">
+        <label class="form-label col-xs-4 col-sm-3 text-r">场景描述：</label>
+        <div class="formControls col-xs-8 col-sm-7">
+            <textarea cols="" rows="" class="textarea" placeholder="说点什么...100个字符以内" dragonfly="true" id="sceneDesc"
+                      name="sceneDesc"></textarea>
         </div>
     </div>
 
-    <script type="text/javascript" src="../js/jquery.min.js"></script>
-    <script type="text/javascript" src="../js/common.js"></script>
-    <script type="text/javascript" src="../js/admin.js"></script>
+    <div style="width:100%;height:260px;border:1px solid #dedede;" class="mt-20">
+        <table border="0">
+            <tr>
+                <td style="height:260px;width:48%;overflow-y:scroll;border:1px solid #ddd;" valign="top">
+                    <h4 class="f-18 tit"><span class="Hui-iconfont">&#xe667;</span><span class="pl-10">灯具分组</span>
+                        <a href="javascript:void(0);" class="btn btn-primary radius f-r"
+                           onclick="checkLampsGroup('选择灯具分组', 'checkLampsGroup.html', '800', '500')"><i
+                                class="Hui-iconfont">&#xe600;</i>添加灯具分组</a>
+                    </h4>
+                    <table class="table table-border table-bordered table-bg table-hover">
+                        <thead>
+                        <tr class="text-c">
+                            <th>分组名称</th>
+                            <th>描述</th>
+                            <th>操作</th>
+                        </tr>
+                        </thead>
+                        <tbody id="tb1">
 
-    <script type="text/javascript" src="../js/api/requestRoot.js"></script>
-    <script type="text/javascript" src="../js/api/ajaxScript.js"></script>
-    <!--请在下方写此页面业务相关的脚本-->
-    <script type="text/javascript" src="../lib/layer/2.4/layer.js"></script><!--弹出插件-->
-    <script type="text/javascript" src="../lib/My97DatePicker/4.8/WdatePicker.js"></script> <!--日期插件-->
-    <script type="text/javascript">
-        //选择灯具分组
-        function checkLampsGroup(title, url, w, h) {
-            layer_show(title, url, w, h);
-        }
-        //选择任务开关
-        function checkTaskSwitch(title, url, w, h) {
-            layer_show(title, url, w, h);
-        }
-    </script>
+                        </tbody>
+                    </table>
+                </td>
+                <td width="4%" align="center"></td>
+                <td style="height:260px;width:48%;overflow-y:scroll;border:1px solid #ddd;" valign="top">
+                    <h4 class="f-18 tit"><span class="Hui-iconfont">&#xe667;</span><span class="pl-10">任务开关</span>
+                        <a href="javascript:void(0);" class="btn btn-primary radius f-r"
+                           onclick="checkTaskSwitch('选择任务开关', 'checkTaskSwitch.html', '800', '500')"><i
+                                class="Hui-iconfont">&#xe600;</i>添加任务开关</a>
+                    </h4>
+                    <table class="table table-border table-bordered table-bg table-hover">
+                        <thead>
+                        <tr class="text-c">
+                            <th>任务名称</th>
+                            <th>调光百分比</th>
+                            <th>操作</th>
+                        </tr>
+                        </thead>
+                        <tbody id="tb2">
+
+                        </tbody>
+                    </table>
+                </td>
+
+            </tr>
+        </table><!--组组模式end-->
+    </div>
+
+    <div class="row cl mt-30">
+        <div class="col-xs-8 col-sm-9 col-xs-offset-4 col-sm-offset-3">
+            <input id="btnSubmit" class="btn btn-primary radius" type="submit" value="&nbsp;&nbsp;提交&nbsp;&nbsp;">
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript" src="../js/jquery.min.js"></script>
+<script type="text/javascript" src="../js/common.js"></script>
+<script type="text/javascript" src="../js/admin.js"></script>
+
+<script type="text/javascript" src="../js/api/requestRoot.js"></script>
+<script type="text/javascript" src="../js/api/ajaxScript.js"></script>
+<!--请在下方写此页面业务相关的脚本-->
+<script type="text/javascript" src="../lib/layer/2.4/layer.js"></script><!--弹出插件-->
+<script type="text/javascript" src="../lib/My97DatePicker/4.8/WdatePicker.js"></script> <!--日期插件-->
+<script type="text/javascript">
+
+    //删除灯具分组
+    function delLightGroup(obj, lightGroupId) {
+        $(obj).parent("td").parent("tr").remove();
+    }
+
+    //选择灯具分组
+    function checkLampsGroup(title, url, w, h) {
+        layer_show(title, url, w, h, function (selectLightGroupArray) {
+            if (selectLightGroupArray) {
+                var $tbody = $("#tb1");
+
+                for (var i = 0; i < selectLightGroupArray.length; ++i) {
+                    var selectLightGroup = selectLightGroupArray[i];
+
+                    $('<tr lightGroupId="'+selectLightGroup.id+'" class="text-c">' +
+                        '<td>' + selectLightGroup.cGroupName + '</td>\n' +
+                        '<td>' + selectLightGroup.mem + '</td>\n' +
+                        '<td class="f-14 td-manage">\n' +
+                        '<a href="javascript:void(0);" style="text-decoration:none" class="ml-5" onClick="delLightGroup(this, \''+selectLightGroup.id+'\')" title="删除"><i class="Hui-iconfont">&#xe6e2;</i></a>\n' +
+                        '</td>' +
+                        '</tr>').appendTo($tbody);
+                }
+            }
+        });
+    }
+
+    //删除任务开关
+    function delTaskSwitch(obj, id) {
+        $(obj).parent("td").parent("tr").remove();
+    }
+
+    //选择任务开关
+    function checkTaskSwitch(title, url, w, h) {
+        layer_show(title, url, w, h, function (selectTaskSwitchArray) {
+            if (selectTaskSwitchArray) {
+                var $tbody = $("#tb2");
+
+                for (var i = 0; i < selectTaskSwitchArray.length; ++i) {
+                    var selectTaskSwitch = selectTaskSwitchArray[i];
+
+                    $('<tr taskSwitchId="'+selectTaskSwitch.id+'" class="text-c">\n' +
+                        '<td>'+selectTaskSwitch.switchName+'</td>\n' +
+                        '<td>'+selectTaskSwitch.lightPercent+'</td>\n' +
+                        '<td class="f-14 td-manage">\n' +
+                        '<a href="javascript:void(0);" style="text-decoration:none" class="ml-5"\n' +
+                        'onClick="delTaskSwitch(this, \''+selectTaskSwitch.id+'\')" title="删除"><i class="Hui-iconfont">&#xe6e2;</i></a>\n' +
+                        '</td>\n' +
+                        '</tr>').appendTo($tbody);
+                }
+            }
+        });
+    }
+    
+    $(function () {
+        //提交按扭事件
+        $("#btnSubmit").click(function () {
+            //验证场景名称不为空
+            var sceneName = $("#sceneName").val();
+            if (!sceneName) {
+                layer.msg("场景名称不可为空", {icon : 2, time : 3000});
+                return;
+            }
+
+            //构造提交参数
+            var param = {};
+
+            param["sceneName"] = $("#sceneName").val();
+            param["sceneDesc"] = $("#sceneDesc").val();
+
+            //灯具分组id的集合
+            var lightGroupIdArray = [];
+            $("#tb1").find("tr").each(function (index, value) {
+                lightGroupIdArray.push($(this).attr("lightGroupId"));
+            });
+            param["lightingGroupIds"] = lightGroupIdArray;
+
+            //任务开关id的集合
+            var taskSwitchIdArray = [];
+            $("#tb2").find("tr").each(function (index, value) {
+                taskSwitchIdArray.push($(this).attr("taskSwitchId"));
+            });
+            param["switchTaskIds"] = taskSwitchIdArray;
+
+            ajaxRequest("post", "/api/scene/addOrUpdateScene", transArray(param), function (data) {
+                if (data) {
+                    if (data.header.code == 1000) {
+                        layer.msg("添加场景成功", {icon : 1, time : 3000});
+                    } else {
+                        layer.msg(data.header.msg, {icon : 2, time : 3000});
+                    }
+                }
+
+                //关闭对话框
+                var index = parent.layer.getFrameIndex(window.name);
+                parent.$('.btn-refresh').click();
+                parent.layer.close(index);
+
+            });
+        });
+    });
+</script>
 
 </body>
 </html>

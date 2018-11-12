@@ -94,6 +94,8 @@
     });
     function searchLightModel(param) {
         $('.table-sort').dataTable({
+            "bStateSave": true,
+            "destroy": true,
             "searching": false,
             "autoWidth": true,
             "ordering": false, //设置所有布排序

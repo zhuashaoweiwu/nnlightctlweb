@@ -203,7 +203,7 @@ function layer_show() {
                     //当点击‘确定’按钮的时候，获取弹出层返回的值
                     var res = window["layui-layer-iframe" + index].getData();
                     //打印返回的值，看是否有我们想返回的值。
-                    console.log(res);
+                    //console.log(res);
                     callbackfun(res);
                     //最后关闭弹出层
                     layer.close(index);
@@ -393,4 +393,9 @@ $(function(){
 		oUl.stop().animate({'left':-num*100},100);
 	}
 	
-}); 
+});
+//关闭父窗口，并刷新父页面
+function ResetWindow()
+{
+    setTimeout(function () { window.parent.location.reload(); }, 1000);//1秒后强制刷新
+}
