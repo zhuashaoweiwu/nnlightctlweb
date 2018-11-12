@@ -18,17 +18,42 @@
         <div style="width:100%;height:450px;border:1px solid #dedede;">
             <div style="width:210px" class="f-l">
                 <h4 class="f-18 tit"><span class="Hui-iconfont">&#xe667;</span><span class="pl-10">警报类型</span></h4>
-                <div class="ucnav">
-                    <h2 class="navtit ucgrzx" ref="0">全部</h2>
-                    <h2 class="navtit ucgrzx" ref="1"><i class="Hui-iconfont">&#xe6d7;</i>控制柜警报</h2>
+                <div class="ucnav" style="height: 410px; overflow: auto;">
+                    <h2 class="navtit ucgrzx" ref="0"><a href="javascript:void(0)" onclick="findAram(1)">全部</a></h2>
+                    <h2 class="navtit ucgrzx" ref="1"><i class="Hui-iconfont">&#xe6d7;</i><a href="javascript:void(0)" onclick="findAram(10)">控制柜警报</a></h2>
                     <ul class="ucsub tab1">
-                        <li><a href="javascript:void(0)">意外亮灯</a></li>
-                        <li><a href="javascript:void(0)">灭灯</a></li>
+                        <li><a href="javascript:void(0)" onclick="findAram(11)">意外亮灯</a></li>
+                        <li><a href="javascript:void(0)" onclick="findAram(12)">意外灭灯</a></li>
+                        <li><a href="javascript:void(0)" onclick="findAram(13)">线路过流</a></li>
+                        <li><a href="javascript:void(0)" onclick="findAram(14)">线路过压</a></li>
+                        <li><a href="javascript:void(0)" onclick="findAram(15)">线路欠压</a></li>
+                        <li><a href="javascript:void(0)" onclick="findAram(16)">配电柜断电</a></li>
+                        <li><a href="javascript:void(0)" onclick="findAram(17)">配电柜缺相</a></li>
+                        <li><a href="javascript:void(0)" onclick="findAram(18)">配电柜漏电</a></li>
+                        <li><a href="javascript:void(0)" onclick="findAram(19)">功率因数越限</a></li>
+                        <li><a href="javascript:void(0)" onclick="findAram(110)">柜门开启</a></li>
+                        <li><a href="javascript:void(0)" onclick="findAram(111)">配电柜倾斜</a></li>
+                        <li><a href="javascript:void(0)" onclick="findAram(112)">配电柜进水</a></li>
+                        <li><a href="javascript:void(0)" onclick="findAram(113)">配电柜雷击</a></li>
+                        <li><a href="javascript:void(0)" onclick="findAram(114)">手自控切换</a></li>
+                        <li><a href="javascript:void(0)" onclick="findAram(115)">外部控制器</a></li>
+                        <li><a href="javascript:void(0)" onclick="findAram(116)">自定义报警</a></li>
                     </ul>
-                    <h2 class="navtit ucgrzx" ref="2"><i class="Hui-iconfont">&#xe6d7;</i>常规灯具警报</h2>
+                    <h2 class="navtit ucgrzx" ref="2"><i class="Hui-iconfont">&#xe6d7;</i><a href="javascript:void(0)" onclick="findAram(20)">常规灯具警报</a></h2>
                     <ul class="ucsub tab2">
-                        <li><a href="javascript:void(0)">灯具熄灭</a></li>
-                        <li><a href="javascript:void(0)">电源故障</a></li>
+                        <li><a href="javascript:void(0)" onclick="findAram(21)">灯具熄灭</a></li>
+                        <li><a href="javascript:void(0)" onclick="findAram(22)">电源故障</a></li>
+                        <li><a href="javascript:void(0)" onclick="findAram(23)">补偿电容</a></li>
+                        <li><a href="javascript:void(0)" onclick="findAram(24)">灯杆漏电</a></li>
+                        <li><a href="javascript:void(0)" onclick="findAram(25)">节点丢失</a></li>
+                        <li><a href="javascript:void(0)" onclick="findAram(26)">继电器故障</a></li>
+                        <li><a href="javascript:void(0)" onclick="findAram(27)">灯具过流</a></li>
+                        <li><a href="javascript:void(0)" onclick="findAram(28)">灯具过压</a></li>
+                        <li><a href="javascript:void(0)" onclick="findAram(29)">灯具欠压</a></li>
+                        <li><a href="javascript:void(0)" onclick="findAram(210)">高温</a></li>
+                        <li><a href="javascript:void(0)" onclick="findAram(211)">灯具寿命</a></li>
+                        <li><a href="javascript:void(0)" onclick="findAram(212)">检修口门</a></li>
+                        <li><a href="javascript:void(0)" onclick="findAram(213)">灯杆倾斜</a></li>
                     </ul>
                 </div>
             </div>
@@ -37,47 +62,16 @@
                 <table class="table table-border table-bordered table-bg table-hover table-sort" id="alertinfo">
                     <thead>
                         <tr class="text-l">
-                            <th>行号</th>
-                            <th>电表警告</th>
-                            <th>集中器警告</th>
-                            <th>开光警告</th>
-                            <th>防盗警告</th>
+                            <th>编号</th>
+                            <th>报警设备</th>
+                            <th>报警级别</th>
+                            <th>报警时间</th>
+                            <th>是否启用</th>
                             <th></th>
                         </tr>
                     </thead>
-                    <tbody>
-                        <tr class="text-l" rel="101">
-                            <td>89755</td>
-                            <td>5555</td>
-                            <td>1</td>
-                            <td>136.254</td>
-                            <td>36.5845</td>
-                            <td><a href="javascript:void(0);" style="text-decoration:none" class="ml-10" title="启用" onClick="Relieve(this, 1001)"><i class="Hui-iconfont">&#xe605;</i></a></td>
-                        </tr>
-                        <tr class="text-l" rel="102">
-                            <td>89755</td>
-                            <td>5555</td>
-                            <td>1</td>
-                            <td>136.254</td>
-                            <td>36.5845</td>
-                            <td><a href="javascript:void(0);" style="text-decoration:none" class="ml-10" title="启用" onClick="Relieve(this, 1002)"><i class="Hui-iconfont">&#xe605;</i></a></td>
-                        </tr>
-                        <tr class="text-l" rel="103">
-                            <td>89755</td>
-                            <td>5555</td>
-                            <td>1</td>
-                            <td>136.254</td>
-                            <td>36.5845</td>
-                            <td><a href="javascript:void(0);" style="text-decoration:none" class="ml-10" title="启用" onClick="Relieve(this, 1003)"><i class="Hui-iconfont">&#xe605;</i></a></td>
-                        </tr>
-                        <tr class="text-l" rel="104">
-                            <td>89755</td>
-                            <td>5555</td>
-                            <td>1</td>
-                            <td>136.254</td>
-                            <td>36.5845</td>
-                            <td><a href="javascript:void(0);" style="text-decoration:none" class="ml-10" title="启用" onClick="Relieve(this, 1004)"><i class="Hui-iconfont">&#xe605;</i></a></td>
-                        </tr>
+                    <tbody id="aramList">
+
                     </tbody>
                 </table>
              </div>
@@ -92,7 +86,7 @@
                         </tr>
                     </thead>
                     <tbody id="infoshow">
-                        <tr>
+                        <!--<tr>
                             <td class="text-r">类型</td>
                             <td class="text-l c-red">灯具故障</td>
                         </tr>
@@ -131,26 +125,29 @@
                         <tr>
                             <td class="text-r">数据</td>
                             <td class="text-l">05147</td>
-                        </tr>
+                        </tr>-->
                     </tbody>
                 </table>
             </div>
             <div class="clear"></div>
         </div>
         
-        <div class="row cl mt-20">
+       <!-- <div class="row cl mt-20">
             <div class="col-xs-8 col-sm-9 col-xs-offset-4 col-sm-offset-3">
                 <input class="btn btn-primary radius" type="submit" value="&nbsp;&nbsp;提交&nbsp;&nbsp;">
             </div>
-        </div>
+        </div>-->
 
 
 
     </div>
+    <script type="text/javascript" src="../js/api/requestRoot.js"></script>
+    <script type="text/javascript" src="../js/api/ajaxScript.js"></script>
     <script type="text/javascript" src="../js/jquery.min.js"></script>
     <script type="text/javascript" src="../lib/layer/2.4/layer.js"></script>
     <script type="text/javascript">
         $(function () {
+            findAram(1);
             $(".navtit").click(function () {
                 var _this = $(this);
                 $(".ucnav .Hui-iconfont").html("&#xe6d7;");
@@ -163,7 +160,7 @@
                 // //此处请求后台程序，绑定右侧table数据
             });
             //鼠标点击触发详细信息
-            $("#alertinfo tbody tr").click(function () {
+   /*         $("#alertinfo").on("click",function (e) {
                 var _this = $(this);
                 //先清除所有背景
                 $("#alertinfo tbody tr").css('background-color', '');
@@ -182,9 +179,168 @@
                 StrHtml += "<tr><td class=\"text-r\">道具</td><td>1</td></tr>";
                 StrHtml += "<tr><td class=\"text-r\">数据</td><td>05147</td></tr>";
                 $("#infoshow").html(StrHtml);
-            });
+            });*/
 
         });
+        function get(type){
+
+            alert(type);
+            ajaxRequest("post", "/api/alarm/getAlarm", {"id":parseInt(type)}, function (data) {
+                console.log(data)
+                var sta;
+                if(data.body.data){
+                    if(data.body.data.length){
+                        if(data.body.data[0].state==0){
+                            sta="报警中";
+                        }else if(data.body.data[0].state==1){
+                            sta="已解除";
+                        }else if(data.body.data[0].state==2){
+                            sta="已处理";
+                        }else if(data.body.data[0].state==3){
+
+                        }else {
+                            sta="未定义";
+                        }
+                    }
+                }
+                var StrHtml = "";
+                StrHtml += "<tr><td class=\"text-r\">类型</td><td class=\"c-red\">"+data.body.data[0].alarmSource+"</td></tr>";
+                StrHtml += "<tr><td class=\"text-r\">状态</td><td class=\"c-red\">"+sta+"</td></tr>";
+                StrHtml += "<tr><td class=\"text-r\">控制柜/区域</td><td>107AB</td></tr>";
+                StrHtml += "<tr><td class=\"text-r\">集中器</td><td>107AB</td></tr>";
+                StrHtml += "<tr><td class=\"text-r\">硬件</td><td>终端</td></tr>";
+                StrHtml += "<tr><td class=\"text-r\">灯杆</td><td>001-1</td></tr>";
+                StrHtml += "<tr><td class=\"text-r\">灯头</td><td>1</td></tr>";
+                StrHtml += "<tr><td class=\"text-r\">终端</td><td>30569</td></tr>";
+                StrHtml += "<tr><td class=\"text-r\">道具</td><td>1</td></tr>";
+                StrHtml += "<tr><td class=\"text-r\">数据</td><td>05147</td></tr>";
+                $("#infoshow").html(StrHtml);
+            })
+
+        }
+
+        function findAram(type){
+            $("#aramList").empty();
+            var param = {};
+            if(type==1){
+
+            }else if(type==10){
+                param["alarmSource"]="控制柜"
+                param["ctype"] = "";
+            }else if(type==20){
+                param["alarmSource"]="常规灯具"
+                param["ctype"] = "";
+            }else if(type==11){
+                param["alarmSource"]="控制柜"
+                param["ctype"] = 1;
+            }else if(type==12){
+                param["alarmSource"]="控制柜"
+                param["ctype"] = 2;
+            }else if(type==13){
+                param["alarmSource"]="控制柜"
+                param["ctype"] = 3;
+            }else if(type==14){
+                param["alarmSource"]="控制柜"
+                param["ctype"] = 4;
+            }else if(type==15){
+                param["alarmSource"]="控制柜"
+                param["ctype"] = 5;
+            }else if(type==16){
+                param["alarmSource"]="控制柜"
+                param["ctype"] = 6;
+            }else if(type==17){
+                param["alarmSource"]="控制柜"
+                param["ctype"] = 7;
+            }else if(type==18){
+                param["alarmSource"]="控制柜"
+                param["ctype"] = 8;
+            }else if(type==19){
+                param["alarmSource"]="控制柜"
+                param["ctype"] = 9;
+            }else if(type==110){
+                param["alarmSource"]="控制柜"
+                param["ctype"] = 10;
+            }else if(type==112){
+                param["alarmSource"]="控制柜"
+                param["ctype"] = 12;
+            }else if(type==113){
+                param["alarmSource"]="控制柜"
+                param["ctype"] = 13;
+            }else if(type==114){
+                param["alarmSource"]="控制柜"
+                param["ctype"] = 14;
+            }else if(type==115){
+                param["alarmSource"]="控制柜"
+                param["ctype"] = 15;
+            }else if(type==116){
+                param["alarmSource"]="控制柜"
+                param["ctype"] = 16;
+            }else if(type==21){
+                param["alarmSource"]="常规灯具"
+                param["ctype"] = "1";
+            }else if(type==22){
+                param["alarmSource"]="常规灯具"
+                param["ctype"] = "2";
+            }else if(type==23){
+                param["alarmSource"]="常规灯具"
+                param["ctype"] = "3";
+            }else if(type==24){
+                param["alarmSource"]="常规灯具"
+                param["ctype"] = "4";
+            }else if(type==25){
+                param["alarmSource"]="常规灯具"
+                param["ctype"] = "5";
+            }else if(type==26){
+                param["alarmSource"]="常规灯具"
+                param["ctype"] = "6";
+            }else if(type==27){
+                param["alarmSource"]="常规灯具"
+                param["ctype"] = "7";
+            }else if(type==28){
+                param["alarmSource"]="常规灯具"
+                param["ctype"] = "8";
+            }else if(type==29){
+                param["alarmSource"]="常规灯具"
+                param["ctype"] = "9";
+            }else if(type==210){
+                param["alarmSource"]="常规灯具"
+                param["ctype"] = "10";
+            }else if(type==211){
+                param["alarmSource"]="常规灯具"
+                param["ctype"] = "11";
+            }else if(type==212){
+                param["alarmSource"]="常规灯具"
+                param["ctype"] = "12";
+            }else if(type==213){
+                param["alarmSource"]="常规灯具"
+                param["ctype"] = "13";
+            }
+
+            ajaxRequest("post", "/api/alarm/listAlarm", param, function (data) {
+                if(data.body.data){
+                    if(data.body.data.length>0){
+                        for(var i = 0 ; i < data.body.data.length ; i++){
+                            var aramList= data.body.data[i];
+                            var s;
+                            if(aramList.state==1){
+                                s="启用";
+                            }else {
+                                s="不启用";
+                            }
+                            $("#aramList").append("<tr class='text-l' onclick='get("+aramList.id+")' rel='102'>" +
+                                "                            <td>"+aramList.codeNumber+"</td>" +
+                                "                            <td>"+aramList.alarmSource+"</td>" +
+                                "                            <td>"+aramList.alarmLevel+"</td>" +
+                                "                            <td>"+formatDate(aramList.removeAlarmTime)+"</td>" +
+                                "                            <td>"+s+"</td>" +
+                                "                            <td><a href='javascript:void(0);' style='text-decoration:none' class='ml-10' title='启用' onClick='Relieve(this, 1002)'><i class='Hui-iconfont'>&#xe605;</i></a></td>" +
+                                "                        </tr>");
+                        }
+                    }
+                }
+            })
+        }
+
         function Relieve(obj, id) {
             layer.confirm('确认要解除警报吗？', function (index) {
                 //此处请求后台程序，下方是成功后的前台处理……
