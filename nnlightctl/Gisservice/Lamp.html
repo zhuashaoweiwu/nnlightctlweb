@@ -13,8 +13,7 @@
     <link rel="stylesheet" type="text/css" href="../css/admin.css"/>
     <link rel="stylesheet" type="text/css" href="../css/iconfont/iconfont.css"/>
 
-    <link rel="stylesheet" href="//apps.bdimg.com/libs/jqueryui/1.10.4/css/jquery-ui.min.css">
-    
+   
 </head>
 <body>
 <nav class="breadcrumb">
@@ -50,32 +49,9 @@
 
     </div>
 </div>
-    <div id="mappage">
-        <script type="text/javascript" src="../js/jquery.min.js"></script>
-        <script src="//apps.bdimg.com/libs/jqueryui/1.10.4/jquery-ui.min.js"></script>
-        <script type="text/javascript">
-            $(function () {
-                $(".slider-vertical").slider({
-                    orientation: "vertical",
-                    range: "min",
-                    min: 0,
-                    max: 100,
-                    value: 60,
-                    slide: function (event, ui) {
-                        $("#amount").val(ui.value);
-                    }
-                });
-                $("#amount").val($(".slider-vertical").slider("value"));
-            });
-            $(".lightbtn").on("click", function () {
-                alert(1);
-                var StaVal = $(this).attr("rel");
-                $(".slider-vertical").slider("value", StaVal);
-                $("#amount").val(StaVal);
-            });
-        </script>
-    </div><!--地图弹出内容-->
-    <div id="elebox"></div><!--控制柜加载弹出内容-->
+    
+    <div id="lightpage"></div><!--灯具加载弹出内容-->
+    <div id="eleboxpage"></div><!--控制柜加载弹出内容-->
 <script type="text/javascript" src="../js/jquery.min.js"></script>
 <script type="text/javascript" src="../js/common.js"></script>
 <script type="text/javascript" src="../js/admin.js"></script>
@@ -86,23 +62,21 @@
 <script type="text/javascript" src="../lib/layer/2.4/layer.js"></script><!--弹出插件-->
 <script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=ow29ANFSyXM6nf6cYl14GdDI"></script><!--百度地图-->
 
-   
-    
-    <script type="text/javascript">
+<script type="text/javascript">
     function AddStrHtml(longitude, latitude)
     {
         var Strhtml = "<div class=\"page-container\">";
         Strhtml += "<p class=\"f-14\"><span class=\"c-red\">灯具坐标：</span><span>经度：" + longitude + "</span><span class='pl-10'>纬度：" + latitude + "</span><span class=\"pl-10 c-red\">灯具编号：</span><span>30年</span></p>";
         Strhtml += "<div class=\"linghtbox clearfix mt-20\"><img src=\"../bg//lightsbg.jpg\" class=\"imgbox f-l mr-30\"/><div class=\"f-l ml-40\">";
-        Strhtml += "<a onclick=\"addlights(100)\"  href=\"javascript:void(0);\" rel=\"100\" class=\"lightbtn btn btn-danger radius mt-20\" style=\"width:100px;display:block\"><span>100%</span></a>";
+        Strhtml += "<a onclick=\"addlights(100)\" href=\"javascript:void(0);\" rel=\"100\" class=\"lightbtn btn btn-danger radius mt-20\" style=\"width:100px;display:block\"><span>100%</span></a>";
         Strhtml += "<a onclick=\"addlights(75)\" href=\"javascript:void(0);\" rel=\"75\" class=\"lightbtn btn btn-danger radius mt-20\" style=\"width:100px;display:block\"><span>75%</span></a>";
         Strhtml += "<a onclick=\"addlights(50)\" href=\"javascript:void(0);\" rel=\"50\" class=\"lightbtn btn btn-danger radius mt-20\" style=\"width:100px;display:block\"><span>50%</span></a>";
         Strhtml += "<a onclick=\"addlights(25)\" href=\"javascript:void(0);\" rel=\"25\" class=\"lightbtn btn btn-danger radius mt-20\" style=\"width:100px;display:block\"><span>25%</span></a>";
         Strhtml += "<a onclick=\"addlights(0)\" href=\"javascript:void(0);\" rel=\"0\" class=\"lightbtn btn btn-danger radius mt-20\" style=\"width:100px;display:block\"><span>0%</span></a>";
         Strhtml += "</div><div id=\"powerange\"><input type=\"text\" id=\"amount\" style=\"border:0; color:#f6931f; font-weight:bold;\" class=\"mb-20\"/>";
-        Strhtml += "<div class=\"slider-vertical\" style=\"height:200px;\"></div></div>";
+        Strhtml += "<div class=\"slider-vertical\" style=\"height:200px;\"></div></div></div>";
         Strhtml += "<div class=\"row cl mt-30\"><div class=\"col-xs-8 col-sm-9 col-xs-offset-4 col-sm-offset-3\">";
-        Strhtml += "<input id=\"btnSubmit\" class=\"btn btn-primary radius ml-20\" type=\"button\" value=\"&nbsp;&nbsp;提交&nbsp;&nbsp;\"></div></div></div></div>";
+        Strhtml += "<input id=\"btnSubmit\" class=\"btn btn-primary radius ml-20\" type=\"button\" value=\"&nbsp;&nbsp;提交&nbsp;&nbsp;\"></div></div></div>";
 
         return Strhtml;
     }
@@ -147,11 +121,6 @@
 
     var map = null;
 
-    var opts = {
-        width: 600,     // 信息窗口宽度
-        height: 450,     // 信息窗口高度
-        title: "<span style='font-size:16px;color:#0a79d8;font-weight: bold'>灯光调节</span>", // 信息窗口标题
-    }
 
     //灯具分组
     function LampsGroup(title, url, w, h) {
@@ -194,17 +163,26 @@
         if (isLight) {
             var icon = new BMap.Icon('../bg/light.png', new BMap.Size(60, 60), {anchor : new BMap.Size(15, 15)});
             marker.setIcon(icon);
+            var opts = {
+                width: 600,     // 信息窗口宽度
+                height: 450,     // 信息窗口高度
+                title: "<span style='font-size:16px;color:#0a79d8;font-weight: bold'>灯光调节</span>", // 信息窗口标题
+            }
             marker.addEventListener("click", function () {
-                StrHtml = $("#mappage").load("test.html").html();//暂时用这个测试页面顶替下
-                //alert(StrHtml);
-                var infoWindow = new BMap.InfoWindow(StrHtml, opts);  // 创建信息窗口对象
+                var StrHtmlNew = $("#lightpage").html();
+                var infoWindow = new BMap.InfoWindow(StrHtmlNew, opts);  // 创建信息窗口对象
                 map.openInfoWindow(infoWindow, point); //开启信息窗口
             });
         } else {
             var icon = new BMap.Icon('../bg/elebox.png', new BMap.Size(60, 60), { anchor: new BMap.Size(15, 15) });
             marker.setIcon(icon);
+            var opts = {
+                width: 600,     // 信息窗口宽度
+                height: 450,     // 信息窗口高度
+                title: "<span style='font-size:16px;color:#0a79d8;font-weight: bold'>控制柜操作</span>", // 信息窗口标题
+            }
             marker.addEventListener("click", function () {
-                StrHtml = $("#elebox").load("elebox.html").html();
+                StrHtml = $("#eleboxpage").html();
                 var infoWindow = new BMap.InfoWindow(StrHtml, opts);  // 创建信息窗口对象
                 map.openInfoWindow(infoWindow, point); //开启信息窗口
             });
@@ -382,28 +360,9 @@
         $("#map").width(Vw);
 
         loadJScript();
-    });
-    function addlights(id)
-    { var Html = $("#map").children().html();  }
-    $(function () {
-        
-        $("#map .slider-vertical").slider({
-            orientation: "vertical",
-            range: "min",
-            min: 0,
-            max: 100,
-            value: 60,
-            slide: function (event, ui) {
-                $("#amount").val(ui.value);
-            }
-        });
-        $("#amount").val($(".slider-vertical").slider("value"));
-    });
-    $(".lightbtn").bind("click", function () {
-        
-        var StaVal = $(this).attr("rel");
-        $(".slider-vertical").slider("value", StaVal);
-        $("#amount").val(StaVal);
+
+        $("#eleboxpage").load("elebox.html");//先预加载
+        $("#lightpage").load("test.html");//先预加载
     });
 </script>
 </body>

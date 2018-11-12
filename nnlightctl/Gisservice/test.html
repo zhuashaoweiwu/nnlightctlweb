@@ -12,17 +12,14 @@
     <link rel="stylesheet" type="text/css" href="../css/common.css?v=1" />
     <link rel="stylesheet" type="text/css" href="../css/admin.css" />
     <link rel="stylesheet" type="text/css" href="../css/iconfont/iconfont.css" />
-     <script type="text/javascript" src="../js/jquery.min.js"></script>
+        <script type="text/javascript" src="../js/jquery.min.js"></script>
         <link rel="stylesheet" href="//apps.bdimg.com/libs/jqueryui/1.10.4/css/jquery-ui.min.css">
-        <script src="//apps.bdimg.com/libs/jqueryui/1.10.4/jquery-ui.min.js"></script>
+        <script type="text/javascript" src="//apps.bdimg.com/libs/jqueryui/1.10.4/jquery-ui.min.js"></script>
 
 </head>
 <body>
-    
-    
     <div class="page-container">
 
-        <!--这里是地图弹出的内容，可以动态JS获取，修改里面的一些数值-->
         <p class="f-14">
             <span class="c-red">灯具坐标：</span><span>经度：116.306681 </span><span>纬度：39.830931</span> <span class="pl-10 c-red">灯具编号：</span><span>30年</span>
         </p>
@@ -55,20 +52,21 @@
 
        
         <script type="text/javascript">
-
-            $(".slider-vertical").slider({
-                orientation: "vertical",
-                range: "min",
-                min: 0,
-                max: 100,
-                value: 60,
-                slide: function (event, ui) {
-                    $("#amount").val(ui.value);
-                }
+            $(function () {
+                $(".slider-vertical").slider({
+                    orientation: "vertical",
+                    range: "min",
+                    min: 0,
+                    max: 100,
+                    value: 60,
+                    slide: function (event, ui) {
+                        $("#amount").val(ui.value);
+                    }
+                });
+                $("#amount").val($(".slider-vertical").slider("value"));
             });
-            $("#amount").val($(".slider-vertical").slider("value"));
 
-            $(".lightbtn").on("click", function () {
+            $(".lightbtn").click(function () {
                 var StaVal = $(this).attr("rel");
                 $(".slider-vertical").slider("value", StaVal);
                 $("#amount").val(StaVal);
