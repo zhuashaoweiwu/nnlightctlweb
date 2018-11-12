@@ -42,14 +42,8 @@
     <script type="text/javascript" src="../js/common.js"></script>
     <script type="text/javascript" src="../js/admin.js"></script>
     <script type="text/javascript" src="../lib/layer/2.4/layer.js"></script><!--弹出插件-->
-    <script type="text/javascript" src="../lib/datatables/1.10.0/jquery.dataTables.min.js"></script> 
     <script type="text/javascript">
-        $('.table-sort').dataTable({
-            "bLengthChange": false, //改变每页显示数据数量
-            "searching": false,
-            "pading": false,
-            "ordering": false, //设置所有布排序
-        });
+        
         //管理灯具
         function loop(title, url, id, w, h) {
             layer_show(title, url + "?id=" + id, w, h);
