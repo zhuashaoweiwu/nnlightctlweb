@@ -103,9 +103,11 @@
     <Content Include="Gisservice\checkTaskSwitch.html" />
     <Content Include="Gisservice\Control.html" />
     <Content Include="Gisservice\editScene.html" />
+    <Content Include="Gisservice\elebox.html" />
     <Content Include="Gisservice\Lamp.html" />
     <Content Include="Gisservice\Lights.html" />
     <Content Include="Gisservice\LampsGroup.html" />
+    <Content Include="Gisservice\loop.html" />
     <Content Include="Gisservice\Project.html" />
     <Content Include="Gisservice\Scene.html" />
     <Content Include="Gisservice\ShortcutKey.html" />

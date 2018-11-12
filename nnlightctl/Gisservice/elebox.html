@@ -1,0 +1,59 @@
+﻿<!DOCTYPE HTML>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="renderer" content="webkit|ie-comp|ie-stand">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport"
+          content="width=device-width,initial-scale=1,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no" />
+    <meta http-equiv="Cache-Control" content="no-siteapp" />
+
+    <title>灯具道路地理信息--选择控制柜</title>
+    <link rel="stylesheet" type="text/css" href="../css/common.css" />
+    <link rel="stylesheet" type="text/css" href="../css/admin.css" />
+    <link rel="stylesheet" type="text/css" href="../css/iconfont/iconfont.css" />
+
+</head>
+<body>
+    <div class="page-container">
+
+        <table class="table table-border table-bordered table-bg table-hover table-sort">
+            <thead>
+                <tr class="text-l">
+                    <th>模块编码</th>
+                    <th>模块名称</th>
+                    <th>回路数量</th>
+                    <th>回路</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr class="text-l">
+                    <td>modelCode</td>
+                    <td>modelName</td>
+                    <td>loopCount</td>
+                    <td>
+                        <a href="javascript:void(0);" style="text-decoration:none" class="ml-5" onclick="loop('回路操作', 'loop.html', '1', '600', '400')" title="回路操作"><i class="Hui-iconfont">&#xe6df;</i></a>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <script type="text/javascript" src="../js/jquery.min.js"></script>
+    <script type="text/javascript" src="../js/common.js"></script>
+    <script type="text/javascript" src="../js/admin.js"></script>
+    <script type="text/javascript" src="../lib/layer/2.4/layer.js"></script><!--弹出插件-->
+    <script type="text/javascript" src="../lib/datatables/1.10.0/jquery.dataTables.min.js"></script> 
+    <script type="text/javascript">
+        $('.table-sort').dataTable({
+            "bLengthChange": false, //改变每页显示数据数量
+            "searching": false,
+            "pading": false,
+            "ordering": false, //设置所有布排序
+        });
+        //管理灯具
+        function loop(title, url, id, w, h) {
+            layer_show(title, url + "?id=" + id, w, h);
+        }
+    </script>
+</body>
+</html>
