@@ -12,8 +12,9 @@
     <link rel="stylesheet" type="text/css" href="../css/common.css?v=1"/>
     <link rel="stylesheet" type="text/css" href="../css/admin.css"/>
     <link rel="stylesheet" type="text/css" href="../css/iconfont/iconfont.css"/>
-    <link rel="stylesheet" type="text/css" href="../css/nouislider.css"/><!--滑动条-->
-    <script type="text/javascript" src="../js/jquery.min.js"></script>
+
+    <link rel="stylesheet" href="//apps.bdimg.com/libs/jqueryui/1.10.4/css/jquery-ui.min.css">
+    
 </head>
 <body>
 <nav class="breadcrumb">
@@ -49,77 +50,31 @@
 
     </div>
 </div>
-<div class="page-container" id="mappage">
-
-    <!--这里是地图弹出的内容，可以动态JS获取，修改里面的一些数值-->
-    <p class="mt-20 f-14"><span class="c-red">灯具坐标：</span><span>经度：116.306681 </span><span>纬度：39.830931</span> <span
-            class="pl-10 c-red">光衰：</span><span>30年</span></p>
-    <div class="linghtbox clearfix mt-20">
-        <img src="../bg//lightsbg.jpg" class="imgbox f-l mr-30"/>
-        <div class="f-l ml-40">
-            <a href="javascript:void(0);" rel="100" class="lightbtn btn btn-danger radius mt-20"
-               style="width:100px;display:block"><span>100%</span></a>
-            <a href="javascript:void(0);" rel="75" class="lightbtn btn btn-danger radius mt-20"
-               style="width:100px;display:block"><span>75%</span></a>
-            <a href="javascript:void(0);" rel="50" class="lightbtn btn btn-danger radius mt-20"
-               style="width:100px;display:block"><span>50%</span></a>
-            <a href="javascript:void(0);" rel="25" class="lightbtn btn btn-danger radius mt-20"
-               style="width:100px;display:block"><span>25%</span></a>
-            <a href="javascript:void(0);" rel="0" class="lightbtn btn btn-danger radius mt-20"
-               style="width:100px;display:block"><span>0</span></a>
-        </div>
-        <!--<input type="text" class="powerange f-r" style="display: none;" />-->
-        <div id="powerange"></div>
-        <!--<input type="range" name="points" min="1" max="10" class="f-r" />-->
-    </div>
-    <div class="mt-20">
-        <h4 class="f-18 tit"><span class="Hui-iconfont">&#xe667;</span><span class="pl-10">灯具型号</span></h4>
-        <div style="height:150px;overflow-y:scroll;">
-            <table id="selectableTable" class="table table-border table-bordered table-bg table-hover">
-                <thead>
-                <tr class="text-c">
-                    <th>灯具型号</th>
-                    <th>资产编号</th>
-                    <th>灯杆</th>
-                    <th>生产日期</th>
-                    <th>使用日期</th>
-                </tr>
-                </thead>
-                <tbody>
-                <tr class="text-c">
-                    <td>LED90W</td>
-                    <td>220</td>
-                    <td>H201812545457</td>
-                    <td>2018-11-10</td>
-                    <td>2018-11-10</td>
-                </tr>
-                <tr class="text-c">
-                    <td>LED90W</td>
-                    <td>220</td>
-                    <td>H201812545457</td>
-                    <td>2018-11-10</td>
-                    <td>2018-11-10</td>
-                </tr>
-                <tr class="text-c">
-                    <td>LED90W</td>
-                    <td>220</td>
-                    <td>H201812545457</td>
-                    <td>2018-11-10</td>
-                    <td>2018-11-10</td>
-                </tr>
-                </tbody>
-            </table>
-        </div>
-    </div>
-    <div class="row cl mt-10">
-        <div class="col-xs-8 col-sm-9 col-xs-offset-4 col-sm-offset-3">
-            <input id="btnSubmit" class="btn btn-primary radius ml-20" type="button" value="&nbsp;&nbsp;提交&nbsp;&nbsp;">
-            <input id="btnCancel" class="btn radius ml-20" type="button" value="&nbsp;&nbsp;取消&nbsp;&nbsp;">
-        </div>
-    </div>
-
-
-</div><!--地图弹出内容-->
+    <div id="mappage">
+        <script type="text/javascript" src="../js/jquery.min.js"></script>
+        <script src="//apps.bdimg.com/libs/jqueryui/1.10.4/jquery-ui.min.js"></script>
+        <script type="text/javascript">
+            $(function () {
+                $(".slider-vertical").slider({
+                    orientation: "vertical",
+                    range: "min",
+                    min: 0,
+                    max: 100,
+                    value: 60,
+                    slide: function (event, ui) {
+                        $("#amount").val(ui.value);
+                    }
+                });
+                $("#amount").val($(".slider-vertical").slider("value"));
+            });
+            $(".lightbtn").on("click", function () {
+                alert(1);
+                var StaVal = $(this).attr("rel");
+                $(".slider-vertical").slider("value", StaVal);
+                $("#amount").val(StaVal);
+            });
+        </script>
+    </div><!--地图弹出内容-->
 
 <script type="text/javascript" src="../js/jquery.min.js"></script>
 <script type="text/javascript" src="../js/common.js"></script>
@@ -131,48 +86,26 @@
 <script type="text/javascript" src="../lib/layer/2.4/layer.js"></script><!--弹出插件-->
 <script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=ow29ANFSyXM6nf6cYl14GdDI"></script><!--百度地图-->
 
-<script type="text/javascript" src="../js/nouislider.js"></script>
-<script type="text/javascript">
-    $(".lightbtn").click(function () {
-        var StaVal = $(this).attr("rel");
-        var slider = document.getElementById('powerange');
+   
+    
+    <script type="text/javascript">
+    function AddStrHtml(longitude, latitude)
+    {
+        var Strhtml = "<div class=\"page-container\">";
+        Strhtml += "<p class=\"f-14\"><span class=\"c-red\">灯具坐标：</span><span>经度：" + longitude + "</span><span class='pl-10'>纬度：" + latitude + "</span><span class=\"pl-10 c-red\">灯具编号：</span><span>30年</span></p>";
+        Strhtml += "<div class=\"linghtbox clearfix mt-20\"><img src=\"../bg//lightsbg.jpg\" class=\"imgbox f-l mr-30\"/><div class=\"f-l ml-40\">";
+        Strhtml += "<a onclick=\"addlights(100)\"  href=\"javascript:void(0);\" rel=\"100\" class=\"lightbtn btn btn-danger radius mt-20\" style=\"width:100px;display:block\"><span>100%</span></a>";
+        Strhtml += "<a onclick=\"addlights(75)\" href=\"javascript:void(0);\" rel=\"75\" class=\"lightbtn btn btn-danger radius mt-20\" style=\"width:100px;display:block\"><span>75%</span></a>";
+        Strhtml += "<a onclick=\"addlights(50)\" href=\"javascript:void(0);\" rel=\"50\" class=\"lightbtn btn btn-danger radius mt-20\" style=\"width:100px;display:block\"><span>50%</span></a>";
+        Strhtml += "<a onclick=\"addlights(25)\" href=\"javascript:void(0);\" rel=\"25\" class=\"lightbtn btn btn-danger radius mt-20\" style=\"width:100px;display:block\"><span>25%</span></a>";
+        Strhtml += "<a onclick=\"addlights(0)\" href=\"javascript:void(0);\" rel=\"0\" class=\"lightbtn btn btn-danger radius mt-20\" style=\"width:100px;display:block\"><span>0%</span></a>";
+        Strhtml += "</div><div id=\"powerange\"><input type=\"text\" id=\"amount\" style=\"border:0; color:#f6931f; font-weight:bold;\" class=\"mb-20\"/>";
+        Strhtml += "<div class=\"slider-vertical\" style=\"height:200px;\"></div></div>";
+        Strhtml += "<div class=\"row cl mt-30\"><div class=\"col-xs-8 col-sm-9 col-xs-offset-4 col-sm-offset-3\">";
+        Strhtml += "<input id=\"btnSubmit\" class=\"btn btn-primary radius ml-20\" type=\"button\" value=\"&nbsp;&nbsp;提交&nbsp;&nbsp;\"></div></div></div></div>";
 
-        noUiSlider.create(slider, {
-            start: StaVal,
-            connect: true,
-            orientation: 'vertical',
-            step: 1,
-            direction: 'rtl',
-            tooltips: true,
-            handles: 1,
-            range: {
-                'min': 0,
-                'max': 100
-            }
-        });
-
-    });
-    var slider = document.getElementById('powerange');
-
-    noUiSlider.create(slider, {
-        start: 0,
-        connect: true,
-        step: 1,
-        direction: 'rtl',
-        orientation: 'vertical',
-        tooltips: true,
-        handles: 1,
-        range: {
-            'min': 0,
-            'max': 100
-        }
-    });
-    slider.noUiSlider.on('hover', function (value) {
-        console.log(value);
-    });
-
-</script>
-<script type="text/javascript">
+        return Strhtml;
+    }
 
     //灯具分组
     function LampsGroup(title, url, w, h) {
@@ -215,8 +148,8 @@
     var map = null;
 
     var opts = {
-        width: 700,     // 信息窗口宽度
-        height: 600,     // 信息窗口高度
+        width: 600,     // 信息窗口宽度
+        height: 450,     // 信息窗口高度
         title: "<span style='font-size:16px;color:#0a79d8;font-weight: bold'>灯光调节</span>", // 信息窗口标题
     }
 
@@ -256,13 +189,14 @@
         layer_show(title, url, w, h);
     }
 
-    function addMarker(point, isLight) {
+    function addMarker(point, isLight, StrHtml) {
         var marker = new BMap.Marker(point);  // 创建标注
         if (isLight) {
             var icon = new BMap.Icon('../bg/light.png', new BMap.Size(60, 60), {anchor : new BMap.Size(15, 15)});
             marker.setIcon(icon);
             marker.addEventListener("click", function () {
-                var StrHtml = $("#mappage").html();
+                StrHtml += $("#mappage").html();
+                //alert(StrHtml);
                 var infoWindow = new BMap.InfoWindow(StrHtml, opts);  // 创建信息窗口对象
                 map.openInfoWindow(infoWindow, point); //开启信息窗口
             });
@@ -283,19 +217,16 @@
                 searchLightArray.push(light);
             }
         }
-
         return searchLightArray;
     }
 
     /*回路灯具集合按序号排序*/
     function sortLight(lightArray) {
         var sortLightArray = [];
-
         for (var i = 0; i < lightArray.length; ++i) {
             var searchKey = i + 1;
             sortLightArray.push(searchLightByPriority(lightArray, searchKey));
         }
-
         return sortLightArray;
     }
 
@@ -307,11 +238,8 @@
                 }
             }
         }
-
         return null;
     }
-
-
     /*根据回路id获取该回路下全部灯具*/
     function flushModelLoopLight(modelLoopId) {
         ajaxRequest("post", "/api/roadlighting/getLoopLight", {"id": modelLoopId}, function (data) {
@@ -321,8 +249,8 @@
 
                     for (var i = 0; i < lightArray.length; ++i) {
                         var light = lightArray[i];
-
-                        addMarker(new BMap.Point(light.longitude, light.latitude), true);
+                        var StrHtml = AddStrHtml(light.longitude, light.latitude);
+                        addMarker(new BMap.Point(light.longitude, light.latitude), true, StrHtml);
                     }
 
                     //构造灯具连线数据
@@ -449,6 +377,28 @@
         $("#map").width(Vw);
 
         loadJScript();
+    });
+    function addlights(id)
+    { var Html = $("#map").children().html();  }
+    $(function () {
+        
+        $("#map .slider-vertical").slider({
+            orientation: "vertical",
+            range: "min",
+            min: 0,
+            max: 100,
+            value: 60,
+            slide: function (event, ui) {
+                $("#amount").val(ui.value);
+            }
+        });
+        $("#amount").val($(".slider-vertical").slider("value"));
+    });
+    $(".lightbtn").bind("click", function () {
+        
+        var StaVal = $(this).attr("rel");
+        $(".slider-vertical").slider("value", StaVal);
+        $("#amount").val(StaVal);
     });
 </script>
 </body>

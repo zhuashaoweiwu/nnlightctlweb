@@ -1,0 +1,81 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="renderer" content="webkit|ie-comp|ie-stand">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport"
+          content="width=device-width,initial-scale=1,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no" />
+    <meta http-equiv="Cache-Control" content="no-siteapp" />
+
+    <title>灯具地理信息</title>
+    <link rel="stylesheet" type="text/css" href="../css/common.css?v=1" />
+    <link rel="stylesheet" type="text/css" href="../css/admin.css" />
+    <link rel="stylesheet" type="text/css" href="../css/iconfont/iconfont.css" />
+     <script type="text/javascript" src="../js/jquery.min.js"></script>
+        <link rel="stylesheet" href="//apps.bdimg.com/libs/jqueryui/1.10.4/css/jquery-ui.min.css">
+        <script src="//apps.bdimg.com/libs/jqueryui/1.10.4/jquery-ui.min.js"></script>
+
+</head>
+<body>
+    
+    
+    <div class="page-container">
+
+        <!--这里是地图弹出的内容，可以动态JS获取，修改里面的一些数值-->
+        <p class="mt-20 f-14">
+            <span class="c-red">灯具坐标：</span><span>经度：116.306681 </span><span>纬度：39.830931</span> <span class="pl-10 c-red">灯具编号：</span><span>30年</span>
+        </p>
+        <div class="linghtbox clearfix mt-20">
+            <img src="../bg//lightsbg.jpg" class="imgbox f-l mr-30" />
+            <div class="f-l ml-40">
+                <a href="javascript:void(0);" rel="100" class="lightbtn btn btn-danger radius mt-20"
+                   style="width:100px;display:block"><span>100%</span></a>
+                <a href="javascript:void(0);" rel="75" class="lightbtn btn btn-danger radius mt-20"
+                   style="width:100px;display:block"><span>75%</span></a>
+                <a href="javascript:void(0);" rel="50" class="lightbtn btn btn-danger radius mt-20"
+                   style="width:100px;display:block"><span>50%</span></a>
+                <a href="javascript:void(0);" rel="25" class="lightbtn btn btn-danger radius mt-20"
+                   style="width:100px;display:block"><span>25%</span></a>
+                <a href="javascript:void(0);" rel="0" class="lightbtn btn btn-danger radius mt-20"
+                   style="width:100px;display:block"><span>0</span></a>
+            </div>
+            <div id="powerange">
+                <input type="text" id="amount" style="border:0; color:#f6931f; font-weight:bold;" class="mb-20"/>
+                <div class="slider-vertical" style="height:200px;"></div>
+            </div>
+        </div>
+       
+        <div class="row cl mt-30">
+            <div class="col-xs-8 col-sm-9 col-xs-offset-4 col-sm-offset-3">
+                <input id="btnSubmit" class="btn btn-primary radius ml-20" type="button" value="&nbsp;&nbsp;提交&nbsp;&nbsp;">
+                <input id="btnCancel" class="btn radius ml-20" type="button" value="&nbsp;&nbsp;取消&nbsp;&nbsp;">
+            </div>
+        </div>
+
+       
+        <script type="text/javascript">
+
+            $(".slider-vertical").slider({
+                orientation: "vertical",
+                range: "min",
+                min: 0,
+                max: 100,
+                value: 60,
+                slide: function (event, ui) {
+                    $("#amount").val(ui.value);
+                }
+            });
+            $("#amount").val($(".slider-vertical").slider("value"));
+
+            $(".lightbtn").on("click", function () {
+                var StaVal = $(this).attr("rel");
+                $(".slider-vertical").slider("value", StaVal);
+                $("#amount").val(StaVal);
+            });
+        </script>
+    </div><!--地图弹出内容-->
+    
+    
+</body>
+</html>

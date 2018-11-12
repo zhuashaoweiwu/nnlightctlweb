@@ -179,6 +179,7 @@
 .ucnav .ucsub li.selected{font-weight:bold;background:#fbfbfb;}
 
 #mappage{display:none;}
-.linghtbox{width:700px;position:relative;}
+.linghtbox{width:600px;position:relative;}
 .linghtbox .imgbox{width:260px;height:260px;border:1px solid #dedede;}
-#powerange{position:absolute;right:100px;top:20px;height:240px;}
+#powerange{position:absolute;right:60px;top:20px;height:240px;width:50px;}
+
