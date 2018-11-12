@@ -86,6 +86,7 @@
     <Content Include="css\iconfont\iconfont.min.css" />
     <Content Include="css\iconfont\iconfont.svg" />
     <Content Include="css\login.css" />
+    <Content Include="css\nouislider.css" />
     <Content Include="css\welcome.css" />
     <Content Include="Engery\Analyze.html" />
     <Content Include="Engery\EnergyMonitor.html" />
@@ -117,6 +118,7 @@
     <Content Include="js\exporting.js" />
     <Content Include="js\highcharts.js" />
     <Content Include="js\jquery.min.js" />
+    <Content Include="js\nouislider.js" />
     <Content Include="lib\datatables\1.10.0\dataTables.fixedColumns.min.js" />
     <Content Include="lib\datatables\1.10.0\jquery.dataTables.min.js" />
     <Content Include="lib\DD_belatedPNG_0.0.8a-min.js" />
