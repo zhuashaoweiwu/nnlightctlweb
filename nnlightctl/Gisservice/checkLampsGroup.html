@@ -41,5 +41,53 @@
     <script type="text/javascript" src="../js/common.js"></script>
     <script type="text/javascript" src="../js/admin.js"></script>
 
+    <script type="text/javascript" src="../js/api/requestRoot.js"></script>
+    <script type="text/javascript" src="../js/api/ajaxScript.js"></script>
+
+    <script type="text/javascript">
+        //获取全部灯具分组集合
+        function listLightGroup() {
+            ajaxRequest("post", "/api/lightGroup/listLightGroup", {}, function (data) {
+                if (data) {
+                    if (data.header.code == 1000) {
+                        var lightGroupArray = data.body.data;
+
+                        var $tbody = $("table.table").find("tbody").eq(0);
+                        $tbody.empty();
+
+                        for (var i = 0; i < lightGroupArray.length; ++i) {
+                            var lightGroup = lightGroupArray[i];
+                            $('<tr class="text-c">\n' +
+                                '<td><input type="checkbox" value="'+lightGroup.id+'" name=""></td>\n' +
+                                '<td>'+lightGroup.cGroupName+'</td>\n' +
+                                '<td class="text-l ell">'+lightGroup.mem+'</td>\n' +
+                                '</tr>').appendTo($tbody);
+                        }
+                    }
+                }
+            });
+        }
+
+        var getData = function () {
+            var selectLightGroupArray = [];
+
+            $("table.table").find("input[type='checkbox']:checked").each(function (index, value) {
+                var selectLightGroup = {};
+
+                selectLightGroup["id"] = $(this).val();
+                selectLightGroup["cGroupName"] = $(this).parent("td").next().text();
+                selectLightGroup["mem"] = $(this).parent("td").next().next().text();
+
+                selectLightGroupArray.push(selectLightGroup);
+            });
+
+            return selectLightGroupArray;
+        }
+
+        $(function () {
+            listLightGroup();
+        });
+    </script>
+
 </body>
 </html>
