@@ -32,3 +32,8 @@ const PERIOD_TYPE = {
     6 : "周末，节假日",
     7 : "平常，周末，节假日"
 };
+
+const TASKSWITCH_LIGHTON = {
+    0 : "否",
+    1 : "是"
+};
