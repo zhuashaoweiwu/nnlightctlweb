@@ -23,20 +23,16 @@
                     <tr class="text-c">
                         <th><input type="checkbox" name="" value=""></th>
                         <th width="150">任务开关名称</th>
-                        <th>描述</th>
                         <th>开始时间</th>
                         <th>结束时间</th>
-                        <th>启用光照计</th>
-                        <th>经度</th>
-                        <th>纬度</th>
-                        <th>调光控制</th>
+                        <th>是否立即开</th>
+                        <th>周期</th>
+                        <th>调光百分比</th>
                     </tr>
                 </thead>
-                <tbody>
+                <tbody id="tb">
                     <tr class="text-c">
                         <td><input type="checkbox" value="" name=""></td>
-                        <td>modelName</td>
-                        <td>两个灯泡串联起来</td>
                         <td>modelName</td>
                         <td>modelName</td>
                         <td>modelName</td>
@@ -52,6 +48,58 @@
     <script type="text/javascript" src="../js/jquery.min.js"></script>
     <script type="text/javascript" src="../js/common.js"></script>
     <script type="text/javascript" src="../js/admin.js"></script>
+
+    <script type="text/javascript" src="../js/api/requestRoot.js"></script>
+    <script type="text/javascript" src="../js/api/ajaxScript.js"></script>
+    <script type="text/javascript">
+        //刷新任务策略列表
+        function listSwitchMask() {
+            ajaxRequest("post", "/api/switchTask/listSwitchTask", {}, function (data) {
+                if (data) {
+                    if (data.header.code == 1000) {
+                        var maskSwitchArray = data.body.data;
+
+                        var $tbody = $("#tb");
+                        $tbody.empty();
+
+                        for (var i = 0; i < maskSwitchArray.length; ++i) {
+                            var maskSwitch = maskSwitchArray[i];
+
+                            $('<tr class="text-c">\n' +
+                                '<td><input type="checkbox" value="'+maskSwitch.id+'" name=""></td>\n' +
+                                '<td>'+maskSwitch.switchName+'</td>\n' +
+                                '<td>'+formatDateTime(maskSwitch.startTime)+'</td>\n' +
+                                '<td>'+formatDateTime(maskSwitch.endTime)+'</td>\n' +
+                                '<td>'+TASKSWITCH_LIGHTON[maskSwitch.isLighton]+'</td>\n' +
+                                '<td>'+PERIOD_TYPE[maskSwitch.period]+'</td>\n' +
+                                '<td>'+maskSwitch.lightPercent+'</td>\n' +
+                                '</tr>').appendTo($tbody);
+                        }
+                    }
+                }
+            });
+        }
+
+        var getData = function () {
+            var selectMaskSwitchArray = [];
+
+            $("table.table").find("input[type='checkbox']:checked").each(function (index, value) {
+                var selectMaskSwitch = {};
+
+                selectMaskSwitch["id"] = $(this).val();
+                selectMaskSwitch["switchName"] = $(this).parent("td").next().text();
+                selectMaskSwitch["lightPercent"] = $(this).parent("td").next().next().next().next().next().next().text();
+
+                selectMaskSwitchArray.push(selectMaskSwitch);
+            });
+
+            return selectMaskSwitchArray;
+        }
+
+        $(function () {
+            listSwitchMask();
+        });
+    </script>
 
 </body>
 </html>
