@@ -195,7 +195,7 @@
             var icon = new BMap.Icon('../bg/light.png', new BMap.Size(60, 60), {anchor : new BMap.Size(15, 15)});
             marker.setIcon(icon);
             marker.addEventListener("click", function () {
-                StrHtml = $("#mappage").load("test.html", { "id": "1" }).html();//暂时用这个测试页面顶替下
+                StrHtml = $("#mappage").load("test.html").html();//暂时用这个测试页面顶替下
                 //alert(StrHtml);
                 var infoWindow = new BMap.InfoWindow(StrHtml, opts);  // 创建信息窗口对象
                 map.openInfoWindow(infoWindow, point); //开启信息窗口
