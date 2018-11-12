@@ -103,13 +103,16 @@
     <Content Include="Gisservice\checkTaskSwitch.html" />
     <Content Include="Gisservice\Control.html" />
     <Content Include="Gisservice\editScene.html" />
+    <Content Include="Gisservice\elebox.html" />
     <Content Include="Gisservice\Lamp.html" />
     <Content Include="Gisservice\Lights.html" />
     <Content Include="Gisservice\LampsGroup.html" />
+    <Content Include="Gisservice\loop.html" />
     <Content Include="Gisservice\Project.html" />
     <Content Include="Gisservice\Scene.html" />
     <Content Include="Gisservice\ShortcutKey.html" />
     <Content Include="Gisservice\TaskSwitch.html" />
+    <Content Include="Gisservice\test.html" />
     <Content Include="Index.html" />
     <Content Include="js\admin.js" />
     <Content Include="js\api\ajaxScript.js" />
@@ -118,6 +121,7 @@
     <Content Include="js\exporting.js" />
     <Content Include="js\highcharts.js" />
     <Content Include="js\jquery.min.js" />
+    <Content Include="js\jquery.nouislider.min.js" />
     <Content Include="js\nouislider.js" />
     <Content Include="lib\datatables\1.10.0\dataTables.fixedColumns.min.js" />
     <Content Include="lib\datatables\1.10.0\jquery.dataTables.min.js" />
