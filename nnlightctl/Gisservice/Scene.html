@@ -36,7 +36,7 @@
                         <td>modelName</td>
                         <td class="text-l ell">两个灯泡串联起来</td>
                         <td class="f-14 td-manage">
-                            <a href="javascript:void(0);" style="text-decoration:none" class="ml-5" onclick="editScene('编辑场景', 'editScene.html', '1', '600', '360')" title="编辑场景"><i class="Hui-iconfont">&#xe6df;</i></a>
+                            <a href="javascript:void(0);" style="text-decoration:none" class="ml-5" onclick="editScene('编辑场景', 'addScene.html', '1', '600', '360')" title="编辑场景"><i class="Hui-iconfont">&#xe6df;</i></a>
                             <a href="javascript:void(0);" style="text-decoration:none" class="ml-5" onClick="del_one(this, '10001')" title="删除"><i class="Hui-iconfont">&#xe6e2;</i></a>
                         </td>
                     </tr>
@@ -67,7 +67,7 @@
         }
         //编辑场景
         function editScene(title, url, id, w, h) {
-            layer_show(title, url, w, h);
+            layer_show(title, url + "?id=" + id, w, h);
         }
         //删除
         function del_one(obj, id) {
@@ -103,7 +103,7 @@
                                 '<td>'+scene.sceneName+'</td>\n' +
                                 '<td class="text-l ell">'+scene.sceneDesc+'</td>\n' +
                                 '<td class="f-14 td-manage">\n' +
-                                '<a href="javascript:void(0);" style="text-decoration:none" class="ml-5" onclick="editScene(\'编辑场景\', \'editScene.html\', \''+scene.id+'\', \'600\', \'360\')" title="编辑场景"><i class="Hui-iconfont">&#xe6df;</i></a>\n' +
+                                '<a href="javascript:void(0);" style="text-decoration:none" class="ml-5" onclick="editScene(\'编辑场景\', \'addScene.html\', \''+scene.id+'\', \'1000\', \'600\')" title="编辑场景"><i class="Hui-iconfont">&#xe6df;</i></a>\n' +
                                 '<a href="javascript:void(0);" style="text-decoration:none" class="ml-5" onClick="del_one(this, \''+scene.id+'\')" title="删除"><i class="Hui-iconfont">&#xe6e2;</i></a>\n' +
                                 '</td>\n' +
                                 '</tr>').appendTo($tbody);

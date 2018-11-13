@@ -94,9 +94,22 @@
 <script type="text/javascript" src="../lib/My97DatePicker/4.8/WdatePicker.js"></script> <!--日期插件-->
 <script type="text/javascript">
 
+    var id = null;
+
     //删除灯具分组
     function delLightGroup(obj, lightGroupId) {
         $(obj).parent("td").parent("tr").remove();
+    }
+
+    //添加一行灯具分组到表格中动作
+    function doAddLightGroupRowToTable(selectLightGroup, $tbody) {
+        $('<tr lightGroupId="'+selectLightGroup.id+'" class="text-c">' +
+            '<td>' + selectLightGroup.cGroupName + '</td>\n' +
+            '<td>' + selectLightGroup.mem + '</td>\n' +
+            '<td class="f-14 td-manage">\n' +
+            '<a href="javascript:void(0);" style="text-decoration:none" class="ml-5" onClick="delLightGroup(this, \''+selectLightGroup.id+'\')" title="删除"><i class="Hui-iconfont">&#xe6e2;</i></a>\n' +
+            '</td>' +
+            '</tr>').appendTo($tbody);
     }
 
     //选择灯具分组
@@ -108,13 +121,7 @@
                 for (var i = 0; i < selectLightGroupArray.length; ++i) {
                     var selectLightGroup = selectLightGroupArray[i];
 
-                    $('<tr lightGroupId="'+selectLightGroup.id+'" class="text-c">' +
-                        '<td>' + selectLightGroup.cGroupName + '</td>\n' +
-                        '<td>' + selectLightGroup.mem + '</td>\n' +
-                        '<td class="f-14 td-manage">\n' +
-                        '<a href="javascript:void(0);" style="text-decoration:none" class="ml-5" onClick="delLightGroup(this, \''+selectLightGroup.id+'\')" title="删除"><i class="Hui-iconfont">&#xe6e2;</i></a>\n' +
-                        '</td>' +
-                        '</tr>').appendTo($tbody);
+                    doAddLightGroupRowToTable(selectLightGroup, $tbody);
                 }
             }
         });
@@ -123,6 +130,18 @@
     //删除任务开关
     function delTaskSwitch(obj, id) {
         $(obj).parent("td").parent("tr").remove();
+    }
+
+    //执行添加一行任务开关记录到表格动作
+    function doAddTaskSwitchToTable(selectTaskSwitch, $tbody) {
+        $('<tr taskSwitchId="'+selectTaskSwitch.id+'" class="text-c">\n' +
+            '<td>'+selectTaskSwitch.switchName+'</td>\n' +
+            '<td>'+selectTaskSwitch.lightPercent+'</td>\n' +
+            '<td class="f-14 td-manage">\n' +
+            '<a href="javascript:void(0);" style="text-decoration:none" class="ml-5"\n' +
+            'onClick="delTaskSwitch(this, \''+selectTaskSwitch.id+'\')" title="删除"><i class="Hui-iconfont">&#xe6e2;</i></a>\n' +
+            '</td>\n' +
+            '</tr>').appendTo($tbody);
     }
 
     //选择任务开关
@@ -134,14 +153,7 @@
                 for (var i = 0; i < selectTaskSwitchArray.length; ++i) {
                     var selectTaskSwitch = selectTaskSwitchArray[i];
 
-                    $('<tr taskSwitchId="'+selectTaskSwitch.id+'" class="text-c">\n' +
-                        '<td>'+selectTaskSwitch.switchName+'</td>\n' +
-                        '<td>'+selectTaskSwitch.lightPercent+'</td>\n' +
-                        '<td class="f-14 td-manage">\n' +
-                        '<a href="javascript:void(0);" style="text-decoration:none" class="ml-5"\n' +
-                        'onClick="delTaskSwitch(this, \''+selectTaskSwitch.id+'\')" title="删除"><i class="Hui-iconfont">&#xe6e2;</i></a>\n' +
-                        '</td>\n' +
-                        '</tr>').appendTo($tbody);
+                    doAddTaskSwitchToTable(selectTaskSwitch, $tbody);
                 }
             }
         });
@@ -160,6 +172,7 @@
             //构造提交参数
             var param = {};
 
+            param["id"] = id;
             param["sceneName"] = $("#sceneName").val();
             param["sceneDesc"] = $("#sceneDesc").val();
 
@@ -193,6 +206,43 @@
 
             });
         });
+
+
+        //判断是否编辑模式
+        id = editModel(window.location.href);
+        if (id) {
+            ajaxRequest("post", "/api/scene/getScene", {"id" : id}, function (data) {
+                if (data) {
+                    if (data.header.code == 1000) {
+                        var scene = data.body.data[0];
+
+                        //刷新表单
+                        $("#sceneName").val(scene.sceneName);
+                        $("#sceneDesc").val(scene.sceneDesc);
+
+                        //刷新灯具分组列表
+                        var $lightGroupTB = $("#tb1");
+
+                        var lightGroupArray = scene.lightingGroups;
+                        for (var i = 0; i < lightGroupArray.length; ++i) {
+                            var lightGroup = lightGroupArray[i];
+
+                            doAddLightGroupRowToTable(lightGroup, $lightGroupTB);
+                        }
+
+                        //刷新任务开关列表
+                        var $taskSwitchTB = $("#tb2");
+
+                        var taskSwitchArray = scene.switchTasks;
+                        for (var i = 0; i < taskSwitchArray.length; ++i) {
+                            var taskSwitch = taskSwitchArray[i];
+
+                            doAddTaskSwitchToTable(taskSwitch, $taskSwitchTB);
+                        }
+                    }
+                }
+            });
+        }
     });
 </script>
 

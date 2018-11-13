@@ -82,7 +82,7 @@
         var searchCodeNumber = $("#codeNumber").val().trim();
 
         param["projectName"] = searchProjectName;
-        param["codeNumber"] = searchCodeNumber;
+        param["projectCode"] = searchCodeNumber;
         //初始化，然后绑定
         $('.table-sort').DataTable().destroy();
         searchProject(param);
