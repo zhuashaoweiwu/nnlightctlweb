@@ -19,69 +19,10 @@
         <form action="" method="post" class="form form-horizontal" id="form-admin-role-add">
             <div class="row cl">
                 <div id="tree"></div>
-                <!--<div class="permission-list">-->
-                    <!--<dl class="cl permission-list2">-->
-                        <!--<dt>-->
-                            <!--<label class="">-->
-                                <!--<input type="checkbox" value="" name="user-Character-0-0" id="user-Character-0-0">-->
-                                <!--用户管理1-->
-                            <!--</label>-->
-                        <!--</dt>-->
-                        <!--<dd>-->
-                            <!--<label class="">-->
-                                <!--<input type="checkbox" value="" name="user-Character-0-0-0" id="user-Character-0-0-0">-->
-                                <!--机构管理-->
-                            <!--</label>-->
-                            <!--<label class="">-->
-                                <!--<input type="checkbox" value="" name="user-Character-0-0-0" id="user-Character-0-0-1">-->
-                                <!--部门岗位-->
-                            <!--</label>-->
-                            <!--<label class="">-->
-                                <!--<input type="checkbox" value="" name="user-Character-0-0-0" id="user-Character-0-0-2">-->
-                                <!--用户列表-->
-                            <!--</label>-->
-                            <!--<label class="">-->
-                                <!--<input type="checkbox" value="" name="user-Character-0-0-0" id="user-Character-0-0-3">-->
-                                <!--在线用户-->
-                            <!--</label>-->
-                            <!--<label class="">-->
-                                <!--<input type="checkbox" value="" name="user-Character-0-0-0" id="user-Character-0-0-4">-->
-                                <!--项目归属-->
-                            <!--</label>-->
-                            <!--<label class="">-->
-                                <!--<input type="checkbox" value="" name="user-Character-0-0-0" id="user-Character-0-0-4">-->
-                                <!--操作日志-->
-                            <!--</label>-->
-                        <!--</dd>-->
-                    <!--</dl>-->
-                    <!--<dl class="cl permission-list2">-->
-                        <!--<dt>-->
-                            <!--<label class="">-->
-                                <!--<input type="checkbox" value="" name="user-Character-0-1" id="user-Character-0-1">-->
-                                <!--项目管理-->
-                            <!--</label>-->
-                        <!--</dt>-->
-                        <!--<dd>-->
-                            <!--<label class="">-->
-                                <!--<input type="checkbox" value="" name="user-Character-0-1-0" id="user-Character-0-1-0">-->
-                                <!--项目总览-->
-                            <!--</label>-->
-                            <!--<label class="">-->
-                                <!--<input type="checkbox" value="" name="user-Character-0-1-0" id="user-Character-0-1-1">-->
-                                <!--项目列表-->
-                            <!--</label>-->
-                            <!--<label class="">-->
-                                <!--<input type="checkbox" value="" name="user-Character-0-1-0" id="user-Character-0-1-2">-->
-                                <!--全球地区-->
-                            <!--</label>-->
-                                   <!---->
-                        <!--</dd>-->
-                    <!--</dl>-->
-                <!--</div>-->
             </div>
             <div class="row cl">
                 <div class="col-xs-8 col-sm-9 col-xs-offset-4 col-sm-offset-3">
-                    <button type="submit" class="btn btn-success radius" id="admin-role-save" name="admin-role-save"><i class="icon-ok"></i> 确定</button>
+                    <button type="button" class="btn btn-success radius" id="admin-role-save" name="admin-role-save"><i class="icon-ok"></i> 确定</button>
                 </div>
             </div>
         </form>
@@ -115,18 +56,8 @@
                     for (var i = 0; i < subMenuViewList.length; ++i) {
                         subNodeArray.push(doGetLevel0Node(subMenuViewList[i]));
                     }
-                    /*var array=selectMenu();*/
-                    //console.log(array);
-                   /* for(i=0; i<array.length; i++){
-                        array.push(getChildNodeIdArr1(data.body.data[i]));
-                    }*/
                    o["nodes"] = subNodeArray;
                 }
-                // if(array.id == levelArea.id){
-                //     o["state"] =  {"checked":true};
-                // }
-
-
                 return o;
             }
 
@@ -136,14 +67,11 @@
                 for (var i = 0; i < levelAreaArray.length; ++i) {
                     tree.push(doGetLevel0Node(levelAreaArray[i]));
                 }
-                var array=selectMenu();
-                console.log(tree);
-                // tree[0].state={"checked":true};
-                // tree[1].state={"checked":true};
-                // tree[1].nodes[0].state={"checked":true};
-                return tree;
 
+                console.log(tree);
+                return tree;
             }
+
             function getChildNodeIdArr2(node) {
                 var ts = [];
                 if (node.nodes) {
@@ -162,7 +90,7 @@
                 console.log(ts);
                 return ts;
             }
-            //请求层级区域信息
+
             function getLevelArea() {
                 ajaxRequest("post", "/api/login/getStaticMenu", {}, function (data) {
                     if (data) {
@@ -193,6 +121,8 @@
                                     }
                                 }
                             });
+
+                            selectMenu();
                         } else {
                             layer.msg(data.header.msg, {icon: 2, time: 3000});
                         }
@@ -201,20 +131,6 @@
             }
             getLevelArea();
         });
-
-        //返回所选择的区域id
-        var getData = function () {
-            var selectNodes = [];
-            selectNodes = $('#tree').treeview('getSelected', selectNodes);
-            if (selectNodes) {
-                for (var i = 0; i < selectNodes.length; ++i) {
-                    var node = selectNodes[i];
-                    return node.id;
-                }
-            }
-            return null;
-        };
-
 
         function getChildNodeIdArr(node) {
             var ts = [];
@@ -247,56 +163,68 @@
             }
             $('#tree_ul_id').treeview('getChecked')
         }
+
+        function checkTreeNode(menu) {
+            var enableNodes = $('#tree').treeview('getEnabled');
+            for (var i = 0; i < enableNodes.length; ++i) {
+                var node = enableNodes[i];
+                if (node.id == menu.id) {
+                    $('#tree').treeview('checkNode', [ node.nodeId, { silent: true } ]);
+                    break;
+                }
+            }
+        }
+
+        function doCheckMenuSelect(menuArray) {
+            if (menuArray && menuArray.length > 0) {
+                for (var i = 0; i < menuArray.length; ++i) {
+                    var menu = menuArray[i];
+                    checkTreeNode(menu);
+                    doCheckMenuSelect(menu.subMenuViewList);
+                }
+            }
+        }
+
         //通过用户id获取用户权限菜单
         function selectMenu(){
             var tree = [];
             var id = editModel(window.location.href);
             ajaxRequest("post", "/api/login/getMenuById", {"id":id}, function (data) {
-                if(data.body.data){
-                     for(var i = 0 ; i< data.body.data.length ; i++){
-                         tree.push(getChildNodeIdArr1(data.body.data[i]));
-                     }
+                if (data) {
+                    if (data.header.code == 1000) {
+                        var userMenuArray = data.body.data;
+                        doCheckMenuSelect(userMenuArray);
+                    }
                 }
-
             })
             return tree;
         }
 
-        function getChildNodeIdArr1(node) {
-            var ts = [];
-            if (node.subMenuViewList.length > 0) {
-                ts.push(node.id);
-                for (var i = 0 ; i < node.subMenuViewList.length ; i++){
-                    ts.push(node.subMenuViewList[i].id);
-                    if (node.subMenuViewList[i].subMenuViewList.length > 0) {
-                        var getNodeDieDai = getChildNodeIdArr1(node.subMenuViewList[i]);
-                        for (var j = 0 ; j < getNodeDieDai.length ; j++){
-                            ts.push(getNodeDieDai[j]);
-                        }
-                    }
-                }
-            } else {
-                ts.push(node.id);
-            }
-            return ts;
-        }
         // 保存用户信息
         $("#admin-role-save").click(function () {
+            var userId = editModel(location.href);
 
-            ajaxRequest("post", "/api/menu/saveUserMapRighters", {}, function (data) {
+            var checkedNodes = $('#tree').treeview('getChecked');
+            var rightIdArray = [];
+            for (var i = 0; i < checkedNodes.length; ++i) {
+                rightIdArray.push(checkedNodes[i].id);
+            }
+
+            ajaxRequest("post", "/api/menu/saveUserMapRighters", transArray({"userId" : userId, "righterIds" : rightIdArray}), function (data) {
                 if (data) {
                     if (data.header.code == 1000) {
-                        var role = data.body.data[0];
-                        //刷新表单
-                        $('#tree').treeview('getChecked');
+                        layer.msg("设置权限成功", {icon : 1, time : 3000});
                     } else {
-                        layer.msg(data.header.msg, {icon : 2});
+                        layer.msg(data.header.msg, {icon : 2, time : 3000});
                     }
-                }
-                // $('#tree_ul_id').treeview('getChecked');
-            })
 
-        })
+                    //关闭对话框
+                    var index = parent.layer.getFrameIndex(window.name);
+                    parent.$('.btn-refresh').click();
+                    parent.layer.close(index);
+                }
+            });
+        });
 
     </script>
     <!--/请在上方写此页面业务相关的脚本-->
