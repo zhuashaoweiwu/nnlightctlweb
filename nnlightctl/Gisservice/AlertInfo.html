@@ -183,8 +183,6 @@
 
         });
         function get(type){
-
-            alert(type);
             ajaxRequest("post", "/api/alarm/getAlarm", {"id":parseInt(type)}, function (data) {
                 console.log(data)
                 var sta;

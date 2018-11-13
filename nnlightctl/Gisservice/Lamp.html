@@ -353,6 +353,7 @@
     }
 
     $(function () {
+        keyboard();
         //获取当前屏幕宽度和高度
         var Vw = document.body.clientWidth - 40;
         var Vh = document.documentElement.clientHeight - 80;
@@ -364,6 +365,57 @@
         $("#eleboxpage").load("elebox.html");//先预加载
         $("#lightpage").load("test.html");//先预加载
     });
+
+    function keyboard() {
+        document.onkeydown=function(event) {
+            var shotcutName;
+            var e = event || window.event || arguments.callee.caller.arguments[0];
+            switch (e.keyCode) {
+                case 97:
+                    shotcutName = "快捷键1";
+                    alert("1");
+                    break;
+                case 98:
+                    shotcutName = "快捷键2";
+                    alert("2");
+                    break;
+                case 99:
+                    shotcutName = "快捷键3";
+                    alert("3");
+                    break;
+                case 100:
+                    shotcutName = "快捷键4";
+                    alert("4");
+                    break;
+                case 101:
+                    shotcutName = "快捷键5";
+                    alert("5");
+                    break;
+                case 102:
+                    shotcutName = "快捷键6";
+                    alert("6");
+                    break;
+                case 103:
+                    shotcutName = "快捷键7";
+                    alert("7");
+                    break;
+                case 104:
+                    shotcutName = "快捷键8";
+                    alert("8");
+                    break;
+
+            }
+            ajaxRequest("post", "/api/scene/invokeSceneShotcut", {"shotcutName": shotcutName}, function (data) {
+                if (data.header.code == 1000) {
+                    alert("成功！");
+                } else {
+                    alert("失败")
+
+                }
+
+            })
+        }
+    }
 </script>
 </body>
 </html>
