@@ -12,11 +12,20 @@
     <link rel="stylesheet" type="text/css" href="../css/common.css" />
     <link rel="stylesheet" type="text/css" href="../css/admin.css" />
     <link rel="stylesheet" type="text/css" href="../css/iconfont/iconfont.css" />
+    <style>
+        .row{
+            width: 50%;
+            float: left;
+        }
+        .f-l{
+            width: 100%;
+        }
+    </style>
 </head>
 <body>
     <div class="page-container">
         <form class="form form-horizontal" id="form-admin-add">
-        <div style="width:50%" class="f-l">
+        <div  class="f-l">
             <div class="row cl">
                 <label class="form-label col-xs-4 col-sm-3 text-r" id="cutkey1">快捷键1：</label>
                 <div class="formControls col-xs-8 col-sm-9">
@@ -57,8 +66,7 @@
                     </span>
                 </div>
             </div>
-        </div>
-        <div style="width:50%" class="f-r">
+
             <div class="row cl">
                 <label class="form-label col-xs-4 col-sm-3 text-r" id="cutkey5">快捷键5：</label>
                 <div class="formControls col-xs-8 col-sm-9">
@@ -150,6 +158,7 @@
                 }
             });
         }
+
 $(function () {
     //刷新场景列表
     function flushsence() {
@@ -168,6 +177,36 @@ $(function () {
     });
     }
     flushsence();
+    //刷新场景映射列表
+    function flushshortcut() {
+        ajaxRequest("post", "/api/scene/listSceneShotCut", {}, function (data) {
+            console.log(data)
+            if (data) {
+                if (data.header.code == 1000) {
+                    var shortcutArray = data.body.data;
+                    console.log(shortcutArray)
+                    var $shortcutSelect = $(".f-l");
+                    for (var i = 0; i < shortcutArray.length; ++i) {
+                        var shortcut = shortcutArray[i];
+                        // if(shortcut.id==1){
+                        //     $("#senceParent1").val(shortcut.nnlightctlSceneId);
+                        // }
+                        switch(shortcut.id){
+                            case 1:$("#senceParent1").val(shortcut.nnlightctlSceneId);break;
+                            case 2:$("#senceParent2").val(shortcut.nnlightctlSceneId);break;
+                            case 3:$("#senceParent3").val(shortcut.nnlightctlSceneId);break;
+                            case 4:$("#senceParent4").val(shortcut.nnlightctlSceneId);break;
+                            case 5:$("#senceParent5").val(shortcut.nnlightctlSceneId);break;
+                            case 6:$("#senceParent6").val(shortcut.nnlightctlSceneId);break;
+                            case 7:$("#senceParent7").val(shortcut.nnlightctlSceneId);break;
+                            case 8:$("#senceParent8").val(shortcut.nnlightctlSceneId);break;
+                        }
+                    }
+                }
+            }
+        });
+    }
+    flushshortcut();
 
 })
     </script>
