@@ -5,50 +5,90 @@
     <meta name="renderer" content="webkit|ie-comp|ie-stand">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <meta name="viewport"
-          content="width=device-width,initial-scale=1,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no" />
-    <meta http-equiv="Cache-Control" content="no-siteapp" />
+          content="width=device-width,initial-scale=1,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no"/>
+    <meta http-equiv="Cache-Control" content="no-siteapp"/>
 
     <title>灯具地理信息--灯光设置</title>
-    <link rel="stylesheet" type="text/css" href="../css/common.css?v=1" />
-    <link rel="stylesheet" type="text/css" href="../css/admin.css" />
-    <link rel="stylesheet" type="text/css" href="../css/iconfont/iconfont.css" />
+    <link rel="stylesheet" type="text/css" href="../css/common.css?v=1"/>
+    <link rel="stylesheet" type="text/css" href="../css/admin.css"/>
+    <link rel="stylesheet" type="text/css" href="../css/iconfont/iconfont.css"/>
     <script type="text/javascript" src="../js/jquery.min.js"></script>
 
 </head>
 <body>
-    <div class="page-container">
-        <p class="f-14"> <span class="c-red">灯具坐标：</span><span>经度：116.306681 </span><span>纬度：39.830931</span> <span class="pl-10 c-red">灯具编号：</span><span>2012555</span></p>
-        <div class="linghtbox clearfix mt-20">
-            <img src="../bg//lightsbg.jpg" class="imgbox" />
-            <div id="powerange">
-                <a onclick="addlights(100)" href="javascript:void(0);" rel="100" class="btn btn-danger radius mt-20" style="width:90px;"><span>100%</span></a>
-                <a onclick="addlights(75)" href="javascript:void(0);" rel="75" class="btn btn-danger radius mt-20" style="width:90px;"><span>75%</span></a>
-                <a onclick="addlights(50)" href="javascript:void(0);" rel="50" class="btn btn-danger radius mt-20" style="width:90px;"><span>50%</span></a>
-                <a onclick="addlights(25)" href="javascript:void(0);" rel="25" class="btn btn-danger radius mt-20" style="width:90px;"><span>25%</span></a>
-                <a onclick="addlights(0)" href="javascript:void(0);" rel="0" class="btn btn-danger radius mt-20" style="width:90px;"><span>0</span></a>
-           
-                <input type="range" min="1" max="100" value="20" step="1" name="range" onchange="changerange(this)">
-                <p name="rangeval" style='font-size:16px;color:#0a79d8;font-weight: bold;margin-top:10px;'></p>
-            </div>
+<div class="page-container">
+    <p class="f-14"><span class="c-red">灯具坐标：</span><span id="longitude">经度：116.306681 </span><span id="latitude">纬度：39.830931</span> <span
+            class="pl-10 c-red">灯具编号：</span><span id="lightingCode">2012555</span></p>
+    <div class="linghtbox clearfix mt-20">
+        <img src="../bg//lightsbg.jpg" class="imgbox"/>
+        <div id="powerange">
+            <a onclick="addlights(100)" href="javascript:void(0);" rel="100" class="btn btn-danger radius mt-20"
+               style="width:90px;"><span>100%</span></a>
+            <a onclick="addlights(80)" href="javascript:void(0);" rel="80" class="btn btn-danger radius mt-20"
+               style="width:90px;"><span>80%</span></a>
+            <a onclick="addlights(60)" href="javascript:void(0);" rel="60" class="btn btn-danger radius mt-20"
+               style="width:90px;"><span>60%</span></a>
+            <a onclick="addlights(40)" href="javascript:void(0);" rel="40" class="btn btn-danger radius mt-20"
+               style="width:90px;"><span>40%</span></a>
+            <a onclick="addlights(20)" href="javascript:void(0);" rel="20" class="btn btn-danger radius mt-20"
+               style="width:90px;"><span>20%</span></a>
+            <a onclick="addlights(0)" href="javascript:void(0);" rel="0" class="btn btn-danger radius mt-20"
+               style="width:90px;"><span>0%</span></a>
+
+            <input type="range" min="1" max="100" value="0" step="1" name="range" onchange="changerange(this)">
+            <p name="rangeval" style='font-size:16px;color:#0a79d8;font-weight: bold;margin-top:10px;'></p>
         </div>
-        <div class="row cl mt-30">
-            <div class="col-xs-8 col-sm-9 col-xs-offset-4 col-sm-offset-3">
-                <input id="btnSubmit" class="btn btn-primary radius ml-20" type="button" value="&nbsp;&nbsp;提交&nbsp;&nbsp;">
-                <input id="btnCancel" class="btn radius ml-20" type="button" value="&nbsp;&nbsp;取消&nbsp;&nbsp;">
-            </div>
+    </div>
+    <!--<div class="row cl mt-30">
+        <div class="col-xs-8 col-sm-9 col-xs-offset-4 col-sm-offset-3">
+            <input id="btnSubmit" class="btn btn-primary radius ml-20" type="button" value="&nbsp;&nbsp;提交&nbsp;&nbsp;">
+            <input id="btnCancel" class="btn radius ml-20" type="button" value="&nbsp;&nbsp;关闭&nbsp;&nbsp;">
         </div>
-        
-    </div><!--地图弹出内容-->
-    <script type="text/javascript">
-            function addlights(id)
-            {
-                $("input[name='range']").val(id);
-                $("p[name='rangeval']").html(id);
+    </div>-->
+
+</div><!--地图弹出内容-->
+<script type="text/javascript">
+
+    var globalLightId = null;
+
+    function doLightAdjust(precent) {
+
+    }
+
+    function addlights(value) {
+        $("input[name='range']").val(value);
+        $("p[name='rangeval']").html(value);
+
+
+    }
+
+    function changerange(obj) {
+        $("p[name='rangeval']").html(obj.value);
+    }
+
+    //获取灯具信息
+    function flushLightInfo() {
+        ajaxRequest("post", "/api/roadlighting/getLighting", {"id" : globalLightId}, function (data) {
+            if (data) {
+                if (data.header.code == 1000) {
+                    var light = data.body.data[0];
+
+                    //刷新灯具信息
+                    $("#longitude").text("经度：" + light.longitude);
+                    $("#latitude").text("  纬度：" + light.latitude);
+                    $("#lightingCode").text(light.lightingCode);
+                }
             }
-            function changerange(obj) {
-                $("p[name='rangeval']").html(obj.value);
-            };
-    </script>
+        });
+    }
+
+    function LightAdjustInit(lightId) {
+        console.log("the baiduMap click light is : " + lightId);
+        globalLightId = lightId;
+        flushLightInfo();
+    }
+
+</script>
 
 </body>
 </html>
