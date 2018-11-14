@@ -37,3 +37,9 @@ const TASKSWITCH_LIGHTON = {
     0 : "否",
     1 : "是"
 };
+
+const MODELLOOP_STATE = {
+    0 : "通电",
+    1 : "断电",
+    2 : "故障"
+};
