@@ -166,7 +166,9 @@
                 height: 450,     // 信息窗口高度
                 title: "<span style='font-size:16px;color:#0a79d8;font-weight: bold'>控制柜操作</span>", // 信息窗口标题
             }
-            marker.addEventListener("click", function () {
+            marker.addEventListener("click", function (event) {
+                var clickMarker = event.target;
+                bmapEleboxInit(clickMarker.getTitle());
                 var StrHtml = $("#eleboxpage").html();
                 var infoWindow = new BMap.InfoWindow(StrHtml, opts);  // 创建信息窗口对象
                 map.openInfoWindow(infoWindow, point); //开启信息窗口
