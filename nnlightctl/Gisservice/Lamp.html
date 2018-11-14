@@ -60,26 +60,8 @@
 <script type="text/javascript" src="../js/api/ajaxScript.js"></script>
 <!--请在下方写此页面业务相关的脚本-->
 <script type="text/javascript" src="../lib/layer/2.4/layer.js"></script><!--弹出插件-->
-<script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=ow29ANFSyXM6nf6cYl14GdDI"></script><!--百度地图-->
 
 <script type="text/javascript">
-    function AddStrHtml(longitude, latitude)
-    {
-        var Strhtml = "<div class=\"page-container\">";
-        Strhtml += "<p class=\"f-14\"><span class=\"c-red\">灯具坐标：</span><span>经度：" + longitude + "</span><span class='pl-10'>纬度：" + latitude + "</span><span class=\"pl-10 c-red\">灯具编号：</span><span>30年</span></p>";
-        Strhtml += "<div class=\"linghtbox clearfix mt-20\"><img src=\"../bg//lightsbg.jpg\" class=\"imgbox f-l mr-30\"/><div class=\"f-l ml-40\">";
-        Strhtml += "<a onclick=\"addlights(100)\" href=\"javascript:void(0);\" rel=\"100\" class=\"lightbtn btn btn-danger radius mt-20\" style=\"width:100px;display:block\"><span>100%</span></a>";
-        Strhtml += "<a onclick=\"addlights(75)\" href=\"javascript:void(0);\" rel=\"75\" class=\"lightbtn btn btn-danger radius mt-20\" style=\"width:100px;display:block\"><span>75%</span></a>";
-        Strhtml += "<a onclick=\"addlights(50)\" href=\"javascript:void(0);\" rel=\"50\" class=\"lightbtn btn btn-danger radius mt-20\" style=\"width:100px;display:block\"><span>50%</span></a>";
-        Strhtml += "<a onclick=\"addlights(25)\" href=\"javascript:void(0);\" rel=\"25\" class=\"lightbtn btn btn-danger radius mt-20\" style=\"width:100px;display:block\"><span>25%</span></a>";
-        Strhtml += "<a onclick=\"addlights(0)\" href=\"javascript:void(0);\" rel=\"0\" class=\"lightbtn btn btn-danger radius mt-20\" style=\"width:100px;display:block\"><span>0%</span></a>";
-        Strhtml += "</div><div id=\"powerange\"><input type=\"text\" id=\"amount\" style=\"border:0; color:#f6931f; font-weight:bold;\" class=\"mb-20\"/>";
-        Strhtml += "<div class=\"slider-vertical\" style=\"height:200px;\"></div></div></div>";
-        Strhtml += "<div class=\"row cl mt-30\"><div class=\"col-xs-8 col-sm-9 col-xs-offset-4 col-sm-offset-3\">";
-        Strhtml += "<input id=\"btnSubmit\" class=\"btn btn-primary radius ml-20\" type=\"button\" value=\"&nbsp;&nbsp;提交&nbsp;&nbsp;\"></div></div></div>";
-
-        return Strhtml;
-    }
 
     //灯具分组
     function LampsGroup(title, url, w, h) {
@@ -158,8 +140,9 @@
         layer_show(title, url, w, h);
     }
 
-    function addMarker(point, isLight, StrHtml) {
+    function addMarker(point, isLight, id) {
         var marker = new BMap.Marker(point);  // 创建标注
+        marker.setTitle(id);
         if (isLight) {
             var icon = new BMap.Icon('../bg/light.png', new BMap.Size(60, 60), {anchor : new BMap.Size(15, 15)});
             marker.setIcon(icon);
@@ -168,7 +151,9 @@
                 height: 450,     // 信息窗口高度
                 title: "<span style='font-size:16px;color:#0a79d8;font-weight: bold'>灯光调节</span>", // 信息窗口标题
             }
-            marker.addEventListener("click", function () {
+            marker.addEventListener("click", function (event) {
+                var clickMarker = event.target;
+                LightAdjustInit(clickMarker.getTitle());
                 var StrHtmlNew = $("#lightpage").html();
                 var infoWindow = new BMap.InfoWindow(StrHtmlNew, opts);  // 创建信息窗口对象
                 map.openInfoWindow(infoWindow, point); //开启信息窗口
@@ -182,7 +167,7 @@
                 title: "<span style='font-size:16px;color:#0a79d8;font-weight: bold'>控制柜操作</span>", // 信息窗口标题
             }
             marker.addEventListener("click", function () {
-                StrHtml = $("#eleboxpage").html();
+                var StrHtml = $("#eleboxpage").html();
                 var infoWindow = new BMap.InfoWindow(StrHtml, opts);  // 创建信息窗口对象
                 map.openInfoWindow(infoWindow, point); //开启信息窗口
             });
@@ -232,8 +217,7 @@
 
                     for (var i = 0; i < lightArray.length; ++i) {
                         var light = lightArray[i];
-                        var StrHtml = AddStrHtml(light.longitude, light.latitude);
-                        addMarker(new BMap.Point(light.longitude, light.latitude), true, StrHtml);
+                        addMarker(new BMap.Point(light.longitude, light.latitude), true, light.id);
                     }
 
                     //构造灯具连线数据
@@ -323,7 +307,7 @@
 
                     for (var i = 0; i < eleboxArray.length; ++i) {
                         var point = new BMap.Point(eleboxArray[i].longitude, eleboxArray[i].latitude);
-                        addMarker(point, false);
+                        addMarker(point, false, eleboxArray[i].id);
 
                         if (i == 0) {
                             map.centerAndZoom(point, 15);
