@@ -26,8 +26,8 @@
         <h4 class="f-18 tit"><span class="Hui-iconfont">&#xe667;</span><span class="pl-10">全球项目概况</span></h4>
         <div id="globalProjectPanel" class="projectview" style="height:250px;">
             <div class="pr1">
-                <span class="Hui-iconfont bigfont">&#xe643;</span><span class="pl-10 f-18">项目</span>
-                <p class="pronum">12452222222224</p>
+                <span class="Hui-iconfont bigfont">&#xe643;</span><span class="pl-10 f-18">国家</span>
+                <p class="pronum" id="countryStatistic">12452222222224</p>
             </div>
         </div>
         <h4 class="f-18 tit" style="margin-top:40px;"><span class="Hui-iconfont">&#xe667;</span><span class="pl-10">全球统计数据</span></h4>
@@ -57,6 +57,7 @@
                     var projectArray = data.body.data;
 
                     var countryStatistic = {};
+                    var countryTotal = 0;
                     var eleboxTotal = 0;
                     var lightingTotal = 0;
                     var projectTotal = 0;
@@ -74,28 +75,40 @@
                         lightingTotal += project.lights;
                     }
 
-                    console.log("国家统计：");
+                    // console.log("国家统计：");
                     var $countryProjectPanel = $("#globalProjectPanel");
                     $countryProjectPanel.empty();
                     for (var key in countryStatistic) {
-                        console.log(key + ":" + countryStatistic[key]);
+                        // console.log(key + ":" + countryStatistic[key]);
                         $('<div class="pr1">' +
-                            '<span class="Hui-iconfont bigfont">&#xe643;</span><span class="pl-10 f-18">'+key+'</span>' +
-                            '<p class="pronum">'+countryStatistic[key]+'</p>' +
+                            '<span class="Hui-iconfont bigfont">&#xe643;</span><span class="pl-10 f-18">国家</span>' +
+                            '<p class="pronum" id="countryStatistic"></p>' +
                             '</div>').appendTo($countryProjectPanel);
                         projectTotal += countryStatistic[key];
+                        console.log(countryStatistic)
                     }
-                    console.log("项目统计：" + projectTotal)
+                    // console.log("项目统计：" + projectTotal)
                     $("#projectStatistic").text(projectTotal);
-                    console.log("控制柜统计：" + eleboxTotal);
+                    // console.log("控制柜统计：" + eleboxTotal);
                     $("#eleboxStatistic").text(eleboxTotal);
-                    console.log("灯具统计：" + lightingTotal);
+                    // console.log("灯具统计：" + lightingTotal);
                     $("#lightStatistic").text(lightingTotal);
                 } else {
                     layer.msg(data.header.msg,{icon:2,time:3000});
                 }
             }
         });
+
+        ajaxRequest("post", "/api/project/listcountry", {}, function (data) {
+            if (data) {
+                if (data.header.code == 1000) {
+                    var countryArray = data.body.data;
+
+                    console.log(countryArray);
+                }
+            }
+            $("#countryStatistic").text(countryArray.length);
+        })
     </script>
 
 </body>
