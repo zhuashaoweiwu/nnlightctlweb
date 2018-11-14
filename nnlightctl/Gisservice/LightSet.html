@@ -17,8 +17,15 @@
 </head>
 <body>
 <div class="page-container">
+
     <p class="f-14"><span class="c-red">灯具坐标：</span><span id="longitude">经度：116.306681 </span><span id="latitude">纬度：39.830931</span> <span
             class="pl-10 c-red">灯具编号：</span><span id="lightingCode">2012555</span></p>
+
+    <p class="f-14"><span class="c-red">灯具UUID：</span><span id="uuid">1234567890 </span></p>
+
+    <p class="f-14"><span class="c-red">灯杆号：</span><span id="lamppost">21.56 </span>
+        <span class="pl-10 c-red">灯头号：</span><span id="lamphead">220</span></p>
+
     <div class="linghtbox clearfix mt-20">
         <img src="../bg//lightsbg.jpg" class="imgbox"/>
         <div id="powerange">
@@ -52,18 +59,29 @@
     var globalLightId = null;
 
     function doLightAdjust(precent) {
+        var lightIdArray = [];
+        lightIdArray.push(globalLightId);
 
+        ajaxRequest("post", "/api/command/sendLightAdjustCommandBatch", transArray({"lightPercent" : precent, "lightIds" : lightIdArray}), function (data) {
+            if (data) {
+                if (data.header.code != 1000) {
+                    layer.msg(data.header.msg, {icon : 2, time : 3000});
+                }
+            }
+        });
     }
 
     function addlights(value) {
         $("input[name='range']").val(value);
         $("p[name='rangeval']").html(value);
 
-
+        doLightAdjust(value);
     }
 
     function changerange(obj) {
         $("p[name='rangeval']").html(obj.value);
+
+        doLightAdjust(obj.value);
     }
 
     //获取灯具信息
@@ -77,6 +95,9 @@
                     $("#longitude").text("经度：" + light.longitude);
                     $("#latitude").text("  纬度：" + light.latitude);
                     $("#lightingCode").text(light.lightingCode);
+                    $("#uuid").text(light.uid);
+                    $("#lamppost").text(light.lamppost);
+                    $("#lamphead").text(light.lamphead);
                 }
             }
         });

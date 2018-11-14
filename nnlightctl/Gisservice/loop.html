@@ -5,46 +5,97 @@
     <meta name="renderer" content="webkit|ie-comp|ie-stand">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <meta name="viewport"
-          content="width=device-width,initial-scale=1,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no" />
-    <meta http-equiv="Cache-Control" content="no-siteapp" />
+          content="width=device-width,initial-scale=1,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no"/>
+    <meta http-equiv="Cache-Control" content="no-siteapp"/>
 
     <title>灯具道路地理信息--选择控制柜</title>
-    <link rel="stylesheet" type="text/css" href="../css/common.css" />
-    <link rel="stylesheet" type="text/css" href="../css/admin.css" />
-    <link rel="stylesheet" type="text/css" href="../css/iconfont/iconfont.css" />
+    <link rel="stylesheet" type="text/css" href="../css/common.css"/>
+    <link rel="stylesheet" type="text/css" href="../css/admin.css"/>
+    <link rel="stylesheet" type="text/css" href="../css/iconfont/iconfont.css"/>
 
 </head>
 <body>
-    <div class="page-container">
+<div class="page-container">
 
-        <div class="mt-20">
-            <table class="table table-border table-bordered table-bg table-hover table-sort">
-                <thead>
-                    <tr class="text-l">
-                        <th>回路编码</th>
-                        <th>回路灯具数量</th>
-                        <th>状态</th>
-                        <th>操作</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr class="text-l">
-                        <td>modelCode</td>
-                        <td>222</td>
-                        <td>通电</td>
-                        <td>
-                            <label class="switch-btn">
-                                <input class="checked-switch" type="checkbox">
-                                <span class="text-switch" data-yes="yes" data-no="no"></span>
-                                <span class="toggle-btn"></span>
-                            </label>
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
+    <div class="mt-20">
+        <table class="table table-border table-bordered table-bg table-hover table-sort">
+            <thead>
+            <tr class="text-l">
+                <th>回路编码</th>
+                <th>回路灯具数量</th>
+                <th>状态</th>
+                <th>操作</th>
+            </tr>
+            </thead>
+            <tbody id="tb">
+            <tr class="text-l">
+                <td>modelCode</td>
+                <td>222</td>
+                <td>通电</td>
+                <td>
+                    <label class="switch-btn">
+                        <input class="checked-switch" type="checkbox">
+                        <span class="text-switch" data-yes="yes" data-no="no"></span>
+                        <span class="toggle-btn"></span>
+                    </label>
+                </td>
+            </tr>
+            </tbody>
+        </table>
     </div>
-    <script type="text/javascript" src="../js/jquery.min.js"></script>
-    
+</div>
+<script type="text/javascript" src="../js/jquery.min.js"></script>
+
+<script type="text/javascript" src="../js/api/requestRoot.js"></script>
+<script type="text/javascript" src="../js/api/ajaxScript.js"></script>
+<script type="text/javascript">
+
+    function flushModelLoop(modelId) {
+        ajaxRequest("post", "/api/roadlighting/listmodelloop", {"modelId": modelId}, function (data) {
+            if (data) {
+                if (data.header.code == 1000) {
+                    var loopArray = data.body.data;
+
+                    var $tbody = $("#tb");
+                    $tbody.empty();
+
+                    for (var i = 0; i < loopArray.length; ++i) {
+                        var loop = loopArray[i];
+                        $('<tr class="text-l">\n' +
+                            '                        <td>' + loop.loopCode + '</td>\n' +
+                            '                        <td>' + loop.lightCount + '</td>\n' +
+                            '                        <td>' + MODELLOOP_STATE[loop.state] + '</td>\n' +
+                            '                        <td>\n' +
+                            '                            <label class="switch-btn">\n' +
+                            '                                <input onclick="switchEvent(this, '+loop.id+')" class="checked-switch" type="checkbox">\n' +
+                            '                                <span class="text-switch" data-yes="yes" data-no="no"></span>\n' +
+                            '                                <span class="toggle-btn"></span>\n' +
+                            '                            </label>\n' +
+                            '                        </td>\n' +
+                            '                    </tr>').appendTo($tbody);
+                    }
+                }
+            }
+        });
+    }
+
+    //开关事件
+    function switchEvent(obj, loopId) {
+        var switchState = $(obj).prop("checked");
+        console.log("the switch state is " + switchState + " , the loop id is : " + loopId);
+        if (switchState) {  //回路通电
+
+        } else {    //回路断电
+
+        }
+    }
+
+    $(function () {
+        //刷新回路
+        var modelId = editModel(location.href);
+        flushModelLoop(modelId);
+    });
+</script>
+
 </body>
 </html>
