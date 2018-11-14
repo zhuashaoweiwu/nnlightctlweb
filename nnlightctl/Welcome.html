@@ -2,45 +2,49 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
-    <title></title>
-    <link href="css/welcome.css" rel="stylesheet" />
+    <title>单灯控制系统</title>
+    <link href="../css/welcome.css" rel="stylesheet" />
 </head>
 <body>
-    <div class="welbox">
-        <a href="Gisservice/Project.html">
-            <div class="gis">
-                <img src="bg/icon_eith.gif" />
-                <p>Gis地理信息系统</p>
-            </div>
-        </a>
-        <a href="Engery/Analyze.html">
-            <div class="nh">
-                <img src="bg/icon_nh.png" />
-                <p>能耗分析</p>
-            </div>
-        </a>
-        <a href="User/Index.html">
-            <div class="user">
-                <img src="bg/icon_user.png" />
-                <p>用户管理</p>
-            </div>
-        </a>
+    <div class="welcome">
+        <!--<header class="weltop">
+                <p class="user"><span id="username">yxf</span><a id="btnLogout" href="javascript:void(0)" class="loginout">退出</a></p>
+        </header>-->
+        <div class="welbox">
+            <a href="Gisservice/Project.html">
+                <div class="gis">
+                    <img src="bg/icon_eith.gif" />
+                    <p>Gis地理信息系统</p>
+                </div>
+            </a>
+            <a href="Engery/Analyze.html">
+                <div class="nh">
+                    <img src="bg/icon_nh.png" />
+                    <p>能耗分析</p>
+                </div>
+            </a>
+            <a href="User/Index.html">
+                <div class="user">
+                    <img src="bg/icon_user.png" />
+                    <p>用户管理</p>
+                </div>
+            </a>
 
-        <a href="Project/Index.html">
-            <div class="project">
-                <img src="bg/icon_project.png" />
-                <p>项目管理</p>
-            </div>
-        </a>
+            <a href="Project/Index.html">
+                <div class="project">
+                    <img src="bg/icon_project.png" />
+                    <p>项目管理</p>
+                </div>
+            </a>
 
-        <a href="Roadlighting/Index.html">
-            <div class="road">
-                <img src="bg/icon_road.png" />
-                <p>道路照明系统</p>
-            </div>
-        </a>
+            <a href="Roadlighting/Index.html">
+                <div class="road">
+                    <img src="bg/icon_road.png" />
+                    <p>道路照明系统</p>
+                </div>
+            </a>
+        </div>
     </div>
-
     <script type="text/javascript" src="js/jquery.min.js"></script>
     <script type="text/javascript" src="js/api/requestRoot.js"></script>
     <script type="text/javascript" src="js/api/ajaxScript.js"></script>
@@ -94,7 +98,7 @@
                                 case "Gis地理信息系统":
                                     html = '<a href="Gisservice/Project.html">\n' +
                                         '            <div class="gis">\n' +
-                                        '                <img src="bg/icon_eith.gif" />\n' +
+                                        '                <img src="bg/icon_eith.png" />\n' +
                                         '                <p>Gis地理信息系统</p>\n' +
                                         '            </div>\n' +
                                         '        </a>';

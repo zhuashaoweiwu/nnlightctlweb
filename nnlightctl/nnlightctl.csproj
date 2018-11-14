@@ -67,6 +67,7 @@
     <Content Include="bg\blue.png" />
     <Content Include="bg\icon_arrow.png" />
     <Content Include="bg\icon_eith.gif" />
+    <Content Include="bg\icon_eith.png" />
     <Content Include="bg\icon_nh.png" />
     <Content Include="bg\icon_project.png" />
     <Content Include="bg\icon_road.png" />
@@ -78,6 +79,7 @@
     <Content Include="bg\sort_both.png" />
     <Content Include="bg\sort_desc.png" />
     <Content Include="bg\u_admin.png" />
+    <Content Include="bg\welcomebg.jpg" />
     <Content Include="css\admin.css" />
     <Content Include="css\base.css" />
     <Content Include="css\common.css" />
