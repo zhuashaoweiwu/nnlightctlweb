@@ -19,7 +19,7 @@
 <header class="admintop">
     <div class="adminnav">
         <p class="logotit"><span class="pl10 wh f14">单灯控制系统</span><img src="bg/logo.png" class="logo"/></p>
-        <p class="user"><span id="username">yxf</span><a href="#" class="red pl20 f14">退出</a></p>
+        <p class="user"><span id="username">未登录</span><a id="btnLogout" href="#" class="red pl20 f14">退出</a></p>
     </div>
 </header>
 
@@ -222,8 +222,33 @@
         });
     }
 
+    //初始化用户信息
+    function initLoginUser() {
+        ajaxRequest("post", "/api/login/getLoginUser", {}, function (data) {
+            if (data) {
+                if (data.header.code == 1000) {
+                    var user = data.body.data[0];
+
+                    $("#username").text(user.loginName);
+                }
+            }
+        });
+
+        //注册退出事件
+        $("#btnLogout").click(function () {
+            ajaxRequest("post", "/api/login/Logout", {}, function (data) {
+                if (data) {
+                    if (data.header.code == 1000) {
+                        location.replace("Login.html");
+                    }
+                }
+            });
+        });
+    }
+
     $(function () {
         flushMenu();
+        initLoginUser();
     });
 </script>
 

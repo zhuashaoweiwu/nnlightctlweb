@@ -10,7 +10,7 @@
         <a href="Gisservice/Project.html">
             <div class="gis">
                 <img src="bg/icon_eith.gif" />
-                <p>GIS地理信息系统</p>
+                <p>Gis地理信息系统</p>
             </div>
         </a>
         <a href="Engery/Analyze.html">
@@ -22,7 +22,7 @@
         <a href="User/Index.html">
             <div class="user">
                 <img src="bg/icon_user.png" />
-                <p>用户中心</p>
+                <p>用户管理</p>
             </div>
         </a>
 
@@ -36,9 +36,90 @@
         <a href="Roadlighting/Index.html">
             <div class="road">
                 <img src="bg/icon_road.png" />
-                <p>道路照明</p>
+                <p>道路照明系统</p>
             </div>
         </a>
     </div>
+
+    <script type="text/javascript" src="js/jquery.min.js"></script>
+    <script type="text/javascript" src="js/api/requestRoot.js"></script>
+    <script type="text/javascript" src="js/api/ajaxScript.js"></script>
+    <script type="text/javascript">
+
+        //刷新菜单图标
+        function flushMenu() {
+            var $contain = $("div.welbox");
+            $contain.empty();
+
+            ajaxRequest("post", "/api/login/getMenu", {}, function (data) {
+                if (data) {
+                    if (data.header.code == 1000) {
+                        var menuArray = data.body.data;
+                        console.log(menuArray);
+
+                        for (var i = 0; i < menuArray.length; ++i) {
+                            var menu = menuArray[i];
+                            if (menu.name == "首页") {
+                                continue;
+                            }
+                            var html = "";
+                            switch (menu.name) {
+                                case "用户管理":
+                                    html = '<a href="User/Index.html">\n' +
+                                        '            <div class="user">\n' +
+                                        '                <img src="bg/icon_user.png" />\n' +
+                                        '                <p>用户管理</p>\n' +
+                                        '            </div>\n' +
+                                        '        </a>';
+                                    break;
+
+                                case "项目管理":
+                                    html = '<a href="Project/Index.html">\n' +
+                                        '            <div class="project">\n' +
+                                        '                <img src="bg/icon_project.png" />\n' +
+                                        '                <p>项目管理</p>\n' +
+                                        '            </div>\n' +
+                                        '        </a>';
+                                    break;
+
+                                case "道路照明系统":
+                                    html = '<a href="Roadlighting/Index.html">\n' +
+                                        '            <div class="road">\n' +
+                                        '                <img src="bg/icon_road.png" />\n' +
+                                        '                <p>道路照明系统</p>\n' +
+                                        '            </div>\n' +
+                                        '        </a>';
+                                    break;
+
+                                case "Gis地理信息系统":
+                                    html = '<a href="Gisservice/Project.html">\n' +
+                                        '            <div class="gis">\n' +
+                                        '                <img src="bg/icon_eith.gif" />\n' +
+                                        '                <p>Gis地理信息系统</p>\n' +
+                                        '            </div>\n' +
+                                        '        </a>';
+                                    break;
+
+                                case "能耗分析":
+                                    html = '<a href="Engery/Analyze.html">\n' +
+                                        '            <div class="nh">\n' +
+                                        '                <img src="bg/icon_nh.png" />\n' +
+                                        '                <p>能耗分析</p>\n' +
+                                        '            </div>\n' +
+                                        '        </a>';
+                                    break;
+                            }
+
+                            $(html).appendTo($contain);
+                        }
+                    }
+                }
+            });
+        }
+
+        $(function () {
+            flushMenu();
+        });
+    </script>
 </body>
 </html>
