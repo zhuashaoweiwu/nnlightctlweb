@@ -72,6 +72,14 @@
     <Content Include="bg\icon_project.png" />
     <Content Include="bg\icon_road.png" />
     <Content Include="bg\icon_user.png" />
+    <Content Include="bg\index_m_1.png" />
+    <Content Include="bg\index_m_2.png" />
+    <Content Include="bg\index_m_3.png" />
+    <Content Include="bg\index_m_4.png" />
+    <Content Include="bg\index_m_5.png" />
+    <Content Include="bg\index_m_6.png" />
+    <Content Include="bg\index_m_7.png" />
+    <Content Include="bg\index_m_8.png" />
     <Content Include="bg\loading.gif" />
     <Content Include="bg\loginbg.png" />
     <Content Include="bg\logo.png" />
