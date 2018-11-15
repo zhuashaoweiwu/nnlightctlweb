@@ -6,6 +6,24 @@
   url('iconfont.ttf') format('truetype'), /* chrome、firefox、opera、Safari, Android, iOS 4.2+*/
   url('iconfont.svg#Hui-iconfont') format('svg'); /* iOS 4.1- */
 }
+@font-face {
+  font-family: 'iconfont';
+  /* project id 654279 */
+  src: url('//at.alicdn.com/t/font_654279_n258az3iymh.eot');
+  src: url('//at.alicdn.com/t/font_654279_n258az3iymh.eot?#iefix') format('embedded-opentype'), 
+       url('//at.alicdn.com/t/font_654279_n258az3iymh.woff') format('woff'), 
+       url('//at.alicdn.com/t/font_654279_n258az3iymh.ttf') format('truetype'), 
+       url('//at.alicdn.com/t/font_654279_n258az3iymh.svg#iconfont') format('svg');
+}
+
+.iconfont {
+  font-family: "iconfont" !important;
+  font-size: 16px;
+  font-style: normal;
+  -webkit-font-smoothing: antialiased;
+  -webkit-text-stroke-width: 0.2px;
+  -moz-osx-font-smoothing: grayscale;
+}
 
 .Hui-iconfont {
   font-family:"Hui-iconfont" !important;

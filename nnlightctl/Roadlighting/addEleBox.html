@@ -91,7 +91,14 @@
     //添加设备
     function addDevice(title, url, w, h) {
         layer_show(title, url, w, h, function (deviceArray) {
-
+            if (deviceArray.modelCode == "" || deviceArray.modelCode == undefined) {
+                layer.msg("请输入模块编码！", { icon: 2, time: 2000 });
+                return false;
+            }
+            if (deviceArray.modelName == "" || deviceArray.modelName == undefined) {
+                layer.msg("请输入模块名称！", { icon: 2, time: 2000 });
+                return false;
+            }
             var $tbody = $("table.table").find("tbody").eq(0);
 
             //添加入控制柜所包含模块集合中
@@ -120,6 +127,14 @@
         var index = $(obj).parents("tr").eq(0).attr("value");
 
         layer_show(title, url + "?" + param, w, h, function (data) {
+            if (data.modelCode == "" || data.modelCode == undefined) {
+                layer.msg("请输入模块编码！", { icon: 2, time: 2000 });
+                return false;
+            }
+            if (data.modelName == "" || data.modelName == undefined) {
+                layer.msg("请输入模块名称！", { icon: 2, time: 2000 });
+                return false;
+            }
             //更新数组
             var modelLoopArray = modelArray[index].modelLoopList;
             data["modelLoopList"] = modelLoopArray;

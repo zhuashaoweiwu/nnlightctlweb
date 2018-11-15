@@ -22,6 +22,7 @@
                 <label class="form-label col-xs-3 col-sm-2">设备数量：</label>
                 <div class="formControls col-xs-4 col-sm-4">
                     <input type="text" class="input-text" value="1" placeholder="设备数量" id="count" name="count">
+                    <label id="count-error" class="error" style="display:none">*格式不正确。</label>
                 </div>
             </div>
             <div style="width:49.5%;border:1px solid #ddd;height:520px;overflow:hidden;" class="mt-20 f-l">
@@ -48,18 +49,21 @@
                     <label class="form-label col-xs-4 col-sm-4">额定功率：</label>
                     <div class="formControls col-xs-8 col-sm-7">
                         <input type="text" class="input-text" value="" placeholder="额定功率" id="powerRating" name="powerRating">
+                        <label id="powerRating-error" class="error" style="display:none">*格式不正确。</label>
                     </div>
                 </div>
                 <div class="row cl">
                     <label class="form-label col-xs-4 col-sm-4">额定电流：</label>
                     <div class="formControls col-xs-8 col-sm-7">
                         <input type="text" class="input-text" value="" placeholder="额定电流" id="electricRating" name="electricRating">
+                        <label id="electricRating-error" class="error" style="display:none">*格式不正确。</label>
                     </div>
                 </div>
                 <div class="row cl">
                     <label class="form-label col-xs-4 col-sm-4">额定电压：</label>
                     <div class="formControls col-xs-8 col-sm-7">
                         <input type="text" class="input-text" value="" placeholder="额定电压" id="voltageRating" name="voltageRating">
+                        <label id="voltageRating-error" class="error" style="display:none">*格式不正确。</label>
                     </div>
                 </div>
                 <div class="row cl">
@@ -78,6 +82,7 @@
                     <label class="form-label col-xs-4 col-sm-4"><span class="c-red">*</span>回路数量：</label>
                     <div class="formControls col-xs-8 col-sm-7">
                         <input type="text" class="input-text" value="" placeholder="回路数量" id="loopCount" name="loopCount">
+                        <label id="loopElectricity-error" class="error" style="display:none">*格式不正确。</label>
                     </div>
                 </div>
                 <div class="row cl">
@@ -90,6 +95,7 @@
                     <label class="form-label col-xs-4 col-sm-4">回路继电器额定电流：</label>
                     <div class="formControls col-xs-8 col-sm-7">
                         <input type="text" class="input-text" value="" placeholder="回路继电器额定电流" id="loopElectricity" name="loopElectricity">
+                        <label id="loopElectricity-error" class="error" style="display:none">*格式不正确。</label>
                     </div>
                 </div>
             </div>
@@ -130,13 +136,54 @@
     <script type="text/javascript" src="../js/api/requestRoot.js"></script>
     <script type="text/javascript" src="../js/api/ajaxScript.js"></script>
     <!--/_footer 作为公共模版分离出去-->
-    <!--请在下方写此页面业务相关的脚本-->
-    <script type="text/javascript" src="../lib/jquery.validation/1.14.0/jquery.validate.js"></script>
-    <script type="text/javascript" src="../lib/jquery.validation/1.14.0/validate-methods.js"></script>
-    <script type="text/javascript" src="../lib/jquery.validation/1.14.0/messages_zh.js"></script>
     <script type="text/javascript">
         
-        var reg = /^[0-9,.]*$/ //^[-\+]?\d+(\.\d+)?$/;
+        $(document).ready(function () {
+            var doureg = /^[0-9,.]*$/ //^[-\+]?\d+(\.\d+)?$/;
+            var numreg = /^\d+$/;
+            $("#powerRating").blur(function () {
+                var a = $("#powerRating").val();
+                if (!doureg.test(a) || a == "") {
+                    layer.tips('请输入double类型数字', '#powerRating');
+                    $("#powerRating-error").show();
+                } else { $("#powerRating-error").hide(); }
+            });
+            $("#electricRating").blur(function () {
+                var a = $("#electricRating").val();
+                if (!doureg.test(a) || a == "") {
+                    layer.tips('请输入double类型数字', '#electricRating');
+                    $("#electricRating-error").show();
+                } else { $("#electricRating-error").hide(); }
+            });
+            $("#voltageRating").blur(function () {
+                var a = $("#voltageRating").val();
+                if (!doureg.test(a) || a == "") {
+                    layer.tips('请输入double类型数字', '#voltageRating');
+                    $("#voltageRating-error").show();
+                } else { $("#voltageRating-error").hide(); }
+            });
+            $("#loopElectricity").blur(function () {
+                var a = $("#loopElectricity").val();
+                if (!doureg.test(a) || a == "") {
+                    layer.tips('请输入double类型数字', '#loopElectricity');
+                    $("#loopElectricity-error").show();
+                } else { $("#loopElectricity-error").hide(); }
+            });
+            $("#loopCount").blur(function () {
+                var a = $("#loopCount").val();
+                if (!numreg.test(a) || a == "") {
+                    layer.tips('请输入byte类型数字', '#loopCount');
+                    $("#loopCount-error").show();
+                } else { $("#loopCount-error").hide(); }
+            });
+            $("#count").blur(function () {
+                var a = $("#count").val();
+                if (!numreg.test(a) || a == "") {
+                    layer.tips('请输入int类型数字', '#count');
+                    $("#count-error").show();
+                } else { $("#count-error").hide(); }
+            })
+        });
         var modelLoopArray = [];
         
         //添加回路
@@ -172,6 +219,10 @@
             var index = $(obj).parents("tr").eq(0).attr("value");
 
             layer_show(title, url + "?" + param, w, h, function (modelLoop) {
+                if (modelLoop.loopCode == "" || modelLoop.loopCode == undefined) {
+                    layer.msg("请输入回路编号！", { icon: 2, time: 2000 });
+                    return false;
+                }
                 //更新数组
                 modelLoopArray[index] = modelLoop;
 

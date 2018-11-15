@@ -83,7 +83,23 @@
                 rules: {
                     modelName: {
                         required: true,
-                    }
+                    },
+                    ratedVoltage: {
+                        required: true,
+                        isFloat:true
+                    },
+                    ratedElectric: {
+                        required: true,
+                        isFloat: true
+                    },
+                    ratedPower: {
+                        required: true,
+                        isFloat: true
+                    },
+                    ledCount: {
+                        required: true,
+                        isNumber:true
+                    },
                 },
                 onkeyup: false,
                 focusCleanup: true,
