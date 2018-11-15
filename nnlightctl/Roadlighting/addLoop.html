@@ -20,36 +20,68 @@
         <form class="form form-horizontal" id="form-admin-add">
             
             <div class="row cl">
-                <label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>回路编号：</label>
+                <label class="form-label col-xs-4 col-sm-3 text-r"><span class="c-red">*</span>回路编号：</label>
                 <div class="formControls col-xs-8 col-sm-9">
                     <input type="text" class="input-text" value="" placeholder="回路编号" id="loopCode" name="loopCode">
                 </div>
             </div>
             <div class="row cl">
-                <label class="form-label col-xs-4 col-sm-3">回路电压：</label>
+                <label class="form-label col-xs-4 col-sm-3 text-r">回路电压：</label>
                 <div class="formControls col-xs-8 col-sm-9">
                     <input type="text" class="input-text" value="" placeholder="回路电压" id="voltage" name="voltage">
+                    <label id="voltage-error" class="error" for="phone" style="display:none">*回路电压格式不正确。</label>
                 </div>
             </div>
             <div class="row cl">
-                <label class="form-label col-xs-4 col-sm-3">回路电流：</label>
-                <div class="formControls col-xs-8 col-sm-9" style="width:200px;">
+                <label class="form-label col-xs-4 col-sm-3 text-r">回路电流：</label>
+                <div class="formControls col-xs-8 col-sm-9">
                     <input type="text" class="input-text" value="" placeholder="回路电流" id="electricity" name="electricity">
+                    <label id="electricity-error" class="error" for="phone" style="display:none">*回路电流格式不正确。</label>
                 </div>
             </div>
             <div class="row cl">
-                <label class="form-label col-xs-4 col-sm-3">回路灯具数量：</label>
-                <div class="formControls col-xs-8 col-sm-9" style="width:200px;">
+                <label class="form-label col-xs-4 col-sm-3 text-r">回路灯具数量：</label>
+                <div class="formControls col-xs-8 col-sm-9">
                     <input type="text" class="input-text" value="" placeholder="回路灯具数量" id="lightCount" name="lightCount">
+                    <label id="lightCount-error" class="error" for="phone" style="display:none">*回路灯具数量格式不正确。</label>
                 </div>
             </div>
         </form>
     </article>
 
-    <script src="../js/jquery.min.js"></script>
+    <script type="text/javascript" src="../js/jquery.min.js"></script>
     <script type="text/javascript" src="../js/api/requestRoot.js"></script>
     <script type="text/javascript" src="../js/api/ajaxScript.js"></script>
+
+    <!--表单验证-->
+    <script type="text/javascript" src="../lib/layer/2.4/layer.js"></script>
     <script type="text/javascript">
+        $(document).ready(function () {
+            var doureg = /^[0-9,.]*$/ //^[-\+]?\d+(\.\d+)?$/;
+            var numreg = /^\d+$/;
+            $("#voltage").blur(function () {
+                var a = $("#voltage").val();
+                if (!doureg.test(a)) {
+                    layer.tips('请输入数字', '#voltage');
+                    $("#voltage-error").show();
+                } else { $("#voltage-error").hide(); }
+            })
+            $("#electricity").blur(function () {
+                var a = $("#electricity").val();
+                if (!doureg.test(a)) {
+                    layer.tips('请输入数字', '#voltage');
+                    $("#electricity-error").show();
+                } else { $("#electricity-error").hide(); }
+            })
+            $("#lightCount").blur(function () {
+                var a = $("#lightCount").val();
+                if (!numreg.test(a)) {
+                    layer.tips('请输入数字', '#voltage');
+                    $("#lightCount-error").show();
+                } else { $("#lightCount-error").hide(); }
+            })
+        });
+
         var getData = function () {
             var formDataArray = $(".form").serializeArray();
 
@@ -61,7 +93,7 @@
 
             return param;
         };
-
+        
         $(function () {
             //判断是否编辑模式
             var paramContext = editModelParam(window.location.href);

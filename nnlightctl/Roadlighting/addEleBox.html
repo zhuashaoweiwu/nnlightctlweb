@@ -32,7 +32,7 @@
                     <i class="Hui-iconfont">&#xe600;</i>添加设备
                 </a>
             </h3>
-            <div style="overflow-y:scroll;height:180px;width:100%;" class="mt-10">
+            <div style="overflow-y:scroll;height:400px;width:100%;" class="mt-10">
                 <table class="table table-border table-bordered">
                     <thead>
                     <tr class="text-c">
@@ -166,10 +166,10 @@
                         }
                     }
                 });
-
-            var index = parent.layer.getFrameIndex(window.name);
-            parent.$('.btn-refresh').click();
-            parent.layer.close(index);
+            ResetWindow();
+            //var index = parent.layer.getFrameIndex(window.name);
+            //parent.$('.btn-refresh').click();
+            //parent.layer.close(index);
         });
 
     });

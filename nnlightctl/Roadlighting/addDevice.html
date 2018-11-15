@@ -135,11 +135,20 @@
     <script type="text/javascript" src="../lib/jquery.validation/1.14.0/validate-methods.js"></script>
     <script type="text/javascript" src="../lib/jquery.validation/1.14.0/messages_zh.js"></script>
     <script type="text/javascript">
+        
+        var reg = /^[0-9,.]*$/ //^[-\+]?\d+(\.\d+)?$/;
         var modelLoopArray = [];
         
         //添加回路
         function addLoop(title, url, w, h) {
+            
             layer_show(title, url, w, h, function (modelLoop) {
+                
+                if (modelLoop.loopCode == "" || modelLoop.loopCode == undefined) {
+                    layer.msg("请输入回路编号！", { icon: 2, time: 2000 });
+                    return false;
+                }
+
                 //保存到全局模块回路数组中
                 var index = modelLoopArray.push(modelLoop) - 1;
 
