@@ -20,30 +20,30 @@
         <form class="form form-horizontal" id="form-admin-add">
             
             <div class="row cl">
-                <label class="form-label col-xs-4 col-sm-3 text-r"><span class="c-red">*</span>回路编号：</label>
-                <div class="formControls col-xs-8 col-sm-9">
+                <label class="form-label col-xs-4 col-sm-3 text-c"><span class="c-red">*</span>回路编号：</label>
+                <div class="formControls col-xs-8 col-sm-6">
                     <input type="text" class="input-text" value="" placeholder="回路编号" id="loopCode" name="loopCode">
                 </div>
             </div>
             <div class="row cl">
                 <label class="form-label col-xs-4 col-sm-3 text-r">回路电压：</label>
-                <div class="formControls col-xs-8 col-sm-9">
+                <div class="formControls col-xs-8 col-sm-6">
                     <input type="text" class="input-text" value="" placeholder="回路电压" id="voltage" name="voltage">
-                    <label id="voltage-error" class="error" for="phone" style="display:none">*回路电压格式不正确。</label>
+                    <label id="voltage-error" class="error" style="display:none">*格式不正确。</label>
                 </div>
             </div>
             <div class="row cl">
                 <label class="form-label col-xs-4 col-sm-3 text-r">回路电流：</label>
-                <div class="formControls col-xs-8 col-sm-9">
+                <div class="formControls col-xs-8 col-sm-6">
                     <input type="text" class="input-text" value="" placeholder="回路电流" id="electricity" name="electricity">
-                    <label id="electricity-error" class="error" for="phone" style="display:none">*回路电流格式不正确。</label>
+                    <label id="electricity-error" class="error" style="display:none">*格式不正确。</label>
                 </div>
             </div>
             <div class="row cl">
                 <label class="form-label col-xs-4 col-sm-3 text-r">回路灯具数量：</label>
-                <div class="formControls col-xs-8 col-sm-9">
+                <div class="formControls col-xs-8 col-sm-6">
                     <input type="text" class="input-text" value="" placeholder="回路灯具数量" id="lightCount" name="lightCount">
-                    <label id="lightCount-error" class="error" for="phone" style="display:none">*回路灯具数量格式不正确。</label>
+                    <label id="lightCount-error" class="error" style="display:none">*格式不正确。</label>
                 </div>
             </div>
         </form>
@@ -61,22 +61,22 @@
             var numreg = /^\d+$/;
             $("#voltage").blur(function () {
                 var a = $("#voltage").val();
-                if (!doureg.test(a)) {
-                    layer.tips('请输入数字', '#voltage');
+                if (!doureg.test(a) || a=="") {
+                    layer.tips('请输入double类型数字', '#voltage');
                     $("#voltage-error").show();
                 } else { $("#voltage-error").hide(); }
             })
             $("#electricity").blur(function () {
                 var a = $("#electricity").val();
-                if (!doureg.test(a)) {
-                    layer.tips('请输入数字', '#voltage');
+                if (!doureg.test(a) || a == "") {
+                    layer.tips('请输入double类型数字', '#electricity');
                     $("#electricity-error").show();
                 } else { $("#electricity-error").hide(); }
             })
             $("#lightCount").blur(function () {
                 var a = $("#lightCount").val();
-                if (!numreg.test(a)) {
-                    layer.tips('请输入数字', '#voltage');
+                if (!numreg.test(a) || a == "") {
+                    layer.tips('请输入byte类型数字', '#lightCount');
                     $("#lightCount-error").show();
                 } else { $("#lightCount-error").hide(); }
             })
