@@ -31,7 +31,7 @@
 
         <div style="width:49%;height:270px;border:1px solid #ddd;overflow:hidden" class="f-l">
             <h3 class="f-20"><span class="pl-10">国家</span>
-                <a class="btn btn-primary radius f-r mr-10" data-title="添加国家" onclick="country_add('添加国家', 'Add-Country.html', '800', '500')" href="javascript:void(0);">
+                <a class="btn btn-primary radius f-r mr-10" data-title="添加国家" onclick="country_add('添加国家', 'Add-Country.html', '800', '400')" href="javascript:void(0);">
                 <i class="Hui-iconfont" onclick="ajaxRequest(post, /api/project/listcountry, [pageNumber,pageSize], backFuc)">&#xe600;</i> 添加</a>
             </h3>
             <div style="overflow:scroll;height:240px;">
@@ -44,33 +44,14 @@
                             <!--<th width="100">操作</th>-->
                         </tr>
                     </thead>
-                    <tbody>
-                        <tr class="text-c">
-                            <td>86</td>
-                            <td>中国1</td>
-                            <td></td>
-                            <!--<td><a style="text-decoration:none" class="ml-5" onclick="country_edit('国家编辑', 'Add-Country.html', '1', '800', '500')" href="javascript:void(0);" title="国家编辑"><i class="Hui-iconfont">&#xe6df;</i></a></td>-->
-                        </tr>
-                        <!--<tr class="text-c">-->
-                            <!--<td>86</td>-->
-                            <!--<td>中国</td>-->
-                            <!--<td></td>-->
-                            <!--<td><a style="text-decoration:none" class="ml-5" onclick="country_edit('国家编辑', 'Add-Country.html', '1', '800', '500')" href="javascript:void(0);" title="国家编辑"><i class="Hui-iconfont">&#xe6df;</i></a></td>-->
-                        <!--</tr>-->
-                        <!--<tr class="text-c">-->
-                            <!--<td>86</td>-->
-                            <!--<td>中国</td>-->
-                            <!--<td></td>-->
-                            <!--<td><a style="text-decoration:none" class="ml-5" onclick="country_edit('国家编辑', 'Add-Country.html', '1', '800', '500')" href="javascript:void(0);" title="国家编辑"><i class="Hui-iconfont">&#xe6df;</i></a></td>-->
-                        <!--</tr>-->
-                    </tbody>
+                    <tbody id="Countrytab"></tbody>
                 </table>
             </div>
         </div>
         <div style="width:49%;height:270px;border:1px solid #ddd;overflow:hidden;" class="f-r">
             <h3 class="f-20">
                 <span class="pl-10">省份</span>
-                <a class="btn btn-primary radius f-r mr-10" data-title="添加省份" onclick="province_add('添加省份', 'Add-Province.html', '800', '500')" href="javascript:void(0);">
+                <a class="btn btn-primary radius f-r mr-10" data-title="添加省份" onclick="province_add('添加省份', 'Add-Province.html', '800', '400')" href="javascript:void(0);">
                     <i class="Hui-iconfont">&#xe600;</i> 添加
                 </a>
             </h3>
@@ -84,15 +65,7 @@
                             <!--<th width="100">操作</th>-->
                         </tr>
                     </thead>
-                    <tbody>
-                        <tr class="text-c">
-                            <td>86</td>
-                            <td>上海</td>
-                            <td></td>
-                            <!--<td><a style="text-decoration:none" class="ml-5" onclick="province_edit('省份编辑', 'Add-Province.html', '1', '800', '500')" href="javascript:void(0);" title="省份编辑"><i class="Hui-iconfont">&#xe6df;</i></a></td>-->
-                        </tr>
-
-                    </tbody>
+                    <tbody id="Provincetab"></tbody>
                 </table>
             </div>
         </div>
@@ -117,18 +90,7 @@
                             <!--<th width="100">操作</th>-->
                         </tr>
                     </thead>
-                    <tbody>
-                        <tr class="text-c">
-                            <td>86</td>
-                            <td>上海</td>
-                            <td>120.212545</td>
-                            <td>30.4577899</td>
-                            <td>东十区</td>
-                            <td></td>
-                            <!--<td><a style="text-decoration:none" class="ml-5" onclick="city_edit('城市编辑', 'Add-City.html', '1', '800', '500')" href="javascript:void(0);" title="城市编辑"><i class="Hui-iconfont">&#xe6df;</i></a></td>-->
-                        </tr>
-
-                    </tbody>
+                    <tbody id="Citytab"></tbody>
                 </table>
             </div>
         </div>

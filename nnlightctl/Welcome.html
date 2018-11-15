@@ -14,8 +14,7 @@
         <div class="welbox">
             <a href="Gisservice/Project.html">
                 <div class="gis">
-                    <i data-v-55817e40="" class="iconfont">&#x35af;</i>
-                    <!--<img src="bg/icon_eith.png" />-->
+                    <img src="bg/icon_eith.png" />
                     <p>Gis地理信息系统</p>
                 </div>
             </a>
@@ -48,6 +47,8 @@
         </div>
     </div>
     <script type="text/javascript" src="js/jquery.min.js"></script>
+    <script type="text/javascript" src="js/common.js"></script>
+    <script type="text/javascript" src="js/admin.js"></script> <!--/_footer 作为公共模版分离出去-->
     <script type="text/javascript" src="js/api/requestRoot.js"></script>
     <script type="text/javascript" src="js/api/ajaxScript.js"></script>
     <script type="text/javascript">
@@ -118,13 +119,14 @@
 
                             $(html).appendTo($contain);
                         }
-                    }
-                }
+                    } 
+                } 
             });
         }
 
         $(function () {
             flushMenu();
+
         });
     </script>
 </body>

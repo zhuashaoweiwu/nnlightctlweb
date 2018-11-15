@@ -98,6 +98,7 @@
     <Content Include="css\login.css" />
     <Content Include="css\welcome.css" />
     <Content Include="Engery\Analyze.html" />
+    <Content Include="Engery\Analyzelog.html" />
     <Content Include="Engery\EnergyMonitor.html" />
     <Content Include="Engery\EnergyReport2.html" />
     <Content Include="Engery\EnergyReport.html" />

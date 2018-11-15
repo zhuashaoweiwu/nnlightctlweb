@@ -20,19 +20,19 @@
 
             <div class="row cl">
                 <label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>国家：</label>
-                <div class="formControls col-xs-8 col-sm-9">
+                <div class="formControls col-xs-8 col-sm-6">
                     <input type="text" class="input-text" value="" placeholder="国家" id="countryName" name="countryName">
                 </div>
             </div>
             <div class="row cl">
                 <label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>编码：</label>
-                <div class="formControls col-xs-8 col-sm-9">
+                <div class="formControls col-xs-8 col-sm-6">
                     <input type="text" class="input-text" value="" placeholder="编码" id="codeNumber" name="codeNumber">
                 </div>
             </div>
             <div class="row cl">
                 <label class="form-label col-xs-4 col-sm-3">备注：</label>
-                <div class="formControls col-xs-8 col-sm-9">
+                <div class="formControls col-xs-8 col-sm-8">
                     <textarea cols="" rows="" class="textarea" placeholder="说点什么...100个字符以内" dragonfly="true" id="mem" name="mem"></textarea>
                     <p class="textarea-numberbar"><em class="textarea-length">0</em>/100</p>
                 </div>
@@ -66,11 +66,14 @@
             //数据验证
             $("#form-admin-add").validate({
                 rules: {
-                    institution: {
+                    countryName: {
                         required: true,
                         minlength: 1,
                         maxlength: 64
-                    }
+                    },
+                    codeNumber: {
+                        required: true,
+                    },
                 },
                 onkeyup: false,
                 focusCleanup: true,
@@ -96,9 +99,7 @@
                             }
                         }
                     });
-                    var index = parent.layer.getFrameIndex(window.name);
-                    parent.$('.btn-refresh').click();
-                    parent.layer.close(index);
+                    ResetWindow();
                 }
             });
             //判断是否编辑模式
