@@ -27,7 +27,7 @@
         <div id="globalProjectPanel" class="projectview" style="height:250px;">
             <div class="pr1">
                 <span class="Hui-iconfont bigfont">&#xe643;</span><span class="pl-10 f-18">国家</span>
-                <p class="pronum" id="countryStatistic">12452222222224</p>
+                <p class="pronum" id="countryStatistic"></p>
             </div>
         </div>
         <h4 class="f-18 tit" style="margin-top:40px;"><span class="Hui-iconfont">&#xe667;</span><span class="pl-10">全球统计数据</span></h4>
@@ -77,16 +77,16 @@
 
                     // console.log("国家统计：");
                     var $countryProjectPanel = $("#globalProjectPanel");
-                    $countryProjectPanel.empty();
-                    for (var key in countryStatistic) {
-                        // console.log(key + ":" + countryStatistic[key]);
-                        $('<div class="pr1">' +
-                            '<span class="Hui-iconfont bigfont">&#xe643;</span><span class="pl-10 f-18">国家</span>' +
-                            '<p class="pronum" id="countryStatistic"></p>' +
-                            '</div>').appendTo($countryProjectPanel);
-                        projectTotal += countryStatistic[key];
-                        console.log(countryStatistic)
-                    }
+                    // $countryProjectPanel.empty();
+                    // for (var key in countryStatistic) {
+                    //     // console.log(key + ":" + countryStatistic[key]);
+                    //     $('<div class="pr1">' +
+                    //         '<span class="Hui-iconfont bigfont">&#xe643;</span><span class="pl-10 f-18">'+key+'</span>' +
+                    //         '<p class="pronum" >'+countryStatistic[key]+'</p>'</p>' +
+                    //         '</div>').appendTo($countryProjectPanel);
+                    //     projectTotal += countryStatistic[key];
+                    //     console.log(countryStatistic)
+                    // }
                     // console.log("项目统计：" + projectTotal)
                     $("#projectStatistic").text(projectTotal);
                     // console.log("控制柜统计：" + eleboxTotal);
@@ -108,6 +108,7 @@
                 }
             }
             $("#countryStatistic").text(countryArray.length);
+            console.log(countryArray.length);
         })
     </script>
 
