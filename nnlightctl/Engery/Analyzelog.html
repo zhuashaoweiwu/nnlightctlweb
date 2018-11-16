@@ -1,0 +1,116 @@
+﻿<!DOCTYPE HTML>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="renderer" content="webkit|ie-comp|ie-stand">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no" />
+    <meta http-equiv="Cache-Control" content="no-siteapp" />
+
+    <title>能耗分析--终端信号日志</title>
+
+    <link rel="stylesheet" type="text/css" href="../css/common.css" />
+    <link rel="stylesheet" type="text/css" href="../css/admin.css" />
+    <link rel="stylesheet" type="text/css" href="../css/iconfont/iconfont.css" />
+
+</head>
+<body>
+    <nav class="breadcrumb"><i class="Hui-iconfont">&#xe67f;</i> 首页 <span class="c-gray en">&gt;</span>能耗分析<span class="c-gray en">&gt;</span>终端信号日志<a class="btn btn-success radius r" style="line-height:1.6em;margin-top:3px" href="javascript:location.replace(location.href);" title="刷新"><i class="Hui-iconfont">&#xe68f;</i></a></nav>
+    <div class="pd-20">
+        <div class="text-l">
+            日期范围：
+            <input type="text" onfocus="WdatePicker({maxDate:'#F{$dp.$D(\'datemax\')||\'%y-%M-%d\'}'})" id="datemin" class="input-text Wdate" style="width:120px;" placeholder="开始日期">
+            -
+            <input type="text" onfocus="WdatePicker({minDate:'#F{$dp.$D(\'datemin\')}',maxDate:'%y-%M-%d'})" id="datemax" class="input-text Wdate" style="width:120px;" placeholder="结束日期">
+            <span class="pl-20">UUID：</span>
+            <input type="text" class="input-text" style="width:250px" placeholder="输入UUID" id="uuid">
+            <button type="submit" class="btn btn-success f-r" id="btnSearch"><i class="Hui-iconfont">&#xe665;</i>搜日志</button>
+        </div>
+
+        <div class="mt-20">
+            <table class="table table-border table-bordered table-bg table-hover table-sort table-responsive">
+                <thead>
+                    <tr>
+                        <th scope="col" colspan="7">终端信号日志列表</th>
+                    </tr>
+                    <tr class="text-l">
+                        <th width="100">UUID</th>
+                        <th width="100">时间</th>
+                        <th width="100">经度</th>
+                        <th width="110">纬度</th>
+                        <td>信号强度</td>
+                        <th width="110">单位</th>
+                        <th width="110">信号等级</th>
+                    </tr>
+                </thead>
+                <tbody>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <!--_footer 作为公共模版分离出去-->
+    <script type="text/javascript" src="../js/jquery.min.js"></script>
+    <script type="text/javascript" src="../js/common.js"></script>
+    <script type="text/javascript" src="../lib/My97DatePicker/4.8/WdatePicker.js"></script> <!--日期插件-->
+    <script type="text/javascript" src="../js/admin.js"></script>
+
+    <script type="text/javascript" src="../js/api/requestRoot.js"></script>
+    <script type="text/javascript" src="../js/api/ajaxScript.js"></script>
+    <!--/_footer 作为公共模版分离出去-->
+    <!--请在下方写此页面业务相关的脚本-->
+    <script type="text/javascript" src="../lib/datatables/1.10.0/jquery.dataTables.min.js"></script>
+    <script type="text/javascript">
+
+        var param = {};
+        $(function () { searchUserOpLog(param); });
+        $("#btnSearch").click(function () {
+            //搜索条件
+            var startDate = $("#datemin").val();
+            var endDate = $("#datemax").val();
+            var uuid = $("#uuid").val();
+
+            param["startDate"] = startTime ? str2Date(startDate) : new Date(new Date().getTime() - 24 * 3600 * 1000);
+            param["endDate"] = endTime ? str2Date(endDate) : new Date();
+            param["uuid"] = uuid;
+            //初始化，然后绑定
+            $('.table-sort').DataTable().destroy();
+            searchUserOpLog(param);
+        });
+        function searchUserOpLog(param) {
+            $('.table-sort').dataTable({
+                "searching": false,
+                "autoWidth": true,
+                "ordering": false, //设置所有布排序
+                "bStateSave": true,
+                "ajax": function (data, callback, settings) {
+                    ajaxRequest("post", "/api/energyStatistic/listLightSignalLog", param, function (data) {
+                        //封装返回数据
+                        var returnData = {};
+                        if (data) {
+                            if (data.header.code == 1000) {
+                                returnData.data = data.body.data;
+                            }
+                        }
+                        callback(returnData);
+                    });
+                },
+                "columns": [//返回的json数据在这里填充，注意一定要与上面的<th>数量对应，否则排版出现扭曲
+                            { "data": "uid", "defaultContent": "" },
+                            { "data": "signalLogDate", "render": function (data) { return formatDateTime(data); } },
+                            { "data": "longitude", "defaultContent": "" },
+                            { "data": "latitude", "defaultContent": "" },
+                            { "data": "signalIntensity", "defaultContent": "" },
+                            { "data": "unit", "defaultContent": "" },
+                            {
+                                "data": "signalLevel", "render": function (data)
+                                {
+                                    if (data == "1") { return "低" } else if (data == "2") { return "中" } else if (data == "3") { return "高" } else { return "" }
+                                }
+                            }
+                           ]
+                });
+            }
+    </script>
+
+</body>
+</html>

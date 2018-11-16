@@ -22,8 +22,7 @@
             <label class="form-label col-xs-4 col-sm-3">国家：</label>
             <div class="formControls col-xs-8 col-sm-9">
                     <span class="select-box" style="width:200px;">
-                        <select class="select" name="nnlightctlProjectCountryId" id="nnlightctlProjectCountryId"
-                                size="1">
+                        <select class="select" name="nnlightctlProjectCountryId" id="nnlightctlProjectCountryId" size="1">
                             <option value="0">请选择国家</option>
                         </select>
                     </span>
@@ -35,8 +34,7 @@
             <label class="form-label col-xs-4 col-sm-3">省份：</label>
             <div class="formControls col-xs-8 col-sm-9">
                     <span class="select-box" style="width:200px;">
-                        <select class="select" name="nnlightctlProjectProvinceId" id="nnlightctlProjectProvinceId"
-                                size="1">
+                        <select class="select" name="nnlightctlProjectProvinceId" id="nnlightctlProjectProvinceId" size="1">
                             <option value="0">请选择省份</option>
                         </select>
                     </span>
@@ -104,6 +102,10 @@
                 <input class="btn btn-primary radius" type="submit" value="&nbsp;&nbsp;提交&nbsp;&nbsp;">
             </div>
         </div>
+        <input type="hidden" value="" id="nnlightctlProjectCountryId1" />
+        <input type="hidden" value="" id="nnlightctlProjectProvinceId1" />
+        <input type="hidden" value="" id="nnlightctlProjectCityId1" />
+        <input type="hidden" value="1" id="state" name="state" />
     </form>
 </article>
 
@@ -165,6 +167,9 @@
                 debugger;
                 var url = "/api/project/addproject";
                 if (editModel(window.location.href)) {
+                    param["nnlightctlProjectCountryId"] = $("#nnlightctlProjectCountryId1").val();
+                    param["nnlightctlProjectProvinceId"] = $("#nnlightctlProjectProvinceId1").val();
+                    param["nnlightctlProjectCityId"] = $("#nnlightctlProjectCityId1").val();
                     url = "/api/project/updateproject";
                 }
                 ajaxRequest("post", url, param, function (data) {
@@ -253,11 +258,10 @@
         //判断是否编辑模式
         var id = editModel(window.location.href);
         if (id) {
-            debugger;
             ajaxRequest("post", "/api/project/getproject", {"id" : id}, function (data) {
-                debugger;
                 if (data) {
                     if (data.header.code == 1000) {
+                        debugger;
                         var project = data.body.data[0];
                         //隐藏国家、省份、城市表单项
                         $("#countryRow").hide();
@@ -265,8 +269,14 @@
                         $("#cityRow").hide();
 
                         //刷新表单
+                        $("#nnlightctlProjectCountryId1").val(project.nnlightctlProjectCountryId);
+                        $("#nnlightctlProjectProvinceId1").val(project.nnlightctlProjectProvinceId);
+                        $("#nnlightctlProjectCityId1").val(project.nnlightctlProjectCityId);
+                        $("#state").val(project.state);
                         $("#projectCode").val(project.codeNumber);
                         $("#projectName").val(project.projectName);
+                        $("#longitude").val(project.longitude);
+                        $("#latitude").val(project.latitude);
                         $("#mem").val(project.mem);
                     } else {
                         layer.msg(data.header.msg, {icon : 2});
