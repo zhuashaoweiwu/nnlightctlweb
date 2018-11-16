@@ -85,7 +85,7 @@
         var getData = function () {
             var formDataArray = $(".form").serializeArray();
 
-            var param = [];
+            var param = {};
             for (var i = 0; i < formDataArray.length; ++i) {
                 var o = formDataArray[i];
                 param[o["name"]] = o["value"];

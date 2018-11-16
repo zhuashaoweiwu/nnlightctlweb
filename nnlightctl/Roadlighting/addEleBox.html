@@ -91,11 +91,11 @@
     //添加设备
     function addDevice(title, url, w, h) {
         layer_show(title, url, w, h, function (deviceArray) {
-            if (deviceArray.modelCode == "" || deviceArray.modelCode == undefined) {
+            if (deviceArray[0].modelCode == "" || deviceArray[0].modelCode == undefined) {
                 layer.msg("请输入模块编码！", { icon: 2, time: 2000 });
                 return false;
             }
-            if (deviceArray.modelName == "" || deviceArray.modelName == undefined) {
+            if (deviceArray[0].modelName == "" || deviceArray[0].modelName == undefined) {
                 layer.msg("请输入模块名称！", { icon: 2, time: 2000 });
                 return false;
             }
