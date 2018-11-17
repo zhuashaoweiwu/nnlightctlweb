@@ -87,7 +87,6 @@
             param["departmentName"] = searchInstitutionName;
             param["addr"] = searchInstitutionAddr;
             //初始化，然后绑定
-            $('.table-sort').DataTable().destroy();
             searchDepartment(param);
         });
         function searchDepartment(param) {
@@ -97,7 +96,6 @@
                 "searching": false,
                 "autoWidth": true,
                 "ordering": false, //设置所有布排序
-                "bStateSave": true,
                 "ajax": function (data, callback, settings) {
                     ajaxRequest("post", "/api/department/listDepartment", param, function (data) {
                         //封装返回数据
