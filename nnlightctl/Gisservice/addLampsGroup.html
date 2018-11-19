@@ -177,7 +177,7 @@
                     var mem = $("#mem").val();
                     var param = {}
                     param["cGroupName"] = groupName;
-                    param["men"] = mem;
+                    param["mem"] = mem;
                     param["lightIds"] = lightIds;
                     ajaxRequest("post", "/api/lightGroup/createLightGroupByLightIds",transArray(param),
                         function (data) {
@@ -222,7 +222,7 @@
                         var mem = $("#mem").val();
                         var param = {}
                         param["cGroupName"] = groupName;
-                        param["men"] = mem;
+                        param["mem"] = mem;
                         param["lightIds"] = lightIds;
                         ajaxRequest("post", "/api/lightGroup/createLightGroupByLightIds",transArray(param),
                             function (data) {
@@ -241,7 +241,7 @@
                             var mem = $("#mem").val();
                             var param = {}
                             param["cGroupName"] = groupName;
-                            param["men"] = mem;
+                            param["mem"] = mem;
                             param["lightGroupIds"] = GroupLightIds;
                             ajaxRequest("post", "/api/lightGroup/createLightGroupByLightGroup",transArray(param),
                                 function (data) {
@@ -307,7 +307,7 @@
                         var param = {}
                         param["id"] = groupId;
                         param["cGroupName"] = groupName;
-                        param["men"] = mem;
+                        param["mem"] = mem;
                         param["lightIds"] = lightIds;
                         console.log(param);
                         ajaxRequest("post", "/api/lightGroup/updateLightGroupFromLight",transArray(param),
@@ -329,7 +329,7 @@
                             var param = {}
                             param["id"] = groupId;
                             param["cGroupName"] = groupName;
-                            param["men"] = mem;
+                            param["mem"] = mem;
                             param["lightGroupIds"] = GroupLightIds;
                             console.log(param);
                             ajaxRequest("post", "/api/lightGroup/updateLightGroupFromLightGroup",transArray(param),
