@@ -135,6 +135,7 @@
                 "bStateSave": true,
                 "ajax": function (data, callback, settings) {
                     ajaxRequest("post", "/api/user/listUser", param, function (data) {
+                        console.log(data);
                         //封装返回数据
                         var returnData = {};
                         if (data) {
@@ -185,7 +186,7 @@
                             },
                             { "data": "phone" },
                             { "data": "email" },
-                            { "data": "nnlightctlDepartmentId" },
+                            { "data": "departmentName" },
                             { "data": "place" },
                             {
                                 "data": "userState", "render": function (data) {

@@ -382,14 +382,10 @@
                 case 104:
                     shotcutName = "快捷键8";
                     break;
-
             }
             ajaxRequest("post", "/api/scene/invokeSceneShotcut", {"shotcutName": shotcutName}, function (data) {
                 if (data.header.code == 1000) {
                     alert("成功！");
-                } else {
-                    alert("失败")
-
                 }
 
             })
