@@ -184,7 +184,6 @@
         });
         function get(type){
             ajaxRequest("post", "/api/alarm/getAlarm", {"id":parseInt(type)}, function (data) {
-                console.log(data)
                 var sta;
                 if(data.body.data){
                     if(data.body.data.length){
@@ -320,7 +319,7 @@
                         for(var i = 0 ; i < data.body.data.length ; i++){
                             var aramList= data.body.data[i];
                             var s;
-                            if(aramList.state==1){
+                            if(aramList.isUse== 1){
                                 s="启用";
                             }else {
                                 s="不启用";
@@ -331,7 +330,7 @@
                                 "                            <td>"+aramList.alarmLevel+"</td>" +
                                 "                            <td>"+formatDate(aramList.removeAlarmTime)+"</td>" +
                                 "                            <td>"+s+"</td>" +
-                                "                            <td><a href='javascript:void(0);' style='text-decoration:none' class='ml-10' title='启用' onClick='Relieve(this, 1002)'><i class='Hui-iconfont'>&#xe605;</i></a></td>" +
+                                "                            <td><a href='javascript:void(0);' style='text-decoration:none' class='ml-10' title='启用' onClick='Relieve(this, "+aramList.id+")'><i class='Hui-iconfont'>&#xe605;</i></a></td>" +
                                 "                        </tr>");
                         }
 
@@ -341,9 +340,35 @@
         }
 
         function Relieve(obj, id) {
-            layer.confirm('确认要解除警报吗？', function (index) {
-                //此处请求后台程序，下方是成功后的前台处理……
-            });
+            var ctype;
+            var alarmSource;
+            var param = {};
+            ajaxRequest("post", "/api/alarm/getAlarm", {"id":parseInt(id)}, function (data) {
+                if(data.body.data){
+                    if(data.body.data.length > 0){
+                        param["alarmRequestList[0].ctype"]= data.body.data[0].ctype;
+                        param["alarmRequestList[0].alarmSource"]= data.body.data[0].alarmSource;
+                        if (data.body.data[0].isUse == 1){
+                            param["alarmRequestList[0].isUse"] = 0;
+                        }else {
+                            param["alarmRequestList[0].isUse"] = 1;
+                        }
+                        console.log(param)
+                        layer.confirm('确认要启用警报吗？', function (index) {
+                            ajaxRequest("post", "/api/alarm/configIsUseAlarm", param, function (data) {
+                                if (data){
+                                    if(data.header.code==1000){
+                                        layer.close(index);
+                                    }
+                                }
+                            })
+
+                        })
+                    }
+                }
+
+            })
+
         }
     </script>
 </body>
