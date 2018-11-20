@@ -198,13 +198,8 @@
                         layer.msg(data.header.msg, {icon : 2, time : 3000});
                     }
                 }
-
-                //关闭对话框
-                var index = parent.layer.getFrameIndex(window.name);
-                parent.$('.btn-refresh').click();
-                parent.layer.close(index);
-
             });
+            ResetWindow();
         });
 
 
