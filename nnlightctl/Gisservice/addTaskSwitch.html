@@ -62,9 +62,9 @@
             <label class="form-label col-xs-4 col-sm-3 text-r"><span class="c-red">*</span>周期：</label>
             <div class="formControls col-xs-8 col-sm-9">
             <span class="select-box" id="period" name="period" style="width:200px;">
-                <label><input name="period" id="period1" type="checkbox" value="1" />平常 </label>
-                <label><input name="period"  id="period2" type="checkbox" value="2" />周末 </label>
-                <label><input name="period"  id="period3" type="checkbox" value="4" />节假日 </label>
+                <label><input name="period1" id="period1" type="checkbox" value="1" />平常 </label>
+                <label><input name="period2"  id="period2" type="checkbox" value="2" />周末 </label>
+                <label><input name="period3"  id="period3" type="checkbox" value="4" />节假日 </label>
             </span>
             </div>
         </div>
@@ -138,10 +138,6 @@
                     var isUsebeam = $("#isUsebeam").val();
                     var startTime = $("#startTime").val();
                     var endTime = $("#endTime").val();
-                    // var period1 = $("#period1").val();
-                    var period1=$("#period1").attr("checked",true);
-                    var period2=$("#period2").attr("checked",true);
-                    var period3=$("#period3").attr("checked",true);
                     for (var i = 0; i < paramArray.length; ++i) {
                         var o = paramArray[i];
                         param[o["name"]] = o["value"];
@@ -156,28 +152,9 @@
                     }else {
                         param["isUsebeam"] = 1
                     }
-                    if(period1){
-                        param["period"] = 1
-                    }
-                    if(period2){
-                        param["period"] = 2
-                    }
-                    if(period3){
-                        param["period"] = 4
-                    }
-                    if(period1 && period2){
-                        param["period"] = 3
-                    }
-                    if(period1 && period3){
-                        param["period"] = 5
-                    }
-                    if(period2 && period3){
-                        param["period"] = 6
-                    }
-                    if(period1 && period2 && period3){
-                        param["period"] = 7
-                    }
-                    // console.log(formatDate(new Date()) +" "+ $("#endTime").val())
+                    var period = ($("#period3").is(":checked")?"1":"0") + ($("#period2").is(":checked")?"1":"0") + ($("#period1").is(":checked")?"1":"0" ) ;
+                    // console.info(period);
+                    param["period"] = parseInt(period ,2);
                     var startdate = str2Date($("#startTime").val());
                     var enddate = str2Date($("#endTime").val());
 
@@ -185,6 +162,7 @@
                     param["endTime"]=enddate;
 
                     param["id"] = editModel(window.location.href);
+                    // console.log(param)
                     ajaxRequest("post", "/api/switchTask/addOrUpdateSwitchTask", param, function (data) {
                         if (data) {
                             if (data.header.code == 1000) {
@@ -199,10 +177,7 @@
                             }
                         }
                     });
-
-                    var index = parent.layer.getFrameIndex(window.name);
-                    parent.$('.btn-refresh').click();
-                    parent.layer.close(index);
+                    ResetWindow();
                 }
             });
 
@@ -214,31 +189,34 @@
                     if (data) {
                         if (data.header.code == 1000) {
                             var taskSwitch = data.body.data[0];
-                            if(taskSwitch.period == 1){
-                                $("#period1").attr("checked",true);
-                            }
-                            if(taskSwitch.period == 2){
-                                $("#period2").attr("checked",true);
-                            }
-                            if(taskSwitch.period == 4){
-                                $("#period3").attr("checked",true);
-                            }
-                            if(taskSwitch.period == 3){
-                                $("#period1").attr("checked",true);
-                                $("#period2").attr("checked",true);
-                            }
-                            if(taskSwitch.period == 5){
-                                $("#period1").attr("checked",true);
-                                $("#period3").attr("checked",true);
-                            }
-                            if(taskSwitch.period == 6){
-                                $("#period2").attr("checked",true);
-                                $("#period3").attr("checked",true);
-                            }
-                            if(taskSwitch.period == 7){
-                                $("#period1").attr("checked",true);
-                                $("#period2").attr("checked",true);
-                                $("#period3").attr("checked",true);
+                            switch (taskSwitch.period){
+                                case 1:
+                                    $("#period1").attr("checked",true);
+                                    break;
+                                case 2:
+                                    $("#period2").attr("checked",true);
+                                    break;
+                                case 3:
+                                    $("#period1").attr("checked",true);
+                                    $("#period2").attr("checked",true);
+                                    break;
+                                case 4:
+                                    $("#period3").attr("checked",true);
+                                    break;
+                                case 5:
+                                    $("#period1").attr("checked",true);
+                                    $("#period3").attr("checked",true);
+                                    break;
+                                case 6:
+                                    $("#period2").attr("checked",true);
+                                    $("#period3").attr("checked",true);
+                                    break;
+                                case 7:
+                                    $("#period1").attr("checked",true);
+                                    $("#period2").attr("checked",true);
+                                    $("#period3").attr("checked",true);
+                                    break;
+
                             }
                             //刷新表单
                             $("#switchName").val(taskSwitch.switchName);
@@ -258,18 +236,6 @@
             }
         });
     </script>
-    <!--<script type="text/javascript">-->
-        <!--$("#isLighton").change(function () {-->
-            <!--var StrVal = $(this).val();-->
-            <!--if (StrVal == "1") {-->
-                <!--$('#longitude').removeAttr("disabled");-->
-                <!--$('#latitude').removeAttr("disabled");-->
-            <!--} else {-->
-                <!--$('#longitude').attr("disabled","disabled"); -->
-                <!--$('#latitude').attr("disabled","disabled"); -->
-            <!--}-->
-        <!--});-->
-    <!--</script>-->
 
 </body>
 </html>
