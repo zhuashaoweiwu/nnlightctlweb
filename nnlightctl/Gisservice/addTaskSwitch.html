@@ -189,40 +189,56 @@
                     if (data) {
                         if (data.header.code == 1000) {
                             var taskSwitch = data.body.data[0];
-                            switch (taskSwitch.period){
-                                case 1:
-                                    $("#period1").attr("checked",true);
-                                    break;
-                                case 2:
-                                    $("#period2").attr("checked",true);
-                                    break;
-                                case 3:
-                                    $("#period1").attr("checked",true);
-                                    $("#period2").attr("checked",true);
-                                    break;
-                                case 4:
-                                    $("#period3").attr("checked",true);
-                                    break;
-                                case 5:
-                                    $("#period1").attr("checked",true);
-                                    $("#period3").attr("checked",true);
-                                    break;
-                                case 6:
-                                    $("#period2").attr("checked",true);
-                                    $("#period3").attr("checked",true);
-                                    break;
-                                case 7:
-                                    $("#period1").attr("checked",true);
-                                    $("#period2").attr("checked",true);
-                                    $("#period3").attr("checked",true);
-                                    break;
-
+                            var tp=taskSwitch.period;
+                            if((tp&1)==1){
+                                $("#period1").attr("checked",true);
+                            }else if((tp&1)==0){
+                                $("#period1").attr("checked",false);
                             }
+                            if((tp&2)==2){
+                                $("#period2").attr("checked",true);
+                            }else if((tp&2)==0){
+                                $("#period2").attr("checked",false);
+                            }
+                            if((tp&4)==4){
+                                $("#period3").attr("checked",true);
+                            }else if((tp&4)==0){
+                                $("#period3").attr("checked",false);
+                            }
+                            // switch (taskSwitch.period){
+                            //     case 1:
+                            //         $("#period1").attr("checked",true);
+                            //         break;
+                            //     case 2:
+                            //         $("#period2").attr("checked",true);
+                            //         break;
+                            //     case 3:
+                            //         $("#period1").attr("checked",true);
+                            //         $("#period2").attr("checked",true);
+                            //         break;
+                            //     case 4:
+                            //         $("#period3").attr("checked",true);
+                            //         break;
+                            //     case 5:
+                            //         $("#period1").attr("checked",true);
+                            //         $("#period3").attr("checked",true);
+                            //         break;
+                            //     case 6:
+                            //         $("#period2").attr("checked",true);
+                            //         $("#period3").attr("checked",true);
+                            //         break;
+                            //     case 7:
+                            //         $("#period1").attr("checked",true);
+                            //         $("#period2").attr("checked",true);
+                            //         $("#period3").attr("checked",true);
+                            //         break;
+                            //
+                            // }
                             //刷新表单
                             $("#switchName").val(taskSwitch.switchName);
                             $("#mem").val(taskSwitch.mem);
-                            $("#startTime").val(formatDateTime(taskSwitch.startTime));
-                            $("#endTime").val(formatDateTime(taskSwitch.endTime));
+                            $("#startTime").val(transDate(taskSwitch.startTime));
+                            $("#endTime").val(transDate(taskSwitch.endTime));
                             $("#isLighton").val(taskSwitch.isLighton);
                             $("#isUsebeam").val(taskSwitch.isUsebeam);
                             $("#period").val(taskSwitch.period);
