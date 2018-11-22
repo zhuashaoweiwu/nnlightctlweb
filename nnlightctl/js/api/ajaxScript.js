@@ -51,7 +51,19 @@ function formatDate(inputTime) {
 
     return y + '-' + m + '-' + d;
 }
-
+//时间方法，将毫秒转换成标准时间格式
+function transDate(date){
+    date = new Date(date);
+    var y=date.getFullYear();
+    var m=date.getMonth()+1;
+    var d=date.getDate();
+    var h=date.getHours();
+    var m1=date.getMinutes();
+    var s=date.getSeconds();
+    m = m<10?("0"+m):m;
+    d = d<10?("0"+d):d;
+    return y+"-"+m+"-"+d+" "+h+":"+m1+":"+s;
+}
 //时间方法，形如"2010-09-12"格式转换成时间对象
 function str2Date(dateStr) {
     if (!dateStr) {
