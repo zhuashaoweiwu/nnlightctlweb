@@ -67,11 +67,11 @@
                         if (length > 0){
                             for (var i = 0 ; i< length ; i++){
                                 if (data.body.data[i].mouth){
-                                    month = data.body.data[i].total;
+                                    month = data.body.data[i].totalEnergy;
                                 }else if(data.body.data[i].year){
-                                    year = data.body.data[i].total;
+                                    year = data.body.data[i].totalEnergy;
                                 }else if(data.body.data[i].date){
-                                    day = data.body.data[i].total;
+                                    day = data.body.data[i].totalEnergy;
                                 }
                             }
                         }
@@ -136,7 +136,7 @@
                     for(var h = 0 ; h < categories.length ; h++) {
                         for (var j = 0; j < data.body.data.length; j++) {
                             if (categories[h]==data.body.data[j].date.substr(8,9)) {
-                                ennery[h] = data.body.data[j].total/1000;
+                                ennery[h] = data.body.data[j].energy/1000;
                                 break;
                             } else {
                                 ennery[h] = 0;
