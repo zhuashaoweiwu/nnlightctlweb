@@ -1,0 +1,272 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="renderer" content="webkit|ie-comp|ie-stand">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no" />
+    <meta http-equiv="Cache-Control" content="no-siteapp" />
+
+    <title>道路照明系统</title>
+    <link rel="stylesheet" type="text/css" href="../css/common.css" />
+    <link rel="stylesheet" type="text/css" href="../css/admin.css" />
+    <link rel="stylesheet" type="text/css" href="../css/iconfont/iconfont.css" />
+</head>
+<body>
+    <nav class="breadcrumb">
+        <i class="Hui-iconfont">&#xe67f;</i> 首页
+        <span class="c-gray en">&gt;</span>
+        道路照明系统
+        <span class="c-gray en">&gt;</span>
+        部署控制柜
+        <a class="btn btn-success radius r" style="line-height:1.6em;margin-top:3px" href="javascript:location.replace(location.href);" title="刷新"><i class="Hui-iconfont">&#xe68f;</i></a>
+    </nav>
+    <div class="page-container">
+
+       
+            <!-- 控制柜面板 -->
+                <div class="text-l">
+                    控制柜ID：
+                    <input type="text" name="uid" id="uid" placeholder="控制柜ID" style="width:250px" class="input-text">
+                    <span class="pl-20">控制柜编码：</span>
+                    <input type="text" name="codeNumber" id="codeNumber" placeholder="控制柜编码" style="width:250px" class="input-text">
+                    <button id="btnEleboxSearch" class="btn btn-success f-r" type="submit"><i class="Hui-iconfont">&#xe665;</i>控制柜</button>
+                </div>
+                <div class="cl pd-5 bg-1 bk-gray mt-20">
+                    <ul class="cl tabnav">
+                        <li><a href="javascript:void(0);" onclick="del_more_elebox()" class="btn btn-danger radius mr-10"><i class="Hui-iconfont">&#xe6e2;</i>批量删除</a></li>
+                        <!--<li><a href="javascript:void(0);" onclick="project_del_more()" class="btn btn-secondary radius mr-10"><i class="Hui-iconfont">&#xe645;</i>导入</a></li>
+                        <li><a href="javascript:void(0);" onclick="project_del_more()" class="btn btn-success radius mr-10"><i class="Hui-iconfont">&#xe644;</i>导出</a></li>-->
+                        <li class="dropDown dropDown_hover">
+                            <a href="#" class="btn btn-danger radius mr-10">批量设置<i class="Hui-iconfont">&#xe6d5;</i></a>
+                            <ul class="dropDown-menu menu radius box-shadow">
+                                <li><a href="javascript:void(0);" onclick="setEleboxArea('设置区域', 'setArea.html', '600', '400')">设置区域</a></li>
+                                <!--<li><a href="javascript:void(0);" onclick="setMappic('设置地图图标', 'setMappic.html', '500', '300')">设置地图图标</a></li>-->
+                            </ul>
+                        </li>
+                        <li><a class="btn btn-primary radius" data-title="添加控制柜" onclick="addEleBox('添加控制柜', 'addEleBox.html', '1200', '700')" href="javascript:void(0);"><i class="Hui-iconfont">&#xe600;</i>添加控制柜</a></li>
+                    </ul>
+                </div>
+                <div class="mt-20">
+                    <table id="eleboxTable" class="table table-border table-bordered table-bg table-hover table-sort">
+                        <thead>
+                            <tr class="text-l">
+                                <th width="25"><input type="checkbox" name="" value=""></th>
+                                <th>编码</th>
+                                <th>额定电压</th>
+                                <th>额定电流</th>
+                                <th>额定功率</th>
+                                <th>主控制开关</th>
+                                <th>spd</th>
+                                <th>经度</th>
+                                <th>纬度</th>
+                                <th>区域</th>
+                                <th>操作</th>
+                            </tr>
+                        </thead>
+                        <tbody></tbody>
+                    </table>
+                </div>
+            </div>
+     
+
+    <script type="text/javascript" src="../js/jquery.min.js"></script>
+    <script type="text/javascript" src="../js/common.js"></script>
+    <script type="text/javascript" src="../js/admin.js"></script>
+
+    <script type="text/javascript" src="../js/api/requestRoot.js"></script>
+    <script type="text/javascript" src="../js/api/ajaxScript.js"></script>
+    <!--请在下方写此页面业务相关的脚本-->
+    <script type="text/javascript" src="../lib/layer/2.4/layer.js"></script><!--弹出插件-->
+    <script type="text/javascript" src="../lib/datatables/1.10.0/jquery.dataTables.min.js"></script>
+    <script type="text/javascript">
+        var param = {};
+        $(function () {
+            //搜索控制柜列表
+            searchElebox(param);
+        });
+        $("#btnEleboxSearch").click(function () {
+            //获取搜索条件
+            var searchID = $("#uid").val().trim();
+            var searchCodeNumber = $("#codeNumber").val().trim();
+            //搜索
+            param["uid"] = searchID;
+            param["codeNumber"] = searchCodeNumber;
+            searchElebox(param);
+        });
+        
+        //批量删除控制柜
+        function batchDeleteElebox(idArray) {
+            if (!idArray) {
+                return;
+            }
+
+            ajaxRequest("post", "/api/roadlighting/deleteelebox", transArray({"eleboxIdList" : idArray}), function (data) {
+                if (data) {
+                    if (data.header.code == 1000) {
+                        searchElebox();
+                    } else {
+                        layer.msg(data.header.msg, {icon : 2, time : 3000});
+                    }
+                }
+            });
+        }
+        function del_more_elebox()
+        {
+            //获取全部批量删除的id
+            var idArray = [];
+            $("#eleboxTable").find("input[type='checkbox']:checked").each(function () {
+                idArray.push($(this).val());
+            });
+
+            if (idArray.length <= 0) {
+                return;
+            }
+            layer.confirm('确认批量删除？', function (index) {
+                batchDeleteElebox(idArray);
+                layer.close(index);
+            });
+        }
+        //管理灯具
+        function lampsManage(title, url, id, w, h) {
+            layer_show(title, url + "?id=" + id, w, h);
+        }
+        //添加控制柜
+        function addEleBox(title, url, w, h) {
+            layer_show(title, url, w, h);
+        }
+        //编辑控制柜
+        function editElebox(title, url,id, w, h) {
+            layer_show(title, url + "?id=" + id, w, h);
+        }
+        /*删除控制柜*/
+        function delElebox(obj, id) {
+            layer.confirm('确认要删除吗？', function (index) {
+                // var id = $(obj).parents("tr").find("input[type='checkbox']").eq(0).val();
+                var idArray = [];
+                idArray.push(id);
+                batchDeleteElebox(idArray);
+                layer.close(index);
+            });
+        }
+       
+
+        //批量设置控制柜所属区域
+        function setEleboxArea(title, url, w, h) {
+            //判断是否选择要设置区域的灯具
+            var idArray = [];
+            $("#eleboxTable").find("input[type='checkbox']:checked").each(function () {
+                idArray.push($(this).val());
+            });
+
+            if (idArray.length <= 0) {
+                alert("请先选择！");
+                return;
+            }
+
+            layer_show(title, url, w, h, function (data) {
+                console.log("the select area id is : " + data);
+                ajaxRequest("post", "/api/roadlighting/batchSetEleboxArea",
+                    transArray({"beAreaId" : data, "eleboxIds" : idArray}), function (data) {
+                        if (data) {
+                            if (data.header.code == 1000) {
+                                layer.msg("批量设置区域成功！", {icon : 1, time : 3000});
+                            } else {
+                                layer.msg(data.header.msg, {icon : 2, time : 3000});
+                            }
+                        }
+                    });
+            });
+        }
+
+        //批量设置灯具所属区域
+        function setArea(title, url, w, h) {
+            //判断是否选择要设置区域的灯具
+            var idArray = [];
+            $("#lightTable").find("input[type='checkbox']:checked").each(function () {
+                idArray.push($(this).val());
+            });
+
+            if (idArray.length <= 0) {
+                alert("请先选择！");
+                return;
+            }
+
+            layer_show(title, url, w, h, function (data) {
+                console.log("the select area id is : " + data);
+                ajaxRequest("post", "/api/roadlighting/batchSetLightArea",
+                    transArray({"beAreaId" : data, "lightIds" : idArray}), function (data) {
+                        if (data) {
+                            if (data.header.code == 1000) {
+                                layer.msg("批量设置区域成功！", {icon : 1, time : 3000});
+                            } else {
+                                layer.msg(data.header.msg, {icon : 2, time : 3000});
+                            }
+                        }
+                    });
+            });
+        }
+        //设置区域
+        function setEleBox(title, url, w, h) {
+            layer_show(title, url, w, h);
+        }
+        //设置区域
+        function setMappic(title, url, w, h) {
+            layer_show(title, url, w, h);
+        }
+
+        //通过搜索条件查询控制柜列表集合
+        function searchElebox(param) {
+            $('#eleboxTable').dataTable({
+                "bStateSave": true,
+                "destroy": true,
+                "searching": false,
+                "autoWidth": true,
+                "ordering": false, //设置所有不排序
+                "ajax": function (data, callback, settings) {
+                    ajaxRequest("post", "/api/roadlighting/listelebox", param, function (result) {
+                        //封装返回数据
+                        var returnData = {};
+                        if (result) {
+                            if (result.header.code == 1000) {
+                                returnData.data = result.body.data;
+                            } else {
+                                layer.msg(data.header.msg, { icon: 2, time: 3000 });
+                            }
+                        }
+                        callback(returnData);
+                    });
+                },
+                "columnDefs": [//对table格式的定义（表格的列从0开始）
+                    {
+                        targets: 0,
+                        render: function (data, type, row) {
+                            return '<input type="checkbox" value="' + row.id + '" >';
+                        }
+                    }, {
+                        targets: 10,
+                        render: function (data, type, row) {
+                            return '<a href="javascript:void(0);" style="text-decoration:none" class="ml-10" onclick="lampsManage(\'管理灯具\', \'addLight.html\', \'' + row.id + '\', \'1200\', \'600\')" title="管理灯具"><i class="Hui-iconfont">&#xe61d;</i></a>' +
+                                   '<a href="javascript:void(0);" style="text-decoration:none" class="ml-10" onclick="editElebox(\'控制柜编辑\', \'editElebox.html\', \'' + row.id + '\', \'800\', \'500\')" title="控制柜编辑"><i class="Hui-iconfont">&#xe6df;</i></a>' +
+                                   '<a href="javascript:void(0);" style="text-decoration:none" class="ml-10" onClick="delElebox(this, \'' + row.id + '\')" title="删除"><i class="Hui-iconfont">&#xe6e2;</i></a></td>';
+                        }
+                    }
+                ],
+                "columns": [//返回的json数据在这里填充，注意一定要与上面的<th>数量对应，否则排版出现扭曲
+                            { "data": "id"},
+                            { "data": "codeNumber", "defaultContent": "" },
+                            { "data": "ratedVoltage", "defaultContent": "" },
+                            { "data": "ratedElectricty", "defaultContent": "" },
+                            { "data": "powerRating", "defaultContent": "" },
+                            { "data": "mainSwitch", "defaultContent": "" },
+                            { "data": "spd", "defaultContent": "" },
+                            { "data": "longitude", "defaultContent": "" },
+                            { "data": "latitude", "defaultContent": "" },
+                            { "data": "regionLevelDesc", "defaultContent": "" },
+                         ]
+                });
+            }
+        
+    </script>
+</body>
+</html>

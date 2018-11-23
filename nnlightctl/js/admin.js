@@ -397,5 +397,5 @@ $(function(){
 //关闭父窗口，并刷新父页面
 function ResetWindow()
 {
-    setTimeout(function () { window.parent.location.reload(); }, 1000);//1秒后强制刷新
+    setTimeout(function () { window.parent.location.reload(); }, 500);//0.5秒后强制刷新
 }

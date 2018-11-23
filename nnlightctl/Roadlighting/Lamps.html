@@ -1,0 +1,253 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="renderer" content="webkit|ie-comp|ie-stand">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no" />
+    <meta http-equiv="Cache-Control" content="no-siteapp" />
+
+    <title>道路照明系统</title>
+    <link rel="stylesheet" type="text/css" href="../css/common.css" />
+    <link rel="stylesheet" type="text/css" href="../css/admin.css" />
+    <link rel="stylesheet" type="text/css" href="../css/iconfont/iconfont.css" />
+</head>
+<body>
+    <nav class="breadcrumb">
+        <i class="Hui-iconfont">&#xe67f;</i> 首页
+        <span class="c-gray en">&gt;</span>
+        道路照明系统
+        <span class="c-gray en">&gt;</span>
+        部署灯具
+        <a class="btn btn-success radius r" style="line-height:1.6em;margin-top:3px" href="javascript:location.replace(location.href);" title="刷新"><i class="Hui-iconfont">&#xe68f;</i></a>
+    </nav>
+    <div class="page-container">
+
+                <div class="text-l">
+                    UUID：
+                    <input type="text" name="uuid" id="uuid" placeholder="UUID" style="width:250px" class="input-text">
+                    <span class="pl-20">灯具唯一编码：</span>
+                    <input type="text" name="lightingCode" id="lightingCode" placeholder="灯具唯一编码" style="width:250px" class="input-text">
+                    <button name="" id="btnLightSearch" class="btn btn-success f-r" type="submit"><i class="Hui-iconfont">&#xe665;</i>灯具</button>
+                </div>
+                <div class="cl pd-5 bg-1 bk-gray mt-20">
+                    <ul class="cl tabnav">
+                        <li><a href="javascript:void(0);" onclick="del_more_light()" class="btn btn-danger radius mr-10"><i class="Hui-iconfont">&#xe6e2;</i>批量删除</a></li>
+                        <!--<li><a href="javascript:void(0);" onclick="project_del_more()" class="btn btn-secondary radius mr-10"><i class="Hui-iconfont">&#xe645;</i>导入</a></li>
+                        <li><a href="javascript:void(0);" onclick="project_del_more()" class="btn btn-success radius mr-10"><i class="Hui-iconfont">&#xe644;</i>导出</a></li>-->
+                        <li class="dropDown dropDown_hover">
+                            <a href="#" class="btn btn-danger radius mr-10">批量设置<i class="Hui-iconfont">&#xe6d5;</i></a>
+                            <ul class="dropDown-menu menu radius box-shadow">
+                                <li><a href="javascript:void(0);" onclick="setArea('设置区域', 'setArea.html', '600', '400')">设置区域</a></li>
+                                <!--<li><a href="javascript:void(0);" onclick="setEleBox('设置所属控制柜', 'setEleBox.html', '500', '300')">设置所属控制柜</a></li>
+                                <li><a href="javascript:void(0);" onclick="setMappic('设置地图图标', 'setMappic.html', '500', '300')">设置地图图标</a></li>-->
+                            </ul>
+                        </li>
+                        <li><a class="btn btn-primary radius mr-10" data-title="添加灯具" onclick="addLamps('添加灯具', 'addLamps.html', '800', '550')" href="javascript:void(0);"><i class="Hui-iconfont">&#xe600;</i>添加灯具</a></li>
+                        <li><a class="btn btn-primary radius" data-title="批量添加灯具" onclick="addLampsMore('批量添加灯具', 'addLampsMore.html', '1050', '550')" href="javascript:void(0);"><i class="Hui-iconfont">&#xe600;</i>批量添加灯具</a></li>
+                    </ul>
+
+                </div>
+                <div class="mt-20">
+                    <table id="lightTable" class="table table-border table-bordered table-bg table-hover table-sort">
+                        <thead>
+                            <tr class="text-l">
+                                <th width="25"><input type="checkbox" name="" value=""></th>
+                                <th width="160">编码</th>
+                                <th width="260">UUID</th>
+                                <th width="100">灯头号</th>
+                                <th width="100">灯杆</th>
+                                <th width="80">光衰</th>
+                                <th width="140">最大使用时间（年）</th>
+                                <th width="80">区域</th>
+                                <th>备注</th>
+                                <th width="120">操作</th>
+                            </tr>
+                        </thead>
+                        <tbody></tbody>
+                    </table>
+                </div>
+            </div>
+        
+
+    <script type="text/javascript" src="../js/jquery.min.js"></script>
+    <script type="text/javascript" src="../js/common.js"></script>
+    <script type="text/javascript" src="../js/admin.js"></script>
+
+    <script type="text/javascript" src="../js/api/requestRoot.js"></script>
+    <script type="text/javascript" src="../js/api/ajaxScript.js"></script>
+    <!--请在下方写此页面业务相关的脚本-->
+    <script type="text/javascript" src="../lib/layer/2.4/layer.js"></script><!--弹出插件-->
+    <script type="text/javascript" src="../lib/datatables/1.10.0/jquery.dataTables.min.js"></script>
+    <script type="text/javascript">
+        var param = {};
+        $(function () {
+            //搜索灯具列表
+            searchLight(param);
+        });
+        
+        $("#btnLightSearch").click(function () {
+            var searchUUID = $("#uuid").val().trim();
+            var searchLightingCode = $("#lightingCode").val().trim();
+            //搜索
+            param["uuid"] = searchUUID;
+            param["lightingCode"] = searchLightingCode;
+            searchLight(param);
+        });
+
+        
+        //管理灯具
+        function lampsManage(title, url, id, w, h) {
+            layer_show(title, url + "?id=" + id, w, h);
+        }
+       
+        //批量添加灯具
+        function addLampsMore(title, url, w, h) {
+            layer_show(title, url, w, h);
+        }
+        //添加灯具
+        function addLamps(title, url, w, h) {
+            layer_show(title, url, w, h);
+        }
+        //编辑灯具
+        function editLamps(title, url, id, w, h) {
+            layer_show(title, url + "?id=" + id, w, h);
+        }
+
+        /*批量删除灯具*/
+        function batchDeleteLight(idArray) {
+            if (!idArray) {
+                return;
+            }
+            ajaxRequest("post", "/api/roadlighting/deleteLighting", transArray({deleteLightIdList : idArray}), function (data) {
+                if (data) {
+                    if (data.header.code == 1000) {
+                        searchLight();
+                    } else {
+                        layer.msg(data.header.msg, { icon: 2, time: 3000 });
+                    }
+                }
+            });
+        }
+        //批量删除灯具函数
+        function del_more_light() {
+            //获取全部批量删除的id
+            var idArray = [];
+            $("#lightTable").find("input[type='checkbox']:checked").each(function () {
+                idArray.push($(this).val());
+            });
+
+            if (idArray.length <= 0) {
+                alert("请先选择！");
+                return;
+            }
+
+            layer.confirm('确认批量删除？', function (index) {
+                batchDeleteLight(idArray);
+                layer.close(index);
+            });
+        }
+
+        //删除灯具
+        function delLamps(obj, id) {
+            layer.confirm('确认要删除吗？', function (index) {
+                // var id = $(obj).parents("tr").find("input[type='checkbox']").eq(0).val();
+                var idArray = [];
+                idArray.push(id);
+                batchDeleteLight(idArray);
+                layer.close(index);
+            });
+        }
+
+       
+
+        //批量设置灯具所属区域
+        function setArea(title, url, w, h) {
+            //判断是否选择要设置区域的灯具
+            var idArray = [];
+            $("#lightTable").find("input[type='checkbox']:checked").each(function () {
+                idArray.push($(this).val());
+            });
+
+            if (idArray.length <= 0) {
+                alert("请先选择！");
+                return;
+            }
+
+            layer_show(title, url, w, h, function (data) {
+                console.log("the select area id is : " + data);
+                ajaxRequest("post", "/api/roadlighting/batchSetLightArea",
+                    transArray({"beAreaId" : data, "lightIds" : idArray}), function (data) {
+                        if (data) {
+                            if (data.header.code == 1000) {
+                                layer.msg("批量设置区域成功！", {icon : 1, time : 3000});
+                            } else {
+                                layer.msg(data.header.msg, {icon : 2, time : 3000});
+                            }
+                        }
+                    });
+            });
+        }
+        //设置区域
+        function setEleBox(title, url, w, h) {
+            layer_show(title, url, w, h);
+        }
+        //设置区域
+        function setMappic(title, url, w, h) {
+            layer_show(title, url, w, h);
+        }
+
+        
+        //通过搜索条件查询灯具列表集合
+        function searchLight(param) {
+            $('#lightTable').dataTable({
+                "bStateSave": true,
+                "destroy": true,
+                "searching": false,
+                "autoWidth": true,
+                "ordering": false, //设置所有不排序
+                "ajax": function (data, callback, settings) {
+                    ajaxRequest("post", "/api/roadlighting/listLighting", param, function (result) {
+                        //封装返回数据
+                        var returnData = {};
+                        if (result) {
+                            if (result.header.code == 1000) {
+                                returnData.data = result.body.data;
+                            } else {
+                                layer.msg(data.header.msg, { icon: 2, time: 3000 });
+                            }
+                        }
+                        callback(returnData);
+                    });
+                },
+                "columnDefs": [//对table格式的定义（表格的列从0开始）
+                    {
+                        targets: 0,
+                        render: function (data, type, row) {
+                            return '<input type="checkbox" value="' + row.id + '" >';
+                        }
+                    }, {
+                        targets: 9,
+                        render: function (data, type, row) {
+                            return '<a style="text-decoration:none" class="ml-10" onclick="editLamps(\'灯具编辑\', \'addLamps.html\', \'' + row.id + '\', \'800\', \'500\')" href="javascript:void(0);" title="灯具编辑"><i class="Hui-iconfont">&#xe6df;</i></a>' +
+                                   '<a style="text-decoration:none" class="ml-10" onClick="delLamps(this, \'' + row.id + '\')" href="javascript:void(0);" title="删除"><i class="Hui-iconfont">&#xe6e2;</i></a></td>';
+                        }
+                    }
+                ],
+                "columns": [//返回的json数据在这里填充，注意一定要与上面的<th>数量对应，否则排版出现扭曲
+                            { "data": "id" },
+                            { "data": "lightingCode", "defaultContent": "" },
+                            { "data": "uid", "defaultContent": "" },
+                            { "data": "lamphead", "defaultContent": "" },
+                            { "data": "lamppost", "defaultContent": "" },
+                            { "data": "decay", "defaultContent": "" },
+                            { "data": "maxUseTime", "defaultContent": "" },
+                            { "data": "regionLevelDesc", "defaultContent": "" },
+                            { "data": "mem", "defaultContent": "" }
+                ]
+            });
+        }
+
+    </script>
+</body>
+</html>

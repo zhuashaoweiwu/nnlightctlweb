@@ -104,10 +104,15 @@
                 </div>
             </div>
             <div class="row cl">
+                <label class="form-label col-xs-4 col-sm-3">灯具区域：</label>
+                <div class="formControls col-xs-8 col-sm-9" style="width:400px;">
+                    <input type="text" class="input-text" value="" placeholder="灯具区域" id="regionLevelDesc" name="regionLevelDesc">
+                </div>
+            </div>
+            <div class="row cl">
                 <label class="form-label col-xs-4 col-sm-3">&nbsp;备注：</label>
                 <div class="formControls col-xs-8 col-sm-9">
                     <textarea cols="" rows="" class="textarea" placeholder="说点什么...100个字符以内" dragonfly="true" id="mem" name="mem"></textarea>
-                    <p class="textarea-numberbar"><em class="textarea-length">0</em>/100</p>
                 </div>
             </div>
             <div class="row cl">
@@ -126,6 +131,7 @@
                     <input class="btn btn-primary radius" type="submit" value="&nbsp;&nbsp;提交&nbsp;&nbsp;">
                 </div>
             </div>
+            <input type="hidden" id="nnlightctlRegionId" name="nnlightctlRegionId" />
         </form>
     </article>
     <script type="text/javascript" src="../js/jquery.min.js"></script>
@@ -142,6 +148,24 @@
     <script type="text/javascript" src="../lib/jquery.validation/1.14.0/messages_zh.js"></script>
     <script typeof="text/javascript">
         $(function () {
+            //注册区域文本框点击事件
+            $("#regionLevelDesc").click(function () {
+                layer_show("设置区域", "setArea.html", "600", "400", function (regionId) {
+                    $("#regionLevelDesc").attr("regionId", regionId);
+                    ajaxRequest("post", "/api/roadlighting/getAreaDescById", { "id": regionId }, function (data) {
+                        if (data) {
+                            if (data.header.code == 1000) {
+                                debugger;
+                                var regionDesc = data.body.data[0];
+                                $("#nnlightctlRegionId").val(regionId);
+                                $("#regionLevelDesc").val(regionDesc);
+                            } else {
+                                layer.msg(data.header.msg, { icon: 2, time: 3000 });
+                            }
+                        }
+                    });
+                });
+            });
             //数据验证
             $("#form-admin-add").validate({
                 rules: {
@@ -285,6 +309,8 @@
                             $("#maxUseTime").val(light.maxUseTime);
                             $("#decay").val(light.decay);
                             $("#mem").val(light.mem);
+                            $("#nnlightctlRegionId").val(light.nnlightctlRegionId);
+                            $("#regionLevelDesc").val(light.regionLevelDesc);
                             $("#nnlightctlProjectId").val(light.nnlightctlProjectId);
                         } else {
                             layer.msg(data.header.msg, {icon : 2});

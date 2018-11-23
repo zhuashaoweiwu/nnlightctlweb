@@ -111,6 +111,7 @@
                                     <th width="100">灯杆</th>
                                     <th width="80">光衰</th>
                                     <th width="140">最大使用时间（年）</th>
+                                    <th width="80">区域</th>
                                     <th>备注</th>
                                     <th width="120">操作</th>
                                 </tr>
@@ -417,7 +418,7 @@
                             return '<input type="checkbox" value="' + row.id + '" >';
                         }
                     }, {
-                        targets: 8,
+                        targets: 9,
                         render: function (data, type, row) {
                             return '<a style="text-decoration:none" class="ml-10" onclick="editLamps(\'灯具编辑\', \'addLamps.html\', \'' + row.id + '\', \'800\', \'500\')" href="javascript:void(0);" title="灯具编辑"><i class="Hui-iconfont">&#xe6df;</i></a>' +
                                    '<a style="text-decoration:none" class="ml-10" onClick="delLamps(this, \'' + row.id + '\')" href="javascript:void(0);" title="删除"><i class="Hui-iconfont">&#xe6e2;</i></a></td>';
@@ -432,6 +433,7 @@
                             { "data": "lamppost", "defaultContent": "" },
                             { "data": "decay", "defaultContent": "" },
                             { "data": "maxUseTime", "defaultContent": "" },
+                            { "data": "regionLevelDesc", "defaultContent": "" },
                             { "data": "mem", "defaultContent": "" }
                 ]
             });

@@ -229,8 +229,10 @@
     <Content Include="Roadlighting\AreaAdmin.html" />
     <Content Include="Roadlighting\editDevice.html" />
     <Content Include="Roadlighting\editEleBox.html" />
+    <Content Include="Roadlighting\EleBox.html" />
     <Content Include="Roadlighting\EquipmentType.html" />
     <Content Include="Roadlighting\Index.html" />
+    <Content Include="Roadlighting\Lamps.html" />
     <Content Include="Roadlighting\LampsManage.html" />
     <Content Include="Roadlighting\LightType.html" />
     <Content Include="Roadlighting\setArea.html" />
