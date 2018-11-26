@@ -169,3 +169,8 @@ function loadJScript() {
     script.src = "http://api.map.baidu.com/api?v=2.0&ak=ow29ANFSyXM6nf6cYl14GdDI&callback=init";
     document.body.appendChild(script);
 }
+
+//获取bitNumber上第bit位的数值为0还是1
+function getNumberBitValue(bitNumber, bit) {
+    return ((1 << bit) & bitNumber) >> bit;
+}

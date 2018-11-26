@@ -74,6 +74,31 @@
                             '                        </td>\n' +
                             '                    </tr>').appendTo($tbody);
                     }
+
+                    flushModelLoopState(modelId);
+                }
+            }
+        });
+    }
+
+    //获取模块继电器状态
+    function flushModelLoopState(modelId) {
+        ajaxRequest("post", "/api/command/commandGetModelStateInfoId", {"modelId" : modelId}, function (data) {
+            if (data) {
+                if (data.header.code == 1000) {
+                    var modelState = data.body.data[0];
+                    console.log(modelState);
+
+                    var modelStateNumber = parseInt(modelState.modelStateDesc, 16);
+                    //刷新表格回路状态
+                    $("#tb").find("tr").each(function (index, value) {
+                        var loopCode = $(this).find("td").eq(0).text();
+
+                        if (getNumberBitValue(modelStateNumber, Number(loopCode)) == 1) {
+                            $(this).find("input[type='checkbox']").eq(0).prop("checked", true);
+                            $(this).find("td").eq(2).text(MODELLOOP_STATE[0]);
+                        }
+                    });
                 }
             }
         });
@@ -84,10 +109,18 @@
         var switchState = $(obj).prop("checked");
         console.log("the switch state is " + switchState + " , the loop id is : " + loopId);
         if (switchState) {  //回路通电
-
+            $(this).find("td").eq(2).text(MODELLOOP_STATE[0]);
         } else {    //回路断电
-
+            $(this).find("td").eq(2).text(MODELLOOP_STATE[1]);
         }
+
+        //发送指令
+        var modelLoopBit = $(obj).parents("tr").find("td").eq(0).text().trim();
+        var modelLoopState = switchState ? 1 : 0;
+        ajaxRequest("post", "/api/command/configModelStateId",
+            {"loopId" : loopId, "modelLoop" : (1 << Number(modelLoopBit)), "modelLoopState" : (modelLoopState << Number(modelLoopBit))}, function () {
+
+        });
     }
 
     $(function () {

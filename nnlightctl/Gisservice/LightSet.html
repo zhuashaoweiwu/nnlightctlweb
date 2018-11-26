@@ -31,7 +31,7 @@
         <div id="powerange">
             <div style="font-size: 14px;">
             <span class="p1-10">电源模式：</span>
-            <select id="">
+            <select id="powerTypeSelect" onchange="powerTypeChangeEvent()">
                 <option value="0">0~10V</option>
                 <option value="1">PWM</option>
                 <option value="2">UART</option>
@@ -92,6 +92,14 @@
         $("p[name='rangeval']").html(obj.value);
 
         doLightAdjust(obj.value);
+    }
+
+    function powerTypeChangeEvent() {
+        console.log("电源模式选择：" + $("#powerTypeSelect").val());
+        ajaxRequest("post", "/api/command/batchCommandConfigTerminalPowerType",
+            {"lightUUIDs[0]" : $("#uuid").text().trim(), "powerType" : $("#powerTypeSelect").val()}, function () {
+
+        });
     }
 
     //获取灯具信息

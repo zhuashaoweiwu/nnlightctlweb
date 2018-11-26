@@ -20,9 +20,15 @@
     <form class="form form-horizontal" id="form-admin-add">
 
         <div class="row cl">
-            <label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>控制柜UUID：</label>
+            <label class="form-label col-xs-4 col-sm-3">控制柜UUID：</label>
             <div class="formControls col-xs-8 col-sm-9">
                 <input type="text" class="input-text" value="" placeholder="控制柜UUID" id="uid" name="uid">
+            </div>
+        </div>
+        <div class="row cl">
+            <label class="form-label col-xs-4 col-sm-3">网卡地址：</label>
+            <div class="formControls col-xs-8 col-sm-9">
+                <input type="text" class="input-text" value="" placeholder="网卡地址" id="networkAddr" name="networkAddr">
             </div>
         </div>
         <div class="row cl">
@@ -211,9 +217,6 @@
         //表单提交
         $("#form-admin-add").validate({
             rules: {
-                uid: {
-                    required: true
-                },
                 codeNumber: {
                     required: true
                 },
@@ -254,6 +257,8 @@
                 var index = parent.layer.getFrameIndex(window.name);
                 parent.$('.btn-refresh').click();
                 parent.layer.close(index);
+
+                ResetWindow();
             }
         });
     });

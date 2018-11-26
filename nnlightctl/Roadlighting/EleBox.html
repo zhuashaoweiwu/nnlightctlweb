@@ -52,6 +52,7 @@
                         <thead>
                             <tr class="text-l">
                                 <th width="25"><input type="checkbox" name="" value=""></th>
+                                <th>ID</th>
                                 <th>编码</th>
                                 <th>额定电压</th>
                                 <th>额定电流</th>
@@ -244,7 +245,7 @@
                             return '<input type="checkbox" value="' + row.id + '" >';
                         }
                     }, {
-                        targets: 10,
+                        targets: 11,
                         render: function (data, type, row) {
                             return '<a href="javascript:void(0);" style="text-decoration:none" class="ml-10" onclick="lampsManage(\'管理灯具\', \'addLight.html\', \'' + row.id + '\', \'1200\', \'600\')" title="管理灯具"><i class="Hui-iconfont">&#xe61d;</i></a>' +
                                    '<a href="javascript:void(0);" style="text-decoration:none" class="ml-10" onclick="editElebox(\'控制柜编辑\', \'editElebox.html\', \'' + row.id + '\', \'800\', \'500\')" title="控制柜编辑"><i class="Hui-iconfont">&#xe6df;</i></a>' +
@@ -253,6 +254,7 @@
                     }
                 ],
                 "columns": [//返回的json数据在这里填充，注意一定要与上面的<th>数量对应，否则排版出现扭曲
+                            { "data": "id"},
                             { "data": "id"},
                             { "data": "codeNumber", "defaultContent": "" },
                             { "data": "ratedVoltage", "defaultContent": "" },
