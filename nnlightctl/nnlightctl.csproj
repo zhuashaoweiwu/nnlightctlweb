@@ -80,6 +80,12 @@
     <Content Include="bg\index_m_6.png" />
     <Content Include="bg\index_m_7.png" />
     <Content Include="bg\index_m_8.png" />
+    <Content Include="bg\lightsbg_0.png" />
+    <Content Include="bg\lightsbg_100.png" />
+    <Content Include="bg\lightsbg_20.png" />
+    <Content Include="bg\lightsbg_40.png" />
+    <Content Include="bg\lightsbg_60.png" />
+    <Content Include="bg\lightsbg_80.png" />
     <Content Include="bg\loading.gif" />
     <Content Include="bg\loginbg.png" />
     <Content Include="bg\logo.png" />

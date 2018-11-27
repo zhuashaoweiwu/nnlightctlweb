@@ -27,7 +27,7 @@
         <span class="pl-10 c-red">灯头号：</span><span id="lamphead">220</span></p>
 
     <div class="linghtbox clearfix mt-20">
-        <img src="../bg//lightsbg.jpg" class="imgbox"/>
+        <img src="../bg//lightsbg_0.png" class="imgbox"/>
         <div id="powerange">
             <div style="font-size: 14px;">
             <span class="p1-10">电源模式：</span>
@@ -80,17 +80,32 @@
             }
         });
     }
-
+    function lightschange(num) {
+        var x = 0;
+        var LightsUrl = "";
+        if (num > 0 && num <= 20)
+        { x = 20; }
+        if (num > 20 && num <= 40)
+        { x = 40; }
+        if (num > 40 && num <= 60)
+        { x = 60; }
+        if (num > 60 && num <= 80)
+        { x = 80; }
+        if (num > 80 && num <= 100)
+        { x = 100; }
+        LightsUrl = "../bg//lightsbg_" + x + ".png";
+        $(".imgbox").attr("src", LightsUrl);
+    }
     function addlights(value) {
         $("input[name='range']").val(value);
         $("p[name='rangeval']").html(value);
-
+        lightschange(value);
         doLightAdjust(value);
     }
 
     function changerange(obj) {
         $("p[name='rangeval']").html(obj.value);
-
+        lightschange(obj.value);
         doLightAdjust(obj.value);
     }
 
