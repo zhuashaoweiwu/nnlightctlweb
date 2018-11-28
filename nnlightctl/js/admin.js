@@ -341,10 +341,10 @@ $(function(){
 		}
 	});
 	/*左侧菜单*/
-	$(".Hui-aside").Huifold({
-		titCell:'.menu_dropdown dl dt',
-		mainCell:'.menu_dropdown dl dd',
-	});
+	//$(".Hui-aside").Huifold({
+	//	titCell:'.menu_dropdown dl dt',
+	//	mainCell:'.menu_dropdown dl dd',
+	//});
 	
 	/*选项卡导航*/
 	$(".Hui-aside").on("click",".menu_dropdown a",function(){
