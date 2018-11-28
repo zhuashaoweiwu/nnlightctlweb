@@ -20,12 +20,14 @@
         <div class="cl pd-5 bg-1 bk-gray mt-20">
             <span class="l">
                 <a href="javascript:void(0);" class="btn btn-primary radius" onclick="addScene('新建场景', 'addScene.html', '1000', '600')"><i class="Hui-iconfont">&#xe600;</i>新建场景</a>
+                <a href="javascript:void(0);" class="btn btn-primary radius" onclick="lowerScene(this, '10001')"><i class="Hui-iconfont">&#xe674;</i>下发场景</a>
             </span>
         </div>
         <div class="mt-20">
             <table class="table table-border table-bordered table-bg table-hover table-sort table-responsive">
                 <thead>
                     <tr class="text-c">
+                        <th width="25"><input type="checkbox" name="" value=""></th>
                         <th width="150">场景名称</th>
                         <th>场景描述</th>
                         <th width="120">操作</th>
@@ -58,6 +60,7 @@
     <script type="text/javascript">
         $('.table-sort').dataTable({
             "searching": false,
+            "destroy": true,
             "pading": false,
             "ordering": false, //设置所有布排序
         });
@@ -68,6 +71,11 @@
         //编辑场景
         function editScene(title, url, id, w, h) {
             layer_show(title, url + "?id=" + id, w, h);
+        }
+        //下发场景
+        function lowerScene(obj, id)
+        {
+            //这里方法
         }
         //删除
         function del_one(obj, id) {
@@ -100,6 +108,7 @@
                             var scene = sceneArray[i];
 
                             $('<tr class="text-c">\n' +
+                                '<td><input type="checkbox" value="' + scene.id + '" name=""></td>\n' +
                                 '<td>'+scene.sceneName+'</td>\n' +
                                 '<td class="text-l ell">'+scene.sceneDesc+'</td>\n' +
                                 '<td class="f-14 td-manage">\n' +
