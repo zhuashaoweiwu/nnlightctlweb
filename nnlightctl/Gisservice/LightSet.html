@@ -133,7 +133,6 @@
                     $("#lamppost").text(light.lamppost);
                     $("#lamphead").text(light.lamphead);
                     setTimeout(function(){
-                        alert("OK");
                         ajaxRequest("post", "/api/gis/getLightSignalByUUID", {"uuid" : light.uid}, function (data) {
                             if (data) {
                                 console.log(data);
