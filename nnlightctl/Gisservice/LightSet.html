@@ -24,8 +24,9 @@
     <p class="f-14"><span class="c-red">灯具UUID：</span><span id="uuid">1234567890 </span></p>
 
     <p class="f-14"><span class="c-red">灯杆号：</span><span id="lamppost">21.56 </span>
-        <span class="pl-10 c-red">灯头号：</span><span id="lamphead">220</span></p>
-
+        <span class="pl-10 c-red">灯头号：</span><span id="lamphead">220</span>
+        <span class="pl-10 c-red">信号强度：</span><span id="signalIntensity">-69</span>
+    </p>
     <div class="linghtbox clearfix mt-20">
         <img src="../bg//lightsbg_0.png" class="imgbox"/>
         <div id="powerange">
@@ -131,6 +132,16 @@
                     $("#uuid").text(light.uid);
                     $("#lamppost").text(light.lamppost);
                     $("#lamphead").text(light.lamphead);
+                    setTimeout(function(){
+                        ajaxRequest("post", "/api/gis/getLightSignalByUUID", {"uuid" : light.uid}, function (data) {
+                            if (data) {
+                                console.log(data);
+                                if (data.header.code == 1000) {
+                                    $("#signalIntensity").text(data.body.data);
+                                }
+                            }
+                        })
+                    }, 1000);
                 }
             }
         });
