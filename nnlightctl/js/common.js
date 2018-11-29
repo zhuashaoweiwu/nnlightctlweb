@@ -5864,9 +5864,9 @@ $(function() {
 		return this;
 	}
 } (window.jQuery);
-$(function() {
-	$("[data-toggle='tooltip']").tooltip();
-});
+//$(function() {
+//	$("[data-toggle='tooltip']").tooltip();
+//});
 
 /* =======================================================================
  * Bootstrap.popover.js v3.3.0
@@ -5970,9 +5970,9 @@ function($) {
 		return this;
 	}
 } (window.jQuery);
-$(function() {
-	$("[data-toggle='popover']").popover();
-});
+//$(function() {
+//	$("[data-toggle='popover']").popover();
+//});
 
 /* =======================================================================
  * Bootstrap.alert.js v3.3.0
@@ -9159,9 +9159,9 @@ function($) {
 	};
 } (jQuery);
 
-$(function() {
-	$('.switch')['bootstrapSwitch']();
-});
+//$(function() {
+//	$('.switch')['bootstrapSwitch']();
+//});
 // 时间格式转换
 function timestamp() {
     var now = new Date(data.body.data[i].realtimeDate)
