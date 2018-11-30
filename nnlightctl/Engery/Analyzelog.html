@@ -62,18 +62,23 @@
     <script type="text/javascript">
 
         var param = {};
-        $(function () { searchUserOpLog(param); });
+        $(function () {
+            param["startDate"] = new Date(new Date().getTime() - 24 * 3600 * 1000);
+            param["endDate"] = new Date();
+            searchUserOpLog(param);
+        });
         $("#btnSearch").click(function () {
             //搜索条件
             var startDate = $("#datemin").val();
             var endDate = $("#datemax").val();
             var uuid = $("#uuid").val();
 
-            param["startDate"] = startTime ? str2Date(startDate) : new Date(new Date().getTime() - 24 * 3600 * 1000);
-            param["endDate"] = endTime ? str2Date(endDate) : new Date();
+            param["startDate"] = startDate ? str2Date(startDate) : new Date(new Date().getTime() - 24 * 3600 * 1000);
+            param["endDate"] = endDate ? str2Date(endDate) : new Date();
             param["uuid"] = uuid;
             //初始化，然后绑定
             $('.table-sort').DataTable().destroy();
+            console.log(param);
             searchUserOpLog(param);
         });
         function searchUserOpLog(param) {
