@@ -132,7 +132,7 @@
                     $("#uuid").text(light.uid);
                     $("#lamppost").text(light.lamppost);
                     $("#lamphead").text(light.lamphead);
-                    setTimeout(function(){
+                    var id = setInterval(function(){
                         ajaxRequest("post", "/api/gis/getLightSignalByUUID", {"uuid" : light.uid}, function (data) {
                             if (data) {
                                 console.log(data);
@@ -141,7 +141,7 @@
                                 }
                             }
                         })
-                    }, 1000);
+                    }, 10000);
                 }
             }
         });
