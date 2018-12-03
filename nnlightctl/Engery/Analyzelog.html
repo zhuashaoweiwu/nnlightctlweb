@@ -41,7 +41,7 @@
                         <th>信号强度</th>
                         <th width="110">单位</th>
                         <th width="110">信号等级</th>
-                        <th width="110">是否在线</th>
+                        <th width="110">在线状态</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -117,6 +117,7 @@
                             {
                                 "data": "onlineState", "render": function (data)
                                 {
+                                    data = data ? data : 0;
                                     return online_state[data];
                                 }
                     }
