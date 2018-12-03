@@ -21,20 +21,20 @@
             <div class="row cl">
                 <label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>省份：</label>
                 <div class="formControls col-xs-8 col-sm-6">
-                    <input type="text" class="input-text" value="" placeholder="城市" id="provinceName" name="provinceName">
+                    <input type="text" class="input-text" value="" placeholder="城市" id="provinceName" name="provinceName" maxlength="128">
                 </div>
             </div>
             <div class="row cl">
                 <label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>编码：</label>
                 <div class="formControls col-xs-8 col-sm-6">
-                    <input type="text" class="input-text" value="" placeholder="编码" id="codeNumber" name="codeNumber">
+                    <input type="text" class="input-text" value="" placeholder="编码" id="codeNumber" name="codeNumber" maxlength="64">
                 </div>
             </div>
             <div class="row cl">
                 <label class="form-label col-xs-4 col-sm-3">备注：</label>
                 <div class="formControls col-xs-8 col-sm-8">
-                    <textarea cols="" rows="" class="textarea" placeholder="说点什么...100个字符以内" dragonfly="true" id="mem" name="mem"></textarea>
-                    <p class="textarea-numberbar"><em class="textarea-length">0</em>/100</p>
+                    <textarea cols="" rows="" class="textarea" placeholder="说点什么...512个字符以内" dragonfly="true" id="mem" name="mem" maxlength="512"></textarea>
+                    <!--<p class="textarea-numberbar"><em class="textarea-length">0</em>/100</p>-->
                 </div>
             </div>
             <div class="row cl">

@@ -71,7 +71,11 @@
     <script type="text/javascript">
 
         var param = {};
-        $(function () { searchUserOpLog(param); });
+        $(function () {
+            param["startDate"] = new Date(new Date().getTime() - 24 * 3600 * 1000);
+            param["endDate"] = new Date();
+            searchUserOpLog(param);
+        });
         $("#btnSearch").click(function () {
             //搜索条件
             var startTime = $("#datemin").val();

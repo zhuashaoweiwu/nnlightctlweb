@@ -22,7 +22,7 @@
             class="pl-10 c-red">灯具编号：</span><span id="lightingCode">2012555</span></p>
 
     <p class="f-14"><span class="c-red">灯具UUID：</span><span id="uuid">1234567890 </span></p>
-
+    <p class="f-14"><span class="c-red">灯具IMEI：</span><span id="imei">1234567890 </span></p>
     <p class="f-14"><span class="c-red">灯杆号：</span><span id="lamppost">21.56 </span>
         <span class="pl-10 c-red">灯头号：</span><span id="lamphead">220</span>
         <span class="pl-10 c-red">信号强度：</span><span id="signalIntensity">-69</span>
@@ -121,6 +121,7 @@
     //获取灯具信息
     function flushLightInfo() {
         ajaxRequest("post", "/api/roadlighting/getLighting", {"id" : globalLightId}, function (data) {
+            console.log(data);
             if (data) {
                 if (data.header.code == 1000) {
                     var light = data.body.data[0];
@@ -132,6 +133,7 @@
                     $("#uuid").text(light.uid);
                     $("#lamppost").text(light.lamppost);
                     $("#lamphead").text(light.lamphead);
+                    $("#imei").text(light.lightingImei)
                     var id = setInterval(function(){
                         ajaxRequest("post", "/api/gis/getLightSignalByUUID", {"uuid" : light.uid}, function (data) {
                             if (data) {

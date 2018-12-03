@@ -160,7 +160,7 @@
 
     //删除设备
     function deleteDevice(obj) {
-        var $tr = $(obj).parent("tr").eq(0);
+        var $tr = $(obj).parent().parent("tr").eq(0);
         var index = $tr.attr("value");
         $tr.remove();
         modelArray[index] = null;

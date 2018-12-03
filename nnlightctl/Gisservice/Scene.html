@@ -90,8 +90,10 @@
 
             //下发场景
             ajaxRequest("post", "/api/command/batchExecScene", transArray({"sceneIds" : idArray}), function () {
-                layer.msg("下发场景成功！", {icon : 1, time : 3000});
+
             });
+
+            layer.msg("下发场景成功！", {icon : 1, time : 3000});
         }
         //删除
         function del_one(obj, id) {
