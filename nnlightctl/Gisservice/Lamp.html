@@ -355,39 +355,49 @@
         document.onkeydown=function(event) {
             var shotcutName;
             var e = event || window.event || arguments.callee.caller.arguments[0];
+            debugger;
             switch (e.keyCode) {
+                case 49:
                 case 97:
-                    shotcutName = "快捷键1";
+                    shotcutName = "1";
                     break;
+                case 50:
                 case 98:
-                    shotcutName = "快捷键2";
+                    shotcutName = "2";
                     break;
+                case 51:
                 case 99:
-                    shotcutName = "快捷键3";
+                    shotcutName = "3";
                     break;
+                case 52:
                 case 100:
-                    shotcutName = "快捷键4";
-                    alert("4");
+                    shotcutName = "4";
                     break;
+                case 53:
                 case 101:
-                    shotcutName = "快捷键5";
+                    shotcutName = "5";
                     break;
+                case 54:
                 case 102:
-                    shotcutName = "快捷键6";
+                    shotcutName = "6";
                     break;
+                case 55:
                 case 103:
-                    shotcutName = "快捷键7";
+                    shotcutName = "7";
                     break;
+                case 56:
                 case 104:
-                    shotcutName = "快捷键8";
+                    shotcutName = "8";
                     break;
             }
-            ajaxRequest("post", "/api/scene/invokeSceneShotcut", {"shotcutName": shotcutName}, function (data) {
-                if (data.header.code == 1000) {
-                    alert("成功！");
-                }
 
-            })
+            if (shotcutName) {
+                ajaxRequest("post", "/api/scene/invokeSceneShotcut", {"shotcutName": shotcutName}, function (data) {
+                    if (data.header.code == 1000) {
+                    }
+
+                });
+            }
         }
     }
 </script>

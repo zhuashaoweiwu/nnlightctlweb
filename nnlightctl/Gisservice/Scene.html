@@ -76,7 +76,24 @@
         //下发场景
         function lowerScene(obj, id)
         {
-            //这里方法
+            //获取下发场景id集合
+            var idArray = [];
+
+            $("#tb").find("input[type='checkbox']:checked").each(function (index, value) {
+                idArray.push($(this).val());
+            });
+
+            if (idArray.length < 1) {
+                layer.msg("请选择要下发的场景", {icon : 1, time : 3000});
+                return;
+            }
+
+            //下发场景
+            ajaxRequest("post", "/api/command/batchExecScene", transArray({"sceneIds" : idArray}), function () {
+
+            });
+
+            layer.msg("下发场景成功！", {icon : 1, time : 3000});
         }
         //删除
         function del_one(obj, id) {
