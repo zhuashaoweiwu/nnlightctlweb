@@ -69,13 +69,13 @@
         <div class="row cl">
             <label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>项目编码：</label>
             <div class="formControls col-xs-8 col-sm-7">
-                <input type="text" class="input-text" value="" placeholder="" id="projectCode" name="projectCode">
+                <input type="text" class="input-text" value="" placeholder="" id="projectCode" name="projectCode" maxlength="64">
             </div>
         </div>
         <div class="row cl">
             <label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>项目名称：</label>
             <div class="formControls col-xs-8 col-sm-7">
-                <input type="text" class="input-text" value="" placeholder="项目名称" id="projectName" name="projectName">
+                <input type="text" class="input-text" value="" placeholder="项目名称" id="projectName" name="projectName" maxlength="128">
             </div>
         </div>
         <div class="row cl">
@@ -93,8 +93,8 @@
         <div class="row cl">
             <label class="form-label col-xs-4 col-sm-3">备注：</label>
             <div class="formControls col-xs-8 col-sm-7">
-                <textarea name="mem" id="mem" class="textarea" placeholder="说点什么...100个字符以内" dragonfly="true"></textarea>
-                <p class="textarea-numberbar"><em class="textarea-length">0</em>/100</p>
+                <textarea name="mem" id="mem" class="textarea" placeholder="说点什么...512个字符以内" dragonfly="true" maxlength="512"></textarea>
+                <!--<p class="textarea-numberbar"><em class="textarea-length">0</em>/100</p>-->
             </div>
         </div>
         <div class="row cl">

@@ -28,28 +28,23 @@
             <label class="form-label col-xs-4 col-sm-3">部门所属机构：</label>
             <div class="formControls col-xs-8 col-sm-9">
                     <span class="select-box" style="width:150px;">
-                        <select class="select" name="nnlightctlInstitutionIdBelong" id="nnlightctlInstitutionIdBelong"
-                                size="1">
+                        <select class="select" name="nnlightctlInstitutionIdBelong" id="nnlightctlInstitutionIdBelong" size="1">
                             <option value="0">请选择机构</option>
                         </select>
                     </span>
             </div>
         </div>
-
-
         <div class="row cl">
-
             <label class="form-label col-xs-4 col-sm-3">部门地址：</label>
             <div class="formControls col-xs-8 col-sm-9">
-                <input type="text" class="input-text" value="" placeholder="部门地址" id="addr" name="addr">
+                <input type="text" class="input-text" value="" placeholder="部门地址" id="addr" name="addr" maxlength="128">
             </div>
         </div>
         <div class="row cl">
             <label class="form-label col-xs-4 col-sm-3">备注：</label>
             <div class="formControls col-xs-8 col-sm-9">
-                <textarea name="mem" id="mem" cols="" rows="" class="textarea" placeholder="说点什么...100个字符以内"
-                          dragonfly="true"></textarea>
-                <p class="textarea-numberbar"><em class="textarea-length">0</em>/100</p>
+                <textarea name="mem" id="mem" cols="" rows="" class="textarea" placeholder="说点什么...512个字符以内" dragonfly="true" maxlength="512"></textarea>
+                <!--<p class="textarea-numberbar"><em class="textarea-length">0</em>/100</p>-->
             </div>
         </div>
         <div class="row cl">
@@ -87,7 +82,17 @@
                     required: true,
                     minlength: 1,
                     maxlength: 20
-                }
+                },
+                addr: {
+                    required: true,
+                    minlength: 1,
+                    maxlength: 128
+                },
+                mem: {
+                    required: true,
+                    minlength: 1,
+                    maxlength: 512
+                },
             },
             onkeyup: false,
             focusCleanup: true,

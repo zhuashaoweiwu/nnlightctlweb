@@ -39,7 +39,7 @@
         <div class="row cl">
             <label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>用户名：</label>
             <div class="formControls col-xs-8 col-sm-9">
-                <input type="text" class="input-text" value="" placeholder="" id="userName" name="userName">
+                <input type="text" class="input-text" value="" placeholder="" id="userName" name="userName" maxlength="60">
             </div>
         </div>
         <div class="row cl">
@@ -83,20 +83,20 @@
         <div class="row cl">
             <label class="form-label col-xs-4 col-sm-3">邮箱：</label>
             <div class="formControls col-xs-8 col-sm-9">
-                <input type="text" class="input-text" placeholder="@" name="email" id="email">
+                <input type="text" class="input-text" placeholder="@" name="email" id="email" maxlength="64">
             </div>
         </div>
         <div class="row cl">
             <label class="form-label col-xs-4 col-sm-3">年龄：</label>
             <div class="formControls col-xs-8 col-sm-9">
-                <input type="text" class="input-text" value="" placeholder="" id="age" name="age">
+                <input type="text" class="input-text" value="" placeholder="年龄" id="age" name="age">
             </div>
         </div>
 
         <div class="row cl">
             <label class="form-label col-xs-4 col-sm-3">职位：</label>
             <div class="formControls col-xs-8 col-sm-9">
-                <input type="text" class="input-text" value="" placeholder="" id="place" name="place">
+                <input type="text" class="input-text" value="" placeholder="职位" id="place" name="place" maxlength="20">
             </div>
         </div>
 
@@ -170,7 +170,9 @@
                     required: true
                 },
                 userName: {
-                    required: true
+                    required: true,
+                    minlength: 1,
+                    maxlength: 64
                 },
                 codeNumber: {
                     required: true
