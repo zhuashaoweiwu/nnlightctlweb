@@ -31,16 +31,17 @@
             <table class="table table-border table-bordered table-bg table-hover table-sort table-responsive">
                 <thead>
                     <tr>
-                        <th scope="col" colspan="7">终端信号日志列表</th>
+                        <th scope="col" colspan="8">终端信号日志列表</th>
                     </tr>
                     <tr class="text-l">
                         <th width="350">UUID</th>
                         <th width="120">时间</th>
                         <th width="100">经度</th>
                         <th width="110">纬度</th>
-                        <td>信号强度</td>
+                        <th>信号强度</th>
                         <th width="110">单位</th>
                         <th width="110">信号等级</th>
+                        <th width="110">是否在线</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -89,6 +90,7 @@
                 "bStateSave": true,
                 "ajax": function (data, callback, settings) {
                     ajaxRequest("post", "/api/energyStatistic/listLightSignalLog", param, function (data) {
+                        console.log(data)
                         //封装返回数据
                         var returnData = {};
                         if (data) {
@@ -111,7 +113,13 @@
                                 {
                                     if (data == "1") { return "低" } else if (data == "2") { return "中" } else if (data == "3") { return "高" } else { return "" }
                                 }
-                            }
+                            },
+                            {
+                                "data": "onlineState", "render": function (data)
+                                {
+                                    return online_state[data];
+                                }
+                    }
                            ]
                 });
             }
