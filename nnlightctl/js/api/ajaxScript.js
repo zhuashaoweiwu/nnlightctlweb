@@ -164,6 +164,11 @@ function object2UrlParamStr(object) {
 
 //百度地图API功能
 function loadJScript() {
+    /*var toolScript = document.createElement("script");
+    toolScript.type = "text/javascript";
+    toolScript.src = "http://developer.baidu.com/map/jsdemo/demo/convertor.js";
+    document.body.appendChild(toolScript);*/
+
     var script = document.createElement("script");
     script.type = "text/javascript";
     script.src = "http://api.map.baidu.com/api?v=2.0&ak=ow29ANFSyXM6nf6cYl14GdDI&callback=init";
