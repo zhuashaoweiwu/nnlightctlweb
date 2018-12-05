@@ -13,7 +13,7 @@
     <link rel="stylesheet" type="text/css" href="../css/admin.css"/>
     <link rel="stylesheet" type="text/css" href="../css/iconfont/iconfont.css"/>
 
-   
+
 </head>
 <body>
 <nav class="breadcrumb">
@@ -49,9 +49,9 @@
 
     </div>
 </div>
-    
-    <div id="lightpage"></div><!--灯具加载弹出内容-->
-    <div id="eleboxpage"></div><!--控制柜加载弹出内容-->
+
+<div id="lightpage"></div><!--灯具加载弹出内容-->
+<div id="eleboxpage"></div><!--控制柜加载弹出内容-->
 <script type="text/javascript" src="../js/jquery.min.js"></script>
 <script type="text/javascript" src="../js/common.js"></script>
 
@@ -59,6 +59,7 @@
 <script type="text/javascript" src="../js/api/ajaxScript.js"></script>
 <!--请在下方写此页面业务相关的脚本-->
 <script type="text/javascript" src="../lib/layer/2.4/layer.js"></script><!--弹出插件-->
+<script type="text/javascript" src="../js/api/convertor.js"></script>
 
 <script type="text/javascript">
 
@@ -139,11 +140,15 @@
         layer_show(title, url, w, h);
     }
 
-    function addMarker(point, isLight, id) {
+    function translateCallback(point, param) {
+
+        var isLight = param["isLight"];
+        var id = param["id"];
+
         var marker = new BMap.Marker(point);  // 创建标注
         marker.setTitle(id);
         if (isLight) {
-            var icon = new BMap.Icon('../bg/light.png', new BMap.Size(60, 60), {anchor : new BMap.Size(15, 15)});
+            var icon = new BMap.Icon('../bg/light.png', new BMap.Size(60, 60), {anchor: new BMap.Size(15, 15)});
             marker.setIcon(icon);
             var opts = {
                 width: 600,     // 信息窗口宽度
@@ -158,7 +163,7 @@
                 map.openInfoWindow(infoWindow, point); //开启信息窗口
             });
         } else {
-            var icon = new BMap.Icon('../bg/elebox.png', new BMap.Size(60, 60), { anchor: new BMap.Size(15, 15) });
+            var icon = new BMap.Icon('../bg/elebox.png', new BMap.Size(60, 60), {anchor: new BMap.Size(15, 15)});
             marker.setIcon(icon);
             var opts = {
                 width: 600,     // 信息窗口宽度
@@ -175,6 +180,12 @@
         }
 
         map.addOverlay(marker);
+    }
+
+    function addMarker(point, _isLight, _id) {
+        if (point.lng && point.lat) {
+            translate(point, 1, translateCallback, {"isLight": _isLight, "id": _id});
+        }
     }
 
     /*根据序号查询灯具，可多返回*/
@@ -209,6 +220,7 @@
         }
         return null;
     }
+
     /*根据回路id获取该回路下全部灯具*/
     function flushModelLoopLight(modelLoopId) {
         ajaxRequest("post", "/api/roadlighting/getLoopLight", {"id": modelLoopId}, function (data) {
@@ -246,10 +258,18 @@
                                 }
                             }
 
-                            var polyline = new BMap.Polyline(bmapPointArray, {strokeColor:"blue", strokeWeight:2, strokeOpacity:0.5});
-                            if (map) {
-                                map.addOverlay(polyline);
-                            }
+                            new BMap.Convertor().translate(bmapPointArray, 1, 5, function (data) {
+                                if (data.status === 0) {
+                                    var polyline = new BMap.Polyline(data.points, {
+                                        strokeColor: "blue",
+                                        strokeWeight: 2,
+                                        strokeOpacity: 0.5
+                                    });
+                                    if (map) {
+                                        map.addOverlay(polyline);
+                                    }
+                                }
+                            });
                         }
                     }
 
@@ -352,7 +372,7 @@
     });
 
     function keyboard() {
-        document.onkeydown=function(event) {
+        document.onkeydown = function (event) {
             var shotcutName;
             var e = event || window.event || arguments.callee.caller.arguments[0];
             debugger;

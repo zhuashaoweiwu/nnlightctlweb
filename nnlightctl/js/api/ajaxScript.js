@@ -166,7 +166,7 @@ function object2UrlParamStr(object) {
 function loadJScript() {
     var script = document.createElement("script");
     script.type = "text/javascript";
-    script.src = "http://api.map.baidu.com/api?v=2.0&ak=ow29ANFSyXM6nf6cYl14GdDI&callback=init";
+    script.src = "http://api.map.baidu.com/api?v=2.0&ak=iEWlGKfvfIdgtRo0GYimqcGzhmLvi3cb&callback=init";
     document.body.appendChild(script);
 }
 

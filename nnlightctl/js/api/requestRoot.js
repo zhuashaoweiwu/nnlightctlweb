@@ -43,3 +43,7 @@ const MODELLOOP_STATE = {
     1 : "断电",
     2 : "故障"
 };
+const online_state = {
+    0 : "不在线",
+    1 : "在线"
+};
