@@ -94,19 +94,7 @@
                                 </tr>
                             </thead>
                             <tbody id="tb2">
-                                <!--<tr ref="2">
-                    <td class="text-c">L0002</td>
-                    <td class="text-c">L00012H0180917</td>
-                    <td class="text-c">L00012P0180917</td>
-                    <td class="text-c">L00012P0180917</td>
-                    <td class="text-c">三亚-海东区-精英路</td>
-                    <td>
-                        <select>
-                            <option value="1">1</option>
-                            <option value="2">2</option>
-                        </select>
-                    </td>
-                </tr>-->
+
                             </tbody>
                         </table>
                     </div>
@@ -352,6 +340,8 @@
 
         //注册提交按扭事件
         $("#btnSubmit").click(function () {
+            //提交之前先触发灯具序号提交事件
+            $("#tb2").find("select").change();
             //获取操作后灯具id集合
             var lightIds = [];
             $("#tb2").find("tr").each(function (index, value) {
