@@ -46,7 +46,7 @@
             </span>
         </div>
         <div class="mt-20">
-            <table class="table table-border table-bordered table-bg table-hover table-sort table-responsive">
+            <table class="table table-border table-bordered table-bg table-hover table-sort">
                 <thead>
                     <tr>
                         <th scope="col" colspan="12">用户列表</th>
@@ -54,15 +54,15 @@
                     <tr class="text-l">
                         <th width="25"><input type="checkbox" name="" value=""></th>
                         <th width="80">编号</th>
-                        <th width="100">登录名</th>
-                        <th width="100">用户名</th>
-                        <th width="100">用户类型</th>
-                        <th width="40">性别</th>
-                        <th width="90">手机</th>
-                        <th width="150">邮箱</th>
-                        <th width="100">所属部门</th>
-                        <th width="70">职位</th>
-                        <th width="70">状态</th>
+                        <th>登录名</th>
+                        <th>用户名</th>
+                        <th>用户类型</th>
+                        <th>性别</th>
+                        <th>手机</th>
+                        <th>邮箱</th>
+                        <th>所属部门</th>
+                        <th>职位</th>
+                        <th>状态</th>
                         <th width="140">操作</th>
                     </tr>
                 </thead>
@@ -211,7 +211,13 @@
         }
         /*增加*/
         function user_add(title, url, w, h) {
-	        layer_show(title,url,w,h);
+            var index = layer.open({
+                type: 2,
+                title: title,
+                content: url
+            });
+            layer.full(index);
+	        //layer_show(title,url,w,h);
         }
 
         /*删除*/

@@ -41,11 +41,11 @@
             <thead>
             <tr class="text-l">
                 <th width="25"><input type="checkbox" name="" value=""></th>
-                <th width="100">型号名称</th>
-                <th width="100">额定电压</th>
-                <th width="100">额定电流</th>
-                <th width="100">额定功率</th>
-                <th width="100">LED数量</th>
+                <th>型号名称</th>
+                <th>额定电压</th>
+                <th>额定电流</th>
+                <th>额定功率</th>
+                <th>LED数量</th>
                 <th>备注</th>
                 <th width="120">操作</th>
             </tr>
@@ -139,7 +139,13 @@
     }
     //增加
     function add(title, url, w, h) {
-        layer_show(title, url, w, h);
+        var index = layer.open({
+            type: 2,
+            title: title,
+            content: url
+        });
+        layer.full(index);
+        //layer_show(title, url, w, h);
     }
 
     //编辑

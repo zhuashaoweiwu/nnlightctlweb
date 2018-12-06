@@ -1635,9 +1635,9 @@ label,.placeholder{font-size:14px}
 ::-moz-placeholder {color:#b3b3b3}/* Mozilla Firefox 19+ */
 :-ms-input-placeholder {color:#b3b3b3}/* Internet Explorer 10+ */
 .placeholder{color:#adb0be; position:absolute; z-index:9}/*不兼容placeholder属性的浏览器，可使用<span class="placeholder">表单默认值</span>*/
-@media (max-width: 767px) {
+/*@media (max-width: 767px) {
 	.form-horizontal .form-label{ text-align:left}
-}
+}*/
 /*3.4.8 表单验证*/
 /*文本框的错误状态*/
 .Validform_error,input.error,select.error,textarea.error{background-color:#fbe2e2; border-color:#c66161; color:#c00}

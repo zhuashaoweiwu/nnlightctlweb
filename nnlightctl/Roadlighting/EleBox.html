@@ -130,15 +130,33 @@
         }
         //管理灯具
         function lampsManage(title, url, id, w, h) {
-            layer_show(title, url + "?id=" + id, w, h);
+            var index = layer.open({
+                type: 2,
+                title: title,
+                content: url + "?id=" + id
+            });
+            layer.full(index);
+            //layer_show(title, url + "?id=" + id, w, h);
         }
         //添加控制柜
         function addEleBox(title, url, w, h) {
-            layer_show(title, url, w, h);
+            var index = layer.open({
+                type: 2,
+                title: title,
+                content: url
+            });
+            layer.full(index);
+            //layer_show(title, url, w, h);
         }
         //编辑控制柜
-        function editElebox(title, url,id, w, h) {
-            layer_show(title, url + "?id=" + id, w, h);
+        function editElebox(title, url, id, w, h) {
+            var index = layer.open({
+                type: 2,
+                title: title,
+                content: url + "?id=" + id
+            });
+            layer.full(index);
+            //layer_show(title, url + "?id=" + id, w, h);
         }
         /*删除控制柜*/
         function delElebox(obj, id) {
