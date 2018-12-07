@@ -1,10 +1,33 @@
-﻿.welcome{ position:absolute;width:100%; left:0; top:0; bottom:0; right:0; z-index:1; background:#3283AC url(../bg/welcomebg.jpg) no-repeat center;position: fixed;
-    height: 100%; width: 100%;background-size: cover;}
+﻿.welcome{ position:absolute;width:100%; left:0; top:0; bottom:0; right:0; z-index:1; background:#3283AC url(../bg/welcomebg.jpg) no-repeat center;position: fixed; height: 100%; width: 100%;background-size: cover;}
 
 .weltop{width:100%;height:56px;}
 .weltop .user{width:160px;height:50px;position:absolute;right:0px;top:0px;background:url(../bg/u_admin.png) no-repeat center left;line-height:50px;}
 .weltop .user span{color:#c5c9cf;font-size:16px;padding-left:40px;}
 .weltop .user .loginout{padding-left:10px;color:#ff0000;font-size:14px;}
+
+@media (max-width: 1024px) {
+  .welbox{width:700px;margin:0px auto;position:relative;}
+.welbox a{color:#fff;font-weight:bold;}
+.welbox a i{font-size:100px;}
+
+
+.welbox .gis{position:absolute;left:0px;top:80px;background:url(../bg/index_m_1.png);width:340px;height:200px;text-align:center;}
+.welbox .gis img{height:100px;width:auto;margin:0px auto;margin-top:40px;}
+
+.welbox .nh{position:absolute;right:0px;top:80px;background:#ae3ba1 url(../bg/index_m_8.png);width:200px;height:230px;text-align:center;}
+.welbox .nh img{height:100px;width:auto;margin:0px auto;margin-top:40px;}
+
+.welbox .user{position:absolute;left:0px;top:400px;background:#4fa234 url(../bg/index_m_6.png);width:260px;height:180px;text-align:center;}
+.welbox .user img{height:70px;width:auto;margin:0px auto;margin-top:30px;}
+
+.welbox .project{position:absolute;left:280px;top:400px;background:#5052e2 url(../bg/index_m_5.png);width:260px;height:180px;text-align:center;}
+.welbox .project img{height:70px;width:auto;margin:0px auto;margin-top:30px;}
+
+.welbox .road{position:absolute;right:0px;top:400px;background:#f3c422 url(../bg/index_m_4.png);width:300px;height:180px;text-align:center;}
+.welbox .road img{height:70px;width:auto;margin:0px auto;margin-top:30px;}
+}
+
+
 .welbox{width:860px;margin:0px auto;position:relative;}
 .welbox a{color:#fff;font-weight:bold;}
 .welbox a i{font-size:100px;}
