@@ -154,6 +154,9 @@ function editModel2(url) {
 function object2UrlParamStr(object) {
     var urlParam = "";
     for (var key in object) {
+        if (Array.isArray(object[key])) {
+            continue;
+        }
         urlParam += (key + "=" + object[key]);
         urlParam += ",";
     }

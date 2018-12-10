@@ -27,12 +27,12 @@
                 <thead>
                     <tr class="text-c">
                         <th width="25"><input type="checkbox" name="" value=""></th>
-                        <th width="80">用户编号</th>
-                        <th width="100">登录名</th>
-                        <th width="120">用户名</th>
-                        <th width="70">职位</th>
-                        <th width="160">登录时间</th>
-                        <th width="100">部门</th>
+                        <th>用户编号</th>
+                        <th>登录名</th>
+                        <th>用户名</th>
+                        <th>职位</th>
+                        <th>登录时间</th>
+                        <th>部门</th>
                         <th>用户类型</th>
                     </tr>
                 </thead>
@@ -58,6 +58,10 @@
     <script type="text/javascript" src="../js/api/ajaxScript.js"></script>
 
     <script type="text/javascript">
+        function getDepartmentDesc(departmentName) {
+            return departmentName ? departmentName : "";
+        }
+
         function searchOnlineUser(pageNumber) {
             ajaxRequest("post", "/api/user/listOnlineUser", {}, function (data) {
                 debugger;
@@ -77,8 +81,8 @@
                                 '<td>'+user.loginName+'</td>\n' +
                                 '<td>'+user.userName+'</td>\n' +
                                 '<td>'+user.place+'</td>\n' +
-                                '<td>2018-09-18 22:12:32</td>\n' +
-                                '<td>研发部</td>\n' +
+                                '<td>'+formatDateTime(user.loginTime)+'</td>\n' +
+                                '<td>'+getDepartmentDesc(user.departmentName)+'</td>\n' +
                                 '<td>'+USER_TYPE[user.userType]+'</td>\n' +
                                 '</tr>').appendTo($tableBody);
                         }

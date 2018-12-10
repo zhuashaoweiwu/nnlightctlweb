@@ -98,14 +98,14 @@
         </div>
         <div class="row cl">
             <label class="form-label col-xs-4 col-sm-3">主进线开关型号：</label>
-            <div class="formControls col-xs-8 col-sm-9" style="width:200px;">
+            <div class="formControls col-xs-8 col-sm-9">
                 <input type="text" class="input-text" value="" placeholder="主进线开关型号" id="mainSwitch" name="mainSwitch">
             </div>
         </div>
 
         <div class="row cl">
             <label class="form-label col-xs-4 col-sm-3">控制柜区域：</label>
-            <div class="formControls col-xs-8 col-sm-9" style="width:400px;">
+            <div class="formControls col-xs-8 col-sm-9">
                 <input type="text" class="input-text" regionId="" value="" placeholder="控制柜区域" id="nnlightctlRegionId"
                        name="nnlightctlRegionId">
             </div>
@@ -253,10 +253,6 @@
                             }
                         }
                     });
-
-                var index = parent.layer.getFrameIndex(window.name);
-                parent.$('.btn-refresh').click();
-                parent.layer.close(index);
 
                 ResetWindow();
             }

@@ -54,12 +54,12 @@
                             <tr class="text-l">
                                 <th width="25"><input type="checkbox" name="" value=""></th>
                                 <th width="160">编码</th>
-                                <th width="260">UUID</th>
-                                <th width="100">灯头号</th>
-                                <th width="100">灯杆</th>
-                                <th width="80">光衰</th>
-                                <th width="140">最大使用时间（年）</th>
-                                <th width="80">区域</th>
+                                <th>UUID</th>
+                                <th>灯头号</th>
+                                <th>灯杆</th>
+                                <th>光衰</th>
+                                <th>最大使用时间（年）</th>
+                                <th>区域</th>
                                 <th>备注</th>
                                 <th width="120">操作</th>
                             </tr>
@@ -98,20 +98,44 @@
         
         //管理灯具
         function lampsManage(title, url, id, w, h) {
-            layer_show(title, url + "?id=" + id, w, h);
+            var index = layer.open({
+                type: 2,
+                title: title,
+                content: url + "?id=" + id
+            });
+            layer.full(index);
+            //layer_show(title, url + "?id=" + id, w, h);
         }
        
         //批量添加灯具
         function addLampsMore(title, url, w, h) {
-            layer_show(title, url, w, h);
+            var index = layer.open({
+                type: 2,
+                title: title,
+                content: url
+            });
+            layer.full(index);
+            //layer_show(title, url, w, h);
         }
         //添加灯具
         function addLamps(title, url, w, h) {
-            layer_show(title, url, w, h);
+            var index = layer.open({
+                type: 2,
+                title: title,
+                content: url
+            });
+            layer.full(index);
+            //layer_show(title, url, w, h);
         }
         //编辑灯具
         function editLamps(title, url, id, w, h) {
-            layer_show(title, url + "?id=" + id, w, h);
+            var index = layer.open({
+                type: 2,
+                title: title,
+                content: url + "?id=" + id
+            });
+            layer.full(index);
+            //layer_show(title, url + "?id=" + id, w, h);
         }
 
         /*批量删除灯具*/
