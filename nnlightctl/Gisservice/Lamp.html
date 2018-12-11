@@ -144,11 +144,25 @@
 
         var isLight = param["isLight"];
         var id = param["id"];
+        var lightFalutTag = param["lightFaultTag"];
 
         var marker = new BMap.Marker(point);  // 创建标注
         marker.setTitle(id);
         if (isLight) {
-            var icon = new BMap.Icon('../bg/light.png', new BMap.Size(60, 60), {anchor: new BMap.Size(15, 15)});
+            var icon;
+            switch (lightFalutTag) {
+                case 0:
+                case 1:
+                    icon = new BMap.Icon('../bg/light.png', new BMap.Size(60, 60), {anchor: new BMap.Size(15, 15)});
+                    break;
+
+                case 2:
+                    icon = new BMap.Icon('../bg/light_off.png', new BMap.Size(60, 60), {anchor: new BMap.Size(15, 15)});
+                    break;
+
+                default:
+                    icon = new BMap.Icon('../bg/light.png', new BMap.Size(60, 60), {anchor: new BMap.Size(15, 15)});
+            }
             marker.setIcon(icon);
             var opts = {
                 width: 600,     // 信息窗口宽度
@@ -184,7 +198,7 @@
 
     function addMarker(point, _isLight, _id) {
         if (point.lng && point.lat) {
-            translate(point, 1, translateCallback, {"isLight": _isLight, "id": _id});
+            translate(point, 1, translateCallback, {"isLight": _isLight, "id": _id, "lightFaultTag" : arguments[3]});
         }
     }
 
@@ -230,7 +244,7 @@
 
                     for (var i = 0; i < lightArray.length; ++i) {
                         var light = lightArray[i];
-                        addMarker(new BMap.Point(light.longitude, light.latitude), true, light.id);
+                        addMarker(new BMap.Point(light.longitude, light.latitude), true, light.id, light.faultTag);
                     }
 
                     //构造灯具连线数据
