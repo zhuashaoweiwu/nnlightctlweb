@@ -29,11 +29,11 @@
     <div id="map" style="position:relative;"></div>
     <ul class="leftmaptab ml-40 mt-40">
         <li class="tab1"><a href="javascript:void(0);"
-                            onclick="LampsGroup('灯具分组', 'LampsGroup.html', '1200', '700')"><span>灯具分组</span></a></li>
+                            onclick="LampsGroup('灯具分组', 'LampsGroup.html', '800', '550')"><span>灯具分组</span></a></li>
         <li class="tab2"><a href="javascript:void(0);"
-                            onclick="TaskSwitch('任务开关', 'TaskSwitch.html', '1200', '700')"><span>任务开关</span></a></li>
+                            onclick="TaskSwitch('任务开关', 'TaskSwitch.html', '800', '550')"><span>任务开关</span></a></li>
         <li class="tab3"><a href="javascript:void(0);"
-                            onclick="Scene('场景', 'Scene.html', '1200', '700')"><span>场景</span></a></li>
+                            onclick="Scene('场景', 'Scene.html', '800', '550')"><span>场景</span></a></li>
         <!--<li class="tab4"><a href="javascript:void(0);"
                             onclick="Control('控制柜', 'Control.html', '1200', '600')"><span>控制</span></a></li>
         <li class="tab5"><a href="javascript:void(0);"
@@ -44,7 +44,7 @@
            onclick="ShortcutKey('快捷键', 'ShortcutKey.html', '700', '320')"><i class="Hui-iconfont">&#xe632;</i><span
                 class="pl-10">快捷键</span></a>
         <a href="javascript:void(0);" class="btn btn-warning"
-           onclick="AlertInfo('警报信息', 'AlertInfo.html', '1060', '600')"><i class="Hui-iconfont">&#xe600;</i><span
+           onclick="AlertInfo('警报信息', 'AlertInfo.html', '800', '550')"><i class="Hui-iconfont">&#xe600;</i><span
                 class="pl-10">警报信息</span></a>
 
     </div>
@@ -65,17 +65,35 @@
 
     //灯具分组
     function LampsGroup(title, url, w, h) {
-        layer_show(title, url, w, h);
+        var index = layer.open({
+            type: 2,
+            title: title,
+            content: url 
+        });
+        layer.full(index);
+        //layer_show(title, url, w, h);
     }
 
     //任务开关
     function TaskSwitch(title, url, w, h) {
-        layer_show(title, url, w, h);
+        var index = layer.open({
+            type: 2,
+            title: title,
+            content: url
+        });
+        layer.full(index);
+        //layer_show(title, url, w, h);
     }
 
     //场景
     function Scene(title, url, w, h) {
-        layer_show(title, url, w, h);
+        var index = layer.open({
+            type: 2,
+            title: title,
+            content: url
+        });
+        layer.full(index);
+        //layer_show(title, url, w, h);
     }
 
     //控制
@@ -96,7 +114,13 @@
 
     //警报信息
     function AlertInfo(title, url, w, h) {
-        layer_show(title, url, w, h);
+        var index = layer.open({
+            type: 2,
+            title: title,
+            content: url
+        });
+        layer.full(index);
+        //layer_show(title, url, w, h);
     }
 
     var eleboxArray = null;
