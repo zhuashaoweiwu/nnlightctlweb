@@ -244,6 +244,7 @@
 
                     for (var i = 0; i < lightArray.length; ++i) {
                         var light = lightArray[i];
+                        console.log("添加回路id[" + light.nnlightctlEleboxModelLoopId + "]下的灯具id[" + light.id + "]到地图");
                         addMarker(new BMap.Point(light.longitude, light.latitude), true, light.id, light.faultTag);
                     }
 
@@ -301,7 +302,7 @@
 
                     for (var i = 0; i < modelLoopArray.length; ++i) {
                         var modelLoop = modelLoopArray[i];
-
+                        console.log("获取模块回路id为[" + modelLoop.id + "]的灯具信息");
                         flushModelLoopLight(modelLoop.id);
                     }
                 }
@@ -331,7 +332,12 @@
     /**
      * 获取项目下全部控制柜集合
      */
-    function flushElebox() {
+    function flushElebox(isInit) {
+        //消除地图上全部覆盖物
+        if (map) {
+            map.clearOverlays();
+        }
+
         var projectId = editModel(window.location.href);
 
         ajaxRequest("post", "/api/gis/listElebox", {"projectId": projectId}, function (data) {
@@ -344,7 +350,7 @@
                         var point = new BMap.Point(eleboxArray[i].longitude, eleboxArray[i].latitude);
                         addMarker(point, false, eleboxArray[i].id);
 
-                        if (i == 0) {
+                        if (i == 0 && isInit) {
                             map.centerAndZoom(point, 15);
                         }
 
@@ -368,7 +374,11 @@
         map.addControl(mapType1);
         map.enableScrollWheelZoom(true);
 
-        flushElebox();
+        var timer = setInterval(function () {
+            flushElebox(false);
+        }, 1000 * 60);
+
+        flushElebox(true);
     }
 
     $(function () {
