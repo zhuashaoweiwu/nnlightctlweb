@@ -134,7 +134,6 @@
                     $("#lamppost").text(light.lamppost);
                     $("#lamphead").text(light.lamphead);
                     $("#imei").text(light.lightingImei)
-                    var id = setInterval(function(){
                         ajaxRequest("post", "/api/gis/getLightSignalByUUID", {"uuid" : light.uid}, function (data) {
                             if (data) {
                                 console.log(data);
@@ -143,7 +142,6 @@
                                 }
                             }
                         })
-                    }, 10000);
                 }
             }
         });
@@ -154,6 +152,10 @@
         globalLightId = lightId;
         flushLightInfo();
     }
+ /*  function checkLeave(){
+        return '确定要离开吗？'
+    }
+    window.onbeforeunload=function(){return '确定要离开吗？'}*/
 
 </script>
 
