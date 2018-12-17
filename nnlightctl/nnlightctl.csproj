@@ -237,6 +237,7 @@
     <Content Include="Roadlighting\editEleBox.html" />
     <Content Include="Roadlighting\EleBox.html" />
     <Content Include="Roadlighting\EquipmentType.html" />
+    <Content Include="Roadlighting\firmware.html" />
     <Content Include="Roadlighting\Index.html" />
     <Content Include="Roadlighting\Lamps.html" />
     <Content Include="Roadlighting\LampsManage.html" />
