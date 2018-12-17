@@ -184,6 +184,7 @@
         });
         function get(type){
             ajaxRequest("post", "/api/alarm/getAlarm", {"id":parseInt(type)}, function (data) {
+                console.log(data)
                 var sta;
                 if(data.body.data){
                     if(data.body.data.length){
@@ -203,14 +204,14 @@
                 var StrHtml = "";
                 StrHtml += "<tr><td class=\"text-r\">类型</td><td class=\"c-red\">"+data.body.data[0].alarmSource+"</td></tr>";
                 StrHtml += "<tr><td class=\"text-r\">状态</td><td class=\"c-red\">"+sta+"</td></tr>";
-                StrHtml += "<tr><td class=\"text-r\">控制柜/区域</td><td>107AB</td></tr>";
-                StrHtml += "<tr><td class=\"text-r\">集中器</td><td>107AB</td></tr>";
-                StrHtml += "<tr><td class=\"text-r\">硬件</td><td>终端</td></tr>";
-                StrHtml += "<tr><td class=\"text-r\">灯杆</td><td>001-1</td></tr>";
-                StrHtml += "<tr><td class=\"text-r\">灯头</td><td>1</td></tr>";
-                StrHtml += "<tr><td class=\"text-r\">终端</td><td>30569</td></tr>";
-                StrHtml += "<tr><td class=\"text-r\">道具</td><td>1</td></tr>";
-                StrHtml += "<tr><td class=\"text-r\">数据</td><td>05147</td></tr>";
+                StrHtml += "<tr><td class=\"text-r\">报警时间</td><td>"+formatDate(data.body.data[0].alarmTime)+"</td></tr>";
+                StrHtml += "<tr><td class=\"text-r\">报警编码</td><td>"+data.body.data[0].codeNumber+"</td></tr>";
+                StrHtml += "<tr><td class=\"text-r\">报警信息</td><td>"+data.body.data[0].msg+"</td></tr>";
+                StrHtml += "<tr><td class=\"text-r\">解除时间</td><td>"+formatDate(data.body.data[0].removeAlarmTime)+"</td></tr>";
+                StrHtml += "<tr><td class=\"text-r\">报警次数</td><td>"+data.body.data[0].alarmCount+"</td></tr>";
+                StrHtml += "<tr><td class=\"text-r\">报警等级</td><td>"+data.body.data[0].alarmLevel+"</td></tr>";
+                /*StrHtml += "<tr><td class=\"text-r\">道具</td><td>1</td></tr>";
+                StrHtml += "<tr><td class=\"text-r\">数据</td><td>05147</td></tr>";*/
                 $("#infoshow").html(StrHtml);
             })
 
