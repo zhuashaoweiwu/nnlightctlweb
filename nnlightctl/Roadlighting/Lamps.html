@@ -39,7 +39,7 @@
                             <a href="#" class="btn btn-danger radius mr-10">批量设置<i class="Hui-iconfont">&#xe6d5;</i></a>
                             <ul class="dropDown-menu menu radius box-shadow">
                                 <li><a href="javascript:void(0);" onclick="setArea('设置区域', 'setArea.html', '600', '400')">设置区域</a></li>
-                                <li><a href="javascript:void(0);" onclick="firmware('固件升级', 'firmware.html', '600', '400')">固件升级</a></li>
+                                <li><a href="javascript:void(0);" onclick="firmware('固件升级', 'invokeFirewareUpdate.html', '600', '200')">固件升级</a></li>
                                 <!--<li><a href="javascript:void(0);" onclick="setEleBox('设置所属控制柜', 'setEleBox.html', '500', '300')">设置所属控制柜</a></li>
                                 <li><a href="javascript:void(0);" onclick="setMappic('设置地图图标', 'setMappic.html', '500', '300')">设置地图图标</a></li>-->
                             </ul>
@@ -215,7 +215,28 @@
         }
         //固件升级
         function firmware(title, url, w, h) {
-            layer_show(title, url, w, h);
+            var idArray = [];
+            $("#lightTable").find("input[type='checkbox']:checked").each(function () {
+                idArray.push($(this).val());
+            });
+            console.log("the select light is : " + idArray);
+            if (idArray.length <= 0) {
+                layer.msg("请先选择要升级的灯具", {icon : 2, time : 1000});
+                return;
+            }
+            layer_show(title, url, w, h, function (firewareUploadRecordId) {
+                console.log("select firewareUploadRecordId is : " + firewareUploadRecordId);
+                ajaxRequest("post", "/api/command/invokeFirewareUpdateId",
+                    transArray({"lightIds" : idArray, "uploadFirewareRecordId" : firewareUploadRecordId}), function (data) {
+                    if (data) {
+                        if (data.header.code == 1000) {
+                            layer.msg("发送升级固件成功！", {icon : 1, time : 2000});
+                        } else {
+                            layer.msg(data.header.msg, {icon : 2, time : 3000});
+                        }
+                    }
+                });
+            });
         }
         //设置区域
         function setMappic(title, url, w, h) {

@@ -7,7 +7,7 @@
     <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no" />
     <meta http-equiv="Cache-Control" content="no-siteapp" />
 
-    <title>固件升级</title>
+    <title>上传固件</title>
 
     <link rel="stylesheet" type="text/css" href="../css/common.css" />
     <link rel="stylesheet" type="text/css" href="../css/admin.css" />
@@ -16,47 +16,48 @@
 </head>
 <body>
     <article class="page-container">
-        <form class="form form-horizontal" id="form-admin-add">
+        <form class="form form-horizontal" id="updateFirewareForm" enctype="multipart/form-data">
 
-            <div class="row cl">
+            <!--<div class="row cl">
                 <label class="form-label col-xs-3 col-sm-2 text-r"><span class="c-red">*</span>升级固件UUID：</label>
                 <div class="formControls col-xs-7 col-sm-8">
                     <input type="text" class="input-text" value="" placeholder="升级固件UUID" id="areaName" name="areaName">
                 </div>
-            </div>
+            </div>-->
             <div class="row cl">
                 <label class="form-label col-xs-3 col-sm-2 text-r">版本：</label>
                 <div class="formControls col-xs-7 col-sm-8">
-                    <input type="text" class="input-text" value="" placeholder="版本" id="areaName" name="areaName">
+                    <input type="text" class="input-text" value="" placeholder="版本" id="version" name="version">
                 </div>
             </div>
             <div class="row cl">
                 <label class="form-label col-xs-3 col-sm-2 text-r">AB面：</label>
                 <div class="formControls col-xs-7 col-sm-8">
-                    <input type="text" class="input-text" value="" placeholder="AB面" id="areaName" name="areaName">
+                    <input type="text" class="input-text" value="" placeholder="AB面" id="aspect" name="aspect">
                 </div>
             </div>
             <div class="row cl">
                 <label class="form-label col-xs-3 col-sm-2 text-r">上传固件：</label>
                 <div class="formControls col-xs-7 col-sm-8">
-                    <input type="file" class="input-text" value="" >
+                    <input type="file" class="input-text" value="" id="fireware" name="updateFireware" >
                 </div>
             </div>
             <div class="row cl">
                 <div class="col-xs-7 col-sm-8 col-xs-offset-4 col-sm-offset-3 text-l">
-                    <input class="btn btn-primary radius" type="submit" value="&nbsp;&nbsp;提交&nbsp;&nbsp;" style="width:120px;">
+                    <input id="submitBtn" class="btn btn-primary radius" type="button" value="&nbsp;&nbsp;提交&nbsp;&nbsp;" style="width:120px;">
                 </div>
             </div>
         </form>
     </article>
     <!--_footer 作为公共模版分离出去-->
-    <script type="text/javascript" src="../js/jquery.min.js"></script>
+    <!--<script type="text/javascript" src="../js/jquery.min.js"></script>-->
+    <script type="text/javascript" src="../js/api/jquery-3.3.1.min.js"></script>
 
     <script type="text/javascript" src="../js/common.js"></script>
     <script type="text/javascript" src="../js/admin.js?v=1"></script>
 
     <script type="text/javascript" src="../js/api/requestRoot.js"></script>
-    <script type="text/javascript" src="../js/api/ajaxScript.js"></script>
+
     <!--/_footer 作为公共模版分离出去-->
     <!--请在下方写此页面业务相关的脚本-->
     <script type="text/javascript" src="../lib/jquery.validation/1.14.0/jquery.validate.js"></script>
@@ -66,26 +67,26 @@
     <script type="text/javascript" src="../lib/laypage/1.2/laypage.js"></script>
 
     <script type="text/javascript">
-
         $(function () {
-            //数据验证
-            $("#form-admin-add").validate({
-                rules: {
-                    areaName: {
-                        required: true,
-                        minlength: 1,
-                        maxlength: 64
+            $("#submitBtn").click(function (e) {
+                e.preventDefault();
+                $.ajax({
+                    url : BASE_ROOT + "/api/command/updateFireware",
+                    type : "post",
+                    data: new FormData($('#updateFirewareForm')[0]),
+                    processData: false,
+                    contentType: false,
+                    dataType:"json",
+                    success : function(data) {
+                        if (data) {
+                            if (data.header.code == 1000) {
+                                layer.msg("上传固件成功", {icon : 1, time : 3000});
+                            } else {
+                                layer.msg(data.header.msg, {icon : 2, time : 3000});
+                            }
+                        }
                     }
-                },
-                onkeyup: false,
-                focusCleanup: true,
-                success: "valid",
-                submitHandler: function (form) {
-                    //ajax上传表单
-                    //构造上传数据
-                    
-                    ResetWindow();
-                }
+                });
             });
         });
     </script>

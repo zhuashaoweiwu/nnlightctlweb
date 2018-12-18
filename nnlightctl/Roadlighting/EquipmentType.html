@@ -24,12 +24,12 @@
     </nav>
     <div class="page-container">
         <div style="height:480px;">
-            <h4 class="f-18 tit"><span class="Hui-iconfont">&#xe667;</span><span class="pl-10">设备型号</span></h4>
+            <h4 class="f-18 tit"><span class="Hui-iconfont">&#xe667;</span><span class="pl-10">设备调试</span></h4>
             <div class="projectview">
-                <div class="pr1">
-                    <span class="Hui-iconfont bigfont">&#xe643;</span><span class="pl-10 f-18">控制柜型号</span>
+                <div class="pr1" id="deviceAdjust1">
+                    <span class="Hui-iconfont bigfont">&#xe643;</span><span class="pl-10 f-18">固件上传</span>
                 </div>
-                <div class="pr2">
+                <!--<div class="pr2">
                     <span class="Hui-iconfont bigfont">&#xe72b;</span><span class="pl-10 f-18">电表型号</span>
                 </div>
                 <div class="pr3">
@@ -42,23 +42,40 @@
                     <span class="Hui-iconfont bigfont">&#xe66f;</span><span class="pl-10 f-18">光照计型号</span>
                 </div>
                 <div class="pr6">
-                    <span class="Hui-iconfont bigfont">&#xe632;</span><span class="pl-10 f-18">终端型号</span>
+                    <span class="Hui-iconfont bigfont">&#xe632;</span><span class="pl-10 f-18">固件上传</span>
                 </div>
                 <div class="pr7">
                     <span class="Hui-iconfont bigfont">&#xe72d;</span><span class="pl-10 f-18">光照计型号</span>
-                </div>
+                </div>-->
             </div>
         </div>
         <h4 class="f-18 tit mt-30"><span class="Hui-iconfont">&#xe667;</span><span class="pl-10">照明设备</span></h4>
 
         <div class="projectview">
-            <div class="pr1">
-                <span class="Hui-iconfont bigfont">&#xe655;</span><span class="pl-10 f-18">灯杆型号</span>
+            <div class="pr1" id="device1">
+                <span class="Hui-iconfont bigfont">&#xe655;</span><span class="pl-10 f-18">灯具型号</span>
             </div>
-            <div class="pr2">
+            <!--<div class="pr2">
                 <span class="Hui-iconfont bigfont">&#xe696;</span><span class="pl-10 f-18">灯具型号</span>
-            </div>
+            </div>-->
         </div>
     </div>
+
+    <script type="text/javascript" src="../js/jquery.min.js"></script>
+    <!--<script type="text/javascript" src="../js/api/jquery-3.3.1.min.js"></script>-->
+    <script type="text/javascript" src="../lib/layer/2.4/layer.js"></script>
+    <script type="text/javascript" src="../js/common.js"></script>
+    <script type="text/javascript" src="../js/admin.js"></script>
+    <script type="text/javascript">
+        $(function () {
+            $("#device1").click(function () {
+                window.location.replace("LightType.html");
+            });
+
+            $("#deviceAdjust1").click(function () {
+                layer_show("上传固件", "firmware.html", 600, 400);
+            });
+        });
+    </script>
 </body>
 </html>
