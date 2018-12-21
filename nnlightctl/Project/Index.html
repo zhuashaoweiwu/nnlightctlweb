@@ -60,8 +60,7 @@
                     var countryTotal = 0;
                     var eleboxTotal = 0;
                     var lightingTotal = 0;
-                    var projectTotal = 0;
-
+                    var projectTotal = data.body.total;
                     for (var i = 0; i < projectArray.length; ++i) {
                         var project = projectArray[i];
                         var countryName = project.contryName;
@@ -73,6 +72,7 @@
 
                         eleboxTotal += project.eleboxs;
                         lightingTotal += project.lights;
+
                     }
 
                     // console.log("国家统计：");
@@ -87,7 +87,7 @@
                     //     projectTotal += countryStatistic[key];
                     //     console.log(countryStatistic)
                     // }
-                    // console.log("项目统计：" + projectTotal)
+                    console.log("项目统计：" + projectTotal)
                     $("#projectStatistic").text(projectTotal);
                     // console.log("控制柜统计：" + eleboxTotal);
                     $("#eleboxStatistic").text(eleboxTotal);
