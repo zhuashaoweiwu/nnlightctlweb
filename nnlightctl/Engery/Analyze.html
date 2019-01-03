@@ -80,9 +80,10 @@
                     $(".ue1 dd").append(year/1000+"KW/h");
                     $(".ue2 dd").append(month/1000+"KW/h");
                     $(".ue3 dd").append(day/1000+"KW/h");
-
-                    statistics[0] = year;
-                    statistics[1] = month;
+                    //['本月', 85.0], ['当天', 15.8]
+                     statistics.push(['本年',year]);
+                    statistics.push(['本月',month]);
+                    console.log(statistics);
                   //月统计饼状图
                     $('#monthconut').highcharts({
                         chart: {
@@ -111,9 +112,9 @@
                         series: [{
                             type: 'pie',
                             name: '能耗',
-                            data: [
+                            data:
                                 statistics
-                            ]
+
                         }]
                     });
                 });
