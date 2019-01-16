@@ -452,11 +452,15 @@
             }
 
             if (shotcutName) {
-                ajaxRequest("post", "/api/scene/invokeSceneShotcut", {"shotcutName": shotcutName}, function (data) {
-                    if (data.header.code == 1000) {
-                    }
+                layer.confirm('确认开启快捷键'+shotcutName+'？', function (index) {
+                    ajaxRequest("post", "/api/scene/invokeSceneShotcut", {"shotcutName": shotcutName}, function (data) {
+                        if (data.header.code == 1000) {
+                        }
 
-                });
+                    });
+                    layer.close(index);
+                })
+
             }
         }
     }
