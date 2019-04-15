@@ -118,7 +118,7 @@
         var modelLoopBit = $(obj).parents("tr").find("td").eq(0).text().trim();
         var modelLoopState = switchState ? 1 : 0;
         ajaxRequest("post", "/api/command/configModelStateId",
-            {"loopId" : loopId, "modelLoop" : (1 << Number(modelLoopBit)), "modelLoopState" : (modelLoopState << Number(modelLoopBit))}, function () {
+            {"loopId" : loopId, "modelLoop" : (1 << (Number(modelLoopBit) - 1)), "modelLoopState" : (modelLoopState << (Number(modelLoopBit) - 1))}, function () {
 
         });
     }

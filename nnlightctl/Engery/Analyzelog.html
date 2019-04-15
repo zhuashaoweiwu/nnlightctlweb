@@ -64,8 +64,10 @@
 
         var param = {};
         $(function () {
-            param["startDate"] = new Date(new Date().getTime() - 24 * 3600 * 1000);
+            param["startDate"] = new Date();
             param["endDate"] = new Date();
+            param["pageNumber"] = 1;
+            param["pageSize"] = 100;
             searchUserOpLog(param);
         });
         $("#btnSearch").click(function () {
@@ -115,12 +117,10 @@
                                 }
                             },
                             {
-                                "data": "onlineState", "render": function (data)
-                                {
-                                    data = data ? data : 0;
-                                    return online_state[data];
+                                "data": "onlineState", "render": function (data) {
+                                    if (data == 1) { return '<span class="label label-success">' + online_state[data] + '</span>'; } else { return '<span class="label">' + online_state[data] + '</span>'; }
                                 }
-                    }
+                            }
                            ]
                 });
             }

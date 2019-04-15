@@ -86,10 +86,20 @@
                 ajaxRequest("post", "/api/energyStatistic/listEleboxElectric",param,
                     function (data) {
                         var categories = new Array();
-                        var  ele = new Array();
+                        var ele = new Array();
+                        var aele = new Array();
+                        var bele = new Array();
+                        var cele = new Array();
                         var vol = new Array();
+                        var avol  = new Array();
+                        var bvol  = new Array();
+                        var cvol  = new Array();
                         var power = new Array();//功率
+                        var apower = new Array();
+                        var bpower = new Array();
+                        var cpower = new Array();
                         var energy = new Array(); //能耗
+                        var totalActiveEnergy = new Array();
                         var notEnergy = new Array();//无用功
                         var series = [];
                         var length;
@@ -105,8 +115,18 @@
                                 d = ("0" + now.getDate()).slice(-2);
                             var timestamp = y + "-" + m + "-" + d + " " + now.toTimeString().substr(0, 8)
                             ele[i] = data.body.data[i].electricity;
+                            aele[i] = parseInt(data.body.data[i].aElectricity);
+                            bele[i] = parseInt(data.body.data[i].bElectricity);
+                            cele[i] = parseInt(data.body.data[i].cElectricity);
                             vol[i] = data.body.data[i].voltage;
+                            avol[i] = parseInt(data.body.data[i].aVoltage);
+                            bvol[i] = parseInt(data.body.data[i].bVoltage);
+                            cvol[i] = parseInt(data.body.data[i].cVoltage);
                             power[i] = data.body.data[i].eleboxPower;
+                            apower[i] = parseInt(data.body.data[i].aPowerFactor);
+                            bpower[i] = parseInt(data.body.data[i].bPowerFactor);
+                            cpower[i] = parseInt(data.body.data[i].cPowerFactor);
+                            totalActiveEnergy[i] = parseInt(data.body.data[i].totalActiveEnergy);
                             energy[i] = data.body.data[i].eleboxPower/10
                             notEnergy[i] = 10 ;
                         }
@@ -162,8 +182,14 @@
                                 borderWidth: 0
                             },
                             series: [{
-                                name: '电流',
-                                data: ele
+                                name: 'A电流',
+                                data: aele
+                            }, {
+                                name: 'B电流',
+                                data: bele
+                            }, {
+                                name: 'C电流',
+                                data: cele
                             }]
                         });
                         //电压
@@ -202,15 +228,21 @@
                                 borderWidth: 0
                             },
                             series: [{
-                                name: '电压',
-                                data: vol
+                                name: 'A电压',
+                                data: avol
+                            },{
+                                name: 'B电压',
+                                data: bvol
+                            },{
+                                name: 'C电压',
+                                data: cvol
                             }]
                         });
                         //电能
                         Highcharts.chart('container3', {
 
                             title: {
-                                text: '电能',
+                                text: '当前总有功电能',
                                 x: 0 //center
                             },
                             subtitle: {
@@ -240,8 +272,8 @@
                                 borderWidth: 0
                             },
                             series: [{
-                                name: '电能',
-                                data: energy
+                                name: '当前总有功电能',
+                                data: totalActiveEnergy
                             }]
                         });
                         //功率
@@ -278,11 +310,14 @@
                                 borderWidth: 0
                             },
                             series: [{
-                                name: '有功功率',
-                                data:  energy
+                                name: 'A有功功率',
+                                data: apower
                             }, {
-                                name: '无功功率',
-                                data: notEnergy
+                                name: 'B有功功率',
+                                data: bpower
+                            }, {
+                                name: 'C有功功率',
+                                data: cpower
                             }]
                         });
                     });
@@ -294,11 +329,22 @@
                     var eleboxIdFirst = data.body.data[0].id;
                     ajaxRequest("post", "/api/energyStatistic/listEleboxElectric",{"eleboxId":eleboxIdFirst},
                         function (data) {
+                        console.log(data);
                             var categories = new Array();
-                            var  ele = new Array();
+                            var ele = new Array();
+                            var aele = new Array();
+                            var bele = new Array();
+                            var cele = new Array();
                             var vol  = new Array();
+                            var avol  = new Array();
+                            var bvol  = new Array();
+                            var cvol  = new Array();
                             var power = new Array();//功率
+                            var apower = new Array();
+                            var bpower = new Array();
+                            var cpower = new Array();
                             var energy = new Array(); //能耗
+                            var totalActiveEnergy = new Array();
                             var notEnergy = new Array();//无用功
                             var length;
                             if(data.body.data.length < 100){
@@ -315,9 +361,19 @@
                                 var timestamp = y + "-" + m + "-" + d + " " + now.toTimeString().substr(0, 8)
 
                                 //categories[i] = timestamp;
+                                aele[i] = parseInt(data.body.data[i].aElectricity);
+                                bele[i] = parseInt(data.body.data[i].bElectricity);
+                                cele[i] = parseInt(data.body.data[i].cElectricity);
                                 ele[i] = data.body.data[i].electricity;
                                 vol[i] = data.body.data[i].voltage;
+                                avol[i] = parseInt(data.body.data[i].aVoltage);
+                                bvol[i] = parseInt(data.body.data[i].bVoltage);
+                                cvol[i] = parseInt(data.body.data[i].cVoltage);
                                 power[i] = data.body.data[i].eleboxPower;
+                                apower[i] = parseInt(data.body.data[i].aPowerFactor);
+                                bpower[i] = parseInt(data.body.data[i].bPowerFactor);
+                                cpower[i] = parseInt(data.body.data[i].cPowerFactor);
+                                totalActiveEnergy[i] = parseInt(data.body.data[i].totalActiveEnergy);
                                 energy[i] = data.body.data[i].eleboxPower/10;
                                 notEnergy[i] = 20;
                             }
@@ -338,6 +394,8 @@
                                     categories[length - 1] = timestampl;
                                 }
                             }
+                            console.log(aele)
+                            console.log(ele)
                             //电流
                             Highcharts.chart('container1', {
 
@@ -372,8 +430,14 @@
                                     borderWidth: 0
                                 },
                                 series: [{
-                                    name: '电流',
-                                    data: ele
+                                    name: 'A电流',
+                                    data: aele
+                                }, {
+                                    name: 'B电流',
+                                    data: bele
+                                }, {
+                                    name: 'C电流',
+                                    data: cele
                                 }]
                             });
                             //电压
@@ -412,15 +476,21 @@
                                     borderWidth: 0
                                 },
                                 series: [{
-                                    name: '电压',
-                                    data: vol
+                                    name: 'A电压',
+                                    data: avol
+                                },{
+                                    name: 'B电压',
+                                    data: bvol
+                                },{
+                                    name: 'C电压',
+                                    data: cvol
                                 }]
                             });
                             //电能
                             Highcharts.chart('container3', {
 
                                 title: {
-                                    text: '电能',
+                                    text: '当前总有功电能',
                                     x: 0 //center
                                 },
                                 subtitle: {
@@ -450,15 +520,15 @@
                                     borderWidth: 0
                                 },
                                 series: [{
-                                    name: '电能',
-                                    data: energy
+                                    name: '当前总有功电能',
+                                    data: totalActiveEnergy
                                 }]
                             });
                             //功率
                             Highcharts.chart('container', {
 
                                 title: {
-                                    text: '',
+                                    text: '功率',
                                     x: 0 //center
                                 },
                                 subtitle: {
@@ -488,11 +558,14 @@
                                     borderWidth: 0
                                 },
                                 series: [{
-                                    name: '有功功率',
-                                    data: energy
+                                    name: 'A有功功率',
+                                    data: apower
                                 }, {
-                                    name: '无功功率',
-                                    data: notEnergy
+                                    name: 'B有功功率',
+                                    data: bpower
+                                }, {
+                                    name: 'C有功功率',
+                                    data: cpower
                                 }]
                             });
                         }
