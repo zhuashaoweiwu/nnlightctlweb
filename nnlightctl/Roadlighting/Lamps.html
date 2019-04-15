@@ -24,8 +24,10 @@
     <div class="page-container">
 
                 <div class="text-l">
-                    UUID：
-                    <input type="text" name="uuid" id="uuid" placeholder="UUID" style="width:250px" class="input-text">
+                    <!--UUID：-->
+                    <!--<input type="text" name="uuid" id="uuid" placeholder="UUID" style="width:250px" class="input-text">-->
+                    EMEI：
+                    <input type="text" name="EMEI" id="EMEI" placeholder="EMEI" style="width:250px" class="input-text">
                     <span class="pl-20">灯具唯一编码：</span>
                     <input type="text" name="lightingCode" id="lightingCode" placeholder="灯具唯一编码" style="width:250px" class="input-text">
                     <button name="" id="btnLightSearch" class="btn btn-success f-r" type="submit"><i class="Hui-iconfont">&#xe665;</i>灯具</button>
@@ -55,12 +57,15 @@
                             <tr class="text-l">
                                 <th width="25"><input type="checkbox" name="" value=""></th>
                                 <th width="160">编码</th>
-                                <th>UUID</th>
+                                <!--<th>UUID</th>-->
+                                <th>EMEI</th>
                                 <th>灯头号</th>
                                 <th>灯杆</th>
                                 <th>光衰</th>
                                 <th>最大使用时间（年）</th>
                                 <th>区域</th>
+                                <th>经度</th>
+                                <th>纬度</th>
                                 <th>备注</th>
                                 <th width="120">操作</th>
                             </tr>
@@ -88,10 +93,12 @@
         });
         
         $("#btnLightSearch").click(function () {
-            var searchUUID = $("#uuid").val().trim();
+            // var searchUUID = $("#uuid").val().trim();
+            var searchEMEI = $("#EMEI").val().trim();
             var searchLightingCode = $("#lightingCode").val().trim();
             //搜索
-            param["uuid"] = searchUUID;
+            // param["uuid"] = searchUUID;
+            param["EMEI"] = searchEMEI;
             param["lightingCode"] = searchLightingCode;
             searchLight(param);
         });
@@ -273,7 +280,7 @@
                             return '<input type="checkbox" value="' + row.id + '" >';
                         }
                     }, {
-                        targets: 9,
+                        targets: 11,
                         render: function (data, type, row) {
                             return '<a style="text-decoration:none" class="ml-10" onclick="editLamps(\'灯具编辑\', \'addLamps.html\', \'' + row.id + '\', \'800\', \'500\')" href="javascript:void(0);" title="灯具编辑"><i class="Hui-iconfont">&#xe6df;</i></a>' +
                                    '<a style="text-decoration:none" class="ml-10" onClick="delLamps(this, \'' + row.id + '\')" href="javascript:void(0);" title="删除"><i class="Hui-iconfont">&#xe6e2;</i></a></td>';
@@ -283,12 +290,15 @@
                 "columns": [//返回的json数据在这里填充，注意一定要与上面的<th>数量对应，否则排版出现扭曲
                             { "data": "id" },
                             { "data": "lightingCode", "defaultContent": "" },
-                            { "data": "uid", "defaultContent": "" },
+                            // { "data": "uid", "defaultContent": "" },
+                            { "data": "EMEI", "defaultContent": "" },
                             { "data": "lamphead", "defaultContent": "" },
                             { "data": "lamppost", "defaultContent": "" },
                             { "data": "decay", "defaultContent": "" },
                             { "data": "maxUseTime", "defaultContent": "" },
                             { "data": "regionLevelDesc", "defaultContent": "" },
+                            { "data": "longitude", "defaultContent": "" },
+                            { "data": "latitude", "defaultContent": "" },
                             { "data": "mem", "defaultContent": "" }
                 ]
             });
